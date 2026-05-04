@@ -1,0 +1,212 @@
+# 🖥️ PHẦN CỨNG MÁY TÍNH – TOÀN TẬP
+> Lộ trình học đầy đủ từ cơ bản đến nâng cao
+
+---
+
+## 📚 MỤC LỤC
+
+---
+
+## PHẦN 1: TỔNG QUAN VỀ PHẦN CỨNG
+
+### 1.1 Phần cứng là gì?
+### 1.2 Phân loại phần cứng (Input / Output / Processing / Storage)
+### 1.3 Sơ đồ kiến trúc tổng thể của một máy tính
+### 1.4 Mối quan hệ giữa Phần cứng – Phần mềm – Người dùng
+### 1.5 Lịch sử phát triển phần cứng máy tính
+
+---
+
+## PHẦN 2: CPU – BỘ XỬ LÝ TRUNG TÂM
+
+### 2.1 CPU là gì? Chức năng và vai trò
+### 2.2 Kiến trúc CPU (Von Neumann, Harvard)
+### 2.3 Các thành phần bên trong CPU (ALU, CU, Registers, Cache)
+### 2.4 Xung nhịp CPU (Clock Speed) và ý nghĩa
+### 2.5 Số nhân (Cores) và số luồng (Threads)
+### 2.6 Bộ nhớ đệm CPU (L1, L2, L3 Cache)
+### 2.7 Kiến trúc tập lệnh (x86, x64, ARM, RISC-V)
+### 2.8 Quy trình sản xuất CPU (nm – Nanometer)
+### 2.9 Các hãng CPU phổ biến (Intel, AMD, Apple Silicon)
+### 2.10 Cách chọn CPU phù hợp
+
+---
+
+## PHẦN 3: BỘ NHỚ (MEMORY)
+
+### 3.1 Phân cấp bộ nhớ trong máy tính
+### 3.2 RAM – Bộ nhớ truy cập ngẫu nhiên
+### 3.3 Các loại RAM (DDR3, DDR4, DDR5, LPDDR)
+### 3.4 Thông số RAM (Dung lượng, Tốc độ, Độ trễ CL)
+### 3.5 Dual Channel / Quad Channel RAM
+### 3.6 ROM – Bộ nhớ chỉ đọc và BIOS/UEFI
+### 3.7 Bộ nhớ ảo (Virtual Memory / Swap)
+### 3.8 Cách chọn và nâng cấp RAM
+
+---
+
+## PHẦN 4: BỘ LƯU TRỮ (STORAGE)
+
+### 4.1 Tổng quan về thiết bị lưu trữ
+### 4.2 HDD – Ổ đĩa cứng cơ học (cấu tạo, nguyên lý hoạt động)
+### 4.3 SSD – Ổ đĩa thể rắn (NAND Flash, các loại cell: SLC, MLC, TLC, QLC)
+### 4.4 Giao tiếp lưu trữ (SATA, NVMe, M.2, PCIe)
+### 4.5 Optical Drive – Ổ đĩa quang (CD, DVD, Blu-ray)
+### 4.6 USB Flash Drive và thẻ nhớ (SD Card)
+### 4.7 RAID – Mảng đĩa dự phòng (RAID 0, 1, 5, 10)
+### 4.8 Lưu trữ đám mây và NAS
+### 4.9 Cách chọn thiết bị lưu trữ phù hợp
+
+---
+
+## PHẦN 5: BỘ XỬ LÝ ĐỒ HỌA (GPU)
+
+### 5.1 GPU là gì? So sánh GPU và CPU
+### 5.2 Kiến trúc GPU (Shader cores, VRAM, Bus width)
+### 5.3 GPU tích hợp (Integrated Graphics) vs GPU rời (Dedicated GPU)
+### 5.4 Các thông số GPU quan trọng (VRAM, TDP, Clock speed)
+### 5.5 Các hãng GPU (NVIDIA, AMD, Intel Arc)
+### 5.6 GPU cho Gaming vs GPU cho AI/ML/Render
+### 5.7 Công nghệ liên quan (Ray Tracing, DLSS, FSR)
+### 5.8 Cách chọn GPU phù hợp nhu cầu
+
+---
+
+## PHẦN 6: BẢN MẠCH CHỦ (MOTHERBOARD)
+
+### 6.1 Mainboard là gì? Vai trò trung tâm kết nối
+### 6.2 Cấu tạo và các thành phần trên Mainboard
+### 6.3 Chipset và vai trò điều phối
+### 6.4 Socket CPU (LGA, AM4, AM5…)
+### 6.5 Khe RAM (DIMM Slots) và khe mở rộng PCIe
+### 6.6 Các cổng kết nối onboard (USB, SATA, M.2, Audio)
+### 6.7 Form Factor (ATX, Micro-ATX, Mini-ITX)
+### 6.8 BIOS và UEFI – Firmware của Mainboard
+### 6.9 Cách chọn Mainboard phù hợp CPU và nhu cầu
+
+---
+
+## PHẦN 7: NGUỒN ĐIỆN (PSU – POWER SUPPLY UNIT)
+
+### 7.1 PSU là gì? Vai trò cung cấp điện cho hệ thống
+### 7.2 Các thông số PSU (Wattage, Hiệu suất, Chứng chỉ 80 PLUS)
+### 7.3 Các đầu cắm điện (24-pin, 8-pin CPU, PCIe, SATA)
+### 7.4 Modular vs Semi-Modular vs Non-Modular PSU
+### 7.5 Tính toán công suất nguồn cần thiết
+### 7.6 Cách chọn PSU an toàn và bền
+
+---
+
+## PHẦN 8: VỎ MÁY TÍNH (CASE / CHASSIS)
+
+### 8.1 Vai trò của vỏ máy tính
+### 8.2 Phân loại vỏ máy theo kích thước (Full Tower, Mid Tower, Mini-ITX)
+### 8.3 Hệ thống tản nhiệt và luồng gió (Airflow)
+### 8.4 Vật liệu và thiết kế (thép, nhôm, kính cường lực)
+### 8.5 Cách chọn vỏ máy phù hợp
+
+---
+
+## PHẦN 9: TẢN NHIỆT (COOLING SYSTEM)
+
+### 9.1 Tại sao cần tản nhiệt?
+### 9.2 Tản nhiệt khí (Air Cooling) – Tản nhiệt CPU dạng cánh quạt
+### 9.3 Tản nhiệt nước (Liquid Cooling / AIO / Custom Loop)
+### 9.4 Keo tản nhiệt (Thermal Paste) – Vai trò và cách thoa
+### 9.5 Nhiệt độ hoạt động an toàn cho CPU, GPU
+### 9.6 Tản nhiệt cho Laptop (heatpipe, fan)
+
+---
+
+## PHẦN 10: THIẾT BỊ NHẬP LIỆU (INPUT DEVICES)
+
+### 10.1 Bàn phím (Keyboard) – Cơ chế, loại switch, kết nối
+### 10.2 Chuột (Mouse) – Cơ chế quang, laser, DPI
+### 10.3 Màn hình cảm ứng (Touchscreen)
+### 10.4 Máy quét (Scanner) và Webcam
+### 10.5 Micro và Thiết bị âm thanh đầu vào
+### 10.6 Bộ điều khiển (Gamepad, Joystick)
+
+---
+
+## PHẦN 11: THIẾT BỊ XUẤT DỮ LIỆU (OUTPUT DEVICES)
+
+### 11.1 Màn hình (Monitor) – Công nghệ tấm nền (IPS, VA, TN, OLED)
+### 11.2 Các thông số màn hình (Độ phân giải, Tần số quét, Độ trễ, HDR)
+### 11.3 Máy in (Printer) – Laser, Inkjet, 3D Printer
+### 11.4 Loa và Tai nghe (Speaker & Headphone)
+### 11.5 Máy chiếu (Projector)
+
+---
+
+## PHẦN 12: GIAO TIẾP VÀ KẾT NỐI (INTERFACES & CONNECTIVITY)
+
+### 12.1 Bus máy tính (System Bus, Data Bus, Address Bus)
+### 12.2 Cổng USB (USB 2.0, 3.x, USB-C, Thunderbolt)
+### 12.3 Cổng HDMI, DisplayPort, VGA, DVI
+### 12.4 Kết nối mạng có dây (Ethernet, RJ45)
+### 12.5 Kết nối không dây (WiFi, Bluetooth, NFC)
+### 12.6 PCIe (Peripheral Component Interconnect Express)
+
+---
+
+## PHẦN 13: PHẦN CỨNG MẠNG (NETWORK HARDWARE)
+
+### 13.1 Card mạng (NIC – Network Interface Card)
+### 13.2 Router và Switch
+### 13.3 Modem và ONT (thiết bị cáp quang)
+### 13.4 Access Point và Repeater
+### 13.5 Firewall phần cứng
+
+---
+
+## PHẦN 14: PHẦN CỨNG LAPTOP VÀ THIẾT BỊ DI ĐỘNG
+
+### 14.1 Sự khác biệt phần cứng Laptop vs PC Desktop
+### 14.2 SoC (System on Chip) – Khái niệm và ứng dụng
+### 14.3 Pin Laptop – Công nghệ, dung lượng, bảo quản
+### 14.4 Màn hình Laptop (tấm nền, độ phân giải, tần số)
+### 14.5 Phần cứng Smartphone và Tablet
+### 14.6 Thiết bị đeo (Wearable) – Smartwatch, AR/VR headset
+
+---
+
+## PHẦN 15: PHẦN CỨNG SERVER VÀ DATACENTER
+
+### 15.1 Kiến trúc Server khác gì PC thông thường?
+### 15.2 CPU Server (Xeon, EPYC)
+### 15.3 ECC RAM – Bộ nhớ sửa lỗi
+### 15.4 Hệ thống lưu trữ Server (SAN, NAS, DAS)
+### 15.5 Nguồn điện dự phòng (UPS)
+### 15.6 Rack Server và Data Center cơ bản
+
+---
+
+## PHẦN 16: BẢO TRÌ, NÂNG CẤP VÀ CHẨN ĐOÁN LỖI
+
+### 16.1 Vệ sinh phần cứng định kỳ
+### 16.2 Cách nâng cấp RAM, SSD, GPU an toàn
+### 16.3 Chẩn đoán lỗi phần cứng thường gặp
+### 16.4 Công cụ kiểm tra phần cứng (CPU-Z, GPU-Z, CrystalDiskInfo, HWMonitor)
+### 16.5 POST (Power-On Self-Test) và mã beep lỗi
+### 16.6 Kỹ thuật ép xung (Overclocking) cơ bản
+
+---
+
+## PHẦN 17: XU HƯỚNG PHẦN CỨNG HIỆN ĐẠI
+
+### 17.1 Chip AI chuyên dụng (NPU, TPU)
+### 17.2 Phần cứng cho AI và Machine Learning (GPU NVIDIA H100, A100)
+### 17.3 Điện toán lượng tử (Quantum Computing) cơ bản
+### 17.4 Chiplet Architecture – Xu hướng thiết kế chip mới
+### 17.5 Phần cứng tiết kiệm năng lượng và bền vững (Green Computing)
+
+---
+
+> 💡 **Hướng dẫn sử dụng:** Yêu cầu tôi dạy bất kỳ mục nào theo cú pháp:
+> **"Dạy tôi [số phần].[số mục] – [tên mục]"**
+>
+> Ví dụ: *"Dạy tôi 2.3 – Các thành phần bên trong CPU"*
+
+---
+*Lộ trình này bao gồm **17 phần lớn** và **100+ phần nhỏ** – đủ để bạn hiểu toàn diện về Phần cứng máy tính từ cơ bản đến chuyên sâu.*
