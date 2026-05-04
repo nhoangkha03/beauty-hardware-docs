@@ -1,701 +1,1332 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-  AlertTriangle,
-  ArrowRight,
-  Award,
-  Cable,
-  CheckCircle2,
-  ChevronRight,
-  CircleHelp,
-  Clock,
-  Filter,
-  Gauge,
-  GitBranch,
-  Globe2,
-  Layers,
-  Lightbulb,
-  Network,
-  Radio,
-  Router,
-  Search,
-  Server,
-  Share2,
-  Shuffle,
-  Signal,
-  Sparkles,
-  Split,
-  TableProperties,
-  Terminal,
-  TrafficCone,
-  Users,
-  Waves,
-  Wifi,
-  XCircle,
-  Zap,
+    AlertTriangle,
+    Award,
+    BookOpen,
+    Brain,
+    Calculator,
+    CheckCircle2,
+    ChevronRight,
+    Cpu,
+    Database,
+    Gauge,
+    HardDrive,
+    Laptop,
+    Layers3,
+    Lightbulb,
+    MemoryStick,
+    Monitor,
+    PackageCheck,
+    Puzzle,
+    Search,
+    Settings,
+    Timer,
+    Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const colorClasses = {
-  cyan: { text: "text-cyan-300", bg: "bg-cyan-500/10", border: "border-cyan-400/40", solid: "bg-cyan-500", ring: "shadow-cyan-500/20" },
-  blue: { text: "text-blue-300", bg: "bg-blue-500/10", border: "border-blue-400/40", solid: "bg-blue-500", ring: "shadow-blue-500/20" },
-  purple: { text: "text-purple-300", bg: "bg-purple-500/10", border: "border-purple-400/40", solid: "bg-purple-500", ring: "shadow-purple-500/20" },
-  emerald: { text: "text-emerald-300", bg: "bg-emerald-500/10", border: "border-emerald-400/40", solid: "bg-emerald-500", ring: "shadow-emerald-500/20" },
-  orange: { text: "text-orange-300", bg: "bg-orange-500/10", border: "border-orange-400/40", solid: "bg-orange-500", ring: "shadow-orange-500/20" },
-  yellow: { text: "text-yellow-300", bg: "bg-yellow-500/10", border: "border-yellow-400/40", solid: "bg-yellow-500", ring: "shadow-yellow-500/20" },
-  green: { text: "text-green-300", bg: "bg-green-500/10", border: "border-green-400/40", solid: "bg-green-500", ring: "shadow-green-500/20" },
-  red: { text: "text-red-300", bg: "bg-red-500/10", border: "border-red-400/40", solid: "bg-red-500", ring: "shadow-red-500/20" },
-  slate: { text: "text-slate-300", bg: "bg-slate-500/10", border: "border-slate-400/40", solid: "bg-slate-600", ring: "shadow-slate-500/20" },
-};
-
-const muxTypes = [
-  {
-    id: "fdm",
-    name: "FDM",
-    full: "Frequency Division Multiplexing",
-    vi: "Ghép kênh phân chia theo tần số",
-    divideBy: "Tần số",
-    idea: "Mỗi luồng dữ liệu dùng một dải tần riêng trên cùng một đường truyền.",
-    analogy: "Nhiều đài radio cùng phát, mỗi đài một tần số khác nhau.",
-    examples: ["Radio FM", "Truyền hình cáp", "Viễn thông analog", "Hệ thống dùng nhiều dải tần"],
-    pros: ["Nhiều kênh truyền đồng thời", "Phù hợp tín hiệu analog", "Mỗi kênh độc lập theo tần số"],
-    cons: ["Cần chia phổ tần cẩn thận", "Cần guard band", "Có thể nhiễu chéo nếu dải tần quá sát"],
-    color: "cyan",
-    icon: <Radio />,
-  },
-  {
-    id: "tdm",
-    name: "TDM",
-    full: "Time Division Multiplexing",
-    vi: "Ghép kênh phân chia theo thời gian",
-    divideBy: "Thời gian",
-    idea: "Các luồng dùng chung toàn bộ đường truyền nhưng thay phiên nhau theo từng khe thời gian.",
-    analogy: "Nhiều người nói chuyện theo lượt: A nói, rồi B nói, rồi C nói.",
-    examples: ["Điện thoại số truyền thống", "Hệ thống chia sẻ theo lượt", "Một số mạng truyền dữ liệu cũ"],
-    pros: ["Phù hợp tín hiệu số", "Không cần chia dải tần riêng", "Dễ quản lý theo lượt"],
-    cons: ["TDM cố định có thể lãng phí slot", "Cần đồng bộ thời gian tốt", "Độ trễ phụ thuộc chu kỳ slot"],
-    color: "emerald",
-    icon: <Clock />,
-  },
-  {
-    id: "wdm",
-    name: "WDM",
-    full: "Wavelength Division Multiplexing",
-    vi: "Ghép kênh phân chia theo bước sóng",
-    divideBy: "Bước sóng ánh sáng",
-    idea: "Nhiều luồng dữ liệu truyền đồng thời trong cùng một sợi quang, mỗi luồng dùng một bước sóng riêng.",
-    analogy: "Nhiều màu ánh sáng đi chung trong một sợi cáp quang.",
-    examples: ["Backbone ISP", "Cáp quang biển", "Kết nối trung tâm dữ liệu", "Hạ tầng viễn thông tốc độ cao"],
-    pros: ["Tăng dung lượng cực lớn", "Các kênh truyền đồng thời", "Rất phù hợp mạng đường trục"],
-    cons: ["Thiết bị đắt hơn", "Cần laser và bộ lọc quang", "Quản lý kỹ thuật phức tạp hơn"],
-    color: "purple",
-    icon: <Sparkles />,
-  },
-];
-
 export default function App() {
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white pb-20">
-      <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
-              <Share2 className="text-cyan-400" size={24} />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">Khóa học Mạng Máy Tính</h1>
-              <p className="text-xs text-slate-500">Phần 3: Tầng Vật Lý — Physical Layer</p>
-            </div>
-          </div>
-          <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">Bài 3.4</div>
-        </div>
-      </header>
+    return (
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+                <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shadow-lg shadow-amber-500/10">
+                            <Gauge className="text-amber-400" size={24} />
+                        </div>
+                        <div>
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
+                            </h1>
+                            <p className="text-xs text-slate-500">
+                                Phần 3: Bộ nhớ — Memory
+                            </p>
+                        </div>
+                    </div>
+                    <div className="text-sm font-semibold text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
+                        Bài 3.4
+                    </div>
+                </div>
+            </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
-        <HeroSection />
-        <LearningGoals />
-        <WhyMultiplexing />
-        <ChannelMuxDemux />
-        <MuxTypeExplorer />
-        <FdmDiagram />
-        <TdmDiagram />
-        <WdmDiagram />
-        <ComparisonTable />
-        <RealWorldExamples />
-        <MuxFlowSimulator />
-        <CliLab />
-        <Misunderstandings />
-        <SummaryAndQuiz />
-        <NextLesson />
-      </main>
-    </div>
-  );
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <SpecReadingConcept />
+                <DeskAnalogy />
+                <CpuRamFlow />
+                <MainSpecTable />
+                <CapacityGuide />
+                <LatencyCalculator />
+                <XmpExpoSection />
+                <RealExamples />
+                <BuyingLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
+            </main>
+        </div>
+    );
 }
 
 function HeroSection() {
-  return (
-    <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 p-8 md:p-12 shadow-2xl">
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-purple-500/10 blur-3xl" />
-      <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
-        <div className="space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
-            <Shuffle size={16} /> Nhiều luồng đi chung một đường truyền
-          </div>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            Ghép kênh:
-            <span className="block text-cyan-400">FDM, TDM, WDM</span>
-          </h2>
-          <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-            Ghép kênh cho phép nhiều tín hiệu cùng sử dụng chung một đường truyền nhưng vẫn tách biệt được nhau bằng tần số, thời gian hoặc bước sóng ánh sáng.
-          </p>
-          <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 font-mono text-sm max-w-xl">
-            <p className="text-slate-500">// Ghi nhớ nhanh</p>
-            <p><span className="text-cyan-300">FDM</span> = chia theo tần số.</p>
-            <p><span className="text-emerald-300">TDM</span> = chia theo thời gian.</p>
-            <p><span className="text-purple-300">WDM</span> = chia theo bước sóng ánh sáng.</p>
-          </div>
-        </div>
-        <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
-          <MuxPreview />
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
+
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-amber-300">
+                        <BookOpen size={16} /> Phần 3: Bộ nhớ — Memory
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Thông số RAM
+                        <span className="block text-amber-400">
+                            Dung lượng, tốc độ, CL
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Biết đọc các dòng như 16GB DDR4-3200 CL16 hay 32GB
+                        DDR5-6000 CL30 giúp bạn tránh mua nhầm, tránh bị quảng
+                        cáo làm rối và chọn RAM đúng nhu cầu.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Database size={16} />} text="GB" />
+                        <Tag icon={<Gauge size={16} />} text="MT/s" />
+                        <Tag icon={<Timer size={16} />} text="CL" />
+                        <Tag icon={<Settings size={16} />} text="Timing" />
+                        <Tag icon={<Zap size={16} />} text="XMP / EXPO" />
+                    </div>
+                </div>
+
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="bg-slate-900 rounded-3xl border border-slate-800 p-5 font-mono">
+                        <p className="text-slate-500 text-sm mb-3">
+                            // Ví dụ thông số
+                        </p>
+                        <div className="text-2xl font-extrabold text-white">
+                            16GB DDR4-3200 CL16
+                        </div>
+                        <div className="grid grid-cols-2 gap-3 mt-5 text-sm">
+                            <SpecChip
+                                label="16GB"
+                                value="Dung lượng"
+                                color="emerald"
+                            />
+                            <SpecChip
+                                label="DDR4"
+                                value="Thế hệ"
+                                color="cyan"
+                            />
+                            <SpecChip label="3200" value="MT/s" color="amber" />
+                            <SpecChip
+                                label="CL16"
+                                value="Độ trễ"
+                                color="purple"
+                            />
+                        </div>
+                    </div>
+                    <div className="mt-5 bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 text-sm text-slate-300">
+                        <strong className="text-amber-300">Ghi nhớ:</strong>{" "}
+                        Dung lượng thường quan trọng nhất với người mới, nhưng
+                        tốc độ và CL cũng ảnh hưởng hiệu năng trong một số tình
+                        huống.
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function LearningGoals() {
-  const goals = [
-    "Hiểu ghép kênh — Multiplexing là gì và vì sao cần dùng.",
-    "Biết cách nhiều tín hiệu cùng chia sẻ một đường truyền.",
-    "Phân biệt FDM, TDM và WDM.",
-    "Biết ví dụ thực tế của từng kỹ thuật ghép kênh.",
-    "Biết khi nào nên chia theo tần số, thời gian hoặc bước sóng ánh sáng.",
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="1" color="cyan" title="Mục tiêu bài học" icon={<Award />} />
-      <div className="grid md:grid-cols-5 gap-3">
-        {goals.map((goal, index) => (
-          <div key={goal} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition-colors group">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center font-bold mb-4 group-hover:scale-110 transition-transform">{index + 1}</div>
-            <p className="text-sm text-slate-300 leading-relaxed">{goal}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+    const goals = [
+        "Đọc đúng thông số RAM như 16GB DDR4-3200 CL16 hoặc 32GB DDR5-6000 CL30.",
+        "Hiểu dung lượng, tốc độ MT/s và độ trễ CL ảnh hưởng thế nào đến trải nghiệm.",
+        "Biết vì sao CL thấp hơn không luôn đồng nghĩa RAM nhanh hơn.",
+        "Tính nhanh độ trễ xấp xỉ theo công thức CL × 2000 / MT/s.",
+        "Biết vai trò của timing, điện áp, form factor, XMP và EXPO khi mua RAM.",
+    ];
 
-function WhyMultiplexing() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="2" color="blue" title="Vì sao cần ghép kênh?" icon={<CircleHelp />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
-          <div className="space-y-5 text-slate-300 leading-relaxed">
-            <p>Nếu mỗi cuộc gọi, mỗi máy tính hoặc mỗi luồng dữ liệu đều cần một đường dây riêng hoàn toàn, chi phí sẽ cực kỳ lớn.</p>
-            <p>Ghép kênh cho phép nhiều luồng dữ liệu đi chung một “con đường”, nhưng được chia phần riêng để không bị lẫn vào nhau.</p>
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm">
-              <p className="text-blue-300 font-bold mb-2">Định nghĩa:</p>
-              <p>Multiplexing là kỹ thuật cho nhiều luồng tín hiệu cùng sử dụng chung một đường truyền và vẫn tách riêng được ở đầu nhận.</p>
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="amber"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, index) => (
+                    <div
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/50 transition-colors"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold mb-4">
+                            {index + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
+                    </div>
+                ))}
             </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-            <BeforeAfterMux />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function ChannelMuxDemux() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="3" color="purple" title="Kênh, MUX và DEMUX" icon={<GitBranch />} />
-      <div className="grid lg:grid-cols-3 gap-4">
-        <ConceptCard title="Kênh — Channel" icon={<Layers />} color="cyan" text="Kênh là phần tài nguyên truyền thông được dành cho một luồng dữ liệu. Tài nguyên này có thể là tần số, thời gian, bước sóng hoặc mã." code="Kênh = phần riêng trong đường truyền chung" />
-        <ConceptCard title="Bộ ghép — MUX" icon={<Shuffle />} color="emerald" text="Multiplexer gom nhiều tín hiệu đầu vào thành một tín hiệu tổng hợp để truyền trên một đường chung." code="A + B + C → [MUX] → đường chung" />
-        <ConceptCard title="Bộ tách — DEMUX" icon={<Split />} color="orange" text="Demultiplexer tách tín hiệu chung ở đầu nhận thành lại các luồng riêng ban đầu." code="đường chung → [DEMUX] → A + B + C" />
-      </div>
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <MuxDemuxDiagram />
-      </div>
-    </section>
-  );
-}
+function SpecReadingConcept() {
+    const examples = [
+        {
+            text: "16GB DDR4-3200 CL16",
+            parts: [
+                "16GB = dung lượng",
+                "DDR4 = thế hệ RAM",
+                "3200 = khoảng 3200 MT/s",
+                "CL16 = CAS Latency",
+            ],
+        },
+        {
+            text: "32GB DDR5-6000 CL30",
+            parts: [
+                "32GB = dung lượng",
+                "DDR5 = thế hệ RAM",
+                "6000 = khoảng 6000 MT/s",
+                "CL30 = độ trễ theo chu kỳ",
+            ],
+        },
+        {
+            text: "16GB DDR5-5600 CL46 SO-DIMM",
+            parts: [
+                "16GB = dung lượng",
+                "DDR5-5600 = tốc độ",
+                "CL46 = độ trễ",
+                "SO-DIMM = laptop/mini PC",
+            ],
+        },
+    ];
+    const [active, setActive] = useState(0);
+    const item = examples[active];
 
-function MuxTypeExplorer() {
-  const [activeId, setActiveId] = useState("fdm");
-  const active = muxTypes.find((m) => m.id === activeId);
-  const c = colorClasses[active.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="4" color="emerald" title="Khám phá FDM, TDM, WDM" icon={<Search />} />
-      <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          {muxTypes.map((type) => {
-            const tc = colorClasses[type.color];
-            const isActive = activeId === type.id;
-            return (
-              <button key={type.id} onClick={() => setActiveId(type.id)} className={`rounded-2xl p-4 text-left border transition-all ${isActive ? `${tc.bg} ${tc.border} ${tc.text}` : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300 hover:bg-slate-800"}`}>
-                <div className="flex items-center gap-2 mb-2">{React.cloneElement(type.icon, { size: 20 })}<span className="font-black text-lg">{type.name}</span></div>
-                <p className="text-xs opacity-80">{type.full}</p>
-              </button>
-            );
-          })}
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-start">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}>
-            <div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(active.icon, { size: 34 })}</div>
-            <p className={`${c.text} font-black text-sm uppercase tracking-wider`}>{active.full}</p>
-            <h3 className="text-3xl font-extrabold text-white mt-2 mb-1">{active.name}</h3>
-            <p className={`${c.text} font-bold mb-4`}>{active.vi}</p>
-            <p className="text-slate-300 leading-relaxed mb-5">{active.idea}</p>
-            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300"><strong className={c.text}>Chia theo:</strong> {active.divideBy}</div>
-          </div>
-          <div className="space-y-4">
-            <InfoBox title="Ví dụ đời sống" value={active.analogy} icon={<Lightbulb />} color={active.color} />
-            <ChipPanel title="Ví dụ thực tế" items={active.examples} color={active.color} />
-            <ProsCons pros={active.pros} cons={active.cons} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FdmDiagram() {
-  const [guard, setGuard] = useState(true);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="5" color="cyan" title="FDM — chia theo tần số" icon={<Radio />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <div>
-            <h3 className="text-xl font-bold text-white">Dải tần 0–100 MHz</h3>
-            <p className="text-sm text-slate-400">Mỗi kênh có một dải tần riêng. Guard band là khoảng trống tránh nhiễu chéo.</p>
-          </div>
-          <button onClick={() => setGuard(!guard)} className={`px-4 py-2 rounded-xl font-bold text-sm transition-colors ${guard ? "bg-cyan-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400"}`}>Guard band: {guard ? "Bật" : "Tắt"}</button>
-        </div>
-        <FrequencyBar guard={guard} />
-        <div className="grid md:grid-cols-2 gap-4 mt-6">
-          <InfoBox title="Điểm mạnh" value="Các kênh có thể truyền đồng thời trên các tần số khác nhau." icon={<CheckCircle2 />} color="green" />
-          <InfoBox title="Điểm cần chú ý" value="Cần chia phổ tần cẩn thận và có khoảng bảo vệ giữa các kênh." icon={<AlertTriangle />} color="yellow" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TdmDiagram() {
-  const [slotCount, setSlotCount] = useState(4);
-  const [emptyB, setEmptyB] = useState(false);
-  const sources = ["A", "B", "C", "D"].slice(0, slotCount);
-  const slots = Array.from({ length: 12 }, (_, i) => sources[i % sources.length]);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="6" color="emerald" title="TDM — chia theo thời gian" icon={<Clock />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-center">
-          <div className="space-y-4">
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Cấu hình slot</h3>
-              <label className="text-sm text-slate-400">Số nguồn: {slotCount}</label>
-              <input type="range" min="2" max="4" value={slotCount} onChange={(e) => setSlotCount(Number(e.target.value))} className="w-full accent-emerald-500 mt-2" />
-              <button onClick={() => setEmptyB(!emptyB)} className={`mt-4 px-4 py-2 rounded-xl font-bold text-sm transition-colors ${emptyB ? "bg-yellow-500 text-slate-950" : "bg-slate-950 border border-slate-800 text-slate-400"}`}>Nguồn B không có dữ liệu: {emptyB ? "Có" : "Không"}</button>
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="cyan"
+                title="Khái niệm cốt lõi: thông số RAM nói lên điều gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-6">
+                    <div className="space-y-3">
+                        {examples.map((ex, i) => (
+                            <button
+                                key={ex.text}
+                                onClick={() => setActive(i)}
+                                className={`w-full rounded-2xl border p-4 text-left font-mono transition-all ${active === i ? "bg-cyan-500/10 border-cyan-500/30 text-white" : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                            >
+                                {ex.text}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <h3 className="text-2xl font-extrabold text-white mb-5 font-mono">
+                            {item.text}
+                        </h3>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                            {item.parts.map((part, i) => (
+                                <div
+                                    key={part}
+                                    className="bg-cyan-500/5 border border-cyan-500/20 rounded-2xl p-4 text-sm text-slate-300"
+                                >
+                                    <span className="text-cyan-300 font-bold">
+                                        {i + 1}.
+                                    </span>{" "}
+                                    {part}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-5 bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                            <strong className="text-amber-300">
+                                Nói ngắn gọn:
+                            </strong>{" "}
+                            Dung lượng = chứa được bao nhiêu việc; tốc độ =
+                            truyền dữ liệu nhanh cỡ nào; CL = phản hồi sau bao
+                            nhiêu chu kỳ.
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p className="text-sm text-slate-400 leading-relaxed">Trong TDM cố định, nếu một nguồn không có dữ liệu, slot của nó vẫn có thể bị lãng phí.</p>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5">
-            <TimeSlots slots={slots} emptyB={emptyB} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function WdmDiagram() {
-  const [channels, setChannels] = useState(4);
-  const waves = ["λ1 đỏ", "λ2 xanh", "λ3 tím", "λ4 vàng", "λ5 lam", "λ6 lục"].slice(0, channels);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="7" color="purple" title="WDM — chia theo bước sóng ánh sáng" icon={<Sparkles />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-center">
-          <div className="space-y-4">
-            <div className="bg-purple-500/10 border border-purple-500/20 rounded-3xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Số bước sóng: {channels}</h3>
-              <input type="range" min="2" max="6" value={channels} onChange={(e) => setChannels(Number(e.target.value))} className="w-full accent-purple-500" />
-              <p className="text-sm text-slate-400 mt-4 leading-relaxed">Ký hiệu λ đọc là lambda, thường dùng để chỉ bước sóng.</p>
+function DeskAnalogy() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="emerald"
+                title="Ví dụ đời thường: mặt bàn, tốc độ lấy tài liệu và thời gian chờ"
+                icon={<Lightbulb />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-4">
+                    <AnalogyCard
+                        icon={<Database />}
+                        title="Dung lượng"
+                        desc="Mặt bàn rộng bao nhiêu: mở được bao nhiêu app, tab, file và project cùng lúc."
+                        color="emerald"
+                    />
+                    <AnalogyCard
+                        icon={<Gauge />}
+                        title="Tốc độ"
+                        desc="Bạn lấy/chuyển tài liệu nhanh cỡ nào: RAM truyền dữ liệu được nhiều hay ít mỗi giây."
+                        color="amber"
+                    />
+                    <AnalogyCard
+                        icon={<Timer />}
+                        title="CL"
+                        desc="Bạn mất bao lâu để bắt đầu lấy tài liệu: RAM phản hồi sau bao nhiêu chu kỳ."
+                        color="purple"
+                    />
+                </div>
             </div>
-            <InfoBox title="Ứng dụng chính" value="Backbone ISP, cáp quang biển, trung tâm dữ liệu, hạ tầng viễn thông tốc độ cao." icon={<Globe2 />} color="purple" />
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5">
-            <WdmFiber waves={waves} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function ComparisonTable() {
-  const rows = [
-    ["Chia theo", "Tần số", "Thời gian", "Bước sóng ánh sáng"],
-    ["Tiếng Anh", "Frequency Division Multiplexing", "Time Division Multiplexing", "Wavelength Division Multiplexing"],
-    ["Môi trường thường gặp", "Sóng radio, cáp đồng, truyền hình cáp", "Hệ thống số", "Cáp quang"],
-    ["Truyền đồng thời?", "Có", "Không hoàn toàn, thay phiên theo slot", "Có"],
-    ["Ví dụ dễ hiểu", "Nhiều đài radio", "Nhiều người nói theo lượt", "Nhiều màu ánh sáng trong sợi quang"],
-    ["Cần đồng bộ thời gian cao?", "Không bằng TDM", "Có", "Không giống TDM"],
-    ["Ứng dụng chính", "Analog, viễn thông, broadcast", "Digital telecom", "Backbone quang tốc độ cao"],
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="8" color="orange" title="Bảng so sánh FDM, TDM, WDM" icon={<TableProperties />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[960px]">
-            <thead className="bg-slate-950 border-b border-slate-800 text-sm text-slate-400">
-              <tr><th className="p-4">Tiêu chí</th><th className="p-4 text-cyan-300">FDM</th><th className="p-4 text-emerald-300">TDM</th><th className="p-4 text-purple-300">WDM</th></tr>
-            </thead>
-            <tbody className="text-sm">
-              {rows.map(([criteria, fdm, tdm, wdm], index) => (
-                <tr key={criteria} className={`${index === rows.length - 1 ? "" : "border-b border-slate-800"} hover:bg-slate-800/40 transition-colors`}>
-                  <td className="p-4 text-white font-bold">{criteria}</td>
-                  <td className="p-4 text-slate-300">{fdm}</td>
-                  <td className="p-4 text-slate-300">{tdm}</td>
-                  <td className="p-4 text-slate-300">{wdm}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-}
+function CpuRamFlow() {
+    const steps = [
+        {
+            icon: <Cpu />,
+            title: "CPU cần dữ liệu",
+            desc: "CPU đang xử lý app, game, file hoặc tác vụ tính toán.",
+            color: "cyan",
+        },
+        {
+            icon: <Database />,
+            title: "Kiểm tra Cache",
+            desc: "Nếu dữ liệu có trong cache, CPU lấy rất nhanh.",
+            color: "purple",
+        },
+        {
+            icon: <MemoryStick />,
+            title: "Gửi yêu cầu đến RAM",
+            desc: "Nếu cache không có, CPU yêu cầu RAM trả dữ liệu.",
+            color: "emerald",
+        },
+        {
+            icon: <Timer />,
+            title: "RAM phản hồi sau CL",
+            desc: "CL cho biết RAM chờ bao nhiêu chu kỳ trước khi bắt đầu trả dữ liệu.",
+            color: "amber",
+        },
+        {
+            icon: <Gauge />,
+            title: "Dữ liệu truyền về CPU",
+            desc: "Tốc độ MT/s ảnh hưởng lượng dữ liệu truyền được mỗi giây.",
+            color: "blue",
+        },
+    ];
+    const [active, setActive] = useState(0);
+    const item = steps[active];
 
-function RealWorldExamples() {
-  const [mode, setMode] = useState("highway");
-  const examples = {
-    highway: { title: "Đường cao tốc nhiều làn", icon: <TrafficCone />, text: "Một đường cao tốc lớn có nhiều làn. Xe con, xe tải, xe khách đi cùng một con đường nhưng được chia làn để tránh lẫn lộn. Đường lớn là đường truyền chung, mỗi làn là một kênh.", color: "cyan" },
-    classroom: { title: "Lớp học phát biểu theo lượt", icon: <Users />, text: "Nếu 10 người nói cùng lúc, giáo viên không nghe được ai. Nếu A nói 10 giây, rồi B nói 10 giây, rồi C nói 10 giây, đó giống TDM chia theo thời gian.", color: "emerald" },
-    radio: { title: "Đài radio FM", icon: <Radio />, text: "Nhiều đài cùng phát trong không khí nhưng mỗi đài dùng một tần số khác nhau như 90.0 MHz, 99.9 MHz, 104.5 MHz. Đây giống FDM.", color: "orange" },
-    fiber: { title: "Cáp quang đường trục", icon: <Sparkles />, text: "Trong một sợi quang, nhiều bước sóng ánh sáng khác nhau có thể truyền đồng thời. Đây là ý tưởng của WDM, rất phù hợp mạng backbone tốc độ cao.", color: "purple" },
-  };
-  const current = examples[mode];
-  const c = colorClasses[current.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="9" color="purple" title="Ví dụ thực tế" icon={<Lightbulb />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="flex overflow-x-auto gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          {Object.entries(examples).map(([key, item]) => <button key={key} onClick={() => setMode(key)} className={`inline-flex items-center gap-2 whitespace-nowrap px-4 py-2.5 rounded-xl font-bold text-sm transition-colors ${mode === key ? "bg-purple-500 text-white" : "text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}>{React.cloneElement(item.icon, { size: 16 })} {item.title}</button>)}
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}>
-            <div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(current.icon, { size: 28 })}</div>
-            <h3 className="text-2xl font-bold text-white mb-3">{current.title}</h3>
-            <p className="text-slate-300 leading-relaxed">{current.text}</p>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6"><ExampleVisual mode={mode} /></div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MuxFlowSimulator() {
-  const [type, setType] = useState("fdm");
-  const [step, setStep] = useState(0);
-  const currentType = muxTypes.find((t) => t.id === type);
-  const c = colorClasses[currentType.color];
-  const steps = getFlowSteps(type);
-  const current = steps[step];
-  const switchType = (next) => { setType(next); setStep(0); };
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="10" color="green" title="Mô phỏng cơ chế hoạt động" icon={<Zap />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="flex overflow-x-auto gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          {muxTypes.map((m) => <button key={m.id} onClick={() => switchType(m.id)} className={`inline-flex items-center gap-2 whitespace-nowrap px-4 py-2.5 rounded-xl font-bold text-sm transition-colors ${type === m.id ? `${colorClasses[m.color].solid} text-white` : "text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}>{React.cloneElement(m.icon, { size: 16 })} {m.name}</button>)}
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6 min-h-[340px] flex flex-col justify-between`}>
-            <div>
-              <div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(currentType.icon, { size: 32 })}</div>
-              <p className={`${c.text} text-sm font-black uppercase tracking-wider mb-2`}>Bước {step + 1}/{steps.length} — {currentType.name}</p>
-              <h3 className="text-2xl font-bold text-white mb-3">{current.title}</h3>
-              <p className="text-slate-300 leading-relaxed mb-4">{current.text}</p>
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{current.code}</div>
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Cơ chế: dung lượng, tốc độ và CL ảnh hưởng thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                            >
+                                {React.cloneElement(item.icon, { size: 32 })}
+                            </div>
+                            <p className="text-purple-300 text-sm font-bold mb-2">
+                                Bước {active + 1}/{steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {item.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {item.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-3">
+                        <FlowNote
+                            title="Thiếu dung lượng RAM"
+                            desc="Windows/macOS phải dùng SSD làm bộ nhớ tạm → máy khựng, load lại app, chuyển cửa sổ chậm."
+                            color="red"
+                        />
+                        <FlowNote
+                            title="RAM nhanh hơn"
+                            desc="Băng thông cao hơn → có lợi cho iGPU, game CPU-bound và một số tác vụ kỹ thuật."
+                            color="amber"
+                        />
+                        <FlowNote
+                            title="CL thấp hơn"
+                            desc="Có lợi cho độ trễ, nhưng phải xét cùng tốc độ MT/s."
+                            color="purple"
+                        />
+                    </div>
+                </div>
             </div>
-            <div className="mt-6 flex gap-3">
-              <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="px-4 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition-colors">Quay lại</button>
-              <button onClick={() => setStep((s) => (s + 1) % steps.length)} className="px-5 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold transition-colors inline-flex items-center gap-2">{step === steps.length - 1 ? "Xem lại" : "Bước tiếp"}<ChevronRight size={18} /></button>
-            </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5"><StepFlow steps={steps} active={step} setActive={setStep} color={currentType.color} /></div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function CliLab() {
-  const [tab, setTab] = useState("ping");
-  const commands = {
-    ping: { title: "Kiểm tra độ trễ", cmd: "ping google.com", output: "Reply from 142.250.190.14: bytes=32 time=25ms TTL=117", note: "Không xem được FDM/TDM/WDM trực tiếp, nhưng quan sát được ảnh hưởng gián tiếp như độ trễ." },
-    trace: { title: "Kiểm tra tuyến đường", cmd: "tracert google.com\n# macOS/Linux:\ntraceroute google.com", output: "1  192.168.1.1\n2  ISP Gateway\n3  Backbone Router\n4  google.com", note: "Giúp thấy dữ liệu đi qua các hop/router nào trên hạ tầng truyền dẫn." },
-    iperf: { title: "Đo thông lượng LAN bằng iperf3", cmd: "# Máy nhận:\niperf3 -s\n\n# Máy gửi:\niperf3 -c 192.168.1.10", output: "[SUM]  0.00-10.00 sec  940 Mbits/sec", note: "iperf3 không hiển thị ghép kênh trực tiếp, nhưng đo được thông lượng thực tế của đường truyền." },
-  };
-  const current = commands[tab];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="11" color="blue" title="CLI: quan sát gián tiếp hạ tầng truyền dẫn" icon={<Terminal />} />
-      <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-6">
-        <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-          <div className="bg-slate-950 border-b border-slate-800 px-5 py-3 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500" /><span className="w-3 h-3 rounded-full bg-yellow-500" /><span className="w-3 h-3 rounded-full bg-green-500" />
-            <span className="ml-3 text-xs text-slate-500 font-mono">multiplexing terminal</span>
-          </div>
-          <div className="p-6">
-            <div className="flex flex-wrap gap-2 mb-5">
-              {Object.entries(commands).map(([key, item]) => <button key={key} onClick={() => setTab(key)} className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${tab === key ? "bg-blue-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200"}`}>{key}</button>)}
+function MainSpecTable() {
+    const specs = [
+        [
+            "Dung lượng",
+            "8GB, 16GB, 32GB",
+            "Mặt bàn làm việc rộng bao nhiêu",
+            "Quyết định mở được bao nhiêu app cùng lúc",
+            "emerald",
+        ],
+        [
+            "Tốc độ",
+            "DDR4-3200, DDR5-6000",
+            "Đường truyền dữ liệu nhanh cỡ nào",
+            "Ảnh hưởng băng thông, gaming, iGPU, một số phần mềm",
+            "amber",
+        ],
+        [
+            "CL",
+            "CL16, CL30, CL40",
+            "RAM chờ bao nhiêu chu kỳ",
+            "Ảnh hưởng độ trễ, nhưng phải xét cùng tốc độ",
+            "purple",
+        ],
+        [
+            "Timing",
+            "16-18-18-36",
+            "Bộ độ trễ chi tiết",
+            "Người mới chỉ cần quan tâm CL trước",
+            "blue",
+        ],
+        [
+            "Điện áp",
+            "1.2V, 1.35V",
+            "RAM cần bao nhiêu điện",
+            "Liên quan ổn định, nhiệt, ép xung",
+            "orange",
+        ],
+        [
+            "Form factor",
+            "DIMM, SO-DIMM",
+            "Kiểu thanh RAM",
+            "Quyết định lắp được PC hay laptop",
+            "cyan",
+        ],
+        [
+            "Profile",
+            "XMP, EXPO",
+            "Cấu hình tốc độ lưu sẵn",
+            "Cần bật BIOS để chạy đúng tốc độ quảng cáo",
+            "pink",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="blue"
+                title="Bảng thông số RAM cần biết"
+                icon={<Layers3 />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[900px] text-sm">
+                    <thead>
+                        <tr className="text-left">
+                            <th className="p-4 text-slate-400">Thông số</th>
+                            <th className="p-4 text-slate-400">Ví dụ</th>
+                            <th className="p-4 text-slate-400">Nói dễ hiểu</th>
+                            <th className="p-4 text-slate-400">
+                                Ảnh hưởng thực tế
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {specs.map(([name, ex, easy, impact, color]) => (
+                            <tr
+                                key={name}
+                                className="border-t border-slate-800"
+                            >
+                                <td
+                                    className={`p-4 font-bold ${textColor(color)}`}
+                                >
+                                    {name}
+                                </td>
+                                <td className="p-4 text-slate-300 font-mono">
+                                    {ex}
+                                </td>
+                                <td className="p-4 text-slate-300">{easy}</td>
+                                <td className="p-4 text-slate-300">{impact}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
-            <div className="font-mono text-sm bg-slate-950 border border-slate-800 rounded-2xl p-5 overflow-x-auto min-h-[260px] whitespace-pre-wrap">
-              <p className="text-slate-500 mb-3"># {current.title}</p>
-              <p><span className="text-green-400">student@physical</span><span className="text-slate-400">$ </span><span className="text-white">{current.cmd}</span></p>
-              <div className="mt-5 text-green-400">{current.output}</div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-blue-500/5 border border-blue-500/20 rounded-3xl p-6">
-          <h3 className="text-xl font-bold text-blue-300 mb-5 flex items-center gap-2"><Search size={22} /> Cách đọc</h3>
-          <p className="text-slate-300 leading-relaxed">{current.note}</p>
-          <div className="mt-6 grid gap-3 text-sm">
-            <ExplainRow term="ping" desc="Đo độ trễ phản hồi." />
-            <ExplainRow term="tracert/traceroute" desc="Xem tuyến đường qua các hop." />
-            <ExplainRow term="iperf3" desc="Đo thông lượng giữa hai máy." />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function Misunderstandings() {
-  const items = [
-    { title: "Ghép kênh là trộn dữ liệu lẫn vào nhau?", desc: "Không. Ghép kênh cho nhiều luồng dùng chung đường truyền nhưng vẫn có cách tách riêng ở đầu nhận.", good: "MUX gom lại, DEMUX tách ra.", icon: <Shuffle /> },
-    { title: "FDM và WDM giống hệt nhau?", desc: "Không. FDM chia theo tần số nói chung; WDM chia theo bước sóng ánh sáng, thường dùng trong cáp quang.", good: "WDM có thể xem như họ hàng của FDM trong miền quang.", icon: <Sparkles /> },
-    { title: "TDM truyền tất cả đồng thời?", desc: "Không hoàn toàn. TDM cho các nguồn thay phiên nhau dùng đường truyền theo time slot.", good: "TDM = nói theo lượt, không phải nói cùng lúc.", icon: <Clock /> },
-    { title: "ping có thể hiện FDM/TDM/WDM?", desc: "Không. ping chỉ cho thấy phản hồi và độ trễ. Ghép kênh nằm ở tầng vật lý hoặc hạ tầng truyền dẫn thấp hơn.", good: "CLI phổ thông chỉ thấy ảnh hưởng gián tiếp.", icon: <Terminal /> },
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="12" color="yellow" title="Một số hiểu nhầm thường gặp" icon={<AlertTriangle />} />
-      <div className="grid md:grid-cols-2 gap-4">
-        {items.map((item) => (
-          <div key={item.title} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-yellow-500/40 transition-colors">
-            <div className="w-12 h-12 rounded-2xl bg-yellow-500/10 text-yellow-300 flex items-center justify-center mb-4">{React.cloneElement(item.icon, { size: 24 })}</div>
-            <h3 className="text-white font-bold text-lg mb-3">{item.title}</h3>
-            <p className="text-sm text-slate-400 leading-relaxed mb-4">{item.desc}</p>
-            <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-sm text-green-300"><CheckCircle2 size={16} className="inline mr-1" /> {item.good}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+function CapacityGuide() {
+    const guide = {
+        gb4: {
+            title: "4GB",
+            fit: "Máy rất cũ, tác vụ cực nhẹ",
+            downside: "Hiện nay rất dễ thiếu",
+            color: "red",
+        },
+        gb8: {
+            title: "8GB",
+            fit: "Học tập, văn phòng nhẹ, web ít tab",
+            downside: "Dễ đầy nếu mở nhiều app",
+            color: "orange",
+        },
+        gb16: {
+            title: "16GB",
+            fit: "Mức phổ thông tốt hiện nay",
+            downside: "Có thể thiếu nếu dựng video, máy ảo nặng",
+            color: "emerald",
+        },
+        gb32: {
+            title: "32GB",
+            fit: "Gaming thoải mái, lập trình, đồ họa, nhiều tab",
+            downside: "Giá cao hơn, không phải ai cũng cần",
+            color: "cyan",
+        },
+        gb64: {
+            title: "64GB+",
+            fit: "Dựng video nặng, máy ảo, AI local, workstation",
+            downside: "Lãng phí nếu chỉ văn phòng/web",
+            color: "purple",
+        },
+    };
+    const [active, setActive] = useState("gb16");
+    const item = guide[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="Dung lượng RAM nên chọn theo nhu cầu"
+                icon={<Database />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(guide).map(([key, g]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(g.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <p className="font-extrabold">{g.title}</p>
+                            <p className="text-xs opacity-75 mt-1">{g.fit}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                    <InfoCard
+                        label="Phù hợp với"
+                        value={item.fit}
+                        color={item.color}
+                    />
+                    <InfoCard
+                        label="Nhược điểm nếu chọn mức này"
+                        value={item.downside}
+                        color={item.color}
+                    />
+                </div>
+                <div className="mt-6 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                    <strong className="text-emerald-300">Kết luận:</strong> Văn
+                    phòng/học tập: 8GB tối thiểu, 16GB nên có. Gaming/lập
+                    trình/đa nhiệm: 16GB tối thiểu, 32GB thoải mái. Đồ
+                    họa/video/máy ảo: 32GB trở lên.
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function LatencyCalculator() {
+    const samples = {
+        ddr4: { label: "DDR4-3200 CL16", speed: 3200, cl: 16, color: "cyan" },
+        ddr5good: {
+            label: "DDR5-6000 CL30",
+            speed: 6000,
+            cl: 30,
+            color: "emerald",
+        },
+        ddr5slow: {
+            label: "DDR5-5600 CL46",
+            speed: 5600,
+            cl: 46,
+            color: "orange",
+        },
+        ddr5cl36: {
+            label: "DDR5-6000 CL36",
+            speed: 6000,
+            cl: 36,
+            color: "purple",
+        },
+    };
+    const [active, setActive] = useState("ddr5good");
+    const item = samples[active];
+    const latency = ((item.cl * 2000) / item.speed).toFixed(1);
+
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="purple"
+                title="Lab: CL thấp hơn có luôn nhanh hơn không?"
+                icon={<Calculator />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(samples).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <p className="font-bold font-mono text-sm">
+                                {s.label}
+                            </p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-6">
+                    <div
+                        className={`${softBorder(item.color)} border rounded-3xl p-6 text-center`}
+                    >
+                        <div
+                            className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto mb-5`}
+                        >
+                            <Timer size={38} />
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-2">
+                            {item.label}
+                        </h3>
+                        <p
+                            className={`${textColor(item.color)} text-4xl font-black`}
+                        >
+                            {latency} ns
+                        </p>
+                        <p className="text-slate-500 text-sm mt-2">
+                            độ trễ xấp xỉ
+                        </p>
+                    </div>
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-4">
+                        <div className="font-mono text-sm bg-slate-900 border border-slate-800 rounded-2xl p-5 text-slate-300">
+                            <p>Độ trễ ns ≈ CL × 2000 / tốc độ MT/s</p>
+                            <p className="text-amber-300 mt-2">
+                                {item.cl} × 2000 / {item.speed} = {latency} ns
+                            </p>
+                        </div>
+                        <p className="text-slate-300 leading-relaxed">
+                            CL là số chu kỳ, còn mỗi chu kỳ nhanh hay chậm phụ
+                            thuộc tốc độ RAM. Vì vậy DDR4-3200 CL16 và DDR5-6000
+                            CL30 đều xấp xỉ 10ns, nhưng DDR5-6000 có băng thông
+                            cao hơn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function XmpExpoSection() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="blue"
+                title="XMP / EXPO: vì sao RAM 6000 có thể đang chạy 4800?"
+                icon={<Settings />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-2 gap-5">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-300 border border-blue-500/20 flex items-center justify-center mb-4">
+                            <Settings size={28} />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-3">
+                            Profile RAM
+                        </h3>
+                        <p className="text-slate-300 leading-relaxed mb-4">
+                            Nhiều kit RAM có tốc độ quảng cáo cao nhờ profile
+                            XMP hoặc EXPO. Khi mới lắp, RAM có thể chạy ở tốc độ
+                            mặc định JEDEC thấp hơn.
+                        </p>
+                        <div className="space-y-3">
+                            <InfoCard
+                                label="XMP"
+                                value="Thường dùng với Intel, nhiều main AMD cũng hỗ trợ"
+                                color="cyan"
+                            />
+                            <InfoCard
+                                label="EXPO"
+                                value="Thường dùng với AMD Ryzen đời mới"
+                                color="emerald"
+                            />
+                        </div>
+                    </div>
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 font-mono text-sm text-slate-300 space-y-3">
+                        <p className="text-slate-500">// Luồng thực tế</p>
+                        <p>Lắp RAM DDR5-6000</p>
+                        <p className="text-slate-600">↓</p>
+                        <p>Máy chạy tốc độ mặc định JEDEC</p>
+                        <p className="text-slate-600">↓</p>
+                        <p>Bật XMP/EXPO trong BIOS</p>
+                        <p className="text-slate-600">↓</p>
+                        <p className="text-blue-300">
+                            RAM chạy gần/tới tốc độ quảng cáo nếu CPU/mainboard
+                            hỗ trợ ổn định
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Monitor />,
+            title: "Corsair Vengeance LPX 16GB DDR4-3200 CL16",
+            subtitle: "Kit DDR4 desktop phổ biến",
+            color: "cyan",
+            points: [
+                "16GB total capacity",
+                "2 x 8GB",
+                "DDR4-3200 / 3200 MT/s",
+                "Timing 16-18-18-36",
+                "Tested voltage 1.35V",
+                "XMP 2.0",
+                "UDIMM 288-pin",
+            ],
+            lesson: "Phù hợp học tập, văn phòng, gaming 1080p phổ thông và lập trình cơ bản; dựng video nặng nên cân nhắc 32GB.",
+        },
+        {
+            icon: <MemoryStick />,
+            title: "G.SKILL Flare X5 32GB DDR5-6000 CL30",
+            subtitle: "Kit DDR5 hiệu năng tốt",
+            color: "emerald",
+            points: [
+                "32GB total capacity",
+                "2 x 16GB",
+                "DDR5-6000",
+                "Timing CL30-38-38-96",
+                "Điện áp 1.35V",
+                "DDR5 U-DIMM 288-pin",
+                "AMD EXPO",
+            ],
+            lesson: "32GB DDR5-6000 CL30 là cấu hình rất hấp dẫn cho PC DDR5 gaming/làm việc hiện đại nếu giá hợp lý.",
+        },
+        {
+            icon: <MemoryStick />,
+            title: "G.SKILL Flare X5 32GB DDR5-6000 CL36",
+            subtitle: "Biến thể CL36",
+            color: "purple",
+            points: [
+                "32GB",
+                "2 x 16GB",
+                "DDR5-6000",
+                "CAS Latency CL36",
+                "Timing 36-36-36-96",
+                "Điện áp 1.35V",
+                "AMD EXPO",
+            ],
+            lesson: "Cùng tốc độ 6000 MT/s, CL30 có độ trễ tốt hơn CL36; nhưng giá và độ sẵn hàng cũng cần xét.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function BuyingLab() {
+    const scenarios = {
+        missing: {
+            icon: <Database />,
+            title: "Máy 8GB thường xuyên đầy RAM",
+            answer: "Ưu tiên nâng dung lượng lên 16GB hoặc 32GB. Nâng dung lượng thường đáng hơn đổi sang RAM cùng dung lượng nhưng tốc độ cao hơn.",
+            color: "emerald",
+        },
+        igpu: {
+            icon: <Monitor />,
+            title: "Dùng iGPU",
+            answer: "RAM nhanh và chạy Dual Channel rất quan trọng vì iGPU dùng chung RAM hệ thống làm bộ nhớ đồ họa.",
+            color: "cyan",
+        },
+        ddr5: {
+            icon: <Gauge />,
+            title: "Build PC DDR5 mới",
+            answer: "Xem cả tốc độ và CL. DDR5-6000 CL30 thường hấp dẫn hơn DDR5-6000 CL40 nếu giá không chênh quá nhiều.",
+            color: "amber",
+        },
+        mixed: {
+            icon: <Puzzle />,
+            title: "Muốn trộn RAM khác kit",
+            answer: "Có thể chạy nhưng không đảm bảo ổn định. Hệ thống có thể kéo về tốc độ thấp hơn hoặc lỗi nếu không tương thích tốt.",
+            color: "orange",
+        },
+        check: {
+            icon: <Settings />,
+            title: "RAM chạy thấp hơn quảng cáo",
+            answer: "Kiểm tra Task Manager, CPU-Z hoặc BIOS. Có thể chưa bật XMP/EXPO, hoặc CPU/mainboard không ổn định ở tốc độ đó.",
+            color: "purple",
+        },
+    };
+    const [active, setActive] = useState("ddr5");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="blue"
+                title="Lab: chọn RAM theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "Chỉ cần RAM nhiều là máy nhanh",
+            right: "RAM nhiều chỉ giúp rõ khi bạn đang thiếu RAM. Nếu tác vụ chỉ dùng 10GB, nâng từ 32GB lên 64GB gần như không nhanh hơn.",
+        },
+        {
+            wrong: "CL càng thấp thì RAM chắc chắn càng nhanh",
+            right: "CL phải xét cùng tốc độ MT/s. DDR4-3200 CL16 và DDR5-6000 CL30 đều xấp xỉ 10ns.",
+        },
+        {
+            wrong: "Mua RAM 6000 là máy chắc chắn chạy 6000",
+            right: "Còn phụ thuộc CPU, mainboard, BIOS và XMP/EXPO.",
+        },
+        {
+            wrong: "Trộn RAM khác hãng, khác tốc độ vẫn luôn ổn",
+            right: "Có thể chạy, nhưng không đảm bảo ổn định; hệ thống có thể kéo về tốc độ thấp hơn.",
+        },
+    ];
+    const tips = [
+        "Ưu tiên dung lượng trước tốc độ nếu máy đang thiếu RAM.",
+        "PC phổ thông hiện nay dễ chọn nhất là 16GB hoặc 32GB.",
+        "DDR5 nên xem cả tốc độ và CL; DDR5-6000 CL30 thường hấp dẫn hơn CL40 nếu giá hợp lý.",
+        "Sau khi lắp RAM, kiểm tra tốc độ thực tế bằng Task Manager, CPU-Z hoặc BIOS.",
+        "Luôn kiểm tra mainboard/laptop hỗ trợ tối đa bao nhiêu GB và tốc độ nào.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Mẹo chọn RAM
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function SummaryAndQuiz() {
-  return (
-    <section className="space-y-6">
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-        <div className="bg-slate-950 p-6 border-b border-slate-800">
-          <h3 className="text-xl font-bold text-white flex items-center gap-3"><span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">13</span>Tóm tắt & Kiểm tra cuối bài</h3>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
-          <div>
-            <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">Ghi nhớ nhanh</h4>
-            <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-green-400 border border-slate-800 shadow-inner space-y-2">
-              <p><span className="text-cyan-300">Multiplexing</span> = nhiều luồng dùng chung một đường truyền.</p>
-              <p><span className="text-emerald-300">MUX</span> = gom nhiều luồng lại.</p>
-              <p><span className="text-orange-300">DEMUX</span> = tách luồng chung ra lại.</p>
-              <br />
-              <p className="text-slate-500"># 3 kiểu chính</p>
-              <p>FDM = Frequency = tần số</p>
-              <p>TDM = Time = thời gian</p>
-              <p>WDM = Wavelength = bước sóng ánh sáng</p>
-              <br />
-              <p className="text-slate-500"># Ví dụ</p>
-              <p>FDM: radio FM</p>
-              <p>TDM: phát biểu theo lượt</p>
-              <p>WDM: nhiều màu ánh sáng trong cáp quang</p>
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-amber-500/20 text-amber-300 p-2 rounded-xl">
+                            12
+                        </span>
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-amber-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>RAM SPECS = Dung lượng + Tốc độ + Độ trễ</p>
+                            <br />
+                            <p className="text-slate-500"># Ví dụ</p>
+                            <p className="text-slate-300">
+                                16GB DDR4-3200 CL16
+                            </p>
+                            <p className="text-slate-300">16GB = dung lượng</p>
+                            <p className="text-slate-300">
+                                3200 = khoảng 3200 MT/s
+                            </p>
+                            <p className="text-slate-300">CL16 = CAS Latency</p>
+                            <br />
+                            <p className="text-slate-500"># Công thức độ trễ</p>
+                            <p className="text-slate-300">
+                                ns ≈ CL × 2000 / MT/s
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                CL thấp hơn không luôn nhanh hơn nếu không xét
+                                tốc độ.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
             </div>
-          </div>
-          <InteractiveQuiz />
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 const questions = [
-  { question: "Ghép kênh — Multiplexing dùng để làm gì?", options: ["Chia một địa chỉ IP thành nhiều subnet", "Cho nhiều luồng dữ liệu dùng chung một đường truyền", "Mã hóa mật khẩu WiFi", "Kiểm tra lỗi dữ liệu"], correct: 1, explanation: "Multiplexing cho phép nhiều luồng dữ liệu cùng sử dụng chung một đường truyền và vẫn tách riêng được ở đầu nhận." },
-  { question: "FDM chia đường truyền theo yếu tố nào?", options: ["Thời gian", "Bước sóng ánh sáng", "Tần số", "Địa chỉ IP"], correct: 2, explanation: "FDM là Frequency Division Multiplexing, nghĩa là chia theo tần số." },
-  { question: "TDM hoạt động theo ý tưởng nào?", options: ["Mỗi luồng dùng một màu ánh sáng", "Các nguồn thay phiên nhau theo time slot", "Mỗi nguồn dùng một địa chỉ MAC", "Tất cả nguồn dùng chung một password"], correct: 1, explanation: "TDM chia thời gian thành các khe, mỗi nguồn dùng đường truyền trong slot của mình." },
-  { question: "WDM đặc biệt phù hợp với môi trường nào?", options: ["Cáp quang", "Bàn phím", "Ổ cứng cơ", "Subnet mask"], correct: 0, explanation: "WDM dùng các bước sóng ánh sáng khác nhau, nên đặc biệt phù hợp với cáp quang." },
-  { question: "Guard band trong FDM dùng để làm gì?", options: ["Làm địa chỉ IP nhanh hơn", "Tạo khoảng tần số trống giữa các kênh để tránh nhiễu chéo", "Tăng số lượng time slot", "Mã hóa HTTPS"], correct: 1, explanation: "Guard band là khoảng tần số trống giữa các kênh trong FDM để giảm nhiễu chéo." },
+    {
+        question: "Trong thông số 16GB DDR4-3200 CL16, số 16GB nghĩa là gì?",
+        options: ["Tốc độ RAM", "Độ trễ RAM", "Dung lượng RAM", "Điện áp RAM"],
+        correct: 2,
+        explanation:
+            "16GB là dung lượng RAM, tức lượng dữ liệu tạm thời mà RAM có thể chứa cho chương trình đang chạy.",
+    },
+    {
+        question: "Trong thông số DDR5-6000, số 6000 thường chỉ điều gì?",
+        options: [
+            "Dung lượng 6000GB",
+            "Tốc độ truyền dữ liệu khoảng 6000 MT/s",
+            "Độ trễ 6000 chu kỳ",
+            "Điện áp 6000V",
+        ],
+        correct: 1,
+        explanation:
+            "DDR5-6000 nghĩa là RAM DDR5 có tốc độ truyền dữ liệu khoảng 6000 MT/s.",
+    },
+    {
+        question: "Nhận định nào đúng nhất về CL?",
+        options: [
+            "CL càng thấp luôn luôn nhanh hơn, không cần xét gì khác",
+            "CL là dung lượng RAM",
+            "CL là độ trễ tính theo chu kỳ, cần xét cùng tốc độ RAM",
+            "CL chỉ dùng cho SSD",
+        ],
+        correct: 2,
+        explanation:
+            "CL là số chu kỳ RAM chờ trước khi phản hồi. Muốn so chính xác cần xét cùng tốc độ MT/s.",
+    },
+    {
+        question: "Vì sao RAM DDR5-6000 có thể đang chạy 4800 sau khi lắp?",
+        options: [
+            "Có thể chưa bật XMP/EXPO hoặc nền tảng chưa hỗ trợ ổn định",
+            "Vì RAM bị biến thành SSD",
+            "Vì màn hình chưa đủ sáng",
+            "Vì RAM không cần BIOS",
+        ],
+        correct: 0,
+        explanation:
+            "RAM tốc độ cao thường cần bật XMP/EXPO trong BIOS, đồng thời CPU/mainboard phải hỗ trợ ổn định.",
+    },
+    {
+        question:
+            "Máy 8GB thường xuyên đầy RAM thì nâng cấp nào thường hợp lý nhất?",
+        options: [
+            "Nâng lên 16GB hoặc 32GB",
+            "Đổi hình nền",
+            "Mua RAM 8GB tốc độ cao hơn nhưng vẫn 8GB",
+            "Tắt màn hình",
+        ],
+        correct: 0,
+        explanation:
+            "Khi đang thiếu RAM, tăng dung lượng thường cải thiện rõ hơn đổi sang RAM cùng dung lượng nhưng tốc độ cao hơn.",
+    },
 ];
 
 function InteractiveQuiz() {
-  const [currentQ, setCurrentQ] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const finished = currentQ === "finished";
-  const q = !finished ? questions[currentQ] : null;
-  const handleSelect = (index) => {
-    if (showResult) return;
-    setSelected(index);
-    setShowResult(true);
-    if (index === q.correct) setScore((s) => s + 1);
-  };
-  const handleNext = () => {
-    if (currentQ < questions.length - 1) {
-      setCurrentQ((c) => c + 1);
-      setSelected(null);
-      setShowResult(false);
-    } else setCurrentQ("finished");
-  };
-  const resetQuiz = () => {
-    setCurrentQ(0);
-    setSelected(null);
-    setShowResult(false);
-    setScore(0);
-  };
-  if (finished) return <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[380px]"><div className="text-6xl mb-4">{score === questions.length ? "🏆" : "👏"}</div><h4 className="text-2xl font-bold text-white mb-2">Hoàn thành!</h4><p className="text-slate-400 mb-6">Bạn trả lời đúng <strong className="text-cyan-400">{score}/{questions.length}</strong> câu hỏi.</p><button onClick={resetQuiz} className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700">Làm lại</button></div>;
-  return (
-    <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[380px]">
-      <div className="flex justify-between items-center mb-4 text-sm font-medium"><span className="text-cyan-400">Câu hỏi {currentQ + 1}/{questions.length}</span><span className="text-slate-500">Điểm: {score}</span></div>
-      <h4 className="text-lg font-bold text-white mb-6 leading-snug">{q.question}</h4>
-      <div className="space-y-3 flex-grow">
-        {q.options.map((opt, idx) => {
-          let btnClass = "w-full text-left p-4 rounded-xl border text-sm transition-all ";
-          if (!showResult) btnClass += "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
-          else if (idx === q.correct) btnClass += "border-green-500 bg-green-500/10 text-green-400";
-          else if (idx === selected) btnClass += "border-red-500 bg-red-500/10 text-red-400";
-          else btnClass += "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
-          return <button key={idx} onClick={() => handleSelect(idx)} disabled={showResult} className={btnClass}>{opt}</button>;
-        })}
-      </div>
-      {showResult && <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2"><div className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}><strong>Giải thích:</strong> {q.explanation}</div><button onClick={handleNext} className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-colors">{currentQ < questions.length - 1 ? "Câu tiếp theo" : "Xem kết quả"}</button></div>}
-    </div>
-  );
+    const [currentQ, setCurrentQ] = useState(0);
+    const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
+    const [score, setScore] = useState(0);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
+    };
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
+            setSelected(null);
+            setShowResult(false);
+        } else setCurrentQ("finished");
+    };
+    const resetQuiz = () => {
+        setCurrentQ(0);
+        setSelected(null);
+        setShowResult(false);
+        setScore(0);
+    };
+    if (finished) {
+        return (
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
+                <div className="text-6xl mb-4">
+                    {score === questions.length ? "🏆" : "👏"}
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">
+                    Hoàn thành!
+                </h4>
+                <p className="text-slate-400 mb-6">
+                    Bạn trả lời đúng{" "}
+                    <strong className="text-amber-400">
+                        {score}/{questions.length}
+                    </strong>{" "}
+                    câu hỏi.
+                </p>
+                <button
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
+                >
+                    Làm lại
+                </button>
+            </div>
+        );
+    }
+    return (
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-amber-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
+                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
+            </div>
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
+                {q.question}
+            </h4>
+            <div className="space-y-3 flex-grow">
+                {q.options.map((opt, idx) => {
+                    let cls =
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
+                        cls +=
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
+                    else if (idx === q.correct)
+                        cls +=
+                            "border-green-500 bg-green-500/10 text-green-400";
+                    else if (idx === selected)
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
+                    else
+                        cls +=
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
+                    return (
+                        <button
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
+                            className={cls}
+                        >
+                            {opt}
+                        </button>
+                    );
+                })}
+            </div>
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
+                    <div
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
+                    >
+                        <strong>Giải thích:</strong> {q.explanation}
+                    </div>
+                    <button
+                        onClick={handleNext}
+                        className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors"
+                    >
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
+                    </button>
+                </div>
+            )}
+        </div>
+    );
 }
 
 function NextLesson() {
-  return (
-    <div className="text-center pt-8 border-t border-slate-800">
-      <p className="text-slate-400 mb-4">Sau khi hiểu tín hiệu và ghép kênh, bài tiếp theo sẽ học các môi trường truyền dẫn vật lý thật sự dùng để chở tín hiệu.</p>
-      <Link to="/phan-3-5" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20">
-        Bài tiếp theo: 3.5 — Cáp đồng trục, cáp xoắn đôi, cáp quang <ChevronRight size={20} />
-      </Link>
-    </div>
-  );
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu dung lượng, tốc độ và CL. Tiếp theo là Dual Channel
+                / Quad Channel, vì cùng 16GB RAM nhưng 1 x 16GB và 2 x 8GB có
+                thể cho hiệu năng khác nhau rõ rệt.
+            </p>
+            <Link
+                to="/phan-3-5"
+                className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-amber-500/20"
+            >
+                Bài tiếp theo: 3.5 — Dual Channel / Quad Channel RAM{" "}
+                <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
 }
 
-function SectionTitle({ number, title, icon, color = "cyan" }) {
-  const map = { cyan: "bg-cyan-500/20 text-cyan-300", blue: "bg-blue-500/20 text-blue-300", purple: "bg-purple-500/20 text-purple-300", emerald: "bg-emerald-500/20 text-emerald-300", orange: "bg-orange-500/20 text-orange-300", green: "bg-green-500/20 text-green-300", yellow: "bg-yellow-500/20 text-yellow-300" };
-  return <h3 className="text-2xl font-bold text-white flex items-center gap-3"><span className={`${map[color]} p-2 rounded-xl flex items-center gap-2`}><span className="font-black">{number}</span>{React.cloneElement(icon, { size: 20 })}</span>{title}</h3>;
+function SectionTitle({ number, title, icon, color = "amber" }) {
+    const colorMap = {
+        amber: "bg-amber-500/20 text-amber-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
 }
 
-function MuxPreview() {
-  return <div className="space-y-4">{muxTypes.map((m) => { const c = colorClasses[m.color]; return <div key={m.id} className={`${c.bg} ${c.border} border rounded-2xl p-4 flex items-center gap-3`}><div className={`${c.solid} text-white w-12 h-12 rounded-xl flex items-center justify-center shrink-0`}>{React.cloneElement(m.icon, { size: 24 })}</div><div><p className={`${c.text} font-black`}>{m.name}</p><p className="text-xs text-slate-400 mt-1">Chia theo {m.divideBy.toLowerCase()}</p></div></div>; })}</div>;
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
 }
 
-function BeforeAfterMux() {
-  return <div className="space-y-6"><div><p className="text-slate-400 font-bold mb-3">Không ghép kênh</p><div className="space-y-2 font-mono text-sm text-slate-300"><p>A ===== Đường 1 ===== A'</p><p>B ===== Đường 2 ===== B'</p><p>C ===== Đường 3 ===== C'</p></div></div><div><p className="text-cyan-300 font-bold mb-3">Có ghép kênh</p><div className="font-mono text-sm text-green-300 whitespace-pre-wrap">A --\nB ---&gt; [ MUX ] ===== Một đường chung ===== [ DEMUX ] ---&gt; A' / B' / C'\nC --/</div></div></div>;
+function SpecChip({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-3`}>
+            <p className={`${textColor(color)} font-bold`}>{label}</p>
+            <p className="text-slate-400 text-xs mt-1">{value}</p>
+        </div>
+    );
 }
 
-function ConceptCard({ title, icon, color, text, code }) {
-  const c = colorClasses[color];
-  return <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}><div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(icon, { size: 28 })}</div><h3 className="text-xl font-bold text-white mb-3">{title}</h3><p className="text-sm text-slate-300 leading-relaxed mb-5">{text}</p><div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{code}</div></div>;
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
 }
 
-function MuxDemuxDiagram() {
-  const inputs = ["Nguồn A", "Nguồn B", "Nguồn C", "Nguồn D"];
-  return <div className="grid md:grid-cols-[1fr_auto_1.2fr_auto_1fr] gap-4 items-center"><div className="space-y-3">{inputs.map((i) => <SourcePill key={i} label={i} />)}</div><ArrowRight className="text-slate-600 hidden md:block" /><BigBox label="MUX" sub="Gộp tín hiệu" color="emerald" /><ArrowRight className="text-slate-600 hidden md:block" /><div className="space-y-3">{inputs.map((i) => <SourcePill key={i} label={i.replace("Nguồn", "Đích")} />)}</div><div className="md:col-span-5 bg-cyan-500/10 border border-cyan-400/40 rounded-2xl p-4 mt-4 text-center font-mono text-cyan-300">===== Đường truyền chung =====</div></div>;
+function FlowNote({ title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <h4 className={`${textColor(color)} font-bold mb-2`}>{title}</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">{desc}</p>
+        </div>
+    );
 }
 
-function SourcePill({ label }) { return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-3 text-center text-slate-300 font-bold text-sm">{label}</div>; }
-function BigBox({ label, sub, color }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-3xl p-6 text-center`}><p className={`${c.text} text-2xl font-black`}>{label}</p><p className="text-sm text-slate-400 mt-2">{sub}</p></div>; }
-
-function InfoBox({ title, value, icon, color }) {
-  const c = colorClasses[color];
-  return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-4 items-start"><div className={`${c.bg} ${c.text} w-10 h-10 rounded-xl flex items-center justify-center shrink-0`}>{React.cloneElement(icon, { size: 20 })}</div><div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{title}</p><p className="text-sm text-slate-300 mt-1 leading-relaxed">{value}</p></div></div>;
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed">{value}</p>
+        </div>
+    );
 }
 
-function ChipPanel({ title, items, color }) {
-  const c = colorClasses[color];
-  return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5"><h4 className="text-white font-bold mb-3">{title}</h4><div className="flex flex-wrap gap-2">{items.map((item) => <span key={item} className={`${c.bg} ${c.border} ${c.text} border rounded-full px-3 py-1 text-sm font-medium`}>{item}</span>)}</div></div>;
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
 }
 
-function ProsCons({ pros, cons }) {
-  return <div className="grid md:grid-cols-2 gap-4"><div className="bg-green-500/5 border border-green-500/20 rounded-2xl p-5"><h4 className="text-green-300 font-bold mb-4 flex items-center gap-2"><CheckCircle2 size={18} /> Ưu điểm</h4><ul className="space-y-3">{pros.map((item) => <li key={item} className="text-sm text-slate-300 flex gap-2"><CheckCircle2 className="text-green-400 shrink-0 mt-0.5" size={16} /> {item}</li>)}</ul></div><div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-5"><h4 className="text-red-300 font-bold mb-4 flex items-center gap-2"><XCircle size={18} /> Nhược điểm</h4><ul className="space-y-3">{cons.map((item) => <li key={item} className="text-sm text-slate-300 flex gap-2"><XCircle className="text-red-400 shrink-0 mt-0.5" size={16} /> {item}</li>)}</ul></div></div>;
+function badgeColor(color) {
+    const map = {
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.amber;
 }
 
-function FrequencyBar({ guard }) {
-  const channels = ["A", "B", "C", "D", "E"];
-  const colors = ["bg-cyan-500/70", "bg-blue-500/70", "bg-emerald-500/70", "bg-orange-500/70", "bg-purple-500/70"];
-  return <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6"><div className="flex h-24 rounded-2xl overflow-hidden border border-slate-800">{channels.map((ch, i) => <React.Fragment key={ch}><div className={`${colors[i]} flex-1 flex items-center justify-center text-white font-black`}>Kênh {ch}<br /><span className="text-xs font-normal">{i * 20}-{(i + 1) * 20} MHz</span></div>{guard && i < channels.length - 1 && <div className="w-3 bg-slate-950 border-x border-slate-700 flex items-center justify-center"><span className="rotate-90 text-[10px] text-yellow-300">guard</span></div>}</React.Fragment>)}</div><div className="flex justify-between text-xs text-slate-500 mt-3"><span>0 MHz</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100 MHz</span></div></div>;
+function softBorder(color) {
+    const map = {
+        amber: "bg-amber-500/5 border-amber-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.amber;
 }
 
-function TimeSlots({ slots, emptyB }) {
-  const colorMap = { A: "bg-cyan-500/70", B: "bg-emerald-500/70", C: "bg-orange-500/70", D: "bg-purple-500/70" };
-  return <div><h4 className="text-white font-bold mb-4">Time slots</h4><div className="grid grid-cols-4 md:grid-cols-6 gap-2">{slots.map((s, i) => <div key={i} className={`${emptyB && s === "B" ? "bg-slate-800 text-slate-500 border-slate-700" : `${colorMap[s]} text-white border-white/10`} h-20 rounded-2xl border flex flex-col items-center justify-center font-black`}><span>Slot {i + 1}</span><span className="text-2xl">{emptyB && s === "B" ? "∅" : s}</span></div>)}</div><p className="text-sm text-slate-400 mt-4">Thời gian → | {slots.map((s) => emptyB && s === "B" ? "∅" : s).join(" | ")} |</p></div>;
-}
-
-function WdmFiber({ waves }) {
-  const colors = ["bg-red-500", "bg-blue-500", "bg-purple-500", "bg-yellow-400", "bg-cyan-400", "bg-green-500"];
-  return <div><h4 className="text-white font-bold mb-4">Một sợi quang chung mang nhiều λ</h4><div className="bg-slate-900 border border-slate-800 rounded-3xl p-6"><div className="h-28 rounded-full border-4 border-slate-700 bg-slate-950 relative overflow-hidden flex flex-col justify-center gap-2 px-6">{waves.map((w, i) => <div key={w} className={`${colors[i]} h-2 rounded-full shadow-lg`} />)}</div><div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-5">{waves.map((w, i) => <div key={w} className="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center"><span className={`${i === 3 ? "text-yellow-300" : i === 4 ? "text-cyan-300" : i === 5 ? "text-green-300" : i === 0 ? "text-red-300" : i === 1 ? "text-blue-300" : "text-purple-300"} font-black`}>{w}</span></div>)}</div></div></div>;
-}
-
-function ExampleVisual({ mode }) {
-  if (mode === "highway") return <div className="space-y-3">{["Làn xe con", "Làn xe tải", "Làn xe khách", "Làn xe máy"].map((l, i) => <div key={l} className="h-12 bg-slate-900 border border-slate-800 rounded-2xl flex items-center px-4 text-slate-300"><span className="font-bold">{l}</span><span className="ml-auto">🚗</span></div>)}</div>;
-  if (mode === "classroom") return <TimeSlots slots={["A", "B", "C", "A", "B", "C"]} emptyB={false} />;
-  if (mode === "radio") return <FrequencyBar guard />;
-  return <WdmFiber waves={["λ1 đỏ", "λ2 xanh", "λ3 tím", "λ4 vàng"]} />;
-}
-
-function getFlowSteps(type) {
-  if (type === "fdm") return [
-    { title: "Cấp dải tần riêng", text: "Mỗi nguồn được cấp một dải tần khác nhau.", code: "A = 10 MHz\nB = 20 MHz\nC = 30 MHz" },
-    { title: "MUX gộp tín hiệu", text: "Bộ ghép cộng các tín hiệu khác tần số vào đường chung.", code: "A(10MHz) + B(20MHz) + C(30MHz)" },
-    { title: "Truyền đồng thời", text: "Đường truyền chung mang nhiều tần số cùng lúc.", code: "Đường chung = 10MHz + 20MHz + 30MHz" },
-    { title: "DEMUX tách theo tần số", text: "Đầu nhận lọc đúng dải tần để lấy từng kênh.", code: "10MHz → A\n20MHz → B\n30MHz → C" },
-  ];
-  if (type === "tdm") return [
-    { title: "Chia thành khe thời gian", text: "Thời gian được chia thành các slot nhỏ.", code: "| Slot 1 | Slot 2 | Slot 3 | Slot 4 |" },
-    { title: "Gán nguồn vào slot", text: "Mỗi nguồn dùng một slot cố định hoặc được cấp slot động.", code: "Slot 1 = A\nSlot 2 = B\nSlot 3 = C\nSlot 4 = D" },
-    { title: "Gửi luân phiên", text: "Các nguồn thay phiên nhau dùng toàn bộ đường truyền.", code: "| A | B | C | D | A | B | C | D |" },
-    { title: "DEMUX đọc đúng nhịp", text: "Đầu nhận đọc đúng slot để tách dữ liệu về từng nguồn.", code: "Slot 1 → A\nSlot 2 → B\nSlot 3 → C\nSlot 4 → D" },
-  ];
-  return [
-    { title: "Mỗi nguồn dùng một bước sóng", text: "Mỗi luồng dữ liệu được gắn với một λ riêng.", code: "A = λ1\nB = λ2\nC = λ3\nD = λ4" },
-    { title: "WDM MUX gộp ánh sáng", text: "Nhiều bước sóng được gộp vào cùng một sợi quang.", code: "λ1 + λ2 + λ3 + λ4 → một sợi quang" },
-    { title: "Truyền đồng thời trong sợi quang", text: "Các màu/bước sóng ánh sáng cùng đi qua sợi quang chung.", code: "Sợi quang chung mang nhiều λ" },
-    { title: "WDM DEMUX tách từng λ", text: "Đầu nhận dùng bộ lọc quang để tách từng bước sóng.", code: "λ1 → A\nλ2 → B\nλ3 → C\nλ4 → D" },
-  ];
-}
-
-function StepFlow({ steps, active, setActive, color }) {
-  const c = colorClasses[color];
-  return <div className="space-y-3">{steps.map((s, index) => <button key={s.title} onClick={() => setActive(index)} className={`w-full flex items-start gap-3 p-3 rounded-2xl border text-left transition-all ${active === index ? `${c.bg} ${c.border}` : index < active ? "bg-green-500/5 border-green-500/20" : "bg-slate-900 border-slate-800 hover:border-slate-700"}`}><div className={`${active === index ? `${c.solid} text-white` : index < active ? "bg-green-500/20 text-green-400" : "bg-slate-950 text-slate-500"} w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold`}>{index < active ? <CheckCircle2 size={16} /> : index + 1}</div><div><p className="text-sm text-white font-bold">{s.title}</p><p className="text-xs text-slate-500 mt-1 whitespace-pre-wrap">{s.code}</p></div></button>)}</div>;
-}
-
-function ExplainRow({ term, desc }) {
-  return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4"><p className="font-mono text-blue-300 text-sm font-bold">{term}</p><p className="text-slate-400 text-sm mt-1">{desc}</p></div>;
+function textColor(color) {
+    const map = {
+        amber: "text-amber-300",
+        cyan: "text-cyan-300",
+        emerald: "text-emerald-300",
+        purple: "text-purple-300",
+        blue: "text-blue-300",
+        orange: "text-orange-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-amber-300";
 }
