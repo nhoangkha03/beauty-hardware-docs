@@ -8,7 +8,6 @@ import {
     Brain,
     CheckCircle2,
     ChevronRight,
-    Chip,
     Cloud,
     Cpu,
     Database,
@@ -20,6 +19,7 @@ import {
     Layers3,
     Lightbulb,
     MemoryStick,
+    Microchip,
     Monitor,
     PackageCheck,
     Rocket,
@@ -101,7 +101,7 @@ function HeroSection() {
                     </p>
                     <div className="flex flex-wrap gap-3 pt-2">
                         <Tag icon={<Zap size={16} />} text="Đèn chân không" />
-                        <Tag icon={<Chip size={16} />} text="Transistor & IC" />
+                        <Tag icon={<Microchip size={16} />} text="Transistor & IC" />
                         <Tag icon={<Cpu size={16} />} text="Vi xử lý" />
                         <Tag icon={<Smartphone size={16} />} text="Mobile" />
                         <Tag icon={<Cloud size={16} />} text="Cloud & AI" />
@@ -120,7 +120,7 @@ function HeroSection() {
                             <ArrowDown className="text-slate-600" />
                         </div>
                         <HeroStep
-                            icon={<Chip />}
+                            icon={<Microchip />}
                             label="Nhỏ hơn, bền hơn"
                             desc="Transistor và IC"
                             color="orange"
@@ -271,7 +271,7 @@ function EvolutionLogic() {
             desc: "Đèn chân không và hệ thống đời đầu cần nhiều không gian, điện năng và bảo trì.",
         },
         {
-            icon: <Chip />,
+            icon: <Microchip />,
             title: "Linh kiện nhỏ hơn",
             desc: "Transistor thay thế đèn chân không, giúp máy nhỏ hơn, bền hơn, ít nóng hơn.",
         },
@@ -353,7 +353,7 @@ const timeline = [
         key: "gen2",
         stage: "Thế hệ 2",
         tech: "Transistor",
-        icon: <Chip />,
+        icon: <Microchip />,
         color: "orange",
         desc: "Transistor giúp máy nhỏ hơn, bền hơn, ít nóng hơn và đáng tin cậy hơn đèn chân không.",
         example: "IBM 1401",
@@ -545,7 +545,7 @@ function ProgressMetrics() {
             why: "Quyết định tính di động và khả năng tích hợp.",
         },
         transistors: {
-            icon: <Chip />,
+            icon: <Microchip />,
             title: "Số transistor",
             detail: "Nhiều transistor hơn thường giúp chip làm được nhiều việc hơn và mạnh hơn.",
             why: "Là chỉ dấu quan trọng của tiến bộ chip.",
