@@ -1,642 +1,1452 @@
 import React, { useState } from "react";
 import {
-  AlertTriangle,
-  ArrowDown,
-  ArrowRight,
-  Award,
-  BadgeCheck,
-  Binary,
-  Radio,
-  Cable,
-  CheckCircle2,
-  ChevronRight,
-  CircleHelp,
-  Database,
-  DoorOpen,
-  EthernetPort,
-  Eye,
-  Gauge,
-  Globe2,
-  HardDrive,
-  Layers,
-  Lock,
-  Network,
-  Package,
-  PackageCheck,
-  RadioTower,
-  Router,
-  Search,
-  Server,
-  ShieldAlert,
-  ShieldCheck,
-  Shuffle,
-  Split,
-  TableProperties,
-  Tags,
-  Terminal,
-  TrafficCone,
-  GitBranch,
-  UserRound,
-  Users,
-  Wifi,
-  XCircle,
-  Zap,
+    AlertTriangle,
+    Award,
+    BookOpen,
+    Brain,
+    CheckCircle2,
+    ChevronRight,
+    Copy,
+    Database,
+    Gauge,
+    HardDrive,
+    Layers3,
+    Lightbulb,
+    Network,
+    PackageCheck,
+    Puzzle,
+    RefreshCcw,
+    Search,
+    Server,
+    Settings,
+    ShieldCheck,
+    Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const colorClasses = {
-  cyan: { text: "text-cyan-300", bg: "bg-cyan-500/10", border: "border-cyan-400/40", solid: "bg-cyan-500", ring: "shadow-cyan-500/20" },
-  blue: { text: "text-blue-300", bg: "bg-blue-500/10", border: "border-blue-400/40", solid: "bg-blue-500", ring: "shadow-blue-500/20" },
-  purple: { text: "text-purple-300", bg: "bg-purple-500/10", border: "border-purple-400/40", solid: "bg-purple-500", ring: "shadow-purple-500/20" },
-  emerald: { text: "text-emerald-300", bg: "bg-emerald-500/10", border: "border-emerald-400/40", solid: "bg-emerald-500", ring: "shadow-emerald-500/20" },
-  orange: { text: "text-orange-300", bg: "bg-orange-500/10", border: "border-orange-400/40", solid: "bg-orange-500", ring: "shadow-orange-500/20" },
-  yellow: { text: "text-yellow-300", bg: "bg-yellow-500/10", border: "border-yellow-400/40", solid: "bg-yellow-500", ring: "shadow-yellow-500/20" },
-  green: { text: "text-green-300", bg: "bg-green-500/10", border: "border-green-400/40", solid: "bg-green-500", ring: "shadow-green-500/20" },
-  red: { text: "text-red-300", bg: "bg-red-500/10", border: "border-red-400/40", solid: "bg-red-500", ring: "shadow-red-500/20" },
-  slate: { text: "text-slate-300", bg: "bg-slate-500/10", border: "border-slate-400/40", solid: "bg-slate-600", ring: "shadow-slate-500/20" },
-};
-
-const vlanData = [
-  { id: 10, name: "KE_TOAN", subnet: "192.168.10.0/24", devices: "PC1, PC2", color: "cyan" },
-  { id: 20, name: "NHAN_SU", subnet: "192.168.20.0/24", devices: "PC3, PC4", color: "emerald" },
-  { id: 30, name: "GUEST", subnet: "192.168.30.0/24", devices: "WiFi khách", color: "orange" },
-  { id: 99, name: "MANAGEMENT", subnet: "192.168.99.0/24", devices: "Quản trị switch", color: "purple" },
-];
-
 export default function App() {
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white pb-20">
-      <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
-              <Network className="text-cyan-400" size={24} />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">Khóa học Mạng Máy Tính</h1>
-              <p className="text-xs text-slate-500">Phần 4: Tầng Liên Kết Dữ Liệu — Data Link Layer</p>
-            </div>
-          </div>
-          <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">Bài 4.7</div>
-        </div>
-      </header>
+    return (
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-rose-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+                <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-2xl bg-rose-500/10 border border-rose-400/30 flex items-center justify-center shadow-lg shadow-rose-500/10">
+                            <Layers3 className="text-rose-400" size={24} />
+                        </div>
+                        <div>
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
+                            </h1>
+                            <p className="text-xs text-slate-500">
+                                Phần 4: Bộ lưu trữ — Storage
+                            </p>
+                        </div>
+                    </div>
+                    <div className="text-sm font-semibold text-rose-300 bg-rose-400/10 px-3 py-1 rounded-full border border-rose-400/20">
+                        Bài 4.7
+                    </div>
+                </div>
+            </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
-        <HeroSection />
-        <LearningGoals />
-        <SwitchIntro />
-        <HubVsSwitch />
-        <MacTableSection />
-        <SwitchHowItWorks />
-        <VlanIntro />
-        <BroadcastDomainSimulator />
-        <AccessTrunkSection />
-        <Dot1qTagging />
-        <CompanyDesign />
-        <NativeVlanSection />
-        <VlanSecuritySection />
-        <CommonMistakes />
-        <CliLab />
-        <Part4WrapUp />
-        <SummaryAndQuiz />
-        <NextLesson />
-      </main>
-    </div>
-  );
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <DailyAnalogy />
+                <RaidMechanismSimulator />
+                <RaidTypeExplorer />
+                <CapacityCalculator />
+                <SpecsExplorer />
+                <RebuildSection />
+                <RaidImplementationGuide />
+                <RealExamples />
+                <UseCaseLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
+            </main>
+        </div>
+    );
 }
 
 function HeroSection() {
-  return (
-    <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 p-8 md:p-12 shadow-2xl">
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-emerald-500/10 blur-3xl" />
-      <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
-        <div className="space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
-            <Network size={16} /> Bài cuối Phần 4: Data Link Layer
-          </div>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            Switch
-            <span className="block text-cyan-400">& VLAN</span>
-          </h2>
-          <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-            Switch chuyển Ethernet frame dựa trên MAC address. VLAN chia một LAN vật lý thành nhiều LAN logic để giảm broadcast, dễ quản lý và tăng kiểm soát bảo mật.
-          </p>
-          <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 font-mono text-sm max-w-xl">
-            <p className="text-slate-500">// Ghi nhớ nhanh</p>
-            <p><span className="text-cyan-300">Switch</span> = học MAC nguồn, chuyển theo MAC đích.</p>
-            <p><span className="text-emerald-300">VLAN</span> = broadcast domain riêng.</p>
-            <p><span className="text-orange-300">Trunk</span> = mang nhiều VLAN bằng 802.1Q tag.</p>
-          </div>
-        </div>
-        <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
-          <HeroPreview />
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-rose-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-rose-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-rose-300">
+                        <BookOpen size={16} /> Phần 4: Bộ lưu trữ — Storage
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        RAID
+                        <span className="block text-rose-400">
+                            Mảng đĩa dự phòng
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        RAID ghép nhiều ổ HDD/SSD thành một hệ thống lưu trữ
+                        chung để tăng tốc, tăng dung lượng hoặc tăng khả năng
+                        chịu lỗi. Nhưng điều đầu tiên phải nhớ: RAID không phải
+                        backup.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Zap size={16} />} text="RAID 0" />
+                        <Tag icon={<Copy size={16} />} text="RAID 1" />
+                        <Tag icon={<Puzzle size={16} />} text="RAID 5 parity" />
+                        <Tag icon={<Layers3 size={16} />} text="RAID 10" />
+                        <Tag icon={<RefreshCcw size={16} />} text="Rebuild" />
+                    </div>
+                </div>
+
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Zap />}
+                            label="RAID 0"
+                            desc="Chia dữ liệu, nhanh, không dự phòng"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<Copy />}
+                            label="RAID 1"
+                            desc="Mirror dữ liệu, chịu hỏng 1 ổ"
+                            color="emerald"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Puzzle />}
+                            label="RAID 5"
+                            desc="Stripe + parity, cần 3 ổ"
+                            color="cyan"
+                        />
+                        <HeroTile
+                            icon={<Layers3 />}
+                            label="RAID 10"
+                            desc="Mirror + stripe, cần 4 ổ"
+                            color="purple"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Quy tắc sống còn</p>
+                        <p>RAID = chịu lỗi / availability</p>
+                        <p className="text-rose-300">
+                            Backup = bản sao để khôi phục dữ liệu
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function LearningGoals() {
-  const goals = [
-    "Hiểu Switch là gì và khác Hub ra sao.",
-    "Biết Switch dùng địa chỉ MAC để chuyển frame như thế nào.",
-    "Hiểu MAC address table, Learn, Forward và Flood.",
-    "Hiểu VLAN là gì và vì sao cần chia VLAN.",
-    "Nắm access port, trunk port, 802.1Q tagging và native VLAN.",
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="1" color="cyan" title="Mục tiêu bài học" icon={<Award />} />
-      <div className="grid md:grid-cols-5 gap-3">
-        {goals.map((goal, index) => (
-          <div key={goal} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition-colors group">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center font-bold mb-4 group-hover:scale-110 transition-transform">{index + 1}</div>
-            <p className="text-sm text-slate-300 leading-relaxed">{goal}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function SwitchIntro() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="2" color="blue" title="Switch là gì?" icon={<CircleHelp />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
-          <div className="space-y-5 text-slate-300 leading-relaxed">
-            <p><strong className="text-white">Switch</strong> là thiết bị mạng dùng để kết nối nhiều thiết bị trong cùng mạng LAN.</p>
-            <p>Switch hoạt động chủ yếu ở <strong className="text-cyan-300">Layer 2 — Data Link Layer</strong>, nhận Ethernet frame, đọc MAC đích, rồi chuyển frame ra đúng cổng.</p>
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm">
-              <p className="text-blue-300 font-bold mb-2">Tóm tắt:</p>
-              <p>Switch là thiết bị Layer 2 dùng MAC address để chuyển frame trong mạng LAN.</p>
+    const goals = [
+        "Hiểu RAID là gì và vì sao nhiều ổ có thể hoạt động như một hệ thống lưu trữ chung.",
+        "Phân biệt RAID 0, RAID 1, RAID 5 và RAID 10 theo tốc độ, dung lượng và khả năng chịu lỗi.",
+        "Biết parity trong RAID 5 dùng để khôi phục dữ liệu khi một ổ hỏng.",
+        "Hiểu rebuild, hot spare, hardware RAID, software RAID và fake RAID.",
+        "Nhớ nguyên tắc quan trọng: RAID giúp chịu lỗi ổ đĩa, nhưng không thay thế backup.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="rose"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, index) => (
+                    <div
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-rose-500/50 transition-colors"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-300 flex items-center justify-center font-bold mb-4">
+                            {index + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
+                    </div>
+                ))}
             </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6"><SwitchLanDiagram /></div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function HubVsSwitch() {
-  const [mode, setMode] = useState("switch");
-  const isSwitch = mode === "switch";
-  const rows = [
-    ["Tầng hoạt động", "Layer 1", "Layer 2"],
-    ["Cách gửi dữ liệu", "Phát ra tất cả cổng", "Gửi theo MAC đích"],
-    ["Hiệu suất", "Thấp", "Cao"],
-    ["Collision", "Dễ xảy ra", "Ít hơn rất nhiều"],
-    ["Bảo mật", "Kém hơn", "Tốt hơn"],
-    ["Hiện nay", "Gần như không dùng", "Rất phổ biến"],
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="3" color="orange" title="Switch khác Hub như thế nào?" icon={<Shuffle />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-center">
-          <div className="space-y-4">
-            <div className="flex gap-2">
-              <button onClick={() => setMode("hub")} className={`flex-1 px-4 py-3 rounded-xl font-bold ${!isSwitch ? "bg-orange-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400"}`}>Hub</button>
-              <button onClick={() => setMode("switch")} className={`flex-1 px-4 py-3 rounded-xl font-bold ${isSwitch ? "bg-cyan-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400"}`}>Switch</button>
+function CoreConcept() {
+    const targets = [
+        {
+            icon: <Zap />,
+            title: "Tăng tốc độ",
+            desc: "Chia dữ liệu qua nhiều ổ để đọc/ghi song song, như RAID 0 hoặc RAID 10.",
+            color: "orange",
+        },
+        {
+            icon: <Database />,
+            title: "Tăng dung lượng",
+            desc: "Gộp nhiều ổ thành một vùng lưu trữ lớn hơn ổ đơn lẻ.",
+            color: "cyan",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Tăng chịu lỗi",
+            desc: "Một số cấu hình vẫn chạy khi một ổ hỏng, như RAID 1, RAID 5, RAID 10.",
+            color: "emerald",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="cyan"
+                title="Khái niệm cốt lõi: RAID là gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">RAID</strong> là viết tắt của{" "}
+                    <strong className="text-cyan-300">
+                        Redundant Array of Independent Disks
+                    </strong>
+                    , nghĩa là mảng các ổ đĩa độc lập có tính dự phòng. Nói đơn
+                    giản: RAID là cách ghép nhiều ổ HDD/SSD thành một hệ thống
+                    lưu trữ chung.
+                </p>
+                <div className="grid md:grid-cols-3 gap-4 mb-6">
+                    {targets.map((t) => (
+                        <AnalogyCard key={t.title} {...t} />
+                    ))}
+                </div>
+                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                    <strong className="text-red-300">Cực kỳ quan trọng:</strong>{" "}
+                    RAID giúp hệ thống tiếp tục chạy khi một số ổ bị lỗi, nhưng
+                    không bảo vệ khỏi xóa nhầm, format nhầm, virus/ransomware,
+                    cháy máy, mất trộm, lỗi phần mềm hoặc file bị ghi đè.
+                </div>
             </div>
-            <ConceptCard title={isSwitch ? "Switch = lễ tân" : "Hub = hét to giữa phòng"} icon={isSwitch ? <Network /> : <RadioTower />} color={isSwitch ? "cyan" : "orange"} text={isSwitch ? "Switch nhìn địa chỉ MAC đích rồi chuyển frame đến đúng cổng." : "Hub nhận dữ liệu từ một cổng rồi phát ra tất cả cổng còn lại."} code={isSwitch ? "Frame gửi phòng 203 → chuyển đúng phòng 203" : "Ai cần thì nghe!"} />
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-            {isSwitch ? <SwitchForwardVisual /> : <HubFloodVisual />}
-          </div>
-        </div>
-      </div>
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[760px]">
-            <thead className="bg-slate-950 border-b border-slate-800 text-sm text-slate-400"><tr><th className="p-4">Tiêu chí</th><th className="p-4 text-orange-300">Hub</th><th className="p-4 text-cyan-300">Switch</th></tr></thead>
-            <tbody className="text-sm">
-              {rows.map(([criteria, hub, sw], i) => <tr key={criteria} className={`${i === rows.length - 1 ? "" : "border-b border-slate-800"} hover:bg-slate-800/40`}><td className="p-4 text-white font-bold">{criteria}</td><td className="p-4 text-slate-300">{hub}</td><td className="p-4 text-slate-300">{sw}</td></tr>)}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function MacTableSection() {
-  const [learned, setLearned] = useState(false);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="4" color="cyan" title="MAC Address Table" icon={<Database />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start">
-          <div className="space-y-4">
-            <ConceptCard title="MAC Address Table" icon={<Database />} color="cyan" text="Bảng giúp switch ghi nhớ MAC address nào nằm ở cổng nào và thuộc VLAN nào." code="MAC → Port → VLAN" />
-            <button onClick={() => setLearned(!learned)} className={`w-full px-4 py-3 rounded-xl font-bold transition-colors ${learned ? "bg-green-500 text-white" : "bg-cyan-500 text-white"}`}>{learned ? "Bảng đã học đủ MAC" : "Bảng mới chỉ biết PC1"}</button>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-            <MacAddressTable learned={learned} />
-            <div className={`mt-5 rounded-2xl border p-4 text-sm ${learned ? "bg-green-500/10 border-green-400/40 text-green-300" : "bg-orange-500/10 border-orange-400/40 text-orange-300"}`}>
-              {learned ? "Switch biết từng MAC nằm ở port nào, nên có thể forward đúng cổng." : "Switch chưa biết MAC đích, nên có thể flood trong cùng VLAN."}
+function DailyAnalogy() {
+    const analogies = [
+        {
+            icon: <Zap />,
+            title: "RAID 0",
+            desc: "Chia việc cho nhiều người làm cùng lúc để nhanh hơn, nhưng một người mất việc là cả dự án lỗi.",
+            color: "orange",
+        },
+        {
+            icon: <Copy />,
+            title: "RAID 1",
+            desc: "Photo tài liệu thành 2 bản giống nhau: mất một bản vẫn còn bản kia.",
+            color: "emerald",
+        },
+        {
+            icon: <Puzzle />,
+            title: "RAID 5",
+            desc: "Ghi dữ liệu kèm thông tin kiểm tra để dựng lại phần bị mất nếu một ổ hỏng.",
+            color: "cyan",
+        },
+        {
+            icon: <Layers3 />,
+            title: "RAID 10",
+            desc: "Vừa chia việc để nhanh, vừa có bản sao dự phòng theo từng cặp.",
+            color: "purple",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: chia việc, photo và kiểm tra lỗi"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {analogies.map((a) => (
+                    <AnalogyCard key={a.title} {...a} />
+                ))}
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function SwitchHowItWorks() {
-  const steps = [
-    { title: "Switch nhận frame", text: "Frame đi vào cổng Fa0/1 từ PC1.", code: "Source MAC = AA:AA...\nDestination MAC = BB:BB...", color: "cyan", icon: <Package /> },
-    { title: "Học MAC nguồn", text: "Switch ghi nhớ AA:AA... nằm ở Fa0/1. Đây là MAC learning.", code: "AA:AA:AA:AA:AA:AA → Fa0/1", color: "emerald", icon: <Database /> },
-    { title: "Tra MAC đích", text: "Switch kiểm tra MAC đích BB:BB... nằm ở cổng nào.", code: "Lookup BB:BB:BB:BB:BB:BB", color: "purple", icon: <Search /> },
-    { title: "Forward nếu đã biết", text: "Nếu biết BB:BB... ở Fa0/2, switch chuyển frame ra Fa0/2.", code: "Forward → Fa0/2", color: "green", icon: <ArrowRight /> },
-    { title: "Flood nếu chưa biết", text: "Nếu chưa biết MAC đích, switch flood ra các cổng cùng VLAN, trừ cổng nhận frame.", code: "Flood trong cùng VLAN", color: "orange", icon: <Radio /> },
-    { title: "Thiết bị đích phản hồi", text: "Khi PC2 trả lời, switch học được BB:BB... nằm ở Fa0/2.", code: "BB:BB:BB:BB:BB:BB → Fa0/2", color: "blue", icon: <CheckCircle2 /> },
-  ];
-  const [step, setStep] = useState(0);
-  return <StepSection number="5" color="green" title="Switch xử lý frame như thế nào?" icon={<Zap />} steps={steps} step={step} setStep={setStep} />;
-}
-
-function VlanIntro() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="6" color="emerald" title="VLAN là gì và vì sao cần VLAN?" icon={<Split />} />
-      <div className="grid lg:grid-cols-2 gap-6">
-        <ConceptCard title="VLAN" icon={<Split />} color="emerald" text="Virtual Local Area Network là mạng LAN ảo, giúp chia một switch vật lý thành nhiều mạng logic riêng biệt." code="VLAN 10 = Kế toán\nVLAN 20 = Nhân sự\nVLAN 30 = Khách" />
-        <ConceptCard title="Broadcast Domain" icon={<Radio />} color="orange" text="Mỗi VLAN là một broadcast domain riêng. Broadcast của VLAN nào chỉ lan trong VLAN đó." code="Broadcast VLAN 10 ≠ VLAN 20" />
-      </div>
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <h3 className="text-white font-bold text-xl mb-4">Lợi ích của VLAN</h3>
-        <div className="grid md:grid-cols-5 gap-3">
-          {[
-            ["Giảm broadcast", "Broadcast chỉ lan trong cùng VLAN", "orange"],
-            ["Tăng bảo mật", "Tách phòng ban/nhóm người dùng", "red"],
-            ["Dễ quản lý", "Mỗi phòng ban một VLAN", "cyan"],
-            ["Linh hoạt", "Không phụ thuộc hoàn toàn vị trí vật lý", "emerald"],
-            ["Rõ thiết kế", "Dễ kiểm soát luồng dữ liệu", "purple"],
-          ].map(([title, text, color]) => <InfoBox key={title} title={title} value={text} icon={<CheckCircle2 />} color={color} />)}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BroadcastDomainSimulator() {
-  const [vlanMode, setVlanMode] = useState(true);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="7" color="orange" title="Mô phỏng broadcast domain" icon={<Radio />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-center">
-          <div className="space-y-4">
-            <button onClick={() => setVlanMode(!vlanMode)} className={`w-full px-4 py-3 rounded-xl font-bold transition-colors ${vlanMode ? "bg-emerald-500 text-white" : "bg-orange-500 text-white"}`}>{vlanMode ? "Đang bật VLAN" : "Không chia VLAN"}</button>
-            <div className={`rounded-3xl border p-6 ${vlanMode ? "bg-emerald-500/10 border-emerald-400/40" : "bg-orange-500/10 border-orange-400/40"}`}>
-              <h3 className="text-white font-bold text-xl mb-3">{vlanMode ? "Broadcast bị giới hạn" : "Broadcast lan toàn switch"}</h3>
-              <p className="text-slate-300 leading-relaxed">{vlanMode ? "ARP Request từ PC1 trong VLAN 10 chỉ lan đến các port thuộc VLAN 10." : "Nếu tất cả cùng một LAN, broadcast từ PC1 có thể lan đến PC2, PC3, PC4."}</p>
+function RaidMechanismSimulator() {
+    const raids = {
+        none: {
+            title: "Không RAID",
+            color: "slate",
+            formula: "File A → Ổ 1",
+            desc: "Một ổ đơn lẻ. Nếu ổ hỏng và không có backup, dữ liệu có thể mất.",
+            drives: ["A B C D", "—", "—", "—"],
+        },
+        r0: {
+            title: "RAID 0",
+            color: "orange",
+            formula: "A1 → Ổ 1, A2 → Ổ 2, A3 → Ổ 1, A4 → Ổ 2",
+            desc: "Striping: chia dữ liệu thành nhiều mảnh để tăng tốc. Không có dự phòng.",
+            drives: ["A1  A3", "A2  A4", "—", "—"],
+        },
+        r1: {
+            title: "RAID 1",
+            color: "emerald",
+            formula: "File A → Ổ 1 và Ổ 2",
+            desc: "Mirroring: hai ổ chứa dữ liệu giống nhau. Một ổ hỏng, ổ còn lại vẫn còn dữ liệu.",
+            drives: ["A B C D", "A B C D", "—", "—"],
+        },
+        r5: {
+            title: "RAID 5",
+            color: "cyan",
+            formula: "Dữ liệu + parity phân bố trên tối thiểu 3 ổ",
+            desc: "Striping kèm parity. Nếu một ổ hỏng, dùng dữ liệu còn lại và parity để dựng lại.",
+            drives: ["A1  B1  P(C)", "A2  P(B) C1", "P(A) B2  C2", "—"],
+        },
+        r10: {
+            title: "RAID 10",
+            color: "purple",
+            formula:
+                "RAID 1 + RAID 0 = mirror theo cặp rồi stripe giữa các cặp",
+            desc: "Nhanh và chịu lỗi tốt hơn RAID 0, rebuild thường dễ hơn RAID 5 nhưng tốn 50% dung lượng.",
+            drives: ["A1 B1 C1", "A1 B1 C1", "A2 B2 C2", "A2 B2 C2"],
+        },
+    };
+    const [active, setActive] = useState("r5");
+    const item = raids[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="RAID ghi dữ liệu ra nhiều ổ như thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(raids).map(([key, r]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${active === key ? `${softBorder(r.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {r.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            <Layers3 size={32} />
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className="text-slate-400 leading-relaxed mb-5">
+                            {item.desc}
+                        </p>
+                        <pre className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 whitespace-pre-wrap">
+                            {item.formula}
+                        </pre>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        {item.drives.map((value, idx) => (
+                            <div
+                                key={idx}
+                                className={`rounded-3xl border p-5 ${value === "—" ? "bg-slate-950 border-slate-800 opacity-45" : softBorder(item.color)}`}
+                            >
+                                <div className="flex items-center gap-3 mb-4">
+                                    <HardDrive
+                                        className={
+                                            value === "—"
+                                                ? "text-slate-600"
+                                                : textColor(item.color)
+                                        }
+                                    />
+                                    <h4 className="font-bold text-white">
+                                        Ổ {idx + 1}
+                                    </h4>
+                                </div>
+                                <div className="font-mono text-sm bg-slate-950/70 rounded-2xl p-4 border border-slate-800 min-h-[70px] flex items-center text-slate-300">
+                                    {value}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6"><VlanBroadcastVisual vlanMode={vlanMode} /></div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function AccessTrunkSection() {
-  const [mode, setMode] = useState("trunk");
-  const isTrunk = mode === "trunk";
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="8" color="purple" title="Access port và Trunk port" icon={<Cable />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="flex gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          <button onClick={() => setMode("access")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${!isTrunk ? "bg-cyan-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>Access Port</button>
-          <button onClick={() => setMode("trunk")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${isTrunk ? "bg-purple-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>Trunk Port</button>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <ConceptCard title={isTrunk ? "Trunk Port" : "Access Port"} icon={isTrunk ? <GitBranch /> : <DoorOpen />} color={isTrunk ? "purple" : "cyan"} text={isTrunk ? "Cổng có thể mang traffic của nhiều VLAN cùng lúc, thường dùng để nối switch-switch, switch-router, switch-firewall hoặc AP nhiều SSID." : "Cổng thuộc về một VLAN duy nhất, thường dùng cho PC, máy in, camera hoặc thiết bị đầu cuối."} code={isTrunk ? "Gi0/1 trunk: VLAN 10,20,30,99" : "Fa0/1 access VLAN 10"} />
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">{isTrunk ? <TrunkVisual /> : <AccessVisual />}</div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Dot1qTagging() {
-  const [tagged, setTagged] = useState(true);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="9" color="green" title="802.1Q Tagging" icon={<Tags />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-center">
-          <div className="space-y-4">
-            <ConceptCard title="IEEE 802.1Q" icon={<Tags />} color="green" text="Chuẩn gắn VLAN tag vào Ethernet frame khi nhiều VLAN đi chung trên trunk link." code="Frame thuộc VLAN 20 → Tag VLAN ID 20" />
-            <button onClick={() => setTagged(!tagged)} className={`w-full px-4 py-3 rounded-xl font-bold transition-colors ${tagged ? "bg-green-500 text-white" : "bg-slate-700 text-white"}`}>{tagged ? "Frame có 802.1Q Tag" : "Frame thường không tag"}</button>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-4">
-            <Dot1qFrame tagged={tagged} />
-            <div className={`rounded-2xl border p-4 text-sm ${tagged ? "bg-green-500/10 border-green-400/40 text-green-300" : "bg-slate-500/10 border-slate-400/40 text-slate-300"}`}>
-              {tagged ? "Trên trunk, tag cho switch biết frame thuộc VLAN nào." : "Khi frame ra access port đến PC, VLAN tag thường được gỡ ra."}
+function RaidTypeExplorer() {
+    const types = {
+        r0: {
+            icon: <Zap />,
+            title: "RAID 0",
+            min: "2 ổ",
+            usable: "100% tổng dung lượng",
+            fault: "0 ổ",
+            good: "Nhanh, tận dụng toàn bộ dung lượng",
+            bad: "Một ổ hỏng là nguy hiểm toàn mảng",
+            fit: "Scratch disk, dữ liệu tạm, game có thể tải lại",
+            color: "orange",
+        },
+        r1: {
+            icon: <Copy />,
+            title: "RAID 1",
+            min: "2 ổ",
+            usable: "50% nếu 2 ổ bằng nhau",
+            fault: "1 ổ",
+            good: "Dễ hiểu, an toàn hơn ổ đơn",
+            bad: "Mất một nửa dung lượng",
+            fit: "NAS gia đình 2 bay, dữ liệu cá nhân",
+            color: "emerald",
+        },
+        r5: {
+            icon: <Puzzle />,
+            title: "RAID 5",
+            min: "3 ổ",
+            usable: "Tổng dung lượng trừ 1 ổ",
+            fault: "1 ổ",
+            good: "Cân bằng dung lượng và dự phòng",
+            bad: "Ghi chậm hơn, rebuild rủi ro",
+            fit: "NAS 3–6 ổ, lưu trữ chung",
+            color: "cyan",
+        },
+        r10: {
+            icon: <Layers3 />,
+            title: "RAID 10",
+            min: "4 ổ",
+            usable: "50% tổng dung lượng",
+            fault: "Tùy ổ hỏng ở cặp nào",
+            good: "Nhanh, phục hồi tốt hơn RAID 5",
+            bad: "Tốn dung lượng, cần nhiều ổ",
+            fit: "Server nhỏ, database, workstation, NAS hiệu năng",
+            color: "purple",
+        },
+    };
+    const [active, setActive] = useState("r1");
+    const item = types[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="blue"
+                title="Các loại RAID phổ biến"
+                icon={<Layers3 />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(types).map(([key, t]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(t.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(t.icon, { size: 20 })}{" "}
+                                {t.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.75fr_1.25fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-3xl font-black text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className={`${textColor(item.color)} font-semibold`}>
+                            Tối thiểu {item.min}
+                        </p>
+                    </div>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                        <InfoCard
+                            label="Dung lượng dùng được"
+                            value={item.usable}
+                            color={item.color}
+                        />
+                        <InfoCard
+                            label="Chịu hỏng ổ"
+                            value={item.fault}
+                            color={item.color}
+                        />
+                        <InfoCard
+                            label="Phù hợp"
+                            value={item.fit}
+                            color={item.color}
+                        />
+                        <InfoCard
+                            label="Ưu điểm"
+                            value={item.good}
+                            color="emerald"
+                        />
+                        <InfoCard
+                            label="Nhược điểm"
+                            value={item.bad}
+                            color="orange"
+                        />
+                        <InfoCard
+                            label="Số ổ tối thiểu"
+                            value={item.min}
+                            color="blue"
+                        />
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function CompanyDesign() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="10" color="emerald" title="Ví dụ tổng hợp: công ty có 3 phòng ban" icon={<Users />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <CompanyDiagram />
-        <div className="mt-6 bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[720px]">
-              <thead className="bg-slate-900 border-b border-slate-800 text-sm text-slate-400"><tr><th className="p-4">Phòng ban</th><th className="p-4">VLAN</th><th className="p-4">Dải IP</th><th className="p-4">Ý nghĩa</th></tr></thead>
-              <tbody className="text-sm">
-                <tr className="border-b border-slate-800"><td className="p-4 text-cyan-300 font-bold">Kế toán</td><td className="p-4 text-slate-300">10</td><td className="p-4 text-slate-300 font-mono">192.168.10.0/24</td><td className="p-4 text-slate-400">Tách khỏi khách và phòng ban khác</td></tr>
-                <tr className="border-b border-slate-800"><td className="p-4 text-emerald-300 font-bold">Nhân sự</td><td className="p-4 text-slate-300">20</td><td className="p-4 text-slate-300 font-mono">192.168.20.0/24</td><td className="p-4 text-slate-400">Broadcast riêng</td></tr>
-                <tr><td className="p-4 text-orange-300 font-bold">Khách</td><td className="p-4 text-slate-300">30</td><td className="p-4 text-slate-300 font-mono">192.168.30.0/24</td><td className="p-4 text-slate-400">Không tự do truy cập nội bộ</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function NativeVlanSection() {
-  const [mismatch, setMismatch] = useState(false);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="11" color="yellow" title="Native VLAN là gì?" icon={<BadgeCheck />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-start">
-          <div className="space-y-4">
-            <ConceptCard title="Native VLAN" icon={<BadgeCheck />} color="yellow" text="Trên trunk port, frame thuộc native VLAN thường đi qua trunk không gắn 802.1Q tag." code="Native VLAN = 99\nFrame VLAN 99 → untagged" />
-            <button onClick={() => setMismatch(!mismatch)} className={`w-full px-4 py-3 rounded-xl font-bold transition-colors ${mismatch ? "bg-red-500 text-white" : "bg-yellow-500 text-slate-950"}`}>{mismatch ? "Native VLAN mismatch" : "Native VLAN khớp"}</button>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-4">
-            <NativeVlanVisual mismatch={mismatch} />
-            <div className={`rounded-2xl border p-4 text-sm ${mismatch ? "bg-red-500/10 border-red-400/40 text-red-300" : "bg-yellow-500/10 border-yellow-400/40 text-yellow-300"}`}>
-              {mismatch ? "Nếu hai đầu trunk cấu hình native VLAN khác nhau, traffic không tag có thể bị hiểu sai VLAN." : "Thiết kế tốt: không dùng VLAN 1 làm native VLAN, dùng VLAN riêng như 99/999 và không gán người dùng cuối vào native VLAN."}
+function CapacityCalculator() {
+    const [drives, setDrives] = useState(4);
+    const [size, setSize] = useState(4);
+    const [raid, setRaid] = useState("r5");
+    const raw = drives * size;
+    const usable =
+        raid === "r0"
+            ? raw
+            : raid === "r1"
+              ? size
+              : raid === "r5"
+                ? drives >= 3
+                    ? (drives - 1) * size
+                    : 0
+                : raid === "r10"
+                  ? drives >= 4
+                      ? raw / 2
+                      : 0
+                  : raw;
+    const raidLabel = {
+        r0: "RAID 0",
+        r1: "RAID 1",
+        r5: "RAID 5",
+        r10: "RAID 10",
+    }[raid];
+    const valid =
+        (raid === "r0" && drives >= 2) ||
+        (raid === "r1" && drives >= 2) ||
+        (raid === "r5" && drives >= 3) ||
+        (raid === "r10" && drives >= 4 && drives % 2 === 0);
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="Lab: tính nhanh dung lượng RAID"
+                icon={<Database />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-5">
+                        <div>
+                            <label className="block text-sm text-slate-400 mb-2">
+                                Số ổ: {drives}
+                            </label>
+                            <input
+                                type="range"
+                                min="2"
+                                max="8"
+                                value={drives}
+                                onChange={(e) =>
+                                    setDrives(Number(e.target.value))
+                                }
+                                className="w-full"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm text-slate-400 mb-2">
+                                Dung lượng mỗi ổ: {size}TB
+                            </label>
+                            <input
+                                type="range"
+                                min="1"
+                                max="16"
+                                value={size}
+                                onChange={(e) =>
+                                    setSize(Number(e.target.value))
+                                }
+                                className="w-full"
+                            />
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                            {Object.entries({
+                                r0: "RAID 0",
+                                r1: "RAID 1",
+                                r5: "RAID 5",
+                                r10: "RAID 10",
+                            }).map(([key, label]) => (
+                                <button
+                                    key={key}
+                                    onClick={() => setRaid(key)}
+                                    className={`rounded-xl border p-3 font-bold text-sm ${raid === key ? "bg-emerald-500 text-white border-emerald-400" : "bg-slate-900 text-slate-400 border-slate-800"}`}
+                                >
+                                    {label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    <div
+                        className={`${valid ? "bg-emerald-500/5 border-emerald-500/20" : "bg-red-500/5 border-red-500/20"} border rounded-3xl p-6 flex flex-col justify-center`}
+                    >
+                        <h3 className="text-3xl font-black text-white mb-4">
+                            {raidLabel}
+                        </h3>
+                        <div className="grid md:grid-cols-2 gap-3 mb-5">
+                            <InfoCard
+                                label="Dung lượng thô"
+                                value={`${raw}TB`}
+                                color="blue"
+                            />
+                            <InfoCard
+                                label="Dung lượng dùng được"
+                                value={valid ? `~${usable}TB` : "Không hợp lệ"}
+                                color={valid ? "emerald" : "red"}
+                            />
+                        </div>
+                        <p className="text-slate-300 leading-relaxed text-sm">
+                            {!valid
+                                ? "Cấu hình này chưa đủ số ổ hoặc không hợp lệ với loại RAID đã chọn. RAID 10 nên dùng số ổ chẵn và tối thiểu 4 ổ."
+                                : raid === "r0"
+                                  ? "RAID 0 dùng toàn bộ dung lượng nhưng không chịu hỏng ổ."
+                                  : raid === "r1"
+                                    ? "RAID 1 dùng dung lượng theo một ổ vì dữ liệu được mirror."
+                                    : raid === "r5"
+                                      ? "RAID 5 dùng tổng dung lượng trừ một ổ cho parity."
+                                      : "RAID 10 dùng khoảng 50% dung lượng thô để đổi lấy mirror + stripe."}
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function VlanSecuritySection() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="12" color="red" title="VLAN có phải bảo mật tuyệt đối không?" icon={<ShieldAlert />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-2 gap-6">
-          <ConceptCard title="VLAN tách Layer 2" icon={<Split />} color="red" text="VLAN giúp chia broadcast domain, nhưng không thay thế firewall. Nếu có routing giữa VLAN, traffic vẫn có thể đi qua." code="VLAN 10 ↔ Router/L3 Switch ↔ VLAN 20" />
-          <ConceptCard title="Cần policy" icon={<Lock />} color="green" text="Muốn kiểm soát truy cập thật sự, cần ACL, firewall rule, segmentation policy và monitoring." code="Guest VLAN không được truy cập Internal VLAN" />
-        </div>
-      </div>
-    </section>
-  );
+function SpecsExplorer() {
+    const specs = {
+        drives: {
+            icon: <HardDrive />,
+            title: "Số lượng ổ",
+            detail: "RAID 0/1 cần tối thiểu 2 ổ, RAID 5 cần 3 ổ, RAID 10 cần 4 ổ.",
+            impact: "NAS 2 bay thực tế thường chọn RAID 1 nếu dữ liệu quan trọng.",
+        },
+        size: {
+            icon: <Database />,
+            title: "Dung lượng ổ",
+            detail: "RAID truyền thống hoạt động tốt nhất khi các ổ cùng dung lượng.",
+            impact: "Ổ 4TB + 8TB trong RAID 1 thường chỉ dùng theo ổ nhỏ hơn, khoảng 4TB.",
+        },
+        speed: {
+            icon: <Gauge />,
+            title: "Tốc độ đọc/ghi",
+            detail: "RAID 0 đọc/ghi tăng rõ, RAID 1 ghi gần ổ đơn, RAID 5 ghi bị ảnh hưởng do parity, RAID 10 tốt hơn RAID 5 trong nhiều tác vụ ghi.",
+            impact: "Không chọn RAID chỉ vì tốc độ; phải xét rủi ro và backup.",
+        },
+        rebuild: {
+            icon: <RefreshCcw />,
+            title: "Rebuild",
+            detail: "Khi thay ổ hỏng, hệ thống tái tạo dữ liệu lên ổ mới từ dữ liệu/parity còn lại.",
+            impact: "Trong lúc rebuild, mảng chịu tải nặng và rủi ro tăng, đặc biệt với RAID 5 ổ lớn.",
+        },
+        spare: {
+            icon: <ShieldCheck />,
+            title: "Hot Spare",
+            detail: "Ổ dự phòng đã cắm sẵn, tự tham gia rebuild khi ổ trong mảng hỏng.",
+            impact: "Hợp NAS/server cần chạy liên tục.",
+        },
+        type: {
+            icon: <Settings />,
+            title: "Hardware / Software / Fake RAID",
+            detail: "RAID có thể do card chuyên dụng, hệ điều hành/phần mềm hoặc firmware mainboard quản lý.",
+            impact: "Gia đình/văn phòng nhỏ thường dùng NAS hoặc software RAID dễ quản lý hơn card RAID chuyên dụng.",
+        },
+    };
+    const [active, setActive] = useState("rebuild");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng"
+                icon={<Settings />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RebuildSection() {
+    const steps = [
+        "Ổ trong RAID bị hỏng",
+        "Thay ổ mới",
+        "RAID đọc dữ liệu/parity từ các ổ còn lại",
+        "Ghi lại dữ liệu lên ổ mới",
+        "Mảng trở lại trạng thái an toàn hơn",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="orange"
+                title="Rebuild: khi một ổ hỏng thì chuyện gì xảy ra?"
+                icon={<RefreshCcw />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-5 gap-3 mb-6">
+                    {steps.map((step, idx) => (
+                        <div
+                            key={step}
+                            className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300"
+                        >
+                            <span className="text-orange-300 font-black">
+                                {idx + 1}.{" "}
+                            </span>
+                            {step}
+                        </div>
+                    ))}
+                </div>
+                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                    <strong className="text-red-300">Rủi ro:</strong> Trong lúc
+                    rebuild, các ổ còn lại phải hoạt động nặng. Nếu thêm một ổ
+                    nữa hỏng, có thể mất dữ liệu, đặc biệt với RAID 5. Vì vậy
+                    mảng degraded cần thay ổ sớm và phải có backup.
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RaidImplementationGuide() {
+    const rows = [
+        [
+            "Hardware RAID",
+            "Có card RAID chuyên dụng xử lý",
+            "Server, doanh nghiệp",
+            "purple",
+        ],
+        [
+            "Software RAID",
+            "Hệ điều hành/phần mềm quản lý",
+            "NAS, Linux mdadm, ZFS, Windows Storage Spaces",
+            "emerald",
+        ],
+        [
+            "Fake RAID / Firmware RAID",
+            "RAID qua firmware mainboard",
+            "Người dùng phổ thông nhưng cần cẩn thận khi chuyển máy",
+            "orange",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="blue"
+                title="Hardware RAID, Software RAID, Fake RAID"
+                icon={<Server />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[820px] text-sm">
+                    <thead>
+                        <tr className="text-left text-slate-400">
+                            <th className="p-4">Loại</th>
+                            <th className="p-4">Đặc điểm</th>
+                            <th className="p-4">Phù hợp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map(([type, feature, fit, color]) => (
+                            <tr
+                                key={type}
+                                className="border-t border-slate-800"
+                            >
+                                <td
+                                    className={`p-4 font-extrabold ${textColor(color)}`}
+                                >
+                                    {type}
+                                </td>
+                                <td className="p-4 text-slate-300">
+                                    {feature}
+                                </td>
+                                <td className="p-4 text-slate-300">{fit}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Server />,
+            title: "NAS 2 bay chạy RAID 1",
+            subtitle: "Ví dụ Synology DS224+ + 2 x 4TB NAS HDD",
+            color: "emerald",
+            points: [
+                "Dung lượng thô 8TB",
+                "Dùng được khoảng 4TB",
+                "Một ổ hỏng, NAS vẫn còn dữ liệu trên ổ kia",
+                "Phù hợp ảnh gia đình, đồng bộ file, backup laptop/PC",
+                "Vẫn cần backup ra ổ ngoài hoặc cloud",
+            ],
+            lesson: "RAID 1 giúp chịu lỗi ổ đĩa, không bảo vệ khỏi xóa nhầm hoặc ransomware.",
+        },
+        {
+            icon: <Zap />,
+            title: "RAID 0 cho dữ liệu tạm",
+            subtitle: "2 x 1TB SSD RAID 0",
+            color: "orange",
+            points: [
+                "Dung lượng dùng được khoảng 2TB",
+                "Tốc độ đọc/ghi có thể tăng",
+                "Một ổ hỏng là nguy hiểm toàn mảng",
+                "Hợp scratch disk, cache, file render tạm",
+                "Không hợp ảnh/tài liệu quan trọng duy nhất",
+            ],
+            lesson: "RAID 0 chỉ nên dùng cho dữ liệu tạm hoặc dữ liệu có thể tải lại.",
+        },
+        {
+            icon: <Layers3 />,
+            title: "RAID 5 trong hộp 4 bay",
+            subtitle: "4 x 4TB HDD RAID 5",
+            color: "cyan",
+            points: [
+                "Dung lượng thô 16TB",
+                "Dùng được khoảng 12TB",
+                "Chịu hỏng 1 ổ",
+                "Cân bằng dung lượng và dự phòng",
+                "Rebuild ổ lớn có thể lâu và rủi ro",
+            ],
+            lesson: "RAID 5 tốt cho dung lượng, nhưng phải theo dõi sức khỏe ổ và có backup.",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "RAID 10 cho hiệu năng và độ ổn định",
+            subtitle: "4 x 4TB RAID 10",
+            color: "purple",
+            points: [
+                "Dung lượng thô 16TB",
+                "Dùng được khoảng 8TB",
+                "Mirror + stripe",
+                "Ghi tốt hơn RAID 5 trong nhiều workload",
+                "Tốn 50% dung lượng thô",
+            ],
+            lesson: "RAID 10 hợp database nhỏ/vừa, server nội bộ, workstation xử lý file lớn.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-2 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function UseCaseLab() {
+    const scenarios = {
+        family: {
+            icon: <Server />,
+            title: "NAS 2 bay gia đình",
+            answer: "Nếu dữ liệu quan trọng, chọn RAID 1 hoặc SHR tương đương. Sau đó vẫn backup ra ổ ngoài hoặc cloud.",
+            color: "emerald",
+        },
+        temp: {
+            icon: <Zap />,
+            title: "Scratch disk / cache",
+            answer: "RAID 0 có thể dùng nếu dữ liệu tạm, có thể tạo lại hoặc tải lại. Không lưu bản duy nhất của dữ liệu quan trọng.",
+            color: "orange",
+        },
+        fourbay: {
+            icon: <Layers3 />,
+            title: "NAS/hộp 4 bay",
+            answer: "RAID 5 cho dung lượng tốt hơn; RAID 10 cho hiệu năng và rebuild thường dễ chịu hơn nhưng mất 50% dung lượng.",
+            color: "cyan",
+        },
+        database: {
+            icon: <Database />,
+            title: "Database nhỏ/vừa",
+            answer: "RAID 10 thường phù hợp hơn RAID 5 nếu cần ghi tốt và rebuild ổn định hơn.",
+            color: "purple",
+        },
+        backup: {
+            icon: <ShieldCheck />,
+            title: "Dữ liệu cực kỳ quan trọng",
+            answer: "Dùng RAID + backup. RAID giữ hệ thống chạy khi ổ hỏng; backup giúp khôi phục khi xóa nhầm, ransomware, cháy nổ hoặc lỗi phần mềm.",
+            color: "rose",
+        },
+    };
+    const [active, setActive] = useState("family");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="blue"
+                title="Lab: chọn RAID theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function CommonMistakes() {
-  const mistakes = [
-    { title: "Gán nhầm VLAN cho port", desc: "PC kế toán đáng lẽ ở VLAN 10 nhưng port lại gán VLAN 20 → nhận sai IP hoặc không truy cập được tài nguyên.", fix: "Kiểm tra show vlan brief và cấu hình access vlan." },
-    { title: "Trunk không cho VLAN đi qua", desc: "Allowed VLAN chỉ có 10 nhưng cần VLAN 20 → VLAN 20 không liên lạc qua trunk được.", fix: "Kiểm tra show interfaces trunk và allowed vlan." },
-    { title: "Native VLAN mismatch", desc: "Switch A native VLAN 99, Switch B native VLAN 1 → traffic untagged bị hiểu sai VLAN.", fix: "Đồng bộ native VLAN hai đầu trunk." },
-    { title: "Quên Inter-VLAN Routing", desc: "Tạo VLAN 10 và VLAN 20 nhưng không có router/L3 switch → khác VLAN không ping được nhau.", fix: "Cấu hình router-on-a-stick hoặc Layer 3 switch SVI." },
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="13" color="orange" title="Những lỗi cấu hình VLAN thường gặp" icon={<AlertTriangle />} />
-      <div className="grid md:grid-cols-2 gap-4">
-        {mistakes.map((m) => <div key={m.title} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-orange-500/40 transition-colors"><div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-300 flex items-center justify-center mb-4"><AlertTriangle size={24} /></div><h3 className="text-white font-bold text-lg mb-3">{m.title}</h3><p className="text-sm text-slate-400 leading-relaxed mb-4">{m.desc}</p><div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-sm text-green-300"><CheckCircle2 size={16} className="inline mr-1" /> {m.fix}</div></div>)}
-      </div>
-    </section>
-  );
-}
-
-function CliLab() {
-  const [tab, setTab] = useState("create");
-  const commands = {
-    create: { title: "Tạo VLAN", cmd: "Switch> enable\nSwitch# configure terminal\nSwitch(config)# vlan 10\nSwitch(config-vlan)# name KE_TOAN\nSwitch(config-vlan)# exit\nSwitch(config)# vlan 20\nSwitch(config-vlan)# name NHAN_SU", output: "VLAN 10: KE_TOAN\nVLAN 20: NHAN_SU", note: "Tạo VLAN logic trên switch và đặt tên dễ quản lý." },
-    access: { title: "Gán access port", cmd: "Switch(config)# interface fastEthernet 0/1\nSwitch(config-if)# switchport mode access\nSwitch(config-if)# switchport access vlan 10\n\nSwitch(config)# interface fastEthernet 0/2\nSwitch(config-if)# switchport mode access\nSwitch(config-if)# switchport access vlan 20", output: "Fa0/1 → VLAN 10\nFa0/2 → VLAN 20", note: "Access port thuộc một VLAN duy nhất, thường dùng cho PC/máy in/camera." },
-    trunk: { title: "Cấu hình trunk", cmd: "Switch(config)# interface gigabitEthernet 0/1\nSwitch(config-if)# switchport mode trunk\nSwitch(config-if)# switchport trunk allowed vlan 10,20,30", output: "Gi0/1 trunking\nAllowed VLANs: 10,20,30", note: "Trunk mang nhiều VLAN giữa switch-switch, switch-router hoặc switch-firewall." },
-    verify: { title: "Kiểm tra VLAN/trunk/MAC table", cmd: "Switch# show vlan brief\nSwitch# show interfaces trunk\nSwitch# show mac address-table", output: "VLAN Name      Ports\n10   KE_TOAN   Fa0/1\n20   NHAN_SU   Fa0/2\n\nVlan Mac Address       Ports\n10   aaaa.aaaa.aaaa    Fa0/1\n20   bbbb.bbbb.bbbb    Fa0/2", note: "Các lệnh kiểm tra giúp phát hiện gán sai VLAN, trunk thiếu VLAN hoặc MAC table chưa học." },
-  };
-  const current = commands[tab];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="14" color="blue" title="CLI Cisco cơ bản" icon={<Terminal />} />
-      <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-6">
-        <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-          <div className="bg-slate-950 border-b border-slate-800 px-5 py-3 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500" /><span className="w-3 h-3 rounded-full bg-yellow-500" /><span className="w-3 h-3 rounded-full bg-green-500" />
-            <span className="ml-3 text-xs text-slate-500 font-mono">switch vlan lab</span>
-          </div>
-          <div className="p-6">
-            <div className="flex flex-wrap gap-2 mb-5">
-              {Object.entries(commands).map(([key]) => <button key={key} onClick={() => setTab(key)} className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${tab === key ? "bg-blue-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200"}`}>{key}</button>)}
+    const mistakes = [
+        {
+            wrong: "RAID là backup",
+            right: "RAID không phải backup. RAID không bảo vệ khỏi xóa nhầm, ransomware, cháy nổ, mất trộm, lỗi phần mềm hoặc file bị ghi đè.",
+        },
+        {
+            wrong: "RAID 0 vừa nhanh vừa an toàn",
+            right: "RAID 0 nhanh nhưng không có dự phòng. Một ổ hỏng là toàn bộ mảng có nguy cơ mất dữ liệu.",
+        },
+        {
+            wrong: "RAID 1 có 2 ổ nên dung lượng gấp đôi",
+            right: "RAID 1 là mirror. 2 x 4TB RAID 1 dùng được khoảng 4TB, không phải 8TB.",
+        },
+        {
+            wrong: "RAID 5 hỏng 1 ổ thì cứ để đó dùng tiếp lâu dài",
+            right: "Khi RAID 5 degraded, cần thay ổ càng sớm càng tốt và rebuild. Nếu thêm ổ khác hỏng trước khi rebuild xong, dữ liệu có thể mất.",
+        },
+        {
+            wrong: "Dùng ổ khác dung lượng trong RAID không sao",
+            right: "Trong RAID truyền thống, dung lượng thường bị giới hạn theo ổ nhỏ nhất; phần dư có thể lãng phí.",
+        },
+    ];
+    const tips = [
+        "Dữ liệu quan trọng: RAID + backup, không chọn một trong hai.",
+        "NAS 2 bay gia đình nên ưu tiên RAID 1 hoặc SHR tương đương nếu dữ liệu quan trọng.",
+        "RAID 0 chỉ dùng cho dữ liệu tạm hoặc dữ liệu có thể tải lại.",
+        "RAID 5 hợp 3–6 ổ nhưng cần theo dõi sức khỏe ổ và không để degraded quá lâu.",
+        "RAID 10 tốt nếu cần hiệu năng và độ ổn định hơn RAID 5, đổi lại mất 50% dung lượng.",
+        "Luôn bật cảnh báo lỗi ổ, SMART test định kỳ và cảnh báo nhiệt độ trong NAS/RAID software.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Mẹo chọn RAID
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
-            <div className="font-mono text-sm bg-slate-950 border border-slate-800 rounded-2xl p-5 overflow-x-auto min-h-[340px] whitespace-pre-wrap">
-              <p className="text-slate-500 mb-3"># {current.title}</p>
-              <p className="text-green-300">{current.cmd}</p>
-              <div className="mt-5 text-cyan-300">{current.output}</div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-blue-500/5 border border-blue-500/20 rounded-3xl p-6">
-          <h3 className="text-xl font-bold text-blue-300 mb-5 flex items-center gap-2"><Search size={22} /> Cách đọc</h3>
-          <p className="text-slate-300 leading-relaxed">{current.note}</p>
-          <div className="mt-6 grid gap-3 text-sm">
-            <ExplainRow term="show vlan brief" desc="Xem VLAN và các port access thuộc VLAN." />
-            <ExplainRow term="show interfaces trunk" desc="Xem trunk port, native VLAN và allowed VLAN." />
-            <ExplainRow term="show mac address-table" desc="Xem switch đã học MAC nào ở port/VLAN nào." />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Part4WrapUp() {
-  const lessons = [
-    ["4.1", "Framing", "Frame là đơn vị dữ liệu Layer 2."],
-    ["4.2", "Error Control", "FCS/CRC kiểm tra frame có lỗi không."],
-    ["4.3", "Flow Control", "Điều chỉnh tốc độ gửi frame."],
-    ["4.4", "HDLC/PPP", "Các giao thức Data Link cụ thể."],
-    ["4.5", "MAC & ARP", "MAC định danh trong LAN, ARP tìm MAC từ IPv4."],
-    ["4.6", "Ethernet", "LAN có dây dùng frame, MAC, 802.3."],
-    ["4.7", "Switch & VLAN", "Switch chuyển frame; VLAN chia LAN logic."],
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="15" color="purple" title="Tổng kết Phần 4 — Data Link Layer" icon={<Layers />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid md:grid-cols-7 gap-3 mb-6">
-          {lessons.map(([n, title, text]) => <div key={n} className="bg-slate-950 border border-slate-800 rounded-2xl p-4"><p className="text-purple-300 font-black mb-2">Bài {n}</p><p className="text-white font-bold text-sm">{title}</p><p className="text-xs text-slate-500 mt-2 leading-relaxed">{text}</p></div>)}
-        </div>
-        <div className="bg-purple-500/10 border border-purple-500/20 rounded-2xl p-5 text-slate-300 leading-relaxed">
-          <strong className="text-purple-300">Một câu tổng kết:</strong> Data Link Layer biến packet thành frame, dùng MAC để giao tiếp trong LAN, kiểm soát lỗi/luồng và dùng switch/VLAN để tổ chức mạng LAN hiệu quả.
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 function SummaryAndQuiz() {
-  return (
-    <section className="space-y-6">
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-        <div className="bg-slate-950 p-6 border-b border-slate-800">
-          <h3 className="text-xl font-bold text-white flex items-center gap-3"><span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">16</span>Tóm tắt & Kiểm tra cuối bài</h3>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
-          <div>
-            <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">Ghi nhớ nhanh</h4>
-            <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-green-400 border border-slate-800 shadow-inner space-y-2">
-              <p>Switch = thiết bị Layer 2 chuyển Ethernet frame.</p>
-              <p>Switch học MAC nguồn để xây MAC address table.</p>
-              <p>Switch chuyển frame dựa trên MAC đích.</p>
-              <p>Không biết MAC đích → flood trong cùng VLAN.</p>
-              <br />
-              <p className="text-slate-500"># VLAN</p>
-              <p>VLAN = mạng LAN ảo.</p>
-              <p>Mỗi VLAN = một broadcast domain riêng.</p>
-              <p>Access port = một VLAN.</p>
-              <p>Trunk port = nhiều VLAN.</p>
-              <p>802.1Q tag = đánh dấu VLAN ID trên trunk.</p>
-              <p>Khác VLAN muốn giao tiếp → Inter-VLAN Routing.</p>
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-rose-500/20 text-rose-300 p-2 rounded-xl">
+                            13
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-rose-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>RAID = Redundant Array of Independent Disks</p>
+                            <p className="text-slate-300">
+                                = nhiều ổ phối hợp thành một hệ thống lưu trữ
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Các loại chính</p>
+                            <p className="text-slate-300">
+                                RAID 0 = stripe, nhanh, không dự phòng
+                            </p>
+                            <p className="text-slate-300">
+                                RAID 1 = mirror, 2 ổ dùng được khoảng 1 ổ
+                            </p>
+                            <p className="text-slate-300">
+                                RAID 5 = stripe + parity, tối thiểu 3 ổ, chịu
+                                hỏng 1 ổ
+                            </p>
+                            <p className="text-slate-300">
+                                RAID 10 = RAID 1 + RAID 0, tối thiểu 4 ổ, dùng
+                                khoảng 50%
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                RAID không phải backup.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
             </div>
-          </div>
-          <InteractiveQuiz />
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 const questions = [
-  { question: "Switch thường hoạt động chủ yếu ở tầng nào?", options: ["Layer 1 — Physical", "Layer 2 — Data Link", "Layer 3 — Network", "Layer 7 — Application"], correct: 1, explanation: "Switch Ethernet thông thường hoạt động chủ yếu ở Layer 2 và chuyển frame dựa trên MAC address." },
-  { question: "Switch dùng bảng nào để biết MAC address nằm ở cổng nào?", options: ["Routing table", "ARP cache", "MAC address table", "DNS table"], correct: 2, explanation: "MAC address table là bảng switch dùng để ghi nhớ MAC nào nằm ở port nào và VLAN nào." },
-  { question: "Nếu switch chưa biết MAC đích, nó thường làm gì?", options: ["Flood frame trong cùng VLAN, trừ cổng nhận", "Xóa frame ngay lập tức", "Gửi frame ra Internet", "Đổi MAC đích thành broadcast IP"], correct: 0, explanation: "Unknown unicast thường được flood trong cùng VLAN, nhưng không gửi ngược lại cổng nhận frame." },
-  { question: "Access port là gì?", options: ["Cổng thuộc một VLAN duy nhất", "Cổng luôn mang tất cả VLAN", "Cổng chỉ dùng để cấp nguồn", "Cổng chỉ dành cho router Internet"], correct: 0, explanation: "Access port là cổng dành cho thiết bị đầu cuối và thường thuộc một VLAN duy nhất." },
-  { question: "VLAN 10 và VLAN 20 muốn giao tiếp với nhau thì cần gì?", options: ["Chỉ cần switch Layer 2", "Inter-VLAN Routing qua router hoặc Layer 3 switch", "Chỉ cần ARP broadcast", "Chỉ cần đổi dây mạng"], correct: 1, explanation: "Khác VLAN là khác broadcast domain; muốn giao tiếp cần Layer 3 routing giữa VLAN." },
+    {
+        question: "RAID 0 có đặc điểm chính là gì?",
+        options: [
+            "Sao chép dữ liệu để an toàn hơn",
+            "Chia dữ liệu qua nhiều ổ để tăng tốc, nhưng không có dự phòng",
+            "Chỉ dùng được với một ổ",
+            "Luôn an toàn hơn RAID 1",
+        ],
+        correct: 1,
+        explanation:
+            "RAID 0 dùng striping để tăng tốc và tận dụng dung lượng, nhưng không có dự phòng.",
+    },
+    {
+        question:
+            "RAID 1 với 2 ổ 4TB cho dung lượng dùng được khoảng bao nhiêu?",
+        options: ["2TB", "4TB", "8TB", "16TB"],
+        correct: 1,
+        explanation: "RAID 1 mirror dữ liệu. 2 x 4TB dùng được khoảng 4TB.",
+    },
+    {
+        question: "RAID 5 cần tối thiểu bao nhiêu ổ?",
+        options: ["1 ổ", "2 ổ", "3 ổ", "10 ổ"],
+        correct: 2,
+        explanation: "RAID 5 cần tối thiểu 3 ổ để phân bố dữ liệu và parity.",
+    },
+    {
+        question: "Nhận định nào đúng nhất?",
+        options: [
+            "RAID thay thế hoàn toàn backup",
+            "RAID chỉ dùng cho màn hình",
+            "RAID giúp chịu lỗi ổ đĩa trong một số cấu hình, nhưng vẫn cần backup",
+            "RAID 0 an toàn nhất",
+        ],
+        correct: 2,
+        explanation:
+            "RAID giúp chịu lỗi phần cứng trong một số cấu hình, nhưng không bảo vệ khỏi xóa nhầm, ransomware, cháy nổ hoặc lỗi phần mềm.",
+    },
+    {
+        question: "Hot Spare là gì?",
+        options: [
+            "Ổ dự phòng đã cắm sẵn để tự tham gia rebuild khi cần",
+            "Cáp màn hình",
+            "Tốc độ mạng Wi-Fi",
+            "Dung lượng RAM",
+        ],
+        correct: 0,
+        explanation:
+            "Hot Spare là ổ dự phòng đã cắm sẵn, có thể tự tham gia rebuild khi ổ trong mảng hỏng.",
+    },
 ];
 
 function InteractiveQuiz() {
-  const [currentQ, setCurrentQ] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const finished = currentQ === "finished";
-  const q = !finished ? questions[currentQ] : null;
-  const handleSelect = (index) => {
-    if (showResult) return;
-    setSelected(index);
-    setShowResult(true);
-    if (index === q.correct) setScore((s) => s + 1);
-  };
-  const handleNext = () => {
-    if (currentQ < questions.length - 1) {
-      setCurrentQ((c) => c + 1);
-      setSelected(null);
-      setShowResult(false);
-    } else setCurrentQ("finished");
-  };
-  const resetQuiz = () => {
-    setCurrentQ(0);
-    setSelected(null);
-    setShowResult(false);
-    setScore(0);
-  };
-  if (finished) return <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[380px]"><div className="text-6xl mb-4">{score === questions.length ? "🏆" : "👏"}</div><h4 className="text-2xl font-bold text-white mb-2">Hoàn thành Phần 4!</h4><p className="text-slate-400 mb-6">Bạn trả lời đúng <strong className="text-cyan-400">{score}/{questions.length}</strong> câu hỏi.</p><button onClick={resetQuiz} className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700">Làm lại</button></div>;
-  return (
-    <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[380px]">
-      <div className="flex justify-between items-center mb-4 text-sm font-medium"><span className="text-cyan-400">Câu hỏi {currentQ + 1}/{questions.length}</span><span className="text-slate-500">Điểm: {score}</span></div>
-      <h4 className="text-lg font-bold text-white mb-6 leading-snug">{q.question}</h4>
-      <div className="space-y-3 flex-grow">
-        {q.options.map((opt, idx) => {
-          let btnClass = "w-full text-left p-4 rounded-xl border text-sm transition-all ";
-          if (!showResult) btnClass += "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
-          else if (idx === q.correct) btnClass += "border-green-500 bg-green-500/10 text-green-400";
-          else if (idx === selected) btnClass += "border-red-500 bg-red-500/10 text-red-400";
-          else btnClass += "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
-          return <button key={idx} onClick={() => handleSelect(idx)} disabled={showResult} className={btnClass}>{opt}</button>;
-        })}
-      </div>
-      {showResult && <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2"><div className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}><strong>Giải thích:</strong> {q.explanation}</div><button onClick={handleNext} className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-colors">{currentQ < questions.length - 1 ? "Câu tiếp theo" : "Xem kết quả"}</button></div>}
-    </div>
-  );
+    const [currentQ, setCurrentQ] = useState(0);
+    const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
+    const [score, setScore] = useState(0);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
+    };
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
+            setSelected(null);
+            setShowResult(false);
+        } else setCurrentQ("finished");
+    };
+    const resetQuiz = () => {
+        setCurrentQ(0);
+        setSelected(null);
+        setShowResult(false);
+        setScore(0);
+    };
+    if (finished) {
+        return (
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
+                <div className="text-6xl mb-4">
+                    {score === questions.length ? "🏆" : "👏"}
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">
+                    Hoàn thành!
+                </h4>
+                <p className="text-slate-400 mb-6">
+                    Bạn trả lời đúng{" "}
+                    <strong className="text-rose-400">
+                        {score}/{questions.length}
+                    </strong>{" "}
+                    câu hỏi.
+                </p>
+                <button
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
+                >
+                    Làm lại
+                </button>
+            </div>
+        );
+    }
+    return (
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-rose-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
+                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
+            </div>
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
+                {q.question}
+            </h4>
+            <div className="space-y-3 flex-grow">
+                {q.options.map((opt, idx) => {
+                    let cls =
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
+                        cls +=
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
+                    else if (idx === q.correct)
+                        cls +=
+                            "border-green-500 bg-green-500/10 text-green-400";
+                    else if (idx === selected)
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
+                    else
+                        cls +=
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
+                    return (
+                        <button
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
+                            className={cls}
+                        >
+                            {opt}
+                        </button>
+                    );
+                })}
+            </div>
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
+                    <div
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
+                    >
+                        <strong>Giải thích:</strong> {q.explanation}
+                    </div>
+                    <button
+                        onClick={handleNext}
+                        className="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl transition-colors"
+                    >
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
+                    </button>
+                </div>
+            )}
+        </div>
+    );
 }
 
 function NextLesson() {
-  return (
-    <div className="text-center pt-8 border-t border-slate-800">
-      <p className="text-slate-400 mb-4">Bạn đã hoàn thành Phần 4. Bài tiếp theo chuyển lên Network Layer, nơi dữ liệu đi qua nhiều mạng bằng địa chỉ IP.</p>
-      <Link to="/phan-5-1" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20">
-        Bài tiếp theo: 5.1 — Địa chỉ IPv4: Cấu trúc & phân lớp <ChevronRight size={20} />
-      </Link>
-    </div>
-  );
-}
-
-function StepSection({ number, color, title, icon, steps, step, setStep }) {
-  const current = steps[step];
-  const c = colorClasses[current.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number={number} color={color} title={title} icon={icon} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6 min-h-[350px] flex flex-col justify-between`}>
-            <div>
-              <div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(current.icon, { size: 32 })}</div>
-              <p className={`${c.text} text-sm font-black uppercase tracking-wider mb-2`}>Bước {step + 1}/{steps.length}</p>
-              <h3 className="text-2xl font-bold text-white mb-3">{current.title}</h3>
-              <p className="text-slate-300 leading-relaxed mb-4">{current.text}</p>
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{current.code}</div>
-            </div>
-            <div className="mt-6 flex gap-3">
-              <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="px-4 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition-colors">Quay lại</button>
-              <button onClick={() => setStep((s) => (s + 1) % steps.length)} className="px-5 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold transition-colors inline-flex items-center gap-2">{step === steps.length - 1 ? "Xem lại" : "Bước tiếp"}<ChevronRight size={18} /></button>
-            </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5"><StepFlow steps={steps} active={step} setActive={setStep} color={current.color} /></div>
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu RAID 0, RAID 1, RAID 5 và RAID 10. Tiếp theo là lưu
+                trữ đám mây và NAS — nơi RAID được ứng dụng rất nhiều trong gia
+                đình/văn phòng nhỏ, còn cloud giúp đồng bộ và backup khi thiết
+                bị vật lý gặp sự cố.
+            </p>
+            <Link
+                to="/phan-4-8"
+                className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-rose-500/20"
+            >
+                Bài tiếp theo: 4.8 — Lưu trữ đám mây và NAS{" "}
+                <ChevronRight size={20} />
+            </Link>
         </div>
-      </div>
-    </section>
-  );
+    );
 }
 
-function SectionTitle({ number, title, icon, color = "cyan" }) {
-  const map = { cyan: "bg-cyan-500/20 text-cyan-300", blue: "bg-blue-500/20 text-blue-300", purple: "bg-purple-500/20 text-purple-300", emerald: "bg-emerald-500/20 text-emerald-300", orange: "bg-orange-500/20 text-orange-300", green: "bg-green-500/20 text-green-300", yellow: "bg-yellow-500/20 text-yellow-300", red: "bg-red-500/20 text-red-300" };
-  return <h3 className="text-2xl font-bold text-white flex items-center gap-3"><span className={`${map[color]} p-2 rounded-xl flex items-center gap-2`}><span className="font-black">{number}</span>{React.cloneElement(icon, { size: 20 })}</span>{title}</h3>;
+function SectionTitle({ number, title, icon, color = "rose" }) {
+    const colorMap = {
+        rose: "bg-rose-500/20 text-rose-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
 }
-
-function HeroPreview() { return <div className="space-y-4"><div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-green-300 whitespace-pre-wrap">Source MAC → học vào MAC table\nDestination MAC → tra cổng để forward\nKhông biết đích → flood trong VLAN</div><div className="grid grid-cols-3 gap-3"><MiniCard title="Learn" value="MAC nguồn" color="cyan" icon={<Database />} /><MiniCard title="Forward" value="MAC đích" color="green" icon={<ArrowRight />} /><MiniCard title="Flood" value="Unknown" color="orange" icon={<Broadcast />} /></div><div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-emerald-300 font-mono text-sm">VLAN 10 ≠ VLAN 20</div></div>; }
-function MiniCard({ title, value, color, icon }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-2xl p-3 text-center`}><div className={`${c.text} flex justify-center mb-1`}>{React.cloneElement(icon, { size: 18 })}</div><p className={`${c.text} font-black text-sm`}>{title}</p><p className="text-[10px] text-slate-500 mt-1">{value}</p></div>; }
-function SwitchLanDiagram() { return <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center"><Node label="PC1" sub="Fa0/1" color="cyan" icon={<Server />} /><ArrowRight className="text-slate-500" /><Node label="Switch" sub="Layer 2" color="purple" icon={<Network />} /><ArrowRight className="text-slate-500" /><Node label="PC3" sub="Fa0/3" color="emerald" icon={<Server />} /></div>; }
-function Node({ label, sub, color, icon }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-2xl p-4 text-center`}><div className={`${c.text} flex justify-center mb-2`}>{React.cloneElement(icon, { size: 24 })}</div><p className="text-white font-bold text-sm">{label}</p><p className="text-xs text-slate-500 mt-1">{sub}</p></div>; }
-function ConceptCard({ title, icon, color, text, code }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}><div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(icon, { size: 28 })}</div><h3 className="text-xl font-bold text-white mb-3">{title}</h3><p className="text-sm text-slate-300 leading-relaxed mb-5">{text}</p><div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{code}</div></div>; }
-function SwitchForwardVisual() { return <div className="space-y-4"><div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center"><Node label="PC1" sub="send" color="cyan" icon={<Server />} /><ArrowRight className="text-cyan-300" /><Node label="Switch" sub="MAC lookup" color="purple" icon={<Network />} /><ArrowRight className="text-green-300" /><Node label="PC3" sub="receive" color="emerald" icon={<Server />} /></div><div className="font-mono text-sm bg-green-500/10 border border-green-400/40 rounded-2xl p-4 text-green-300">Destination MAC = PC3\n→ Forward đúng cổng PC3</div></div>; }
-function HubFloodVisual() { return <div className="space-y-4"><div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center"><Node label="PC1" sub="send" color="cyan" icon={<Server />} /><ArrowRight className="text-orange-300" /><Node label="Hub" sub="repeat" color="orange" icon={<RadioTower />} /><ArrowRight className="text-orange-300" /><Node label="All PCs" sub="hear" color="red" icon={<Users />} /></div><div className="font-mono text-sm bg-orange-500/10 border border-orange-400/40 rounded-2xl p-4 text-orange-300">Hub nhận từ PC1\n→ phát ra tất cả cổng còn lại</div></div>; }
-function MacAddressTable({ learned }) { const rows = learned ? [["AA:AA:AA:AA:AA:AA", "Fa0/1", "10"], ["BB:BB:BB:BB:BB:BB", "Fa0/2", "10"], ["CC:CC:CC:CC:CC:CC", "Fa0/3", "20"]] : [["AA:AA:AA:AA:AA:AA", "Fa0/1", "10"]]; return <div className="overflow-x-auto"><table className="w-full text-left min-w-[520px]"><thead><tr className="text-sm text-slate-500 border-b border-slate-800"><th className="p-3">MAC Address</th><th className="p-3">Port</th><th className="p-3">VLAN</th></tr></thead><tbody>{rows.map(([mac, port, vlan]) => <tr key={mac} className="border-b border-slate-800 last:border-0"><td className="p-3 text-green-300 font-mono">{mac}</td><td className="p-3 text-slate-300 font-mono">{port}</td><td className="p-3 text-cyan-300 font-mono">{vlan}</td></tr>)}</tbody></table></div>; }
-function InfoBox({ title, value, icon, color }) { const c = colorClasses[color]; return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-4 items-start"><div className={`${c.bg} ${c.text} w-10 h-10 rounded-xl flex items-center justify-center shrink-0`}>{React.cloneElement(icon, { size: 20 })}</div><div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{title}</p><p className="text-sm text-slate-300 mt-1 leading-relaxed whitespace-pre-wrap">{value}</p></div></div>; }
-function StepFlow({ steps, active, setActive, color }) { const c = colorClasses[color]; return <div className="space-y-3">{steps.map((s, index) => <button key={s.title} onClick={() => setActive(index)} className={`w-full flex items-start gap-3 p-3 rounded-2xl border text-left transition-all ${active === index ? `${c.bg} ${c.border}` : index < active ? "bg-green-500/5 border-green-500/20" : "bg-slate-900 border-slate-800 hover:border-slate-700"}`}><div className={`${active === index ? `${c.solid} text-white` : index < active ? "bg-green-500/20 text-green-400" : "bg-slate-950 text-slate-500"} w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold`}>{index < active ? <CheckCircle2 size={16} /> : index + 1}</div><div><p className="text-sm text-white font-bold">{s.title}</p><p className="text-xs text-slate-500 mt-1 whitespace-pre-wrap">{s.code}</p></div></button>)}</div>; }
-function VlanBroadcastVisual({ vlanMode }) { const pcs = vlanMode ? [["PC1", "VLAN 10", "cyan", true], ["PC2", "VLAN 10", "cyan", true], ["PC3", "VLAN 20", "emerald", false], ["PC4", "VLAN 20", "emerald", false]] : [["PC1", "LAN", "orange", true], ["PC2", "LAN", "orange", true], ["PC3", "LAN", "orange", true], ["PC4", "LAN", "orange", true]]; return <div className="space-y-4"><div className="grid grid-cols-2 md:grid-cols-4 gap-3">{pcs.map(([name, vlan, color, hit]) => <div key={name} className={`${colorClasses[color].bg} ${hit ? colorClasses[color].border : "border-slate-800"} border rounded-2xl p-4 text-center opacity-${hit ? "100" : "45"}`}><Server className={`${colorClasses[color].text} mx-auto mb-2`} /><p className="text-white font-bold">{name}</p><p className="text-xs text-slate-500">{vlan}</p><p className={`text-xs mt-2 ${hit ? colorClasses[color].text : "text-slate-600"}`}>{hit ? "Nhận broadcast" : "Không nhận"}</p></div>)}</div><div className="font-mono text-sm bg-slate-900 border border-slate-800 rounded-2xl p-4 text-green-300">PC1 gửi ARP Broadcast\n{vlanMode ? "→ chỉ VLAN 10 nhận" : "→ toàn bộ LAN nhận"}</div></div>; }
-function AccessVisual() { return <div className="space-y-4"><div className="grid grid-cols-[1fr_auto_1fr] gap-3 items-center"><Node label="PC Kế toán" sub="untagged" color="cyan" icon={<Server />} /><ArrowRight className="text-cyan-300" /><Node label="Fa0/1" sub="Access VLAN 10" color="cyan" icon={<DoorOpen />} /></div><div className="font-mono text-sm bg-cyan-500/10 border border-cyan-400/40 rounded-2xl p-4 text-cyan-300">switchport mode access\nswitchport access vlan 10</div></div>; }
-function TrunkVisual() { return <div className="space-y-4"><div className="grid grid-cols-[1fr_auto_1fr] gap-3 items-center"><Node label="Switch A" sub="VLAN 10/20/30" color="purple" icon={<Network />} /><ArrowRight className="text-purple-300" /><Node label="Switch B" sub="trunk" color="purple" icon={<Network />} /></div><div className="font-mono text-sm bg-purple-500/10 border border-purple-400/40 rounded-2xl p-4 text-purple-300">switchport mode trunk\nswitchport trunk allowed vlan 10,20,30</div></div>; }
-function Dot1qFrame({ tagged }) { return <div className="overflow-x-auto"><div className={`min-w-[760px] grid gap-2 font-mono text-xs`} style={{ gridTemplateColumns: tagged ? "1.1fr 1.1fr 1fr 0.9fr 1.1fr 0.6fr" : "1.1fr 1.1fr 0.9fr 1.1fr 0.6fr" }}>{tagged ? ["MAC Đích", "MAC Nguồn", "802.1Q Tag\nVLAN 20", "Type", "Data", "FCS"].map((x, i) => <div key={i} className={`${i === 2 ? "bg-green-500/10 border-green-400/40 text-green-300" : "bg-slate-900 border-slate-800 text-slate-300"} border rounded-2xl p-4 text-center whitespace-pre-wrap`}>{x}</div>) : ["MAC Đích", "MAC Nguồn", "Type", "Data", "FCS"].map((x, i) => <div key={i} className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center text-slate-300">{x}</div>)}</div></div>; }
-function CompanyDiagram() { return <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 overflow-x-auto"><div className="min-w-[760px] grid grid-cols-[1fr_auto_1.2fr_auto_1fr] gap-4 items-center"><Node label="Router / L3 Switch" sub="Inter-VLAN Routing" color="orange" icon={<Router />} /><ArrowRight className="text-purple-300" /><Node label="Switch" sub="Trunk uplink" color="purple" icon={<Network />} /><ArrowRight className="text-slate-500" /><div className="space-y-2"><MiniPort label="Fa0/1" vlan="VLAN 10 Kế toán" color="cyan" /><MiniPort label="Fa0/2" vlan="VLAN 10 Máy in" color="cyan" /><MiniPort label="Fa0/3" vlan="VLAN 20 Nhân sự" color="emerald" /><MiniPort label="Fa0/4" vlan="VLAN 30 WiFi Khách" color="orange" /></div></div></div>; }
-function MiniPort({ label, vlan, color }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-xl px-3 py-2 text-sm`}><span className={`${c.text} font-mono font-bold`}>{label}</span><span className="text-slate-400 ml-2">{vlan}</span></div>; }
-function NativeVlanVisual({ mismatch }) { return <div className="space-y-4"><div className="grid grid-cols-[1fr_auto_1fr] gap-3 items-center"><Node label="Switch A" sub={mismatch ? "Native 99" : "Native 99"} color={mismatch ? "red" : "yellow"} icon={<Network />} /><ArrowRight className={mismatch ? "text-red-300" : "text-yellow-300"} /><Node label="Switch B" sub={mismatch ? "Native 1" : "Native 99"} color={mismatch ? "red" : "yellow"} icon={<Network />} /></div><div className={`font-mono text-sm rounded-2xl p-4 border ${mismatch ? "bg-red-500/10 border-red-400/40 text-red-300" : "bg-yellow-500/10 border-yellow-400/40 text-yellow-300"}`}>{mismatch ? "Native VLAN mismatch\nTraffic untagged có thể bị hiểu sai VLAN" : "Native VLAN khớp\nFrame native đi trunk không tag"}</div></div>; }
-function ExplainRow({ term, desc }) { return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4"><p className="font-mono text-blue-300 text-sm font-bold">{term}</p><p className="text-slate-400 text-sm mt-1">{desc}</p></div>; }
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-emerald-500/10 border-emerald-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        rose: "bg-rose-500/10 text-rose-300 border border-rose-500/20",
+        slate: "bg-slate-700/40 text-slate-300 border border-slate-600/30",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.rose;
+}
+function softBorder(color) {
+    const map = {
+        rose: "bg-rose-500/5 border-rose-500/20",
+        slate: "bg-slate-900 border-slate-800",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.rose;
+}
+function textColor(color) {
+    const map = {
+        rose: "text-rose-300",
+        slate: "text-slate-300",
+        cyan: "text-cyan-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        blue: "text-blue-300",
+        emerald: "text-emerald-300",
+        yellow: "text-yellow-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-rose-300";
+}

@@ -1,634 +1,1417 @@
 import React, { useState } from "react";
 import {
-  AlertTriangle,
-  ArrowDown,
-  ArrowRight,
-  Award,
-  Binary,
-  Boxes,
-  Cable,
-  CheckCircle2,
-  ChevronRight,
-  CircleHelp,
-  Code2,
-  Cpu,
-  Database,
-  EthernetPort,
-  Eye,
-  FileText,
-  Flag,
-  Gauge,
-  Globe2,
-  Handshake,
-  KeyRound,
-  Layers,
-  Link2,
-  LockKeyhole,
-  Network,
-  Package,
-  PackageCheck,
-  PackageOpen,
-  RadioTower,
-  Router,
-  Search,
-  Server,
-  Settings,
-  ShieldCheck,
-  Shuffle,
-  TableProperties,
-  Terminal,
-  UserCheck,
-  Waypoints,
-  XCircle,
-  Zap,
+    AlertTriangle,
+    Award,
+    BookOpen,
+    Brain,
+    CheckCircle2,
+    ChevronRight,
+    Cpu,
+    Database,
+    Gauge,
+    Gamepad2,
+    HardDrive,
+    Laptop,
+    Layers3,
+    Lightbulb,
+    MemoryStick,
+    Monitor,
+    PackageCheck,
+    Puzzle,
+    Search,
+    Settings,
+    ShieldCheck,
+    Timer,
+    Usb,
+    Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const colorClasses = {
-  cyan: { text: "text-cyan-300", bg: "bg-cyan-500/10", border: "border-cyan-400/40", solid: "bg-cyan-500", ring: "shadow-cyan-500/20" },
-  blue: { text: "text-blue-300", bg: "bg-blue-500/10", border: "border-blue-400/40", solid: "bg-blue-500", ring: "shadow-blue-500/20" },
-  purple: { text: "text-purple-300", bg: "bg-purple-500/10", border: "border-purple-400/40", solid: "bg-purple-500", ring: "shadow-purple-500/20" },
-  emerald: { text: "text-emerald-300", bg: "bg-emerald-500/10", border: "border-emerald-400/40", solid: "bg-emerald-500", ring: "shadow-emerald-500/20" },
-  orange: { text: "text-orange-300", bg: "bg-orange-500/10", border: "border-orange-400/40", solid: "bg-orange-500", ring: "shadow-orange-500/20" },
-  yellow: { text: "text-yellow-300", bg: "bg-yellow-500/10", border: "border-yellow-400/40", solid: "bg-yellow-500", ring: "shadow-yellow-500/20" },
-  green: { text: "text-green-300", bg: "bg-green-500/10", border: "border-green-400/40", solid: "bg-green-500", ring: "shadow-green-500/20" },
-  red: { text: "text-red-300", bg: "bg-red-500/10", border: "border-red-400/40", solid: "bg-red-500", ring: "shadow-red-500/20" },
-  slate: { text: "text-slate-300", bg: "bg-slate-500/10", border: "border-slate-400/40", solid: "bg-slate-600", ring: "shadow-slate-500/20" },
-};
-
-const protocols = [
-  {
-    id: "hdlc",
-    name: "HDLC",
-    full: "High-Level Data Link Control",
-    vi: "Điều khiển liên kết dữ liệu mức cao",
-    idea: "Giao thức Data Link dùng để truyền frame qua liên kết điểm-điểm hoặc đa điểm, đặc biệt thường gặp trong serial/WAN router-router.",
-    uses: ["Serial WAN", "Router-router", "Point-to-point hoặc multipoint", "Hệ thống truyền dẫn cổ điển"],
-    pros: ["Gọn", "Có framing", "Có FCS", "Có frame điều khiển như I/S/U frame"],
-    cons: ["Kém linh hoạt hơn PPP trong nhiều môi trường", "Xác thực không phải điểm mạnh", "Hỗ trợ nhiều giao thức tầng mạng tùy triển khai"],
-    color: "cyan",
-    icon: <Router />,
-  },
-  {
-    id: "ppp",
-    name: "PPP",
-    full: "Point-to-Point Protocol",
-    vi: "Giao thức điểm-điểm",
-    idea: "Giao thức Data Link cho kết nối trực tiếp giữa hai điểm, hỗ trợ thiết lập liên kết, xác thực và nhiều giao thức tầng mạng.",
-    uses: ["Dial-up Internet", "WAN point-to-point", "Router-router", "PPP/PPPoE trong một số môi trường"],
-    pros: ["Linh hoạt", "Có LCP/NCP", "Có thể xác thực PAP/CHAP", "Có trường Protocol rõ ràng"],
-    cons: ["Phức tạp hơn HDLC", "Cần thương lượng liên kết", "Ít trực tiếp thấy trên PC hiện đại"],
-    color: "emerald",
-    icon: <Link2 />,
-  },
-];
-
-const hdlcParts = [
-  { id: "flag1", short: "Flag", name: "Flag", desc: "Đánh dấu bắt đầu frame. HDLC thường dùng bit flag 01111110.", color: "yellow", icon: <Flag /> },
-  { id: "address", short: "Address", name: "Address", desc: "Địa chỉ hoặc nhận diện trạm trong liên kết.", color: "cyan", icon: <Router /> },
-  { id: "control", short: "Control", name: "Control", desc: "Điều khiển loại frame, số thứ tự, ACK hoặc chức năng quản lý.", color: "purple", icon: <Settings /> },
-  { id: "info", short: "Information", name: "Information", desc: "Dữ liệu thật, ví dụ IP packet được đóng gói bên trong frame.", color: "emerald", icon: <Package /> },
-  { id: "fcs", short: "FCS", name: "FCS", desc: "Frame Check Sequence dùng để phát hiện lỗi frame.", color: "orange", icon: <ShieldCheck /> },
-  { id: "flag2", short: "Flag", name: "Ending Flag", desc: "Đánh dấu kết thúc frame, thường cũng là 01111110.", color: "yellow", icon: <Flag /> },
-];
-
-const pppParts = [
-  { id: "flag1", short: "Flag", name: "Flag", desc: "Đánh dấu bắt đầu PPP frame.", color: "yellow", icon: <Flag /> },
-  { id: "address", short: "Address", name: "Address", desc: "Trong PPP thường có giá trị mặc định.", color: "cyan", icon: <Router /> },
-  { id: "control", short: "Control", name: "Control", desc: "Trong PPP thường có giá trị mặc định.", color: "purple", icon: <Settings /> },
-  { id: "protocol", short: "Protocol", name: "Protocol", desc: "Cho biết payload bên trong là IPv4, IPv6, LCP, NCP hoặc giao thức khác.", color: "blue", icon: <Code2 /> },
-  { id: "info", short: "Information", name: "Information", desc: "Dữ liệu thật được PPP chở bên trong frame.", color: "emerald", icon: <Package /> },
-  { id: "fcs", short: "FCS", name: "FCS", desc: "Kiểm tra lỗi frame PPP.", color: "orange", icon: <ShieldCheck /> },
-  { id: "flag2", short: "Flag", name: "Ending Flag", desc: "Đánh dấu kết thúc PPP frame.", color: "yellow", icon: <Flag /> },
-];
-
 export default function App() {
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white pb-20">
-      <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
-              <Waypoints className="text-cyan-400" size={24} />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">Khóa học Mạng Máy Tính</h1>
-              <p className="text-xs text-slate-500">Phần 4: Tầng Liên Kết Dữ Liệu — Data Link Layer</p>
-            </div>
-          </div>
-          <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">Bài 4.4</div>
-        </div>
-      </header>
+    return (
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+                <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 border border-indigo-400/30 flex items-center justify-center shadow-lg shadow-indigo-500/10">
+                            <Puzzle className="text-indigo-400" size={24} />
+                        </div>
+                        <div>
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
+                            </h1>
+                            <p className="text-xs text-slate-500">
+                                Phần 4: Bộ lưu trữ — Storage
+                            </p>
+                        </div>
+                    </div>
+                    <div className="text-sm font-semibold text-indigo-300 bg-indigo-400/10 px-3 py-1 rounded-full border border-indigo-400/20">
+                        Bài 4.4
+                    </div>
+                </div>
+            </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
-        <HeroSection />
-        <LearningGoals />
-        <WhyDataLinkProtocols />
-        <ProtocolExplorer />
-        <OsiAndEncapsulation />
-        <FrameExplorer />
-        <HdlcMechanism />
-        <HdlcFrameTypes />
-        <PppMechanism />
-        <PppAuthSection />
-        <ComparisonTable />
-        <PreviousLessonsConnection />
-        <CliLab />
-        <Misunderstandings />
-        <SummaryAndQuiz />
-        <NextLesson />
-      </main>
-    </div>
-  );
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <RoadAnalogy />
+                <DataPathSimulator />
+                <StorageInterfaceExplorer />
+                <M2SizeGuide />
+                <PcieLaneLab />
+                <SpecsExplorer />
+                <RealExamples />
+                <CompatibilityLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
+            </main>
+        </div>
+    );
 }
 
 function HeroSection() {
-  return (
-    <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 p-8 md:p-12 shadow-2xl">
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-emerald-500/10 blur-3xl" />
-      <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
-        <div className="space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
-            <Waypoints size={16} /> Giao thức cụ thể của tầng Data Link
-          </div>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            Giao thức
-            <span className="block text-cyan-400">HDLC & PPP</span>
-          </h2>
-          <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-            HDLC và PPP là các giao thức Data Link quy định cách đóng gói, truyền, kiểm tra và quản lý frame trên liên kết trực tiếp giữa thiết bị mạng.
-          </p>
-          <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 font-mono text-sm max-w-xl">
-            <p className="text-slate-500">// Ghi nhớ nhanh</p>
-            <p><span className="text-cyan-300">HDLC</span> = gọn, serial/WAN, I/S/U frame.</p>
-            <p><span className="text-emerald-300">PPP</span> = point-to-point, LCP, PAP/CHAP, NCP.</p>
-            <p><span className="text-orange-300">Cả hai</span> = Data Link, frame, FCS.</p>
-          </div>
-        </div>
-        <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
-          <HeroPreview />
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
+
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-indigo-300">
+                        <BookOpen size={16} /> Phần 4: Bộ lưu trữ — Storage
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        SATA, NVMe,
+                        <span className="block text-indigo-400">M.2, PCIe</span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Bài này giúp bạn gỡ nhầm lẫn phổ biến nhất khi mua SSD:
+                        M.2 là dạng khe/kích thước, NVMe là giao thức, PCIe là
+                        đường truyền, còn SATA là chuẩn lưu trữ cũ hơn.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<HardDrive size={16} />} text="SATA" />
+                        <Tag icon={<Zap size={16} />} text="NVMe" />
+                        <Tag icon={<Puzzle size={16} />} text="M.2" />
+                        <Tag
+                            icon={<Layers3 size={16} />}
+                            text="PCIe Gen / lanes"
+                        />
+                        <Tag
+                            icon={<ShieldCheck size={16} />}
+                            text="Compatibility"
+                        />
+                    </div>
+                </div>
+
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<HardDrive />}
+                            label="SATA"
+                            desc="Chuẩn giao tiếp lưu trữ"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<Zap />}
+                            label="NVMe"
+                            desc="Giao thức SSD hiện đại"
+                            color="emerald"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Puzzle />}
+                            label="M.2"
+                            desc="Dạng khe/kích thước"
+                            color="cyan"
+                        />
+                        <HeroTile
+                            icon={<Layers3 />}
+                            label="PCIe"
+                            desc="Đường truyền tốc độ cao"
+                            color="indigo"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Ghi nhớ sống còn</p>
+                        <p>
+                            <span className="text-cyan-300">M.2</span> không tự
+                            động ={" "}
+                            <span className="text-emerald-300">NVMe</span>
+                        </p>
+                        <p className="text-orange-300">
+                            Có M.2 SATA và M.2 NVMe
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function LearningGoals() {
-  const goals = [
-    "Hiểu HDLC là gì và dùng để làm gì.",
-    "Hiểu PPP là gì và vì sao từng rất phổ biến.",
-    "Nắm cấu trúc frame cơ bản của HDLC và PPP.",
-    "Phân biệt HDLC và PPP.",
-    "Liên hệ HDLC/PPP với Framing, Error Control và Flow Control.",
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="1" color="cyan" title="Mục tiêu bài học" icon={<Award />} />
-      <div className="grid md:grid-cols-5 gap-3">
-        {goals.map((goal, index) => (
-          <div key={goal} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition-colors group">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center font-bold mb-4 group-hover:scale-110 transition-transform">{index + 1}</div>
-            <p className="text-sm text-slate-300 leading-relaxed">{goal}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+    const goals = [
+        "Phân biệt đúng SATA, NVMe, M.2 và PCIe thuộc 4 nhóm khái niệm khác nhau.",
+        "Hiểu đường đi dữ liệu của SATA SSD và NVMe SSD qua PCIe.",
+        "Biết vì sao M.2 không đồng nghĩa chắc chắn là NVMe.",
+        "Đọc được thông số PCIe Gen3/Gen4/Gen5 và x2/x4 lanes.",
+        "Kiểm tra tương thích mainboard/laptop trước khi mua SSD để tránh mua nhầm.",
+    ];
 
-function WhyDataLinkProtocols() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="2" color="blue" title="Vì sao cần giao thức Data Link?" icon={<CircleHelp />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
-          <div className="space-y-5 text-slate-300 leading-relaxed">
-            <p>Ở các bài trước, bạn đã học frame là gì, kiểm tra lỗi bằng FCS/CRC, và điều chỉnh tốc độ gửi bằng flow control.</p>
-            <p>Nhưng cần một bộ quy tắc cụ thể để quy định frame có trường nào, flag đặt ở đâu, kiểm tra lỗi ra sao, hai thiết bị bắt đầu và quản lý liên kết thế nào.</p>
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm">
-              <p className="text-blue-300 font-bold mb-2">Định nghĩa:</p>
-              <p>Giao thức Data Link quy định cách đóng gói, truyền, kiểm tra và quản lý frame giữa các thiết bị trên một liên kết.</p>
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="indigo"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, index) => (
+                    <div
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/50 transition-colors"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-300 flex items-center justify-center font-bold mb-4">
+                            {index + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
+                    </div>
+                ))}
             </div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <RuleCard title="Framing" text="Frame bắt đầu/kết thúc thế nào?" icon={<PackageCheck />} color="cyan" />
-            <RuleCard title="Error Control" text="Kiểm tra lỗi bằng gì?" icon={<ShieldCheck />} color="orange" />
-            <RuleCard title="Flow Control" text="Điều khiển truyền frame ra sao?" icon={<Gauge />} color="emerald" />
-            <RuleCard title="Link Management" text="Thiết lập/quản lý liên kết thế nào?" icon={<Settings />} color="purple" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function ProtocolExplorer() {
-  const [activeId, setActiveId] = useState("ppp");
-  const active = protocols.find((p) => p.id === activeId);
-  const c = colorClasses[active.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="3" color="emerald" title="HDLC và PPP là gì?" icon={<Search />} />
-      <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          {protocols.map((proto) => {
-            const pc = colorClasses[proto.color];
-            const isActive = activeId === proto.id;
-            return <button key={proto.id} onClick={() => setActiveId(proto.id)} className={`rounded-2xl p-4 text-left border transition-all ${isActive ? `${pc.bg} ${pc.border} ${pc.text}` : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300 hover:bg-slate-800"}`}><div className="flex items-center gap-2 mb-2">{React.cloneElement(proto.icon, { size: 20 })}<span className="font-black text-lg">{proto.name}</span></div><p className="text-xs opacity-80">{proto.full}</p></button>;
-          })}
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-start">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}>
-            <div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(active.icon, { size: 34 })}</div>
-            <p className={`${c.text} font-black text-sm uppercase tracking-wider`}>{active.full}</p>
-            <h3 className="text-3xl font-extrabold text-white mt-2 mb-1">{active.name}</h3>
-            <p className={`${c.text} font-bold mb-4`}>{active.vi}</p>
-            <p className="text-slate-300 leading-relaxed mb-5">{active.idea}</p>
-          </div>
-          <div className="space-y-4">
-            <ChipPanel title="Dùng trong" items={active.uses} color={active.color} />
-            <ProsCons pros={active.pros} cons={active.cons} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function OsiAndEncapsulation() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="4" color="purple" title="Vị trí trong OSI và luồng đóng gói" icon={<Layers />} />
-      <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-6">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-          <OsiStack />
-        </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-          <EncapsulationFlow />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FrameExplorer() {
-  const [type, setType] = useState("ppp");
-  const [activeId, setActiveId] = useState(type === "ppp" ? "protocol" : "control");
-  const parts = type === "ppp" ? pppParts : hdlcParts;
-  const active = parts.find((p) => p.id === activeId) || parts[0];
-  const c = colorClasses[active.color];
-  const switchType = (next) => {
-    setType(next);
-    setActiveId(next === "ppp" ? "protocol" : "control");
-  };
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="5" color="orange" title="Cấu trúc frame HDLC và PPP" icon={<TableProperties />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="flex gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          <button onClick={() => switchType("hdlc")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${type === "hdlc" ? "bg-cyan-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>HDLC Frame</button>
-          <button onClick={() => switchType("ppp")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${type === "ppp" ? "bg-emerald-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>PPP Frame</button>
-        </div>
-        <div className="p-4 bg-slate-950/60 border-b border-slate-800 overflow-x-auto">
-          <FrameBar parts={parts} activeId={activeId} setActiveId={setActiveId} />
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}>
-            <div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(active.icon, { size: 34 })}</div>
-            <p className={`${c.text} font-black text-sm uppercase tracking-wider`}>{type.toUpperCase()} FIELD</p>
-            <h3 className="text-3xl font-extrabold text-white mt-2 mb-3">{active.name}</h3>
-            <p className="text-slate-300 leading-relaxed">{active.desc}</p>
-          </div>
-          <div className="space-y-4">
-            <InfoBox title="HDLC frame" value="Flag | Address | Control | Information | FCS | Flag" icon={<Router />} color="cyan" />
-            <InfoBox title="PPP frame" value="Flag | Address | Control | Protocol | Information | FCS | Flag" icon={<Link2 />} color="emerald" />
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 font-mono text-sm text-green-300 whitespace-pre-wrap overflow-x-auto">{type === "hdlc" ? "+-------+---------+---------+-------------+-----+-------+\n| Flag  | Address | Control | Information | FCS | Flag  |\n+-------+---------+---------+-------------+-----+-------+" : "+-------+---------+---------+----------+-------------+-----+-------+\n| Flag  | Address | Control | Protocol | Information | FCS | Flag  |\n+-------+---------+---------+----------+-------------+-----+-------+"}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HdlcMechanism() {
-  const steps = [
-    { title: "Router A có IP packet", text: "Ví dụ Source IP 10.0.0.1, Destination IP 10.0.0.2.", code: "IP Packet", color: "cyan", icon: <Package /> },
-    { title: "HDLC đóng gói packet", text: "HDLC thêm Flag, Address, Control, FCS và Flag kết thúc.", code: "Flag | Address | Control | IP Packet | FCS | Flag", color: "purple", icon: <PackageCheck /> },
-    { title: "Truyền qua serial link", text: "Frame được biến thành bit và truyền qua liên kết vật lý.", code: "01111110 ...data... FCS 01111110", color: "orange", icon: <Cable /> },
-    { title: "Router B kiểm tra frame", text: "Router B kiểm tra flag, control field và FCS.", code: "Flag hợp lệ? FCS đúng?", color: "yellow", icon: <ShieldCheck /> },
-    { title: "Bóc frame", text: "Nếu hợp lệ, Router B lấy IP packet và chuyển lên Network Layer.", code: "HDLC Frame → IP Packet", color: "green", icon: <PackageOpen /> },
-  ];
-  return <MechanismSection number="6" color="cyan" title="Cơ chế hoạt động — HDLC" icon={<Router />} steps={steps} />;
-}
-
-function HdlcFrameTypes() {
-  const items = [
-    { title: "I-frame", full: "Information frame", text: "Mang dữ liệu thật, ví dụ packet tầng Network.", code: "I = Information = xe chở hàng", color: "emerald", icon: <Package /> },
-    { title: "S-frame", full: "Supervisory frame", text: "Điều khiển luồng, ACK hoặc yêu cầu gửi lại.", code: "S = Supervisory = tín hiệu điều phối", color: "cyan", icon: <Gauge /> },
-    { title: "U-frame", full: "Unnumbered frame", text: "Quản lý liên kết, thiết lập hoặc ngắt kết nối.", code: "U = Unnumbered = lệnh quản lý tuyến", color: "purple", icon: <Settings /> },
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="7" color="cyan" title="Ba loại frame trong HDLC" icon={<Boxes />} />
-      <div className="grid lg:grid-cols-3 gap-4">
-        {items.map((item) => <ConceptCard key={item.title} {...item} />)}
-      </div>
-    </section>
-  );
-}
-
-function PppMechanism() {
-  const steps = [
-    { title: "Thiết lập liên kết bằng LCP", text: "Hai đầu thương lượng tham số liên kết và kiểm tra chất lượng đường truyền.", code: "LCP = Link Control Protocol", color: "cyan", icon: <Handshake /> },
-    { title: "Xác thực nếu cần", text: "PPP có thể dùng PAP hoặc CHAP để xác thực người kết nối.", code: "PAP / CHAP", color: "orange", icon: <UserCheck /> },
-    { title: "Cấu hình giao thức mạng bằng NCP", text: "NCP chuẩn bị để chở IPv4, IPv6 hoặc giao thức tầng mạng khác.", code: "IPCP cho IPv4\nIPv6CP cho IPv6", color: "purple", icon: <Settings /> },
-    { title: "Truyền dữ liệu", text: "PPP đóng packet vào frame và dùng trường Protocol để cho biết payload là gì.", code: "Protocol = IPv4 → payload là IPv4 packet", color: "emerald", icon: <PackageCheck /> },
-  ];
-  return <MechanismSection number="8" color="emerald" title="Cơ chế hoạt động — PPP" icon={<Link2 />} steps={steps} />;
-}
-
-function PppAuthSection() {
-  const [mode, setMode] = useState("chap");
-  const data = {
-    pap: { title: "PAP", full: "Password Authentication Protocol", color: "orange", icon: <KeyRound />, text: "Client gửi username/password theo cách đơn giản để server kiểm tra. Dễ hiểu nhưng kém an toàn hơn CHAP.", code: "Client: username + password\nServer: đúng → cho kết nối" },
-    chap: { title: "CHAP", full: "Challenge Handshake Authentication Protocol", color: "emerald", icon: <LockKeyhole />, text: "Server gửi thử thách, client dùng mật khẩu để tính câu trả lời. Password không bị gửi trực tiếp theo cách đơn giản.", code: "Server: challenge\nClient: response = f(password, challenge)\nServer: kiểm tra response" },
-  };
-  const active = data[mode];
-  const c = colorClasses[active.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="9" color="orange" title="PPP: PAP và CHAP" icon={<UserCheck />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="flex gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          <button onClick={() => setMode("pap")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${mode === "pap" ? "bg-orange-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>PAP</button>
-          <button onClick={() => setMode("chap")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${mode === "chap" ? "bg-emerald-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>CHAP</button>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}>
-            <div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(active.icon, { size: 28 })}</div>
-            <p className={`${c.text} font-black text-sm uppercase tracking-wider`}>{active.full}</p>
-            <h3 className="text-3xl font-bold text-white mb-3 mt-2">{active.title}</h3>
-            <p className="text-slate-300 leading-relaxed">{active.text}</p>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 font-mono text-sm text-green-300 whitespace-pre-wrap">{active.code}</div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ComparisonTable() {
-  const rows = [
-    ["Tên đầy đủ", "High-Level Data Link Control", "Point-to-Point Protocol"],
-    ["Tầng hoạt động", "Data Link", "Data Link"],
-    ["Kiểu kết nối", "Điểm-điểm hoặc đa điểm", "Chủ yếu điểm-điểm"],
-    ["Hỗ trợ xác thực", "Không phải điểm mạnh chính", "Có: PAP/CHAP"],
-    ["Hỗ trợ nhiều giao thức tầng mạng", "Tùy triển khai", "Có trường Protocol rõ ràng"],
-    ["Dùng trong", "Serial WAN, router-router", "Dial-up, WAN point-to-point, router-router"],
-    ["Độ linh hoạt", "Thấp hơn PPP trong nhiều môi trường", "Linh hoạt hơn"],
-    ["Kiểm tra lỗi", "Có FCS", "Có FCS"],
-    ["Framing", "Có", "Có"],
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="10" color="orange" title="So sánh HDLC và PPP" icon={<TableProperties />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[900px]">
-            <thead className="bg-slate-950 border-b border-slate-800 text-sm text-slate-400">
-              <tr><th className="p-4">Tiêu chí</th><th className="p-4 text-cyan-300">HDLC</th><th className="p-4 text-emerald-300">PPP</th></tr>
-            </thead>
-            <tbody className="text-sm">
-              {rows.map(([criteria, hdlc, ppp], i) => <tr key={criteria} className={`${i === rows.length - 1 ? "" : "border-b border-slate-800"} hover:bg-slate-800/40`}><td className="p-4 text-white font-bold">{criteria}</td><td className="p-4 text-slate-300">{hdlc}</td><td className="p-4 text-slate-300">{ppp}</td></tr>)}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PreviousLessonsConnection() {
-  const items = [
-    { title: "4.1 Framing", text: "HDLC và PPP đều định nghĩa frame cụ thể.", icon: <PackageCheck />, color: "cyan" },
-    { title: "4.2 Error Control", text: "Cả hai đều có FCS để kiểm tra lỗi frame.", icon: <ShieldCheck />, color: "orange" },
-    { title: "4.3 Flow Control", text: "HDLC có S-frame hỗ trợ điều khiển truyền dữ liệu; PPP thường dựa vào cơ chế khác ở tầng trên nếu cần tin cậy cao.", icon: <Gauge />, color: "emerald" },
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="11" color="purple" title="Liên hệ với 3 bài trước" icon={<Layers />} />
-      <div className="grid lg:grid-cols-3 gap-4">
-        {items.map((item) => <RuleCard key={item.title} {...item} />)}
-      </div>
-    </section>
-  );
-}
-
-function CliLab() {
-  const [tab, setTab] = useState("ppp");
-  const commands = {
-    ppp: { title: "Cấu hình PPP trên serial interface", cmd: "Router(config)# interface serial 0/0/0\nRouter(config-if)# encapsulation ppp", output: "Interface Serial0/0/0\nEncapsulation PPP", note: "Ví dụ thường gặp trong Cisco Packet Tracer/GNS3 khi cấu hình kết nối WAN point-to-point." },
-    hdlc: { title: "Cấu hình HDLC", cmd: "Router(config)# interface serial 0/0/0\nRouter(config-if)# encapsulation hdlc", output: "Interface Serial0/0/0\nEncapsulation HDLC", note: "HDLC có thể là encapsulation mặc định trên một số serial interface trong môi trường Cisco." },
-    show: { title: "Kiểm tra interface", cmd: "Router# show interfaces serial 0/0/0", output: "Serial0/0/0 is up, line protocol is up\n  Encapsulation PPP\n  LCP Open\n  Open: IPCP", note: "LCP Open nghĩa là PPP đã thiết lập liên kết; IPCP Open nghĩa là IPv4 đã được cấu hình qua PPP." },
-  };
-  const current = commands[tab];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="12" color="blue" title="CLI / Packet Tracer: cấu hình encapsulation" icon={<Terminal />} />
-      <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-6">
-        <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-          <div className="bg-slate-950 border-b border-slate-800 px-5 py-3 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500" /><span className="w-3 h-3 rounded-full bg-yellow-500" /><span className="w-3 h-3 rounded-full bg-green-500" />
-            <span className="ml-3 text-xs text-slate-500 font-mono">hdlc ppp lab</span>
-          </div>
-          <div className="p-6">
-            <div className="flex flex-wrap gap-2 mb-5">
-              {Object.entries(commands).map(([key]) => <button key={key} onClick={() => setTab(key)} className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${tab === key ? "bg-blue-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200"}`}>{key}</button>)}
+function CoreConcept() {
+    const terms = [
+        {
+            icon: <HardDrive />,
+            term: "SATA",
+            type: "Chuẩn giao tiếp lưu trữ",
+            easy: "Con đường cũ cho HDD/SATA SSD",
+            color: "orange",
+        },
+        {
+            icon: <Zap />,
+            term: "NVMe",
+            type: "Giao thức cho SSD hiện đại",
+            easy: "Cách SSD nói chuyện nhanh với CPU qua PCIe",
+            color: "emerald",
+        },
+        {
+            icon: <Puzzle />,
+            term: "M.2",
+            type: "Dạng khe/kích thước vật lý",
+            easy: "Hình dạng thanh SSD nhỏ, dẹt",
+            color: "cyan",
+        },
+        {
+            icon: <Layers3 />,
+            term: "PCIe",
+            type: "Đường truyền tốc độ cao",
+            easy: "Xa lộ nối CPU/chipset với thiết bị",
+            color: "indigo",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="cyan"
+                title="Khái niệm cốt lõi: 4 thuật ngữ, 4 nhóm khác nhau"
+                icon={<Brain />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {terms.map((t) => (
+                    <div
+                        key={t.term}
+                        className={`${softBorder(t.color)} border rounded-3xl p-6`}
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(t.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(t.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-extrabold text-2xl mb-1">
+                            {t.term}
+                        </h3>
+                        <p
+                            className={`${textColor(t.color)} text-sm font-bold mb-3`}
+                        >
+                            {t.type}
+                        </p>
+                        <p className="text-sm text-slate-400 leading-relaxed">
+                            {t.easy}
+                        </p>
+                    </div>
+                ))}
             </div>
-            <div className="font-mono text-sm bg-slate-950 border border-slate-800 rounded-2xl p-5 overflow-x-auto min-h-[280px] whitespace-pre-wrap">
-              <p className="text-slate-500 mb-3"># {current.title}</p>
-              <p className="text-green-300">{current.cmd}</p>
-              <div className="mt-5 text-cyan-300">{current.output}</div>
+            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-red-300">Câu quan trọng nhất:</strong>{" "}
+                M.2 chỉ nói về hình dạng/khe cắm, không nói chắc ổ đó dùng SATA
+                hay NVMe.
             </div>
-          </div>
-        </div>
-        <div className="bg-blue-500/5 border border-blue-500/20 rounded-3xl p-6">
-          <h3 className="text-xl font-bold text-blue-300 mb-5 flex items-center gap-2"><Search size={22} /> Cách đọc</h3>
-          <p className="text-slate-300 leading-relaxed">{current.note}</p>
-          <div className="mt-6 grid gap-3 text-sm">
-            <ExplainRow term="encapsulation ppp" desc="Chọn PPP làm giao thức đóng gói tầng Data Link." />
-            <ExplainRow term="encapsulation hdlc" desc="Chọn HDLC làm giao thức đóng gói tầng Data Link." />
-            <ExplainRow term="show interfaces" desc="Kiểm tra trạng thái interface và kiểu encapsulation." />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function Misunderstandings() {
-  const items = [
-    { title: "HDLC/PPP thay thế IP?", desc: "Không. Chúng đóng gói IP packet thành frame để truyền qua một liên kết cụ thể, không thay thế tầng Network.", good: "IP Packet nằm bên trong HDLC/PPP Frame.", icon: <Package /> },
-    { title: "PPP chỉ là dial-up?", desc: "Không. PPP nổi tiếng trong dial-up nhưng cũng dùng trong các kết nối point-to-point khác, đặc biệt trong môi trường WAN/router.", good: "PPP = point-to-point, không chỉ dial-up.", icon: <Link2 /> },
-    { title: "HDLC và PPP giống hệt nhau?", desc: "Không. Cả hai đều là Data Link protocol và có FCS, nhưng PPP linh hoạt hơn nhờ LCP/NCP, xác thực và trường Protocol.", good: "PPP linh hoạt hơn trong nhiều trường hợp.", icon: <Shuffle /> },
-    { title: "FCS dùng để bảo mật?", desc: "Không. FCS dùng để phát hiện lỗi truyền dữ liệu, không mã hóa hoặc bảo mật nội dung.", good: "FCS = kiểm lỗi, không phải encryption.", icon: <ShieldCheck /> },
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="13" color="yellow" title="Một số hiểu nhầm thường gặp" icon={<AlertTriangle />} />
-      <div className="grid md:grid-cols-2 gap-4">
-        {items.map((item) => (
-          <div key={item.title} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-yellow-500/40 transition-colors">
-            <div className="w-12 h-12 rounded-2xl bg-yellow-500/10 text-yellow-300 flex items-center justify-center mb-4">{React.cloneElement(item.icon, { size: 24 })}</div>
-            <h3 className="text-white font-bold text-lg mb-3">{item.title}</h3>
-            <p className="text-sm text-slate-400 leading-relaxed mb-4">{item.desc}</p>
-            <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-sm text-green-300"><CheckCircle2 size={16} className="inline mr-1" /> {item.good}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+function RoadAnalogy() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: xe, tài xế và đường"
+                icon={<Lightbulb />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-4 gap-4">
+                    <AnalogyCard
+                        icon={<Puzzle />}
+                        title="M.2 = hình dạng xe"
+                        desc="Xe nhỏ, dẹt, cắm trực tiếp lên main/laptop."
+                        color="cyan"
+                    />
+                    <AnalogyCard
+                        icon={<Zap />}
+                        title="NVMe = cách tài xế giao tiếp"
+                        desc="Giao thức tối ưu cho SSD tốc độ cao."
+                        color="emerald"
+                    />
+                    <AnalogyCard
+                        icon={<Layers3 />}
+                        title="PCIe = cao tốc"
+                        desc="Đường truyền nhiều lane, băng thông cao."
+                        color="indigo"
+                    />
+                    <AnalogyCard
+                        icon={<HardDrive />}
+                        title="SATA = đường cũ"
+                        desc="Vẫn ổn cho HDD/SATA SSD, nhưng chậm hơn NVMe."
+                        color="orange"
+                    />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function DataPathSimulator() {
+    const paths = {
+        sata: {
+            title: "SATA SSD",
+            color: "orange",
+            formula: "SSD SATA → Cáp/khe SATA → Chipset/Mainboard → RAM → CPU",
+            steps: [
+                {
+                    icon: <HardDrive />,
+                    title: "SSD SATA",
+                    desc: "Ổ 2.5 inch SATA hoặc M.2 SATA SSD nhận yêu cầu đọc/ghi.",
+                },
+                {
+                    icon: <Puzzle />,
+                    title: "Cáp/khe SATA",
+                    desc: "Dữ liệu đi qua giao tiếp SATA, thường giới hạn khoảng 500–560 MB/s với SATA SSD.",
+                },
+                {
+                    icon: <Settings />,
+                    title: "Chipset/Mainboard",
+                    desc: "Mainboard điều phối dữ liệu từ ổ lưu trữ về hệ thống.",
+                },
+                {
+                    icon: <MemoryStick />,
+                    title: "RAM",
+                    desc: "Dữ liệu được đưa lên RAM cho chương trình sử dụng.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "CPU xử lý",
+                    desc: "CPU xử lý dữ liệu đã nạp vào RAM.",
+                },
+            ],
+        },
+        nvme: {
+            title: "M.2 NVMe qua PCIe",
+            color: "emerald",
+            formula: "SSD M.2 NVMe → PCIe lanes → CPU/chipset → RAM → CPU",
+            steps: [
+                {
+                    icon: <Zap />,
+                    title: "SSD M.2 NVMe",
+                    desc: "Ổ SSD dùng giao thức NVMe, thường dạng M.2 2280.",
+                },
+                {
+                    icon: <Layers3 />,
+                    title: "PCIe lanes",
+                    desc: "Dữ liệu đi qua các lane PCIe tốc độ cao như PCIe 3.0 x4 hoặc 4.0 x4.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "CPU hoặc chipset",
+                    desc: "Một số khe M.2 nối thẳng CPU, một số đi qua chipset.",
+                },
+                {
+                    icon: <MemoryStick />,
+                    title: "RAM",
+                    desc: "Dữ liệu được nạp vào RAM để phần mềm dùng.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "CPU xử lý",
+                    desc: "CPU tiếp tục xử lý lệnh và dữ liệu.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("nvme");
+    const [active, setActive] = useState(0);
+    const path = paths[mode];
+    const step = path.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
+    };
+
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Dữ liệu đi từ SSD đến CPU như thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-2 gap-3 mb-6">
+                    {Object.entries(paths).map(([key, p]) => (
+                        <button
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(p.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {p.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(path.color)} flex items-center justify-center mb-5`}
+                            >
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(path.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{path.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % path.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-4">
+                        <pre className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 whitespace-pre-wrap">
+                            {path.formula}
+                        </pre>
+                        {path.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(path.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(path.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function StorageInterfaceExplorer() {
+    const items = {
+        sataHdd: {
+            icon: <HardDrive />,
+            title: "SATA HDD",
+            used: "HDD 2.5/3.5 inch",
+            good: "Rẻ, dung lượng lớn",
+            bad: "Chậm, cơ học",
+            fit: "Lưu trữ, backup",
+            color: "orange",
+        },
+        sataSsd: {
+            icon: <HardDrive />,
+            title: "SATA SSD 2.5 inch",
+            used: "SSD nâng cấp máy cũ",
+            good: "Nhanh hơn HDD rất nhiều, dễ lắp",
+            bad: "Giới hạn khoảng 500–560 MB/s",
+            fit: "Laptop/PC cũ",
+            color: "cyan",
+        },
+        m2Sata: {
+            icon: <Puzzle />,
+            title: "M.2 SATA SSD",
+            used: "Một số laptop/mainboard cũ",
+            good: "Gọn, không cần cáp",
+            bad: "Vẫn bị giới hạn SATA",
+            fit: "Máy hỗ trợ M.2 SATA",
+            color: "blue",
+        },
+        nvme3: {
+            icon: <Zap />,
+            title: "M.2 NVMe PCIe 3.0",
+            used: "PC/laptop đời mới hơn",
+            good: "Nhanh, giá thường tốt",
+            bad: "Chậm hơn Gen4/Gen5",
+            fit: "Người dùng phổ thông",
+            color: "emerald",
+        },
+        nvme4: {
+            icon: <Zap />,
+            title: "M.2 NVMe PCIe 4.0",
+            used: "PC/laptop hiện đại",
+            good: "Rất nhanh, phổ biến",
+            bad: "Có thể nóng hơn, cần main hỗ trợ",
+            fit: "Gaming, đồ họa, lập trình",
+            color: "purple",
+        },
+        nvme5: {
+            icon: <Zap />,
+            title: "M.2 NVMe PCIe 5.0",
+            used: "PC cao cấp mới",
+            good: "Cực nhanh",
+            bad: "Nóng, đắt, chưa phải ai cũng cần",
+            fit: "Workstation, tốc độ rất cao",
+            color: "red",
+        },
+        usb: {
+            icon: <Usb />,
+            title: "USB External SSD",
+            used: "Ổ gắn ngoài",
+            good: "Tiện mang đi",
+            bad: "Phụ thuộc chuẩn USB/cáp",
+            fit: "Backup, chuyển dữ liệu",
+            color: "yellow",
+        },
+    };
+    const [active, setActive] = useState("nvme4");
+    const item = items[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="blue"
+                title="Các loại giao tiếp lưu trữ phổ biến"
+                icon={<Layers3 />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(items).map(([key, it]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(it.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(it.icon, { size: 20 })}{" "}
+                                {it.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className={`${textColor(item.color)} font-semibold`}>
+                            {item.used}
+                        </p>
+                    </div>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                        <InfoCard
+                            label="Ưu điểm"
+                            value={item.good}
+                            color="emerald"
+                        />
+                        <InfoCard
+                            label="Nhược điểm"
+                            value={item.bad}
+                            color="orange"
+                        />
+                        <InfoCard
+                            label="Phù hợp"
+                            value={item.fit}
+                            color="blue"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function M2SizeGuide() {
+    const sizes = [
+        ["M.2 2230", "22mm x 30mm", "Handheld gaming, laptop nhỏ", "cyan"],
+        ["M.2 2242", "22mm x 42mm", "Một số laptop/mini PC", "blue"],
+        ["M.2 2260", "22mm x 60mm", "Ít gặp hơn", "purple"],
+        ["M.2 2280", "22mm x 80mm", "Phổ biến nhất cho PC/laptop", "emerald"],
+        ["M.2 22110", "22mm x 110mm", "Workstation/server", "orange"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="M.2 2230, 2242, 2280 nghĩa là gì?"
+                icon={<Puzzle />}
+            />
+            <div className="grid md:grid-cols-5 gap-4">
+                {sizes.map(([name, size, use, color]) => (
+                    <div
+                        key={name}
+                        className={`${softBorder(color)} border rounded-3xl p-5`}
+                    >
+                        <div
+                            className={`h-20 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4 font-mono font-black`}
+                        >
+                            {name}
+                        </div>
+                        <p className="text-white font-bold mb-1">{size}</p>
+                        <p className="text-sm text-slate-400 leading-relaxed">
+                            {use}
+                        </p>
+                    </div>
+                ))}
+            </div>
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300 text-center">
+                M.2 2280 = rộng 22mm, dài 80mm. Đây là kích thước SSD M.2 phổ
+                biến nhất.
+            </div>
+        </section>
+    );
+}
+
+function PcieLaneLab() {
+    const configs = {
+        g3x4: {
+            title: "PCIe 3.0 x4",
+            gen: "Gen 3",
+            lanes: "4 lanes",
+            result: "NVMe phổ thông đời trước, thường khoảng 2000–3500 MB/s",
+            color: "cyan",
+        },
+        g4x4: {
+            title: "PCIe 4.0 x4",
+            gen: "Gen 4",
+            lanes: "4 lanes",
+            result: "Rất phổ biến cho SSD nhanh hiện nay, thường khoảng 5000–7500 MB/s",
+            color: "emerald",
+        },
+        g5x2: {
+            title: "PCIe 5.0 x2",
+            gen: "Gen 5",
+            lanes: "2 lanes",
+            result: "Gen mới nhưng chỉ 2 lane; có thể tương đương/nhỉnh hơn Gen4 x4 tùy ổ",
+            color: "purple",
+        },
+        g5x4: {
+            title: "PCIe 5.0 x4",
+            gen: "Gen 5",
+            lanes: "4 lanes",
+            result: "Cực nhanh, có thể trên 10000 MB/s nhưng nóng và đắt hơn",
+            color: "red",
+        },
+    };
+    const [active, setActive] = useState("g4x4");
+    const item = configs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="purple"
+                title="PCIe Gen và số lane: 3.0 x4, 4.0 x4, 5.0 x2"
+                icon={<Layers3 />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(configs).map(([key, c]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(c.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <p className="font-bold font-mono text-sm">
+                                {c.title}
+                            </p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid md:grid-cols-3 gap-4">
+                    <InfoCard
+                        label="Thế hệ"
+                        value={item.gen}
+                        color={item.color}
+                    />
+                    <InfoCard
+                        label="Số lane"
+                        value={item.lanes}
+                        color={item.color}
+                    />
+                    <InfoCard
+                        label="Hiểu thực tế"
+                        value={item.result}
+                        color={item.color}
+                    />
+                </div>
+                <div className="mt-6 bg-purple-500/10 border border-purple-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                    <strong className="text-purple-300">Quy tắc:</strong> Gen
+                    cao hơn thường có băng thông mỗi lane cao hơn. x4 thường
+                    nhiều làn hơn x2, nhưng còn phụ thuộc SSD, CPU, mainboard,
+                    firmware và tản nhiệt.
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        sata: {
+            icon: <HardDrive />,
+            title: "SATA",
+            detail: "Chuẩn giao tiếp phổ biến cho HDD và SSD 2.5 inch.",
+            impact: "SATA SSD rất đáng nâng cho máy cũ, nhưng nếu máy hỗ trợ NVMe thì nên ưu tiên NVMe cho ổ hệ điều hành.",
+        },
+        nvme: {
+            icon: <Zap />,
+            title: "NVMe",
+            detail: "Non-Volatile Memory Express, giao thức thiết kế cho SSD hiện đại.",
+            impact: "NVMe có độ trễ thấp, băng thông cao và xử lý nhiều hàng đợi lệnh tốt hơn SATA/AHCI.",
+        },
+        m2: {
+            icon: <Puzzle />,
+            title: "M.2",
+            detail: "Dạng khe/kích thước vật lý của SSD/thẻ mở rộng.",
+            impact: "Phải xem khe hỗ trợ M.2 SATA, M.2 NVMe hay cả hai; xem kích thước 2230/2242/2280.",
+        },
+        pcie: {
+            icon: <Layers3 />,
+            title: "PCIe Gen và lane",
+            detail: "Ghi như PCIe 3.0 x4, 4.0 x4, 5.0 x2.",
+            impact: "Gen là thế hệ, x2/x4 là số lane. Cùng Gen, x4 thường nhanh hơn x2.",
+        },
+        sequential: {
+            icon: <Gauge />,
+            title: "Sequential speed",
+            detail: "Tốc độ đọc/ghi file lớn liên tục.",
+            impact: "Quan trọng khi copy file lớn, dựng video, giải nén file nặng, cài game lớn.",
+        },
+        compatibility: {
+            icon: <ShieldCheck />,
+            title: "Tương thích",
+            detail: "Kiểm tra manual mainboard/laptop trước khi mua SSD.",
+            impact: "Một số khe M.2 chia lane với cổng SATA; gắn M.2 có thể vô hiệu hóa vài SATA port.",
+        },
+        heat: {
+            icon: <Timer />,
+            title: "Nhiệt / heatsink",
+            detail: "SSD NVMe PCIe 4.0/5.0 có thể nóng khi ghi nặng.",
+            impact: "Desktop nên dùng heatsink M.2 nếu có; laptop mỏng có thể không lắp vừa heatsink dày.",
+        },
+    };
+    const [active, setActive] = useState("compatibility");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng"
+                icon={<Settings />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <HardDrive />,
+            title: "Crucial MX500 1TB",
+            subtitle: "2.5 inch SATA SSD cho máy cũ",
+            color: "cyan",
+            points: [
+                "Dạng 2.5 inch SATA",
+                "Đọc/ghi tuần tự lên tới khoảng 560/510 MB/s",
+                "Phù hợp laptop/PC cũ có khay SATA",
+                "Có thể clone ổ HDD sang SSD",
+                "Không dùng được nếu máy chỉ có khe M.2 NVMe không hỗ trợ SATA",
+            ],
+            lesson: "Máy cũ đang dùng HDD không cần cố mua NVMe nếu không hỗ trợ. SATA SSD vẫn cải thiện rất rõ.",
+        },
+        {
+            icon: <Zap />,
+            title: "Samsung 990 EVO Plus 1TB",
+            subtitle: "M.2 NVMe cho PC/laptop mới",
+            color: "emerald",
+            points: [
+                "Gen4 NVMe M.2",
+                "Hỗ trợ PCIe 4.0 x4 hoặc 5.0 x2 tùy nền tảng",
+                "Tốc độ đọc/ghi tuần tự lên tới khoảng 7,250/6,300 MB/s",
+                "Phù hợp Windows, game, lập trình, Docker",
+                "Cần kiểm tra máy hỗ trợ PCIe Gen nào",
+            ],
+            lesson: "Ổ NVMe nhanh cần khe M.2 NVMe tương thích; nếu cắm vào Gen3 có thể chạy nhưng bị giới hạn tốc độ.",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "WD_BLACK SN850X 1TB",
+            subtitle: "NVMe PCIe 4.0 M.2 2280 cho gaming",
+            color: "purple",
+            points: [
+                "PCIe Gen4 x4 NVMe",
+                "Dạng M.2 2280",
+                "Tốc độ đọc lên tới khoảng 7,300 MB/s",
+                "Hợp gaming PC/PS5 nếu đúng bản tương thích",
+                "Máy chỉ có SATA không dùng được",
+            ],
+            lesson: "SSD gaming NVMe rất nhanh, nhưng phải kiểm tra chuẩn khe, kích thước và yêu cầu heatsink trước khi mua.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function CompatibilityLab() {
+    const scenarios = {
+        oldLaptop: {
+            icon: <Laptop />,
+            title: "Laptop cũ có khay 2.5 inch",
+            answer: "Chọn SATA SSD 2.5 inch như Crucial MX500. Không cần mua M.2 NVMe nếu máy không có khe M.2 NVMe.",
+            color: "cyan",
+        },
+        m2SataOnly: {
+            icon: <Puzzle />,
+            title: "Khe M.2 chỉ hỗ trợ SATA",
+            answer: "Mua M.2 SATA SSD. Nếu mua M.2 NVMe, máy có thể không nhận ổ.",
+            color: "orange",
+        },
+        m2NvmeOnly: {
+            icon: <Zap />,
+            title: "Khe M.2 chỉ hỗ trợ NVMe",
+            answer: "Mua M.2 NVMe SSD. Nếu mua M.2 SATA, máy có thể không nhận ổ.",
+            color: "emerald",
+        },
+        pcie3: {
+            icon: <Layers3 />,
+            title: "Máy PCIe 3.0, SSD PCIe 4.0",
+            answer: "Nhiều ổ vẫn chạy lùi tương thích, nhưng tốc độ bị giới hạn theo Gen3. Không đạt thông số Gen4 tối đa.",
+            color: "purple",
+        },
+        thinLaptop: {
+            icon: <Timer />,
+            title: "Laptop mỏng",
+            answer: "Tránh SSD có heatsink dày. Kiểm tra kích thước 2230/2242/2280 và giới hạn nhiệt/độ dày của máy.",
+            color: "red",
+        },
+    };
+    const [active, setActive] = useState("m2NvmeOnly");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="blue"
+                title="Lab: tránh mua nhầm SSD"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "M.2 là chắc chắn NVMe",
+            right: "M.2 chỉ là kiểu khe/kích thước. Có M.2 SATA SSD và M.2 NVMe SSD.",
+        },
+        {
+            wrong: "SSD PCIe 4.0 cắm vào PCIe 3.0 sẽ không chạy",
+            right: "Nhiều SSD PCIe 4.0 vẫn chạy lùi trên khe PCIe 3.0, nhưng tốc độ bị giới hạn theo Gen3.",
+        },
+        {
+            wrong: "7000 MB/s nghĩa là nhanh hơn 7 lần trong mọi việc",
+            right: "Tốc độ tuần tự cao hữu ích khi copy file lớn. Mở app/Windows còn phụ thuộc random I/O, độ trễ, controller, firmware, CPU và RAM.",
+        },
+        {
+            wrong: "NVMe càng nhanh càng đáng mua với mọi người",
+            right: "Tùy nhu cầu. Máy cũ chỉ có SATA thì SATA SSD là hợp lý; người phổ thông không nhất thiết cần PCIe 5.0.",
+        },
+        {
+            wrong: "Cứ mua SSD có heatsink là tốt",
+            right: "Desktop/PS5 có thể cần heatsink, nhưng laptop mỏng có thể không lắp vừa heatsink dày.",
+        },
+    ];
+    const tips = [
+        "Trước khi mua SSD, kiểm tra manual mainboard/laptop: SATA hay NVMe, PCIe Gen mấy, kích thước 2230/2242/2280.",
+        "Máy cũ đang dùng HDD: SATA SSD vẫn rất đáng nâng nếu máy không hỗ trợ NVMe.",
+        "Máy mới: ưu tiên M.2 NVMe 1TB trở lên nếu ngân sách cho phép.",
+        "Không chỉ nhìn tốc độ tuần tự; xem thêm NAND, TBW, DRAM/HMB, nhiệt độ và review thực tế.",
+        "SSD PCIe 4.0/5.0 cần chú ý nhiệt; laptop cần SSD mát và tiết kiệm điện.",
+        "Backup vẫn bắt buộc dù SSD rất nhanh.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Mẹo chọn SSD
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function SummaryAndQuiz() {
-  return (
-    <section className="space-y-6">
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-        <div className="bg-slate-950 p-6 border-b border-slate-800">
-          <h3 className="text-xl font-bold text-white flex items-center gap-3"><span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">14</span>Tóm tắt & Kiểm tra cuối bài</h3>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
-          <div>
-            <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">Ghi nhớ nhanh</h4>
-            <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-green-400 border border-slate-800 shadow-inner space-y-2">
-              <p>HDLC và PPP đều thuộc Data Link Layer.</p>
-              <p>Cả hai đều dùng frame và có FCS.</p>
-              <p><span className="text-cyan-300">HDLC</span> = serial/WAN, gọn, có I/S/U frame.</p>
-              <p><span className="text-emerald-300">PPP</span> = point-to-point, linh hoạt hơn.</p>
-              <br />
-              <p className="text-slate-500"># PPP đặc biệt vì</p>
-              <p>LCP = thiết lập/quản lý liên kết.</p>
-              <p>PAP/CHAP = xác thực.</p>
-              <p>NCP = cấu hình giao thức mạng.</p>
-              <p>Protocol field = chở IPv4/IPv6/giao thức khác.</p>
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-indigo-500/20 text-indigo-300 p-2 rounded-xl">
+                            12
+                        </span>
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-indigo-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>SATA = chuẩn giao tiếp lưu trữ cũ hơn</p>
+                            <p>NVMe = giao thức cho SSD hiện đại</p>
+                            <p>M.2 = dạng khe/kích thước vật lý</p>
+                            <p>PCIe = đường truyền tốc độ cao</p>
+                            <br />
+                            <p className="text-slate-500"># Dữ liệu</p>
+                            <p className="text-slate-300">
+                                SATA SSD → SATA → chipset → RAM → CPU
+                            </p>
+                            <p className="text-slate-300">
+                                M.2 NVMe → PCIe lanes → CPU/chipset → RAM → CPU
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                M.2 không đồng nghĩa chắc chắn là NVMe.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
             </div>
-          </div>
-          <InteractiveQuiz />
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 const questions = [
-  { question: "HDLC và PPP hoạt động ở tầng nào của mô hình OSI?", options: ["Physical Layer", "Data Link Layer", "Network Layer", "Application Layer"], correct: 1, explanation: "HDLC và PPP là giao thức tầng liên kết dữ liệu — Data Link Layer." },
-  { question: "Trong PPP, LCP dùng để làm gì?", options: ["Phân giải tên miền thành IP", "Thiết lập, kiểm tra và quản lý liên kết PPP", "Mã hóa toàn bộ dữ liệu web", "Định tuyến packet qua nhiều router"], correct: 1, explanation: "LCP — Link Control Protocol — dùng để thiết lập, thương lượng, kiểm tra và quản lý liên kết PPP." },
-  { question: "Điểm quan trọng của trường Protocol trong PPP là gì?", options: ["Cho biết payload bên trong là IPv4, IPv6, LCP hay giao thức khác", "Chỉ chứa mật khẩu", "Chỉ dùng để đổi MAC", "Chỉ dùng để đo độ dài cáp"], correct: 0, explanation: "Trường Protocol cho biết loại dữ liệu bên trong PPP frame, ví dụ IPv4 hoặc IPv6." },
-  { question: "Vì sao PPP thường linh hoạt hơn HDLC?", options: ["Vì có LCP/NCP, xác thực PAP/CHAP và trường Protocol rõ ràng", "Vì PPP không cần frame", "Vì PPP thay thế hoàn toàn IP", "Vì PPP chỉ dùng cho WiFi"], correct: 0, explanation: "PPP linh hoạt nhờ thiết lập liên kết bằng LCP, cấu hình protocol bằng NCP, hỗ trợ xác thực và có trường Protocol." },
-  { question: "FCS trong HDLC/PPP dùng để làm gì?", options: ["Phát hiện lỗi frame", "Mã hóa mật khẩu", "Chuyển tên miền thành IP", "Tăng sóng WiFi"], correct: 0, explanation: "FCS — Frame Check Sequence — dùng để kiểm tra và phát hiện lỗi frame." },
+    {
+        question: "M.2 là gì?",
+        options: [
+            "Một loại giao thức mạng",
+            "Dạng khe/kích thước vật lý của SSD hoặc thiết bị mở rộng",
+            "Một loại RAM",
+            "Một loại màn hình",
+        ],
+        correct: 1,
+        explanation:
+            "M.2 là dạng khe/kích thước vật lý. Nó không tự nói ổ dùng SATA hay NVMe.",
+    },
+    {
+        question: "NVMe thường chạy qua đường truyền nào?",
+        options: ["VGA", "PCIe", "HDMI", "Audio jack"],
+        correct: 1,
+        explanation:
+            "NVMe SSD dùng PCIe lanes để giao tiếp tốc độ cao với CPU/chipset.",
+    },
+    {
+        question: "Nhận định nào đúng nhất?",
+        options: [
+            "M.2 luôn luôn là NVMe",
+            "SATA SSD luôn nhanh hơn NVMe",
+            "M.2 có thể là SATA hoặc NVMe tùy ổ và khe hỗ trợ",
+            "PCIe chỉ dùng cho bàn phím",
+        ],
+        correct: 2,
+        explanation:
+            "Có M.2 SATA SSD và M.2 NVMe SSD; khe M.2 của máy cũng có thể hỗ trợ SATA, NVMe hoặc cả hai.",
+    },
+    {
+        question:
+            "Nếu cắm SSD PCIe 4.0 vào khe PCIe 3.0 tương thích, điều gì thường xảy ra?",
+        options: [
+            "Chắc chắn cháy ổ",
+            "Thường vẫn chạy nhưng bị giới hạn tốc độ theo PCIe 3.0",
+            "Biến thành RAM",
+            "Không cần mainboard",
+        ],
+        correct: 1,
+        explanation:
+            "Nhiều SSD PCIe 4.0 có thể chạy lùi trên khe PCIe 3.0, nhưng không đạt tốc độ Gen4 tối đa.",
+    },
+    {
+        question: "M.2 2280 nghĩa là gì?",
+        options: ["22mm x 80mm", "2280GB", "PCIe Gen 22 x80", "RAM DDR2 2800"],
+        correct: 0,
+        explanation: "M.2 2280 nghĩa là rộng 22mm và dài 80mm.",
+    },
 ];
 
 function InteractiveQuiz() {
-  const [currentQ, setCurrentQ] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const finished = currentQ === "finished";
-  const q = !finished ? questions[currentQ] : null;
-  const handleSelect = (index) => {
-    if (showResult) return;
-    setSelected(index);
-    setShowResult(true);
-    if (index === q.correct) setScore((s) => s + 1);
-  };
-  const handleNext = () => {
-    if (currentQ < questions.length - 1) {
-      setCurrentQ((c) => c + 1);
-      setSelected(null);
-      setShowResult(false);
-    } else setCurrentQ("finished");
-  };
-  const resetQuiz = () => {
-    setCurrentQ(0);
-    setSelected(null);
-    setShowResult(false);
-    setScore(0);
-  };
-  if (finished) return <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[380px]"><div className="text-6xl mb-4">{score === questions.length ? "🏆" : "👏"}</div><h4 className="text-2xl font-bold text-white mb-2">Hoàn thành!</h4><p className="text-slate-400 mb-6">Bạn trả lời đúng <strong className="text-cyan-400">{score}/{questions.length}</strong> câu hỏi.</p><button onClick={resetQuiz} className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700">Làm lại</button></div>;
-  return (
-    <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[380px]">
-      <div className="flex justify-between items-center mb-4 text-sm font-medium"><span className="text-cyan-400">Câu hỏi {currentQ + 1}/{questions.length}</span><span className="text-slate-500">Điểm: {score}</span></div>
-      <h4 className="text-lg font-bold text-white mb-6 leading-snug">{q.question}</h4>
-      <div className="space-y-3 flex-grow">
-        {q.options.map((opt, idx) => {
-          let btnClass = "w-full text-left p-4 rounded-xl border text-sm transition-all ";
-          if (!showResult) btnClass += "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
-          else if (idx === q.correct) btnClass += "border-green-500 bg-green-500/10 text-green-400";
-          else if (idx === selected) btnClass += "border-red-500 bg-red-500/10 text-red-400";
-          else btnClass += "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
-          return <button key={idx} onClick={() => handleSelect(idx)} disabled={showResult} className={btnClass}>{opt}</button>;
-        })}
-      </div>
-      {showResult && <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2"><div className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}><strong>Giải thích:</strong> {q.explanation}</div><button onClick={handleNext} className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-colors">{currentQ < questions.length - 1 ? "Câu tiếp theo" : "Xem kết quả"}</button></div>}
-    </div>
-  );
+    const [currentQ, setCurrentQ] = useState(0);
+    const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
+    const [score, setScore] = useState(0);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
+    };
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
+            setSelected(null);
+            setShowResult(false);
+        } else setCurrentQ("finished");
+    };
+    const resetQuiz = () => {
+        setCurrentQ(0);
+        setSelected(null);
+        setShowResult(false);
+        setScore(0);
+    };
+    if (finished) {
+        return (
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
+                <div className="text-6xl mb-4">
+                    {score === questions.length ? "🏆" : "👏"}
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">
+                    Hoàn thành!
+                </h4>
+                <p className="text-slate-400 mb-6">
+                    Bạn trả lời đúng{" "}
+                    <strong className="text-indigo-400">
+                        {score}/{questions.length}
+                    </strong>{" "}
+                    câu hỏi.
+                </p>
+                <button
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
+                >
+                    Làm lại
+                </button>
+            </div>
+        );
+    }
+    return (
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-indigo-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
+                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
+            </div>
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
+                {q.question}
+            </h4>
+            <div className="space-y-3 flex-grow">
+                {q.options.map((opt, idx) => {
+                    let cls =
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
+                        cls +=
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
+                    else if (idx === q.correct)
+                        cls +=
+                            "border-green-500 bg-green-500/10 text-green-400";
+                    else if (idx === selected)
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
+                    else
+                        cls +=
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
+                    return (
+                        <button
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
+                            className={cls}
+                        >
+                            {opt}
+                        </button>
+                    );
+                })}
+            </div>
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
+                    <div
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
+                    >
+                        <strong>Giải thích:</strong> {q.explanation}
+                    </div>
+                    <button
+                        onClick={handleNext}
+                        className="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl transition-colors"
+                    >
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
+                    </button>
+                </div>
+            )}
+        </div>
+    );
 }
 
 function NextLesson() {
-  return (
-    <div className="text-center pt-8 border-t border-slate-800">
-      <p className="text-slate-400 mb-4">Sau khi hiểu giao thức Data Link, bài tiếp theo học cách thiết bị LAN nhận diện nhau bằng MAC và cách ARP tìm MAC từ IP.</p>
-      <Link to="/phan-4-5" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20">
-        Bài tiếp theo: 4.5 — Địa chỉ MAC & ARP <ChevronRight size={20} />
-      </Link>
-    </div>
-  );
-}
-
-function MechanismSection({ number, color, title, icon, steps }) {
-  const [step, setStep] = useState(0);
-  const current = steps[step];
-  const c = colorClasses[current.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number={number} color={color} title={title} icon={icon} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6 min-h-[350px] flex flex-col justify-between`}>
-            <div>
-              <div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(current.icon, { size: 32 })}</div>
-              <p className={`${c.text} text-sm font-black uppercase tracking-wider mb-2`}>Bước {step + 1}/{steps.length}</p>
-              <h3 className="text-2xl font-bold text-white mb-3">{current.title}</h3>
-              <p className="text-slate-300 leading-relaxed mb-4">{current.text}</p>
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{current.code}</div>
-            </div>
-            <div className="mt-6 flex gap-3">
-              <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="px-4 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-800 transition-colors">Quay lại</button>
-              <button onClick={() => setStep((s) => (s + 1) % steps.length)} className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold transition-colors inline-flex items-center gap-2">{step === steps.length - 1 ? "Xem lại" : "Bước tiếp"}<ChevronRight size={18} /></button>
-            </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5"><StepFlow steps={steps} active={step} setActive={setStep} color={current.color} /></div>
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu SATA, NVMe, M.2 và PCIe. Tiếp theo là Optical Drive
+                — ổ đĩa quang CD, DVD, Blu-ray, loại lưu trữ từng rất phổ biến
+                trước USB/SSD/cloud.
+            </p>
+            <Link
+                to="/phan-4-5"
+                className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-indigo-500/20"
+            >
+                Bài tiếp theo: 4.5 — Optical Drive: CD, DVD, Blu-ray{" "}
+                <ChevronRight size={20} />
+            </Link>
         </div>
-      </div>
-    </section>
-  );
+    );
 }
 
-function SectionTitle({ number, title, icon, color = "cyan" }) {
-  const map = { cyan: "bg-cyan-500/20 text-cyan-300", blue: "bg-blue-500/20 text-blue-300", purple: "bg-purple-500/20 text-purple-300", emerald: "bg-emerald-500/20 text-emerald-300", orange: "bg-orange-500/20 text-orange-300", green: "bg-green-500/20 text-green-300", yellow: "bg-yellow-500/20 text-yellow-300", red: "bg-red-500/20 text-red-300" };
-  return <h3 className="text-2xl font-bold text-white flex items-center gap-3"><span className={`${map[color]} p-2 rounded-xl flex items-center gap-2`}><span className="font-black">{number}</span>{React.cloneElement(icon, { size: 20 })}</span>{title}</h3>;
+function SectionTitle({ number, title, icon, color = "indigo" }) {
+    const colorMap = {
+        indigo: "bg-indigo-500/20 text-indigo-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
 }
 
-function HeroPreview() { return <div className="space-y-4"><MiniProtocol item={protocols[0]} /><MiniProtocol item={protocols[1]} /><div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-green-300 whitespace-pre-wrap">IP Packet\n  ↓\nHDLC/PPP Frame\n  ↓\nBits / Signal</div></div>; }
-function MiniProtocol({ item }) { const c = colorClasses[item.color]; return <div className={`${c.bg} ${c.border} border rounded-2xl p-4 flex gap-3 items-center`}><div className={`${c.solid} text-white w-11 h-11 rounded-xl flex items-center justify-center`}>{React.cloneElement(item.icon, { size: 22 })}</div><div><p className={`${c.text} font-black`}>{item.name}</p><p className="text-xs text-slate-400">{item.full}</p></div></div>; }
-function RuleCard({ title, text, icon, color }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-3xl p-5`}><div className={`${c.text} mb-3`}>{React.cloneElement(icon, { size: 28 })}</div><h4 className="text-white font-bold mb-2">{title}</h4><p className="text-sm text-slate-400 leading-relaxed">{text}</p></div>; }
-function ChipPanel({ title, items, color }) { const c = colorClasses[color]; return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5"><h4 className="text-white font-bold mb-3">{title}</h4><div className="flex flex-wrap gap-2">{items.map((item) => <span key={item} className={`${c.bg} ${c.border} ${c.text} border rounded-full px-3 py-1 text-sm font-medium`}>{item}</span>)}</div></div>; }
-function ProsCons({ pros, cons }) { return <div className="grid md:grid-cols-2 gap-4"><div className="bg-green-500/5 border border-green-500/20 rounded-2xl p-5"><h4 className="text-green-300 font-bold mb-4 flex items-center gap-2"><CheckCircle2 size={18} /> Ưu điểm</h4><ul className="space-y-3">{pros.map((item) => <li key={item} className="text-sm text-slate-300 flex gap-2"><CheckCircle2 className="text-green-400 shrink-0 mt-0.5" size={16} /> {item}</li>)}</ul></div><div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-5"><h4 className="text-red-300 font-bold mb-4 flex items-center gap-2"><XCircle size={18} /> Nhược điểm</h4><ul className="space-y-3">{cons.map((item) => <li key={item} className="text-sm text-slate-300 flex gap-2"><XCircle className="text-red-400 shrink-0 mt-0.5" size={16} /> {item}</li>)}</ul></div></div>; }
-function OsiStack() { const layers = ["Application Layer", "Transport Layer", "Network Layer ← IP Packet", "Data Link Layer ← HDLC / PPP Frame", "Physical Layer ← Bits / Signal"]; return <div className="space-y-3">{layers.map((l) => <div key={l} className={`rounded-2xl border p-4 font-bold ${l.startsWith("Data") ? "bg-cyan-500/10 border-cyan-400/40 text-cyan-300" : l.startsWith("Network") ? "bg-purple-500/10 border-purple-400/40 text-purple-300" : "bg-slate-950 border-slate-800 text-slate-400"}`}>{l}</div>)}</div>; }
-function EncapsulationFlow() { const items = ["Dữ liệu ứng dụng", "TCP/UDP Segment", "IP Packet", "HDLC hoặc PPP Frame", "Bits truyền trên đường vật lý"]; return <div className="space-y-3">{items.map((item, i) => <React.Fragment key={item}><div className={`rounded-2xl border p-4 text-center font-bold ${i === 3 ? "bg-emerald-500/10 border-emerald-400/40 text-emerald-300" : "bg-slate-950 border-slate-800 text-slate-300"}`}>{item}</div>{i < items.length - 1 && <div className="flex justify-center"><ArrowDown className="text-slate-600" /></div>}</React.Fragment>)}</div>; }
-function FrameBar({ parts, activeId, setActiveId }) { return <div className={`min-w-[860px] grid gap-2`} style={{ gridTemplateColumns: `repeat(${parts.length}, minmax(0, 1fr))` }}>{parts.map((part) => { const c = colorClasses[part.color]; const active = activeId === part.id; return <button key={part.id} onClick={() => setActiveId(part.id)} className={`${active ? `${c.bg} ${c.border} ${c.text}` : "bg-slate-900 border-slate-800 text-slate-500"} border rounded-2xl p-3 text-center font-bold transition-colors`}><span>{part.short}</span></button>; })}</div>; }
-function InfoBox({ title, value, icon, color }) { const c = colorClasses[color]; return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-4 items-start"><div className={`${c.bg} ${c.text} w-10 h-10 rounded-xl flex items-center justify-center shrink-0`}>{React.cloneElement(icon, { size: 20 })}</div><div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{title}</p><p className="text-sm text-slate-300 mt-1 leading-relaxed whitespace-pre-wrap">{value}</p></div></div>; }
-function ConceptCard({ title, full, text, code, color, icon }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}><div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(icon, { size: 28 })}</div><p className={`${c.text} font-black text-sm uppercase tracking-wider mb-2`}>{full}</p><h3 className="text-xl font-bold text-white mb-3">{title}</h3><p className="text-sm text-slate-300 leading-relaxed mb-5">{text}</p><div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{code}</div></div>; }
-function StepFlow({ steps, active, setActive, color }) { const c = colorClasses[color]; return <div className="space-y-3">{steps.map((s, index) => <button key={s.title} onClick={() => setActive(index)} className={`w-full flex items-start gap-3 p-3 rounded-2xl border text-left transition-all ${active === index ? `${c.bg} ${c.border}` : index < active ? "bg-green-500/5 border-green-500/20" : "bg-slate-900 border-slate-800 hover:border-slate-700"}`}><div className={`${active === index ? `${c.solid} text-white` : index < active ? "bg-green-500/20 text-green-400" : "bg-slate-950 text-slate-500"} w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold`}>{index < active ? <CheckCircle2 size={16} /> : index + 1}</div><div><p className="text-sm text-white font-bold">{s.title}</p><p className="text-xs text-slate-500 mt-1 whitespace-pre-wrap">{s.code}</p></div></button>)}</div>; }
-function ExplainRow({ term, desc }) { return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4"><p className="font-mono text-blue-300 text-sm font-bold">{term}</p><p className="text-slate-400 text-sm mt-1">{desc}</p></div>; }
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-emerald-500/10 border-emerald-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed">{value}</p>
+        </div>
+    );
+}
+
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+
+function badgeColor(color) {
+    const map = {
+        indigo: "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.indigo;
+}
+
+function softBorder(color) {
+    const map = {
+        indigo: "bg-indigo-500/5 border-indigo-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.indigo;
+}
+
+function textColor(color) {
+    const map = {
+        indigo: "text-indigo-300",
+        cyan: "text-cyan-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        blue: "text-blue-300",
+        emerald: "text-emerald-300",
+        yellow: "text-yellow-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-indigo-300";
+}
