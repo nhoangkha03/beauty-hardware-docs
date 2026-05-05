@@ -1,572 +1,1311 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-  AlertTriangle,
-  ArrowDown,
-  ArrowRight,
-  Award,
-  Binary,
-  CheckCircle2,
-  ChevronRight,
-  CircleHelp,
-  Code2,
-  Database,
-  Eye,
-  Globe2,
-  Home,
-  Layers,
-  Lock,
-  Network,
-  PackageCheck,
-  RadioTower,
-  Router,
-  Search,
-  Server,
-  ShieldAlert,
-  ShieldCheck,
-  Shuffle,
-  Split,
-  TableProperties,
-  Terminal,
-  Wifi,
-  XCircle,
-  Zap,
+    AlertTriangle,
+    Award,
+    BookOpen,
+    Brain,
+    CheckCircle2,
+    ChevronRight,
+    Cpu,
+    Database,
+    Film,
+    Gamepad2,
+    Gauge,
+    Laptop,
+    Layers3,
+    Lightbulb,
+    MemoryStick,
+    Monitor,
+    PackageCheck,
+    PlugZap,
+    Search,
+    Settings,
+    ShieldCheck,
+    Sparkles,
+    Thermometer,
+    Video,
+    Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const colorClasses = {
-  cyan: { text: "text-cyan-300", bg: "bg-cyan-500/10", border: "border-cyan-400/40", solid: "bg-cyan-500", ring: "shadow-cyan-500/20" },
-  blue: { text: "text-blue-300", bg: "bg-blue-500/10", border: "border-blue-400/40", solid: "bg-blue-500", ring: "shadow-blue-500/20" },
-  purple: { text: "text-purple-300", bg: "bg-purple-500/10", border: "border-purple-400/40", solid: "bg-purple-500", ring: "shadow-purple-500/20" },
-  emerald: { text: "text-emerald-300", bg: "bg-emerald-500/10", border: "border-emerald-400/40", solid: "bg-emerald-500", ring: "shadow-emerald-500/20" },
-  orange: { text: "text-orange-300", bg: "bg-orange-500/10", border: "border-orange-400/40", solid: "bg-orange-500", ring: "shadow-orange-500/20" },
-  yellow: { text: "text-yellow-300", bg: "bg-yellow-500/10", border: "border-yellow-400/40", solid: "bg-yellow-500", ring: "shadow-yellow-500/20" },
-  green: { text: "text-green-300", bg: "bg-green-500/10", border: "border-green-400/40", solid: "bg-green-500", ring: "shadow-green-500/20" },
-  red: { text: "text-red-300", bg: "bg-red-500/10", border: "border-red-400/40", solid: "bg-red-500", ring: "shadow-red-500/20" },
-  slate: { text: "text-slate-300", bg: "bg-slate-500/10", border: "border-slate-400/40", solid: "bg-slate-600", ring: "shadow-slate-500/20" },
-};
-
-const ipv6Types = [
-  { title: "Global Unicast", prefix: "2000::/3", example: "2001:db8::1", desc: "Giống public IPv4, dùng để giao tiếp trên Internet.", color: "cyan", icon: <Globe2 /> },
-  { title: "Link-local", prefix: "fe80::/10", example: "fe80::1", desc: "Chỉ dùng trong cùng một link/local segment, không route ra Internet.", color: "emerald", icon: <Network /> },
-  { title: "Multicast", prefix: "ff00::/8", example: "ff02::1", desc: "IPv6 không dùng broadcast kiểu IPv4; multicast thay thế nhiều tác vụ nhóm.", color: "purple", icon: <RadioTower /> },
-  { title: "Loopback", prefix: "::1/128", example: "::1", desc: "Máy tự gọi chính nó, tương đương 127.0.0.1 trong IPv4.", color: "orange", icon: <Home /> },
-  { title: "Unspecified", prefix: "::/128", example: "::", desc: "Địa chỉ chưa xác định, tương tự 0.0.0.0 trong một số ngữ cảnh IPv4.", color: "slate", icon: <CircleHelp /> },
-];
-
 export default function App() {
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white pb-20">
-      <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
-              <Globe2 className="text-cyan-400" size={24} />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white tracking-tight">Khóa học Mạng Máy Tính</h1>
-              <p className="text-xs text-slate-500">Phần 5: Tầng Mạng — Network Layer</p>
-            </div>
-          </div>
-          <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">Bài 5.3</div>
-        </div>
-      </header>
+    return (
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-emerald-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+                <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center shadow-lg shadow-emerald-500/10">
+                            <Sparkles className="text-emerald-400" size={24} />
+                        </div>
+                        <div>
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
+                            </h1>
+                            <p className="text-xs text-slate-500">
+                                Phần 5: GPU — Bộ xử lý đồ họa
+                            </p>
+                        </div>
+                    </div>
+                    <div className="text-sm font-semibold text-emerald-300 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
+                        Bài 5.3
+                    </div>
+                </div>
+            </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
-        <HeroSection />
-        <LearningGoals />
-        <WhyIpv6 />
-        <Ipv6Basics />
-        <HexWhy />
-        <ShorteningRules />
-        <Ipv6Shortener />
-        <AddressTypes />
-        <Ipv6HowItWorks />
-        <Ipv6Prefix />
-        <Ipv4VsIpv6 />
-        <NatAndDualStack />
-        <CliLab />
-        <CommonMistakes />
-        <SummaryAndQuiz />
-        <NextLesson />
-      </main>
-    </div>
-  );
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <KitchenWorkshopAnalogy />
+                <GpuFlowSimulator />
+                <ComparisonTable />
+                <NeedMatrix />
+                <SpecsExplorer />
+                <OutputPortGuide />
+                <RealExamples />
+                <PickerLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
+            </main>
+        </div>
+    );
 }
 
 function HeroSection() {
-  return (
-    <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/40 p-8 md:p-12 shadow-2xl">
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-purple-500/10 blur-3xl" />
-      <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
-        <div className="space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
-            <Globe2 size={16} /> IP thế hệ mới, 128 bit
-          </div>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-            Địa chỉ IPv6:
-            <span className="block text-cyan-400">Cấu trúc & so sánh IPv4</span>
-          </h2>
-          <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-            IPv6 ra đời vì IPv4 không đủ địa chỉ. IPv6 dài 128 bit, viết bằng hệ hex, có quy tắc rút gọn, dùng NDP thay ARP và không dùng broadcast kiểu IPv4.
-          </p>
-          <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-5 font-mono text-sm max-w-xl">
-            <p className="text-slate-500">// Ghi nhớ nhanh</p>
-            <p><span className="text-cyan-300">IPv6</span> = 128 bit = 8 hextet.</p>
-            <p><span className="text-emerald-300">::</span> = rút gọn chuỗi nhóm 0, chỉ dùng một lần.</p>
-            <p><span className="text-orange-300">NDP</span> = thay vai trò ARP trong IPv6.</p>
-          </div>
-        </div>
-        <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
-          <HeroPreview />
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-violet-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-emerald-300">
+                        <BookOpen size={16} /> Phần 5: GPU — Bộ xử lý đồ họa
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        GPU tích hợp
+                        <span className="block text-emerald-400">
+                            vs GPU rời
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        iGPU đủ cho văn phòng, học tập, xem phim và game nhẹ.
+                        dGPU mạnh hơn nhiều cho gaming, dựng video, 3D, AI —
+                        nhưng tốn điện, nóng hơn và cần kiểm tra nguồn/cổng xuất
+                        hình.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag
+                            icon={<Cpu size={16} />}
+                            text="Integrated Graphics"
+                        />
+                        <Tag
+                            icon={<Sparkles size={16} />}
+                            text="Dedicated GPU"
+                        />
+                        <Tag
+                            icon={<MemoryStick size={16} />}
+                            text="RAM dùng chung"
+                        />
+                        <Tag icon={<Database size={16} />} text="VRAM riêng" />
+                        <Tag
+                            icon={<PlugZap size={16} />}
+                            text="Cổng xuất hình"
+                        />
+                    </div>
+                </div>
+
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Cpu />}
+                            label="iGPU"
+                            desc="Nằm trong CPU/SoC"
+                            color="cyan"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Sparkles />}
+                            label="dGPU"
+                            desc="Card/chip đồ họa riêng"
+                            color="emerald"
+                        />
+                        <HeroTile
+                            icon={<MemoryStick />}
+                            label="RAM chung"
+                            desc="iGPU mượn RAM hệ thống"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<Database />}
+                            label="VRAM riêng"
+                            desc="dGPU có bộ nhớ đồ họa riêng"
+                            color="violet"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Lỗi hay gặp</p>
+                        <p>Intel đuôi F thường không có iGPU</p>
+                        <p className="text-emerald-300">
+                            Có card rời → cắm màn hình vào card rời
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function LearningGoals() {
-  const goals = [
-    "Hiểu IPv6 là gì và vì sao cần IPv6.",
-    "Nắm cấu trúc IPv6 dài 128 bit.",
-    "Biết cách viết, rút gọn và đọc địa chỉ IPv6.",
-    "Nhận biết Global Unicast, Link-local, Multicast, Loopback.",
-    "Phân biệt IPv6 và IPv4 ở các điểm quan trọng.",
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="1" color="cyan" title="Mục tiêu bài học" icon={<Award />} />
-      <div className="grid md:grid-cols-5 gap-3">
-        {goals.map((goal, index) => (
-          <div key={goal} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition-colors group">
-            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center font-bold mb-4 group-hover:scale-110 transition-transform">{index + 1}</div>
-            <p className="text-sm text-slate-300 leading-relaxed">{goal}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function WhyIpv6() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="2" color="blue" title="Vì sao cần IPv6?" icon={<CircleHelp />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
-          <div className="space-y-5 text-slate-300 leading-relaxed">
-            <p>IPv4 dài 32 bit, nên tổng số địa chỉ lý thuyết là <strong className="text-white">2^32 = 4,294,967,296</strong>.</p>
-            <p>Con số này không đủ cho thế giới hiện đại với điện thoại, camera, IoT, router, server, cloud service và thiết bị công nghiệp.</p>
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm">
-              <p className="text-blue-300 font-bold mb-2">Tóm tắt:</p>
-              <p>IPv6 ra đời chủ yếu vì IPv4 không đủ địa chỉ cho số lượng thiết bị ngày càng lớn.</p>
+    const goals = [
+        "Hiểu GPU tích hợp là gì và vì sao nó dùng chung RAM hệ thống.",
+        "Hiểu GPU rời là gì và vì sao có hiệu năng cao hơn nhờ chip, VRAM và tản nhiệt riêng.",
+        "Biết khi nào chỉ cần iGPU và khi nào nên dùng dGPU.",
+        "Tránh lỗi CPU Intel đuôi F không có iGPU và lỗi cắm màn hình sai cổng.",
+        "Đọc các yếu tố quan trọng: VRAM riêng, công suất, tản nhiệt, TGP laptop, dual channel RAM cho iGPU.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="emerald"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, index) => (
+                    <div
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/50 transition-colors"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-300 flex items-center justify-center font-bold mb-4">
+                            {index + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
+                    </div>
+                ))}
             </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6"><AddressSpaceVisual /></div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function Ipv6Basics() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="3" color="cyan" title="IPv6 là gì và được viết như thế nào?" icon={<Globe2 />} />
-      <div className="grid lg:grid-cols-3 gap-4">
-        <ConceptCard title="IPv6" icon={<Globe2 />} color="cyan" text="Internet Protocol version 6 là phiên bản IP mới hơn IPv4, cung cấp không gian địa chỉ cực lớn." code="2001:db8::1" />
-        <ConceptCard title="128 bit" icon={<Binary />} color="purple" text="Một địa chỉ IPv6 dài 128 bit, gấp 4 lần độ dài bit của IPv4." code="IPv4 = 32 bit\nIPv6 = 128 bit" />
-        <ConceptCard title="8 hextet" icon={<TableProperties />} color="emerald" text="IPv6 gồm 8 nhóm hex, mỗi nhóm có 4 ký tự hex = 16 bit." code="8 nhóm × 16 bit = 128 bit" />
-      </div>
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8"><Ipv6Structure /></div>
-    </section>
-  );
-}
-
-function HexWhy() {
-  const [nibble, setNibble] = useState("0010");
-  const hex = parseInt(nibble || "0", 2).toString(16).toUpperCase();
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="4" color="purple" title="Vì sao IPv6 dùng hex?" icon={<Code2 />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className="space-y-5 text-slate-300 leading-relaxed">
-            <p>IPv6 dài 128 bit. Nếu viết toàn bộ bằng nhị phân sẽ quá dài và khó đọc.</p>
-            <p>Hệ hex giúp gom mỗi 4 bit thành 1 ký tự, nên địa chỉ 128 bit trở nên ngắn hơn nhiều.</p>
-            <div className="bg-purple-500/10 border border-purple-500/20 rounded-2xl p-5 text-sm text-purple-300">
-              4 bit = 1 ký tự hex. Một hextet 16 bit = 4 ký tự hex.
+function CoreConcept() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="cyan"
+                title="Khái niệm cốt lõi: iGPU và dGPU là gì?"
+                icon={<Brain />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <ConceptCard
+                    icon={<Cpu />}
+                    title="GPU tích hợp — Integrated Graphics"
+                    color="cyan"
+                    definition="Bộ xử lý đồ họa được tích hợp sẵn bên trong CPU hoặc cùng cụm chip xử lý."
+                    examples="Intel UHD Graphics 730, AMD Radeon Graphics trong Ryzen 5 5600G, Apple GPU trong M-series."
+                    simple="Giống căn bếp nhỏ có sẵn trong nhà: đủ nấu ăn hằng ngày, không đủ mở nhà hàng lớn."
+                />
+                <ConceptCard
+                    icon={<Sparkles />}
+                    title="GPU rời — Dedicated / Discrete GPU"
+                    color="emerald"
+                    definition="Card hoặc chip đồ họa riêng, có GPU riêng, VRAM riêng, tản nhiệt riêng và thường cần nguồn riêng."
+                    examples="NVIDIA GeForce RTX 4060, AMD Radeon RX 7600, RTX 4070, RX 7800 XT."
+                    simple="Giống xưởng sản xuất riêng chuyên làm đồ họa: lớn hơn, mạnh hơn, tốn điện hơn."
+                />
             </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-            <div className="grid grid-cols-4 gap-2 mb-4">
-              {nibble.padEnd(4, "0").slice(0, 4).split("").map((b, i) => <button key={i} onClick={() => setNibble((cur) => cur.split("").map((x, idx) => idx === i ? (x === "1" ? "0" : "1") : x).join(""))} className="bg-purple-500/10 border border-purple-400/40 rounded-2xl p-5 text-center text-purple-300 text-3xl font-black font-mono">{b}</button>)}
+        </section>
+    );
+}
+
+function KitchenWorkshopAnalogy() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: căn bếp nhỏ và xưởng sản xuất"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                <AnalogyCard
+                    icon={<Cpu />}
+                    title="iGPU = căn bếp nhỏ"
+                    desc="Có sẵn, tiết kiệm, đủ việc nhẹ: văn phòng, học online, xem phim, game eSports nhẹ."
+                    color="cyan"
+                />
+                <AnalogyCard
+                    icon={<Sparkles />}
+                    title="dGPU = xưởng đồ họa"
+                    desc="Mạnh hơn nhiều, xử lý game nặng, render, 3D, AI và dựng video tốt hơn."
+                    color="emerald"
+                />
+                <AnalogyCard
+                    icon={<MemoryStick />}
+                    title="iGPU dùng RAM chung"
+                    desc="RAM hệ thống vừa phục vụ CPU vừa làm bộ nhớ đồ họa, nên băng thông dễ giới hạn."
+                    color="orange"
+                />
+                <AnalogyCard
+                    icon={<Database />}
+                    title="dGPU có VRAM riêng"
+                    desc="Texture, model, frame buffer nằm trong VRAM riêng tốc độ cao của card."
+                    color="violet"
+                />
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 font-mono text-green-300 text-center text-2xl">{nibble} = {hex}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function ShorteningRules() {
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="5" color="orange" title="Hai quy tắc rút gọn IPv6" icon={<Shuffle />} />
-      <div className="grid lg:grid-cols-2 gap-6">
-        <ConceptCard title="Quy tắc 1: bỏ số 0 đầu nhóm" icon={<CheckCircle2 />} color="emerald" text="Trong mỗi nhóm, có thể bỏ các số 0 đứng đầu. Không bỏ số 0 ở giữa hoặc cuối nếu làm đổi giá trị." code="0db8 → db8\n0000 → 0\n0042 → 42" />
-        <ConceptCard title="Quy tắc 2: dùng :: một lần" icon={<AlertTriangle />} color="orange" text="Một chuỗi nhóm toàn 0 liên tiếp có thể thay bằng ::, nhưng chỉ được dùng :: một lần trong một địa chỉ." code="2001:db8:0:0:0:ff00:42:8329\n→ 2001:db8::ff00:42:8329" />
-      </div>
-    </section>
-  );
-}
-
-function Ipv6Shortener() {
-  const original = "2001:0db8:0000:0000:0000:ff00:0042:8329";
-  const step1 = "2001:db8:0:0:0:ff00:42:8329";
-  const step2 = "2001:db8::ff00:42:8329";
-  const [stage, setStage] = useState(0);
-  const data = [
-    { title: "Địa chỉ đầy đủ", value: original, color: "cyan", desc: "8 nhóm, mỗi nhóm 4 ký tự hex." },
-    { title: "Bỏ số 0 đầu nhóm", value: step1, color: "emerald", desc: "0db8 → db8, 0000 → 0, 0042 → 42." },
-    { title: "Dùng :: cho chuỗi 0", value: step2, color: "orange", desc: "Chuỗi 0:0:0 được rút gọn thành ::." },
-  ];
-  const cur = data[stage];
-  const c = colorClasses[cur.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="6" color="green" title="Mô phỏng rút gọn IPv6" icon={<CalculatorIcon />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6 min-h-[260px] flex flex-col justify-between`}>
-            <div>
-              <p className={`${c.text} font-black text-sm uppercase tracking-wider`}>Bước {stage + 1}/3</p>
-              <h3 className="text-2xl font-bold text-white mt-2 mb-3">{cur.title}</h3>
-              <p className="text-slate-300 leading-relaxed mb-5">{cur.desc}</p>
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 break-all">{cur.value}</div>
+function GpuFlowSimulator() {
+    const flows = {
+        igpu: {
+            title: "GPU tích hợp hoạt động",
+            color: "cyan",
+            steps: [
+                {
+                    icon: <Cpu />,
+                    title: "CPU có GPU tích hợp",
+                    desc: "GPU nằm trong CPU hoặc SoC, không phải card riêng.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "iGPU xử lý hình ảnh",
+                    desc: "Xử lý giao diện, video, game nhẹ hoặc tác vụ đồ họa cơ bản.",
+                },
+                {
+                    icon: <MemoryStick />,
+                    title: "Mượn RAM hệ thống",
+                    desc: "iGPU thường dùng RAM chung với CPU làm bộ nhớ đồ họa.",
+                },
+                {
+                    icon: <Monitor />,
+                    title: "Xuất hình qua mainboard/laptop",
+                    desc: "Desktop dùng cổng HDMI/DisplayPort trên mainboard nếu CPU có iGPU.",
+                },
+            ],
+        },
+        dgpu: {
+            title: "GPU rời hoạt động",
+            color: "emerald",
+            steps: [
+                {
+                    icon: <Cpu />,
+                    title: "CPU gửi lệnh cho card rời",
+                    desc: "CPU xử lý logic game/app rồi gửi yêu cầu đồ họa cho GPU rời.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "dGPU xử lý bằng chip riêng",
+                    desc: "Card rời có GPU riêng, tản riêng, thường mạnh hơn iGPU nhiều.",
+                },
+                {
+                    icon: <Database />,
+                    title: "VRAM riêng chứa dữ liệu đồ họa",
+                    desc: "Texture, model, frame buffer và dữ liệu render nằm trong VRAM riêng.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Xuất hình từ card rời",
+                    desc: "Màn hình nên cắm vào HDMI/DisplayPort trên card đồ họa rời.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("igpu");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
+    };
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Hai loại GPU xử lý khác nhau thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-2 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
+                        <button
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {f.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[310px] flex flex-col justify-between">
+                        <div>
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
+                            >
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </div>
-            <div className="mt-6 flex gap-3">
-              <button onClick={() => setStage((s) => Math.max(0, s - 1))} disabled={stage === 0} className="px-4 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed">Quay lại</button>
-              <button onClick={() => setStage((s) => (s + 1) % data.length)} className="px-5 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold inline-flex items-center gap-2">{stage === 2 ? "Xem lại" : "Bước tiếp"}<ChevronRight size={18} /></button>
+        </section>
+    );
+}
+
+function ComparisonTable() {
+    const rows = [
+        ["Vị trí", "Nằm trong CPU hoặc SoC", "Card/chip đồ họa riêng"],
+        ["Bộ nhớ", "Thường dùng chung RAM hệ thống", "Có VRAM riêng"],
+        [
+            "Hiệu năng",
+            "Đủ tác vụ nhẹ, một số game nhẹ",
+            "Mạnh hơn nhiều cho game, render, AI",
+        ],
+        ["Điện năng", "Tiết kiệm điện", "Tốn điện hơn"],
+        ["Nhiệt độ", "Mát hơn, ít cần tản lớn", "Nóng hơn, cần tản tốt"],
+        ["Giá thành", "Rẻ hơn vì không cần mua card riêng", "Đắt hơn"],
+        [
+            "Nâng cấp",
+            "Thường không nâng cấp riêng được",
+            "Desktop có thể thay/nâng cấp",
+        ],
+        [
+            "Phù hợp",
+            "Văn phòng, học tập, xem phim, game nhẹ",
+            "Gaming, dựng video, 3D, AI, livestream",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="blue"
+                title="So sánh GPU tích hợp vs GPU rời"
+                icon={<Layers3 />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[860px] text-sm">
+                    <thead>
+                        <tr className="text-left text-slate-400">
+                            <th className="p-4">Tiêu chí</th>
+                            <th className="p-4 text-cyan-300">GPU tích hợp</th>
+                            <th className="p-4 text-emerald-300">GPU rời</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map(([k, a, b]) => (
+                            <tr key={k} className="border-t border-slate-800">
+                                <td className="p-4 text-white font-bold">
+                                    {k}
+                                </td>
+                                <td className="p-4 text-slate-300">{a}</td>
+                                <td className="p-4 text-slate-300">{b}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-4">
-            <CompareLine label="Full" value={original} color="cyan" />
-            <CompareLine label="Trim zeros" value={step1} color="emerald" />
-            <CompareLine label="Compressed" value={step2} color="orange" />
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 text-red-300 text-sm">
-              Sai: <span className="font-mono">2001::ff00::8329</span> vì có hai lần <span className="font-mono">::</span>.
+        </section>
+    );
+}
+
+function NeedMatrix() {
+    const rows = [
+        ["Word, Excel, PowerPoint", "Đủ", "Không cần"],
+        ["YouTube, Netflix", "Đủ", "Không cần"],
+        ["Học online, Zoom, Google Meet", "Đủ", "Không cần"],
+        ["Lập trình web/app cơ bản", "Thường đủ", "Thường không cần"],
+        ["Photoshop nhẹ", "Tạm đủ", "Tốt hơn nếu file lớn"],
+        ["Premiere Pro / DaVinci Resolve", "Tùy mức độ", "Nên có"],
+        ["Game eSports nhẹ", "Có thể đủ", "Mượt hơn"],
+        ["Game AAA nặng", "Không phù hợp", "Cần"],
+        ["Blender / 3D render", "Yếu", "Cần"],
+        ["AI local / Machine Learning", "Rất hạn chế", "Cần GPU rời mạnh"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="Chọn theo nhu cầu"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[760px] text-sm">
+                    <thead>
+                        <tr className="text-left text-slate-400">
+                            <th className="p-4">Nhu cầu</th>
+                            <th className="p-4 text-cyan-300">
+                                iGPU có đủ không?
+                            </th>
+                            <th className="p-4 text-emerald-300">
+                                Nên dùng dGPU không?
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map(([need, igpu, dgpu]) => (
+                            <tr
+                                key={need}
+                                className="border-t border-slate-800"
+                            >
+                                <td className="p-4 text-white font-bold">
+                                    {need}
+                                </td>
+                                <td className="p-4 text-slate-300">{igpu}</td>
+                                <td className="p-4 text-slate-300">{dgpu}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function AddressTypes() {
-  const [active, setActive] = useState(0);
-  const item = ipv6Types[active];
-  const c = colorClasses[item.color];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="7" color="cyan" title="Các loại địa chỉ IPv6 quan trọng" icon={<ListChecksIcon />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="grid md:grid-cols-5 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          {ipv6Types.map((x, idx) => <button key={x.title} onClick={() => setActive(idx)} className={`rounded-2xl p-3 text-left border transition-all ${idx === active ? `${colorClasses[x.color].bg} ${colorClasses[x.color].border} ${colorClasses[x.color].text}` : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300"}`}><div className="flex items-center gap-2 mb-1">{React.cloneElement(x.icon, { size: 16 })}<span className="font-black text-sm">{x.title}</span></div><p className="text-[11px] font-mono opacity-80">{x.prefix}</p></button>)}
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}>
-            <div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(item.icon, { size: 28 })}</div>
-            <p className={`${c.text} font-black text-sm uppercase tracking-wider`}>{item.prefix}</p>
-            <h3 className="text-3xl font-bold text-white mb-3 mt-2">{item.title}</h3>
-            <p className="text-slate-300 leading-relaxed">{item.desc}</p>
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-            <p className="text-slate-500 font-bold uppercase tracking-wider text-sm mb-3">Ví dụ</p>
-            <div className={`${c.text} font-mono text-3xl font-black break-all`}>{item.example}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Ipv6HowItWorks() {
-  const steps = [
-    { title: "Ứng dụng tạo dữ liệu", text: "Ví dụ trình duyệt truy cập server hỗ trợ IPv6.", code: "Application Data", color: "purple", icon: <Server /> },
-    { title: "Network Layer tạo IPv6 packet", text: "Packet có Source IPv6 và Destination IPv6.", code: "Source = 2001:db8:1::10\nDestination = 2001:db8:1::20", color: "cyan", icon: <Globe2 /> },
-    { title: "Tìm địa chỉ Layer 2 bằng NDP", text: "IPv6 không dùng ARP. Nó dùng Neighbor Discovery Protocol để tìm MAC tương ứng với IPv6 trong cùng link.", code: "IPv4: ARP\nIPv6: NDP", color: "orange", icon: <Search /> },
-    { title: "Đóng vào Ethernet frame", text: "IPv6 packet trở thành payload của Ethernet frame. EtherType IPv6 là 0x86DD.", code: "Dst MAC | Src MAC | 0x86DD | IPv6 Packet | FCS", color: "emerald", icon: <PackageCheck /> },
-    { title: "Switch chuyển frame", text: "Switch đọc Destination MAC và chuyển frame ở Layer 2 như bình thường.", code: "Switch không cần hiểu sâu IPv6 để forward L2 frame", color: "blue", icon: <Network /> },
-    { title: "Máy B nhận packet", text: "Máy B kiểm tra frame, bóc Ethernet và xử lý IPv6 packet ở tầng Network.", code: "Ethernet Frame → IPv6 Packet → TCP/UDP → Application", color: "green", icon: <CheckCircle2 /> },
-  ];
-  const [step, setStep] = useState(0);
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="8" color="blue" title="IPv6 gửi dữ liệu như thế nào?" icon={<Zap />} />
-      <StepSection steps={steps} step={step} setStep={setStep} />
-    </section>
-  );
-}
-
-function Ipv6Prefix() {
-  const [prefix, setPrefix] = useState(64);
-  const hostBits = 128 - prefix;
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="9" color="emerald" title="IPv6 Prefix" icon={<Split />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-8 items-center">
-          <div className="space-y-4">
-            <ConceptCard title="IPv6 /64" icon={<Split />} color="emerald" text="IPv6 cũng dùng prefix giống CIDR. Trong LAN, /64 là prefix rất phổ biến." code="2001:db8:abcd:12::/64" />
-            <Slider label="IPv6 Prefix" value={prefix} setValue={setPrefix} min={32} max={96} suffix=" network bits" color="emerald" />
-          </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-4">
-            <Ipv6PrefixBar prefix={prefix} />
-            <div className="grid md:grid-cols-2 gap-4">
-              <StatBox title="Network prefix bits" value={prefix} color="emerald" />
-              <StatBox title="Interface ID bits" value={hostBits} color="orange" />
+function SpecsExplorer() {
+    const specs = {
+        memory: {
+            icon: <Database />,
+            title: "VRAM riêng hay RAM chung",
+            detail: "GPU tích hợp thường dùng chung RAM hệ thống; GPU rời có VRAM riêng như 8GB GDDR6 hoặc 12GB GDDR6X.",
+            impact: "iGPU phụ thuộc mạnh vào RAM dual channel và băng thông RAM. dGPU xử lý game/render tốt hơn nhờ VRAM riêng.",
+        },
+        power: {
+            icon: <Zap />,
+            title: "Công suất tiêu thụ",
+            detail: "iGPU tiết kiệm điện; dGPU mạnh hơn nhưng ăn điện và nóng hơn.",
+            impact: "Laptop iGPU thường pin tốt hơn; PC dGPU cần PSU phù hợp.",
+        },
+        ports: {
+            icon: <PlugZap />,
+            title: "Cổng xuất hình",
+            detail: "Dùng iGPU thì cắm màn hình vào mainboard; dùng dGPU thì cắm vào card rời.",
+            impact: "Cắm sai cổng có thể khiến card rời không được dùng đúng cách.",
+        },
+        cpuName: {
+            icon: <Cpu />,
+            title: "Tên CPU có iGPU không",
+            detail: "Intel desktop đuôi F thường không có iGPU; Ryzen hậu tố G thường có Radeon Graphics tích hợp.",
+            impact: "Build PC không card rời phải chọn CPU có iGPU, nếu không có thể không xuất hình.",
+        },
+        laptopTgp: {
+            icon: <Thermometer />,
+            title: "TGP laptop",
+            detail: "GPU laptop cùng tên có thể khác công suất và hiệu năng do giới hạn điện/tản nhiệt.",
+            impact: "Khi mua laptop gaming, xem TGP, tản nhiệt và benchmark thực tế, không chỉ tên RTX 4060/4070.",
+        },
+        dual: {
+            icon: <MemoryStick />,
+            title: "Dual Channel RAM",
+            detail: "iGPU dùng chung RAM nên rất cần băng thông RAM tốt.",
+            impact: "Ryzen G hoặc iGPU mạnh hơn rõ khi dùng 2 thanh RAM chạy dual channel thay vì 1 thanh.",
+        },
+    };
+    const [active, setActive] = useState("memory");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng"
+                icon={<Settings />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="font-mono text-sm bg-slate-900 border border-slate-800 rounded-2xl p-4 text-green-300 whitespace-pre-wrap">Network prefix: 2001:db8:abcd:12::/64
-              Host/interface:
-              2001:db8:abcd:12::1
-              2001:db8:abcd:12::abcd</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
-function Ipv4VsIpv6() {
-  const rows = [
-    ["Độ dài địa chỉ", "32 bit", "128 bit"],
-    ["Cách viết", "192.168.1.10", "2001:db8::1"],
-    ["Số nhóm", "4 octet", "8 hextet"],
-    ["Ký tự ngăn cách", "Dấu chấm .", "Dấu hai chấm :"],
-    ["Broadcast", "Có", "Không dùng broadcast kiểu IPv4"],
-    ["ARP", "Có ARP", "Không ARP, dùng NDP"],
-    ["NAT", "Rất phổ biến", "Thường ít cần hơn theo mục tiêu thiết kế"],
-    ["Private address", "10/8, 172.16/12, 192.168/16", "Unique Local Address fc00::/7"],
-    ["Loopback", "127.0.0.1", "::1"],
-    ["Unspecified", "0.0.0.0", "::"],
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="10" color="purple" title="So sánh IPv4 và IPv6" icon={<TableProperties />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[900px]">
-            <thead className="bg-slate-950 border-b border-slate-800 text-sm text-slate-400"><tr><th className="p-4">Tiêu chí</th><th className="p-4 text-orange-300">IPv4</th><th className="p-4 text-cyan-300">IPv6</th></tr></thead>
-            <tbody className="text-sm">
-              {rows.map(([criteria, ipv4, ipv6], i) => <tr key={criteria} className={`${i === rows.length - 1 ? "" : "border-b border-slate-800"} hover:bg-slate-800/40`}><td className="p-4 text-white font-bold">{criteria}</td><td className="p-4 text-slate-300 font-mono">{ipv4}</td><td className="p-4 text-slate-300 font-mono">{ipv6}</td></tr>)}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function NatAndDualStack() {
-  const [mode, setMode] = useState("dual");
-  const isDual = mode === "dual";
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="11" color="orange" title="IPv6 có cần NAT không? IPv6 đã thay IPv4 chưa?" icon={<Shuffle />} />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-        <div className="flex gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
-          <button onClick={() => setMode("nat")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${!isDual ? "bg-orange-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>NAT & bảo mật</button>
-          <button onClick={() => setMode("dual")} className={`px-4 py-2.5 rounded-xl font-bold text-sm ${isDual ? "bg-cyan-500 text-white" : "text-slate-400 hover:bg-slate-800"}`}>Dual Stack</button>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center">
-          {isDual ? <ConceptCard title="Dual Stack" icon={<Layers />} color="cyan" text="Nhiều hệ thống hiện nay chạy song song IPv4 và IPv6. Khi dịch vụ hỗ trợ IPv6, máy có thể dùng IPv6; nếu chỉ có IPv4, máy dùng IPv4." code="IPv4: 192.168.1.10\nIPv6: 2001:db8:abcd:12::10" /> : <ConceptCard title="Không NAT ≠ không cần bảo mật" icon={<ShieldAlert />} color="orange" text="IPv6 có không gian địa chỉ lớn nên ít cần NAT để tiết kiệm địa chỉ. Nhưng bảo mật vẫn cần firewall, ACL, router policy và monitoring." code="IPv6 vẫn cần firewall" />}
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-            {isDual ? <DualStackVisual /> : <SecurityVisual />}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CliLab() {
-  const [tab, setTab] = useState("windows");
-  const commands = {
-    windows: { title: "Xem IPv6 trên Windows", cmd: "ipconfig\nipconfig /all", output: "IPv6 Address . . . . . . . . . . : 2001:db8:abcd:12::10\nLink-local IPv6 Address . . . . : fe80::a1b2:3c4d:5e6f", note: "Bạn thường thấy cả Global IPv6 và Link-local IPv6." },
-    linux: { title: "Xem IPv6 trên Linux", cmd: "ip addr", output: "inet6 2001:db8:abcd:12::10/64\ninet6 fe80::a1b2:3c4d:5e6f/64", note: "Dòng inet6 cho biết IPv6 và prefix, ví dụ /64." },
-    ping: { title: "Ping IPv6", cmd: "ping ::1\n# Windows:\nping -6 ::1\nping -6 2001:db8::1", output: "Reply from ::1: time<1ms", note: "::1 là loopback IPv6. Ping thành công nghĩa là IPv6 stack hoạt động trên máy." },
-    neighbor: { title: "Xem neighbor table IPv6", cmd: "# Windows\nnetsh interface ipv6 show neighbors\n\n# Linux\nip -6 neigh", output: "fe80::1 dev eth0 lladdr 11:22:33:44:55:66 REACHABLE", note: "Neighbor table tương tự ARP cache, nhưng dùng cho IPv6/NDP." },
-  };
-  const current = commands[tab];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="12" color="blue" title="CLI / công cụ liên quan IPv6" icon={<Terminal />} />
-      <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-6">
-        <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-          <div className="bg-slate-950 border-b border-slate-800 px-5 py-3 flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500" /><span className="w-3 h-3 rounded-full bg-yellow-500" /><span className="w-3 h-3 rounded-full bg-green-500" />
-            <span className="ml-3 text-xs text-slate-500 font-mono">ipv6 lab</span>
-          </div>
-          <div className="p-6">
-            <div className="flex flex-wrap gap-2 mb-5">
-              {Object.entries(commands).map(([key]) => <button key={key} onClick={() => setTab(key)} className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${tab === key ? "bg-blue-500 text-white" : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-slate-200"}`}>{key}</button>)}
+function OutputPortGuide() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="purple"
+                title="Cắm màn hình vào đâu?"
+                icon={<PlugZap />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <div className="bg-cyan-500/5 border border-cyan-500/20 rounded-3xl p-6">
+                    <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 flex items-center justify-center mb-4">
+                        <Cpu />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3">
+                        Dùng GPU tích hợp
+                    </h3>
+                    <p className="text-slate-300 leading-relaxed mb-4">
+                        Cắm HDMI/DisplayPort vào cổng trên{" "}
+                        <strong className="text-cyan-300">mainboard</strong>{" "}
+                        hoặc cổng sẵn trên laptop.
+                    </p>
+                    <pre className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                        Dùng iGPU → cắm vào mainboard
+                    </pre>
+                </div>
+                <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-3xl p-6">
+                    <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center justify-center mb-4">
+                        <Sparkles />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-3">
+                        Dùng GPU rời
+                    </h3>
+                    <p className="text-slate-300 leading-relaxed mb-4">
+                        Cắm HDMI/DisplayPort vào cổng trên{" "}
+                        <strong className="text-emerald-300">
+                            card đồ họa rời
+                        </strong>
+                        , không phải mainboard.
+                    </p>
+                    <pre className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                        Dùng dGPU → cắm vào card rời
+                    </pre>
+                </div>
             </div>
-            <div className="font-mono text-sm bg-slate-950 border border-slate-800 rounded-2xl p-5 overflow-x-auto min-h-[310px] whitespace-pre-wrap">
-              <p className="text-slate-500 mb-3"># {current.title}</p>
-              <p><span className="text-green-400">student@ipv6</span><span className="text-slate-400">$ </span><span className="text-white">{current.cmd}</span></p>
-              <div className="mt-5 text-green-400">{current.output}</div>
+            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-red-300">Lỗi người mới:</strong> lắp
+                card rời nhưng cắm màn hình vào mainboard, khiến máy dùng iGPU
+                hoặc không xuất hình như mong đợi.
             </div>
-          </div>
-        </div>
-        <div className="bg-blue-500/5 border border-blue-500/20 rounded-3xl p-6">
-          <h3 className="text-xl font-bold text-blue-300 mb-5 flex items-center gap-2"><Search size={22} /> Cách đọc</h3>
-          <p className="text-slate-300 leading-relaxed">{current.note}</p>
-          <div className="mt-6 grid gap-3 text-sm">
-            <ExplainRow term="inet6" desc="Địa chỉ IPv6 trên Linux." />
-            <ExplainRow term="fe80::/10" desc="Link-local IPv6, chỉ dùng trong cùng link." />
-            <ExplainRow term="ip -6 neigh" desc="Xem neighbor table IPv6/NDP." />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Cpu />,
+            title: "AMD Ryzen 5 5600G",
+            subtitle: "iGPU phù hợp văn phòng/học tập/game nhẹ",
+            color: "cyan",
+            points: [
+                "CPU 6 nhân, 12 luồng",
+                "Có Radeon Graphics tích hợp",
+                "Không cần mua card rời cho tác vụ nhẹ",
+                "Hợp văn phòng, học online, xem phim, lập trình nhẹ",
+                "Nên dùng RAM dual channel để iGPU mạnh hơn",
+            ],
+            lesson: "Ryzen G rất hợp build PC tiết kiệm không card rời, nhưng không thay được GPU rời trong game AAA/render/AI nặng.",
+        },
+        {
+            icon: <Cpu />,
+            title: "Intel Core i5-14400",
+            subtitle: "Có Intel UHD Graphics 730",
+            color: "blue",
+            points: [
+                "10 nhân, 16 luồng",
+                "Có iGPU để xuất hình",
+                "Đủ văn phòng, học tập, xem video",
+                "Hữu ích khi GPU rời bị lỗi",
+                "Không nên kỳ vọng chơi game nặng mượt",
+            ],
+            lesson: "CPU có iGPU giúp PC xuất hình mà không cần card rời, nhưng iGPU Intel UHD chủ yếu dành cho tác vụ nhẹ.",
+        },
+        {
+            icon: <AlertTriangle />,
+            title: "Intel Core i5-14400F",
+            subtitle: "Đuôi F thường không có iGPU",
+            color: "orange",
+            points: [
+                "Hiệu năng CPU tốt",
+                "Thường không có đồ họa tích hợp",
+                "Cần GPU rời để xuất hình",
+                "Người mới rất dễ mua nhầm",
+                "Nếu không có card rời, PC có thể không hiện hình",
+            ],
+            lesson: "Build PC không card rời thì tránh CPU Intel đuôi F, trừ khi bạn đã có GPU rời.",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "RTX 4060 / RX 7600",
+            subtitle: "GPU rời phổ thông cho 1080p",
+            color: "emerald",
+            points: [
+                "Có VRAM riêng",
+                "Mạnh hơn iGPU rất nhiều",
+                "Hợp gaming 1080p",
+                "Có thể hỗ trợ dựng video/livestream/học 3D",
+                "Cần nguồn, case và cổng cấp điện phù hợp",
+            ],
+            lesson: "Khi nhu cầu là gaming/render/AI, GPU rời mới là thành phần quyết định lớn.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-2 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function PickerLab() {
+    const scenarios = {
+        office: {
+            icon: <Monitor />,
+            title: "Văn phòng / học tập",
+            answer: "Chọn CPU có GPU tích hợp để tiết kiệm chi phí. Không cần card rời nếu chỉ Word, Excel, Chrome, Zoom, YouTube.",
+            color: "cyan",
+        },
+        noCard: {
+            icon: <AlertTriangle />,
+            title: "Build PC không card rời",
+            answer: "Tránh CPU Intel đuôi F hoặc CPU AMD không có iGPU. Nếu không có iGPU/dGPU, máy có thể không xuất hình.",
+            color: "orange",
+        },
+        ryzenG: {
+            icon: <MemoryStick />,
+            title: "Ryzen G / iGPU mạnh",
+            answer: "Dùng 2 thanh RAM chạy dual channel, ví dụ 2x8GB, vì iGPU dùng chung RAM và rất cần băng thông.",
+            color: "emerald",
+        },
+        gaming: {
+            icon: <Gamepad2 />,
+            title: "Game AAA / gaming PC",
+            answer: "Cần GPU rời. iGPU chỉ hợp game nhẹ/eSports ở thiết lập phù hợp, không nên kỳ vọng game AAA nặng mượt.",
+            color: "violet",
+        },
+        laptop: {
+            icon: <Laptop />,
+            title: "Laptop gaming",
+            answer: "Đừng chỉ nhìn tên RTX 4050/4060/4070. Xem thêm TGP, hệ thống tản nhiệt, độ dày máy và benchmark thực tế.",
+            color: "blue",
+        },
+    };
+    const [active, setActive] = useState("office");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="blue"
+                title="Lab: nên chọn iGPU hay dGPU?"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function CommonMistakes() {
-  const mistakes = [
-    { title: "Nghĩ IPv6 chỉ là IPv4 dài hơn", desc: "IPv6 còn thay đổi nhiều cơ chế: không ARP, không broadcast kiểu IPv4, dùng NDP và multicast nhiều hơn.", fix: "IPv6 là thiết kế mới, không chỉ là địa chỉ dài hơn." },
-    { title: "Dùng :: nhiều lần", desc: "Ví dụ 2001::abcd::1 là sai vì có hai lần ::.", fix: "Trong một địa chỉ IPv6, :: chỉ được xuất hiện một lần." },
-    { title: "Nhầm :: và ::1", desc: ":: là unspecified address, còn ::1 là loopback address.", fix: ":: ≠ ::1." },
-    { title: "Nghĩ không NAT thì không cần bảo mật", desc: "IPv6 ít cần NAT để tiết kiệm địa chỉ, nhưng vẫn cần firewall và policy bảo mật.", fix: "Không NAT không đồng nghĩa an toàn." },
-  ];
-  return (
-    <section className="space-y-6">
-      <SectionTitle number="13" color="yellow" title="Lỗi hiểu nhầm phổ biến" icon={<AlertTriangle />} />
-      <div className="grid md:grid-cols-2 gap-4">
-        {mistakes.map((m) => <div key={m.title} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-yellow-500/40 transition-colors"><div className="w-12 h-12 rounded-2xl bg-yellow-500/10 text-yellow-300 flex items-center justify-center mb-4"><AlertTriangle size={24} /></div><h3 className="text-white font-bold text-lg mb-3">{m.title}</h3><p className="text-sm text-slate-400 leading-relaxed mb-4">{m.desc}</p><div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-3 text-sm text-green-300"><CheckCircle2 size={16} className="inline mr-1" /> {m.fix}</div></div>)}
-      </div>
-    </section>
-  );
+    const mistakes = [
+        {
+            wrong: "Máy có GPU tích hợp là chơi game nào cũng được",
+            right: "iGPU chỉ hợp game nhẹ/eSports ở thiết lập phù hợp. Game AAA nặng cần GPU rời.",
+        },
+        {
+            wrong: "CPU Intel nào cũng xuất hình được",
+            right: "Intel desktop đuôi F thường không có iGPU. Ví dụ i5-14400 có iGPU, i5-14400F thường không có.",
+        },
+        {
+            wrong: "Lắp card rời rồi cắm dây màn hình vào đâu cũng được",
+            right: "Có GPU rời thì nên cắm màn hình vào cổng trên card rời, không phải mainboard.",
+        },
+        {
+            wrong: "Laptop có cùng tên GPU thì hiệu năng giống desktop",
+            right: "GPU laptop bị giới hạn bởi TGP, tản nhiệt và độ dày máy. Cùng tên nhưng hiệu năng có thể khác nhiều.",
+        },
+        {
+            wrong: "GPU tích hợp không có giá trị",
+            right: "iGPU rất hữu ích cho máy văn phòng, máy tiết kiệm điện, laptop pin tốt và xuất hình dự phòng khi card rời lỗi.",
+        },
+    ];
+    const tips = [
+        "Mua máy văn phòng/học tập: chọn CPU có iGPU để tiết kiệm chi phí.",
+        "Build PC không card rời: tránh Intel đuôi F hoặc CPU AMD không có iGPU.",
+        "Dùng Ryzen G/iGPU: ưu tiên RAM dual channel.",
+        "Mua laptop gaming: xem TGP, tản nhiệt và benchmark, không chỉ tên GPU.",
+        "Đã lắp GPU rời: cắm dây màn hình vào card rời.",
+        "Game/render/AI nặng: nên dùng GPU rời có VRAM riêng.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Mẹo chọn nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 function SummaryAndQuiz() {
-  return (
-    <section className="space-y-6">
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
-        <div className="bg-slate-950 p-6 border-b border-slate-800">
-          <h3 className="text-xl font-bold text-white flex items-center gap-3"><span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">14</span>Tóm tắt & Kiểm tra cuối bài</h3>
-        </div>
-        <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
-          <div>
-            <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">Ghi nhớ nhanh</h4>
-            <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-green-400 border border-slate-800 shadow-inner space-y-2">
-              <p>IPv6 ra đời chủ yếu vì IPv4 thiếu địa chỉ.</p>
-              <p>IPv6 dài 128 bit.</p>
-              <p>IPv6 viết bằng hexadecimal.</p>
-              <p>IPv6 gồm 8 nhóm, mỗi nhóm 16 bit.</p>
-              <p>Có thể bỏ số 0 ở đầu nhóm.</p>
-              <p>Có thể dùng :: để rút gọn chuỗi nhóm 0, nhưng chỉ một lần.</p>
-              <br />
-              <p className="text-slate-500"># Địa chỉ quan trọng</p>
-              <p>::1 = loopback IPv6.</p>
-              <p>fe80::/10 = link-local.</p>
-              <p>ff00::/8 = multicast.</p>
-              <p>IPv6 dùng NDP thay ARP.</p>
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-emerald-500/20 text-emerald-300 p-2 rounded-xl">
+                            12
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-emerald-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>iGPU = Integrated Graphics</p>
+                            <p className="text-slate-300">
+                                Nằm trong CPU/SoC, dùng chung RAM hệ thống
+                            </p>
+                            <br />
+                            <p>dGPU = Dedicated / Discrete GPU</p>
+                            <p className="text-slate-300">
+                                Card/chip riêng, có VRAM riêng, mạnh hơn nhưng
+                                tốn điện hơn
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Cổng màn hình</p>
+                            <p className="text-slate-300">
+                                Dùng iGPU → cắm vào mainboard
+                            </p>
+                            <p className="text-slate-300">
+                                Dùng dGPU → cắm vào card rời
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                Intel đuôi F thường không có iGPU.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
             </div>
-          </div>
-          <InteractiveQuiz />
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 const questions = [
-  { question: "IPv6 dài bao nhiêu bit?", options: ["32 bit", "48 bit", "64 bit", "128 bit"], correct: 3, explanation: "IPv6 dài 128 bit, gồm 8 hextet, mỗi hextet 16 bit." },
-  { question: "Địa chỉ 2001:0db8:0000:0000:0000:ff00:0042:8329 rút gọn đúng là gì?", options: ["2001:db8::ff00:42:8329", "2001::db8::ff00:42:8329", "2001:db8:ff00:42:8329", "2001:0db8:ff00::0042::8329"], correct: 0, explanation: "Bỏ số 0 đầu nhóm rồi thay chuỗi 0:0:0 bằng ::, chỉ dùng :: một lần." },
-  { question: "IPv6 dùng giao thức nào để thay vai trò tìm MAC của ARP trong IPv4?", options: ["DNS", "DHCP", "NDP — Neighbor Discovery Protocol", "FTP"], correct: 2, explanation: "IPv6 không dùng ARP; nó dùng Neighbor Discovery Protocol — NDP." },
-  { question: "Địa chỉ IPv6 loopback là gì?", options: ["::", "::1", "fe80::1", "ff02::1"], correct: 1, explanation: "::1 là loopback IPv6, tương đương 127.0.0.1 trong IPv4." },
-  { question: "Địa chỉ link-local IPv6 thường bắt đầu bằng gì?", options: ["2000::/3", "fe80::/10", "ff00::/8", "127.0.0.0/8"], correct: 1, explanation: "Link-local IPv6 thường thuộc fe80::/10." },
+    {
+        question: "GPU tích hợp thường dùng bộ nhớ nào?",
+        options: [
+            "VRAM riêng tốc độ cao giống card rời",
+            "RAM hệ thống dùng chung với CPU",
+            "Ổ cứng SSD",
+            "Bộ nhớ trong màn hình",
+        ],
+        correct: 1,
+        explanation:
+            "GPU tích hợp thường không có VRAM riêng mà dùng chung RAM hệ thống với CPU.",
+    },
+    {
+        question: "GPU rời phù hợp nhất với nhu cầu nào?",
+        options: [
+            "Chỉ gõ Word và xem PDF",
+            "Chỉ dùng máy tính cầm tay",
+            "Chơi game nặng, render 3D, dựng video, AI",
+            "Chỉ bật máy để xem giờ",
+        ],
+        correct: 2,
+        explanation:
+            "GPU rời có chip, VRAM và tản nhiệt riêng nên phù hợp game nặng, render, video, 3D và AI.",
+    },
+    {
+        question:
+            "Khi đã lắp card đồ họa rời cho PC desktop, nên cắm dây màn hình vào đâu?",
+        options: [
+            "Cổng HDMI/DisplayPort trên card đồ họa rời",
+            "Cổng USB trên thùng máy",
+            "Cổng LAN trên mainboard",
+            "Cổng âm thanh 3.5mm",
+        ],
+        correct: 0,
+        explanation:
+            "Muốn dùng đúng GPU rời, nên cắm màn hình vào cổng xuất hình trên card đồ họa rời.",
+    },
+    {
+        question:
+            "CPU Intel có hậu tố F, ví dụ i5-14400F, thường có ý nghĩa gì?",
+        options: [
+            "Có GPU tích hợp rất mạnh",
+            "Không có GPU tích hợp, thường cần card đồ họa rời",
+            "Là CPU dành riêng cho laptop",
+            "Là CPU chỉ dùng cho server",
+        ],
+        correct: 1,
+        explanation:
+            "CPU Intel desktop đuôi F thường không có GPU tích hợp, nên cần GPU rời để xuất hình.",
+    },
+    {
+        question: "Vì sao Ryzen G/iGPU nên dùng RAM dual channel?",
+        options: [
+            "Vì iGPU dùng chung RAM và cần băng thông RAM",
+            "Vì dual channel làm màn hình to hơn",
+            "Vì không cần mainboard",
+            "Vì thay thế được SSD",
+        ],
+        correct: 0,
+        explanation:
+            "iGPU dùng RAM hệ thống làm bộ nhớ đồ họa, nên băng thông RAM ảnh hưởng rõ đến hiệu năng.",
+    },
 ];
 
 function InteractiveQuiz() {
-  const [currentQ, setCurrentQ] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const finished = currentQ === "finished";
-  const q = !finished ? questions[currentQ] : null;
-  const handleSelect = (index) => {
-    if (showResult) return;
-    setSelected(index);
-    setShowResult(true);
-    if (index === q.correct) setScore((s) => s + 1);
-  };
-  const handleNext = () => {
-    if (currentQ < questions.length - 1) {
-      setCurrentQ((c) => c + 1);
-      setSelected(null);
-      setShowResult(false);
-    } else setCurrentQ("finished");
-  };
-  const resetQuiz = () => {
-    setCurrentQ(0);
-    setSelected(null);
-    setShowResult(false);
-    setScore(0);
-  };
-  if (finished) return <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[380px]"><div className="text-6xl mb-4">{score === questions.length ? "🏆" : "👏"}</div><h4 className="text-2xl font-bold text-white mb-2">Hoàn thành!</h4><p className="text-slate-400 mb-6">Bạn trả lời đúng <strong className="text-cyan-400">{score}/{questions.length}</strong> câu hỏi.</p><button onClick={resetQuiz} className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700">Làm lại</button></div>;
-  return (
-    <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[380px]">
-      <div className="flex justify-between items-center mb-4 text-sm font-medium"><span className="text-cyan-400">Câu hỏi {currentQ + 1}/{questions.length}</span><span className="text-slate-500">Điểm: {score}</span></div>
-      <h4 className="text-lg font-bold text-white mb-6 leading-snug">{q.question}</h4>
-      <div className="space-y-3 flex-grow">
-        {q.options.map((opt, idx) => {
-          let btnClass = "w-full text-left p-4 rounded-xl border text-sm transition-all ";
-          if (!showResult) btnClass += "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
-          else if (idx === q.correct) btnClass += "border-green-500 bg-green-500/10 text-green-400";
-          else if (idx === selected) btnClass += "border-red-500 bg-red-500/10 text-red-400";
-          else btnClass += "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
-          return <button key={idx} onClick={() => handleSelect(idx)} disabled={showResult} className={btnClass}>{opt}</button>;
-        })}
-      </div>
-      {showResult && <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2"><div className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}><strong>Giải thích:</strong> {q.explanation}</div><button onClick={handleNext} className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-colors">{currentQ < questions.length - 1 ? "Câu tiếp theo" : "Xem kết quả"}</button></div>}
-    </div>
-  );
+    const [currentQ, setCurrentQ] = useState(0);
+    const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
+    const [score, setScore] = useState(0);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
+    };
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
+            setSelected(null);
+            setShowResult(false);
+        } else setCurrentQ("finished");
+    };
+    const resetQuiz = () => {
+        setCurrentQ(0);
+        setSelected(null);
+        setShowResult(false);
+        setScore(0);
+    };
+    if (finished) {
+        return (
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
+                <div className="text-6xl mb-4">
+                    {score === questions.length ? "🏆" : "👏"}
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">
+                    Hoàn thành!
+                </h4>
+                <p className="text-slate-400 mb-6">
+                    Bạn trả lời đúng{" "}
+                    <strong className="text-emerald-400">
+                        {score}/{questions.length}
+                    </strong>{" "}
+                    câu hỏi.
+                </p>
+                <button
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
+                >
+                    Làm lại
+                </button>
+            </div>
+        );
+    }
+    return (
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-emerald-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
+                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
+            </div>
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
+                {q.question}
+            </h4>
+            <div className="space-y-3 flex-grow">
+                {q.options.map((opt, idx) => {
+                    let cls =
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
+                        cls +=
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
+                    else if (idx === q.correct)
+                        cls +=
+                            "border-green-500 bg-green-500/10 text-green-400";
+                    else if (idx === selected)
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
+                    else
+                        cls +=
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
+                    return (
+                        <button
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
+                            className={cls}
+                        >
+                            {opt}
+                        </button>
+                    );
+                })}
+            </div>
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
+                    <div
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
+                    >
+                        <strong>Giải thích:</strong> {q.explanation}
+                    </div>
+                    <button
+                        onClick={handleNext}
+                        className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-colors"
+                    >
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
+                    </button>
+                </div>
+            )}
+        </div>
+    );
 }
 
 function NextLesson() {
-  return (
-    <div className="text-center pt-8 border-t border-slate-800">
-      <p className="text-slate-400 mb-4">Sau khi hiểu địa chỉ IPv4 và IPv6, bài tiếp theo học IP packet, ICMP, ping và traceroute hoạt động như thế nào.</p>
-      <Link to="/phan-5-4" className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20">
-        Bài tiếp theo: 5.4 — Giao thức IP & ICMP <ChevronRight size={20} />
-      </Link>
-    </div>
-  );
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu GPU tích hợp và GPU rời. Tiếp theo là các thông số
+                GPU quan trọng: VRAM, TDP, Clock Speed — phần giúp bạn đọc cấu
+                hình card đồ họa chính xác hơn trước khi mua.
+            </p>
+            <Link
+                to="/phan-5-4"
+                className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-emerald-500/20"
+            >
+                Bài tiếp theo: 5.4 — Các thông số GPU quan trọng: VRAM, TDP,
+                Clock Speed <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
 }
 
-function SectionTitle({ number, title, icon, color = "cyan" }) {
-  const map = { cyan: "bg-cyan-500/20 text-cyan-300", blue: "bg-blue-500/20 text-blue-300", purple: "bg-purple-500/20 text-purple-300", emerald: "bg-emerald-500/20 text-emerald-300", orange: "bg-orange-500/20 text-orange-300", green: "bg-green-500/20 text-green-300", yellow: "bg-yellow-500/20 text-yellow-300", red: "bg-red-500/20 text-red-300" };
-  return <h3 className="text-2xl font-bold text-white flex items-center gap-3"><span className={`${map[color]} p-2 rounded-xl flex items-center gap-2`}><span className="font-black">{number}</span>{React.cloneElement(icon, { size: 20 })}</span>{title}</h3>;
+function SectionTitle({ number, title, icon, color = "emerald" }) {
+    const colorMap = {
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+        violet: "bg-violet-500/20 text-violet-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
 }
-
-function HeroPreview() { return <div className="space-y-4"><Ipv6Structure compact /><div className="grid grid-cols-2 gap-3"><MiniCard title="IPv4" value="32 bit" color="orange" icon={<Network />} /><MiniCard title="IPv6" value="128 bit" color="cyan" icon={<Globe2 />} /></div><div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 font-mono text-xs text-green-300 whitespace-pre-wrap">Full: 2001:0db8:0000:0000:0000:ff00:0042:8329\nShort: 2001:db8::ff00:42:8329</div></div>; }
-function MiniCard({ title, value, color, icon }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-2xl p-4 text-center`}><div className={`${c.text} flex justify-center mb-2`}>{React.cloneElement(icon, { size: 22 })}</div><p className={`${c.text} font-black`}>{title}</p><p className="text-xs text-slate-400 mt-1">{value}</p></div>; }
-function AddressSpaceVisual() { return <div className="space-y-4"><div className="bg-orange-500/10 border border-orange-400/40 rounded-2xl p-5"><p className="text-orange-300 font-black text-xl">IPv4</p><p className="font-mono text-slate-300 mt-2">2^32 ≈ 4.3 tỷ</p></div><div className="bg-cyan-500/10 border border-cyan-400/40 rounded-2xl p-5"><p className="text-cyan-300 font-black text-xl">IPv6</p><p className="font-mono text-slate-300 mt-2">2^128 địa chỉ</p></div><div className="text-sm text-slate-400 bg-slate-900 border border-slate-800 rounded-2xl p-4">IPv6 không gian địa chỉ lớn hơn IPv4 rất nhiều.</div></div>; }
-function ConceptCard({ title, icon, color, text, code }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-3xl p-6`}><div className={`${c.solid} text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(icon, { size: 28 })}</div><h3 className="text-xl font-bold text-white mb-3">{title}</h3><p className="text-sm text-slate-300 leading-relaxed mb-5">{text}</p><div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{code}</div></div>; }
-function Ipv6Structure({ compact = false }) { const groups = ["2001", "0db8", "0000", "0000", "0000", "ff00", "0042", "8329"]; return <div className="space-y-4"><div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">{groups.map((g, i) => <div key={i} className="bg-cyan-500/10 border border-cyan-400/40 rounded-2xl p-4 text-center"><p className="text-cyan-300 text-xl font-black font-mono">{g}</p><p className="text-xs text-slate-500 mt-1">Hextet {i + 1}</p></div>)}</div>{!compact && <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 font-mono text-sm text-green-300 text-center">8 hextet × 16 bit = 128 bit</div>}</div>; }
-function CompareLine({ label, value, color }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-2xl p-4`}><p className={`${c.text} text-xs font-bold uppercase tracking-wider mb-2`}>{label}</p><p className="font-mono text-sm text-slate-300 break-all">{value}</p></div>; }
-function ListChecksIcon() { return <CheckCircle2 />; }
-function CalculatorIcon() { return <Code2 />; }
-function Slider({ label, value, setValue, min, max, suffix, color }) { const c = colorClasses[color]; return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4"><div className="flex justify-between items-center mb-3"><p className="text-white font-bold text-sm">{label}</p><p className={`${c.text} font-mono font-black`}>/{value} {suffix}</p></div><input type="range" min={min} max={max} value={value} onChange={(e) => setValue(Number(e.target.value))} className="w-full" /></div>; }
-function Ipv6PrefixBar({ prefix }) { const blocks = Array.from({ length: 16 }, (_, i) => i * 8 < prefix ? "N" : "I"); return <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4"><p className="text-sm text-slate-400 mb-3">IPv6 128 bit: Network Prefix và Interface ID</p><div className="grid grid-cols-8 gap-1 font-mono text-xs">{blocks.map((b, i) => <span key={i} className={`${b === "N" ? "bg-emerald-500/20 text-emerald-300" : "bg-orange-500/20 text-orange-300"} rounded p-2 text-center`}>{b}</span>)}</div><div className="flex gap-3 mt-4 text-xs"><span className="text-emerald-300">■ Prefix</span><span className="text-orange-300">■ Interface ID</span></div></div>; }
-function StatBox({ title, value, color }) { const c = colorClasses[color]; return <div className={`${c.bg} ${c.border} border rounded-2xl p-4 text-center`}><p className="text-xs text-slate-500 font-bold uppercase">{title}</p><p className={`${c.text} text-lg font-black mt-2 font-mono break-all`}>{value}</p></div>; }
-function StepSection({ steps, step, setStep }) { const current = steps[step]; const c = colorClasses[current.color]; return <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8"><div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center"><div className={`${c.bg} ${c.border} border rounded-3xl p-6 min-h-[330px] flex flex-col justify-between`}><div><div className={`${c.solid} w-16 h-16 rounded-2xl text-white flex items-center justify-center shadow-lg ${c.ring} mb-5`}>{React.cloneElement(current.icon, { size: 32 })}</div><p className={`${c.text} text-sm font-black uppercase tracking-wider mb-2`}>Bước {step + 1}/{steps.length}</p><h3 className="text-2xl font-bold text-white mb-3">{current.title}</h3><p className="text-slate-300 leading-relaxed mb-4">{current.text}</p><div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 font-mono text-sm text-green-300 whitespace-pre-wrap">{current.code}</div></div><div className="mt-6 flex gap-3"><button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="px-4 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed">Quay lại</button><button onClick={() => setStep((s) => (s + 1) % steps.length)} className="px-5 py-2 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold inline-flex items-center gap-2">{step === steps.length - 1 ? "Xem lại" : "Bước tiếp"}<ChevronRight size={18} /></button></div></div><div className="bg-slate-950 border border-slate-800 rounded-3xl p-5"><StepFlow steps={steps} active={step} setActive={setStep} color={current.color} /></div></div></div>; }
-function StepFlow({ steps, active, setActive, color }) { const c = colorClasses[color]; return <div className="space-y-3">{steps.map((s, index) => <button key={s.title} onClick={() => setActive(index)} className={`w-full flex items-start gap-3 p-3 rounded-2xl border text-left transition-all ${active === index ? `${c.bg} ${c.border}` : index < active ? "bg-green-500/5 border-green-500/20" : "bg-slate-900 border-slate-800 hover:border-slate-700"}`}><div className={`${active === index ? `${c.solid} text-white` : index < active ? "bg-green-500/20 text-green-400" : "bg-slate-950 text-slate-500"} w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold`}>{index < active ? <CheckCircle2 size={16} /> : index + 1}</div><div><p className="text-sm text-white font-bold">{s.title}</p><p className="text-xs text-slate-500 mt-1 whitespace-pre-wrap">{s.code}</p></div></button>)}</div>; }
-function DualStackVisual() { return <div className="space-y-4"><div className="grid md:grid-cols-2 gap-3"><MiniCard title="IPv4" value="192.168.1.10" color="orange" icon={<Network />} /><MiniCard title="IPv6" value="2001:db8::10" color="cyan" icon={<Globe2 />} /></div><div className="font-mono text-sm bg-slate-900 border border-slate-800 rounded-2xl p-4 text-green-300 whitespace-pre-wrap">Website có AAAA record → dùng IPv6\nWebsite chỉ có A record → dùng IPv4</div></div>; }
-function SecurityVisual() { return <div className="space-y-4"><MiniCard title="Firewall" value="vẫn cần" color="red" icon={<ShieldCheck />} /><div className="font-mono text-sm bg-slate-900 border border-slate-800 rounded-2xl p-4 text-orange-300 whitespace-pre-wrap">IPv6 global address ≠ tự động an toàn\nCần ACL / firewall / monitoring</div></div>; }
-function ExplainRow({ term, desc }) { return <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4"><p className="font-mono text-blue-300 text-sm font-bold">{term}</p><p className="text-slate-400 text-sm mt-1">{desc}</p></div>; }
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-cyan-500/10 border-cyan-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function ConceptCard({ icon, title, color, definition, examples, simple }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-14 h-14 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 28 })}
+            </div>
+            <h3 className="text-2xl font-black text-white mb-3">{title}</h3>
+            <p className="text-slate-300 leading-relaxed mb-4">{definition}</p>
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 mb-3">
+                <strong className={textColor(color)}>Ví dụ:</strong> {examples}
+            </div>
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                <strong className={textColor(color)}>Dễ hiểu:</strong> {simple}
+            </div>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+        violet: "bg-violet-500/10 text-violet-300 border border-violet-500/20",
+    };
+    return map[color] || map.emerald;
+}
+function softBorder(color) {
+    const map = {
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+        violet: "bg-violet-500/5 border-violet-500/20",
+    };
+    return map[color] || map.emerald;
+}
+function textColor(color) {
+    const map = {
+        emerald: "text-emerald-300",
+        cyan: "text-cyan-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        blue: "text-blue-300",
+        yellow: "text-yellow-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+        violet: "text-violet-300",
+    };
+    return map[color] || "text-emerald-300";
+}
