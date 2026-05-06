@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import {
     AlertTriangle,
     Award,
+    BatteryCharging,
     BookOpen,
     Brain,
     CheckCircle2,
     ChevronRight,
     Cpu,
-    Droplets,
+    Database,
     Fan,
     Gamepad2,
     Gauge,
+    HardDrive,
     Layers3,
     Lightbulb,
     PackageCheck,
@@ -20,10 +22,7 @@ import {
     Settings,
     ShieldCheck,
     Sparkles,
-    Thermometer,
-    Wind,
     Workflow,
-    Wrench,
     XCircle,
     Zap,
 } from "lucide-react";
@@ -36,19 +35,19 @@ export default function App() {
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
-                            <Droplets className="text-cyan-400" size={24} />
+                            <ShieldCheck className="text-cyan-400" size={24} />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
                                 Khóa học Phần Cứng Máy Tính
                             </h1>
                             <p className="text-xs text-slate-500">
-                                Phần 9: Tản nhiệt máy tính
+                                Phần 7: PSU — Bài tổng kết nguồn điện
                             </p>
                         </div>
                     </div>
                     <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">
-                        Bài 9.3
+                        Bài 7.6
                     </div>
                 </div>
             </header>
@@ -57,18 +56,19 @@ export default function App() {
                 <HeroSection />
                 <LearningGoals />
                 <CoreConcept />
-                <CarCoolingAnalogy />
-                <LiquidFlowSimulator />
-                <CoolingTypeExplorer />
-                <AirVsAioCustom />
-                <RadiatorGuide />
+                <PowerSafetyAnalogy />
+                <QualityFlowSimulator />
+                <NeedMatrix />
                 <SpecsExplorer />
-                <MountingGuide />
+                <ProtectionTable />
+                <WarrantyGuide />
+                <CaseAndCableGuide />
+                <FakeWattageDetector />
                 <RealExamples />
                 <PickerLab />
                 <CommonMistakes />
                 <SummaryAndQuiz />
-                <NextLesson />
+                <NextPart />
             </main>
         </div>
     );
@@ -82,66 +82,64 @@ function HeroSection() {
             <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
                 <div className="space-y-5">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
-                        <BookOpen size={16} /> Phần 9: Liquid Cooling
+                        <BookOpen size={16} /> Phần 7: PSU — Chọn an toàn và bền
                     </div>
                     <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                        Tản nhiệt nước
+                        Cách chọn PSU
                         <span className="block text-cyan-400">
-                            AIO & Custom Loop
+                            an toàn và bền
                         </span>
                     </h2>
                     <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-                        Tản nước dùng chất lỏng để vận chuyển nhiệt từ CPU/GPU
-                        ra radiator, rồi quạt thổi nhiệt ra không khí. Nó có thể
-                        đẹp và mạnh, nhưng không phải lúc nào cũng cần thiết hơn
-                        tản khí tốt.
+                        PSU rẻ có thể tiết kiệm vài trăm nghìn, nhưng nếu nguồn
+                        kém làm hỏng mainboard, GPU hoặc SSD thì thiệt hại có
+                        thể lớn hơn rất nhiều. Chọn PSU là chọn độ ổn định, tuổi
+                        thọ và an toàn điện cho cả hệ thống.
                     </p>
                     <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Gauge size={16} />} text="Watt thật" />
+                        <Tag icon={<Zap size={16} />} text="12V khỏe" />
                         <Tag
-                            icon={<Droplets size={16} />}
-                            text="Liquid Cooling"
+                            icon={<ShieldCheck size={16} />}
+                            text="Bảo vệ điện"
                         />
-                        <Tag icon={<PackageCheck size={16} />} text="AIO" />
-                        <Tag icon={<Wrench size={16} />} text="Custom Loop" />
-                        <Tag icon={<Fan size={16} />} text="Radiator + Fans" />
-                        <Tag icon={<Gauge size={16} />} text="Pump" />
+                        <Tag icon={<PlugZap size={16} />} text="Đủ dây" />
+                        <Tag icon={<Award size={16} />} text="Bảo hành" />
                     </div>
                 </div>
                 <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
                     <div className="grid grid-cols-2 gap-3">
                         <HeroTile
-                            icon={<Cpu />}
-                            label="CPU Block"
-                            desc="Nhận nhiệt"
-                            color="orange"
-                        />
-                        <HeroTile
                             icon={<Gauge />}
-                            label="Pump"
-                            desc="Đẩy nước"
+                            label="Đủ Watt"
+                            desc="Không sát tải"
                             color="cyan"
                             highlight
                         />
                         <HeroTile
-                            icon={<Fan />}
-                            label="Radiator"
-                            desc="Tản ra không khí"
-                            color="blue"
+                            icon={<Zap />}
+                            label="12V Rail"
+                            desc="CPU/GPU cần nhất"
+                            color="yellow"
                         />
                         <HeroTile
-                            icon={<Droplets />}
-                            label="Coolant"
-                            desc="Vận chuyển nhiệt"
+                            icon={<ShieldCheck />}
+                            label="Protection"
+                            desc="OCP/OVP/UVP…"
                             color="emerald"
+                        />
+                        <HeroTile
+                            icon={<PackageCheck />}
+                            label="Dòng uy tín"
+                            desc="Không công suất ảo"
+                            color="blue"
                         />
                     </div>
                     <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
-                        <p className="text-slate-500">
-                            // Nước không làm nhiệt biến mất
-                        </p>
-                        <p>Block → Pump → Radiator</p>
+                        <p className="text-slate-500">// Checklist ngắn</p>
+                        <p>Watt thật + 12V khỏe + đủ dây</p>
                         <p className="text-cyan-300">
-                            → Fans → Coolant quay lại
+                            + bảo vệ + bảo hành + review tốt
                         </p>
                     </div>
                 </div>
@@ -152,11 +150,11 @@ function HeroSection() {
 
 function LearningGoals() {
     const goals = [
-        "Hiểu tản nhiệt nước là hệ thống dùng chất lỏng để vận chuyển nhiệt từ linh kiện ra radiator.",
-        "Phân biệt AIO, Custom Loop, Closed Loop và Open Loop theo mức độ lắp đặt, bảo trì và rủi ro.",
-        "Nắm cơ chế hoạt động: block, pump, coolant, tubing, radiator và quạt radiator.",
-        "Biết đọc thông số quan trọng: kích thước radiator, độ dày radiator, vị trí lắp, pump, static pressure fan, socket và bảo hành.",
-        "Tránh lỗi nghĩ tản nước luôn hơn tản khí, lắp radiator sai vị trí, bỏ qua airflow case hoặc bắt đầu custom loop khi chưa sẵn sàng.",
+        "Hiểu PSU an toàn và bền là nguồn cấp điện ổn định, đúng công suất, ít nhiễu, không sụt áp bất thường và có bảo vệ điện.",
+        "Biết chọn PSU theo nhu cầu: văn phòng, gaming phổ thông, RTX 4070, RTX 4080 class, RTX 4090, workstation, Mini-ITX/SFF.",
+        "Đọc đúng các tiêu chí: công suất thật, đường 12V, 80 PLUS, ATX 3.0/3.1, đầu cắm, bảo vệ điện, bảo hành, kích thước PSU.",
+        "Nhận diện nguồn công suất ảo, PSU đáng nghi, PSU quá cũ và rủi ro dây modular lẫn bộ.",
+        "Tổng kết Phần 7: chọn PSU không chỉ đúng Watt, mà phải đúng dòng, đúng chuẩn, đủ dây, đủ bảo vệ và hợp cấu hình.",
     ];
     return (
         <section className="space-y-6">
@@ -188,27 +186,27 @@ function LearningGoals() {
 function CoreConcept() {
     const cards = [
         {
-            icon: <Cpu />,
-            title: "Water Block",
-            desc: "Tiếp xúc CPU/GPU để nhận nhiệt từ chip qua cold plate/đế đồng.",
-            color: "orange",
-        },
-        {
             icon: <Gauge />,
-            title: "Pump",
-            desc: "Bơm đẩy chất lỏng tuần hoàn liên tục trong vòng tản nhiệt.",
+            title: "Đủ công suất thật",
+            desc: "Không chỉ nhìn số Watt lớn trên hộp; phải xem dòng PSU và đường 12V.",
             color: "cyan",
         },
         {
-            icon: <Droplets />,
-            title: "Coolant + Tubing",
-            desc: "Chất lỏng và ống dẫn vận chuyển nhiệt từ block ra radiator.",
+            icon: <Zap />,
+            title: "Điện ổn định",
+            desc: "Điện áp không dao động bất thường, ripple thấp, không sụt áp khi tải nặng.",
+            color: "yellow",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Có bảo vệ điện",
+            desc: "OCP, OVP, UVP, OPP, OTP, SCP giúp giảm rủi ro khi sự cố xảy ra.",
             color: "emerald",
         },
         {
-            icon: <Fan />,
-            title: "Radiator + Fans",
-            desc: "Radiator nhận nhiệt từ nước; quạt thổi gió để đẩy nhiệt ra không khí.",
+            icon: <Award />,
+            title: "Dòng uy tín",
+            desc: "Thương hiệu, dòng sản phẩm, bảo hành và review kỹ thuật quan trọng hơn quảng cáo Watt lớn.",
             color: "blue",
         },
     ];
@@ -217,18 +215,15 @@ function CoreConcept() {
             <SectionTitle
                 number="2"
                 color="blue"
-                title="Tản nhiệt nước là gì?"
+                title="PSU an toàn và bền là gì?"
                 icon={<Brain />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
                 <p className="text-slate-300 leading-relaxed mb-6">
-                    <strong className="text-white">Tản nhiệt nước</strong>,
-                    tiếng Anh là{" "}
-                    <strong className="text-cyan-300">Liquid Cooling</strong>,
-                    là hệ thống làm mát dùng chất lỏng để hấp thụ nhiệt từ linh
-                    kiện rồi đưa nhiệt đó ra radiator để tản ra không khí. Nước
-                    không làm nhiệt biến mất; nó chỉ vận chuyển nhiệt tới nơi có
-                    diện tích tản lớn hơn.
+                    <strong className="text-white">PSU an toàn và bền</strong>{" "}
+                    là bộ nguồn có khả năng cấp điện ổn định, đúng công suất, ít
+                    nhiễu, không sụt áp bất thường, có cơ chế bảo vệ khi gặp sự
+                    cố và hoạt động ổn định trong nhiều năm.
                 </p>
                 <div className="grid md:grid-cols-4 gap-4">
                     {cards.map((c) => (
@@ -236,39 +231,40 @@ function CoreConcept() {
                     ))}
                 </div>
                 <div className="mt-6 bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
-                    CPU nóng → Block nước hấp thụ nhiệt → Coolant nóng tới
-                    radiator → Quạt thổi qua radiator → Coolant mát quay lại CPU
+                    Đủ công suất thật • Đường 12V khỏe • Hiệu suất tốt • Đủ đầu
+                    cắm • Bảo vệ điện • Dòng uy tín • Bảo hành rõ • Không công
+                    suất ảo
                 </div>
             </div>
         </section>
     );
 }
 
-function CarCoolingAnalogy() {
+function PowerSafetyAnalogy() {
     const cards = [
         {
-            icon: <Cpu />,
-            title: "CPU/GPU = động cơ",
-            desc: "Làm việc càng nặng thì nhiệt càng nhiều.",
-            color: "orange",
-        },
-        {
-            icon: <Droplets />,
-            title: "Coolant = nước làm mát",
-            desc: "Hấp thụ và mang nhiệt ra khỏi động cơ/chip.",
+            icon: <BatteryCharging />,
+            title: "Ổn áp",
+            desc: "Giữ điện đầu ra ổn định để linh kiện hoạt động bình thường.",
             color: "cyan",
         },
         {
-            icon: <Fan />,
-            title: "Radiator = két nước",
-            desc: "Tăng diện tích trao đổi nhiệt để làm mát chất lỏng.",
+            icon: <ShieldCheck />,
+            title: "Cầu dao bảo vệ",
+            desc: "Khi quá dòng, quá áp, quá nhiệt hoặc chập mạch, PSU tốt phải biết tự bảo vệ.",
+            color: "emerald",
+        },
+        {
+            icon: <Workflow />,
+            title: "Trạm phân phối",
+            desc: "Chia điện DC 12V/5V/3.3V cho CPU, GPU, mainboard, SSD, quạt.",
             color: "blue",
         },
         {
-            icon: <Gauge />,
-            title: "Pump = bơm",
-            desc: "Giữ chất lỏng di chuyển liên tục trong vòng tuần hoàn.",
-            color: "emerald",
+            icon: <AlertTriangle />,
+            title: "Nguồn kém",
+            desc: "Điện áp dao động, ripple cao, sụt áp khi tải nặng có thể gây restart, treo, tắt phụt.",
+            color: "red",
         },
     ];
     return (
@@ -276,7 +272,7 @@ function CarCoolingAnalogy() {
             <SectionTitle
                 number="3"
                 color="amber"
-                title="Ví dụ đời thường: hệ thống làm mát xe máy/ô tô"
+                title="Ví dụ đời thường: ổn áp + cầu dao + trạm điện"
                 icon={<Lightbulb />}
             />
             <div className="grid md:grid-cols-4 gap-4">
@@ -288,98 +284,93 @@ function CarCoolingAnalogy() {
     );
 }
 
-function LiquidFlowSimulator() {
+function QualityFlowSimulator() {
     const flows = {
-        aio: {
-            title: "AIO CPU",
-            color: "cyan",
+        good: {
+            title: "PSU tốt",
+            color: "emerald",
             steps: [
                 {
-                    icon: <Cpu />,
-                    title: "CPU sinh nhiệt",
-                    desc: "CPU tải nặng truyền nhiệt lên cold plate/đế đồng của block.",
+                    icon: <PlugZap />,
+                    title: "Nhận điện AC",
+                    desc: "PSU nhận điện từ ổ cắm/UPS/ổ điện.",
                 },
                 {
-                    icon: <Gauge />,
-                    title: "Pump trong block",
-                    desc: "Pump đẩy coolant nóng đi qua ống tới radiator.",
+                    icon: <BatteryCharging />,
+                    title: "Chuyển đổi chất lượng",
+                    desc: "Nguồn chuyển AC thành DC 12V, 5V, 3.3V ổn định.",
                 },
                 {
-                    icon: <Fan />,
-                    title: "Radiator nhận nhiệt",
-                    desc: "Radiator có nhiều lá tản để tăng diện tích trao đổi nhiệt.",
+                    icon: <Zap />,
+                    title: "Đường 12V khỏe",
+                    desc: "CPU và GPU nhận điện đủ, ổn định khi tải nặng.",
                 },
                 {
-                    icon: <Wind />,
-                    title: "Quạt radiator thổi gió",
-                    desc: "Quạt đẩy nhiệt từ radiator ra không khí.",
+                    icon: <ShieldCheck />,
+                    title: "Bảo vệ khi sự cố",
+                    desc: "Các mạch OCP/OVP/UVP/OPP/OTP/SCP giảm rủi ro kéo theo linh kiện.",
                 },
                 {
-                    icon: <Droplets />,
-                    title: "Coolant mát quay lại",
-                    desc: "Chất lỏng đã mát hơn quay lại block CPU và vòng lặp tiếp tục.",
+                    icon: <Sparkles />,
+                    title: "Máy ổn định lâu dài",
+                    desc: "Ít restart, ít treo, ít tắt phụt, linh kiện có môi trường điện tốt hơn.",
                 },
             ],
         },
-        custom: {
-            title: "Custom Loop",
-            color: "purple",
-            steps: [
-                {
-                    icon: <Droplets />,
-                    title: "Reservoir",
-                    desc: "Bình chứa giúp châm nước, xả khí và nhìn đẹp hơn.",
-                },
-                {
-                    icon: <Gauge />,
-                    title: "Pump",
-                    desc: "Bơm đẩy nước qua toàn bộ loop.",
-                },
-                {
-                    icon: <Cpu />,
-                    title: "CPU Block",
-                    desc: "Nhận nhiệt từ CPU.",
-                },
-                {
-                    icon: <Gamepad2 />,
-                    title: "GPU Block",
-                    desc: "Có thể làm mát cả GPU nếu lắp block phù hợp.",
-                },
-                {
-                    icon: <Fan />,
-                    title: "Radiator",
-                    desc: "Một hoặc nhiều radiator thải nhiệt ra không khí.",
-                },
-            ],
-        },
-        problem: {
-            title: "Pump / khí / vị trí sai",
+        bad: {
+            title: "PSU kém",
             color: "red",
             steps: [
                 {
                     icon: <AlertTriangle />,
-                    title: "Pump là điểm cao nhất",
-                    desc: "Bọt khí dễ kẹt ở pump, gây ồn và giảm tuổi thọ.",
-                },
-                {
-                    icon: <XCircle />,
-                    title: "Pump yếu hoặc hỏng",
-                    desc: "Coolant không lưu thông tốt, CPU nóng rất nhanh.",
-                },
-                {
-                    icon: <Thermometer />,
-                    title: "Radiator không có gió",
-                    desc: "Radiator nóng nhưng quạt/case airflow kém làm nhiệt không thoát được.",
+                    title: "Công suất mập mờ",
+                    desc: "Watt lớn trên tem nhưng đường 12V yếu hoặc thông số không rõ.",
                 },
                 {
                     icon: <Zap />,
-                    title: "Throttle hoặc tự tắt",
-                    desc: "CPU quá nóng sẽ giảm xung hoặc máy tự tắt để bảo vệ.",
+                    title: "Ripple/sụt áp",
+                    desc: "Điện áp dao động, nhiễu cao hoặc tụt khi CPU/GPU tải nặng.",
+                },
+                {
+                    icon: <XCircle />,
+                    title: "Máy lỗi bất thường",
+                    desc: "Restart khi chơi game, treo khi render, tắt phụt khi GPU boost.",
+                },
+                {
+                    icon: <HardDrive />,
+                    title: "Rủi ro lâu dài",
+                    desc: "Có thể ảnh hưởng mainboard, GPU, SSD, HDD hoặc mất dữ liệu trong tình huống xấu.",
+                },
+            ],
+        },
+        upgrade: {
+            title: "Khi nâng cấp GPU",
+            color: "orange",
+            steps: [
+                {
+                    icon: <Gamepad2 />,
+                    title: "GPU mới ăn điện hơn",
+                    desc: "Nâng RTX 4060 lên RTX 4080 class thay đổi hoàn toàn yêu cầu PSU.",
+                },
+                {
+                    icon: <Gauge />,
+                    title: "Kiểm tra công suất",
+                    desc: "Tính lại tải nặng và thêm khoảng dư hợp lý.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Kiểm tra đầu cắm",
+                    desc: "GPU cần 8-pin, nhiều 8-pin, 12VHPWR hay 12V-2x6?",
+                },
+                {
+                    icon: <Award />,
+                    title: "Kiểm tra tuổi nguồn",
+                    desc: "Nguồn 5–7 năm, hết bảo hành hoặc có lỗi nên cân nhắc thay.",
                 },
             ],
         },
     };
-    const [mode, setMode] = useState("aio");
+    const [mode, setMode] = useState("good");
     const [active, setActive] = useState(0);
     const flow = flows[mode];
     const step = flow.steps[active];
@@ -392,7 +383,7 @@ function LiquidFlowSimulator() {
             <SectionTitle
                 number="4"
                 color="purple"
-                title="Tản nước làm mát như thế nào?"
+                title="Vì sao PSU ảnh hưởng đến độ bền hệ thống?"
                 icon={<Workflow />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -465,297 +456,145 @@ function LiquidFlowSimulator() {
     );
 }
 
-function CoolingTypeExplorer() {
-    const types = {
-        aio: {
-            icon: <PackageCheck />,
-            title: "AIO Liquid Cooler",
-            color: "cyan",
-            desc: "Tản nước đóng sẵn, mua về lắp gần như một bộ hoàn chỉnh.",
-            good: [
-                "Gọn quanh socket CPU",
-                "Đẹp, hợp RGB",
-                "Hiệu năng tốt với CPU nóng",
-                "Dễ hơn custom loop",
-            ],
-            bad: [
-                "Có pump nên có rủi ro hỏng",
-                "Giá cao hơn tản khí",
-                "Tuổi thọ hữu hạn",
-            ],
-            fit: "Gaming cao cấp, render, CPU nhiều nhân, setup RGB",
-        },
-        custom: {
-            icon: <Wrench />,
-            title: "Custom Loop",
-            color: "purple",
-            desc: "Vòng nước tự thiết kế với block, pump, reservoir, ống, fitting, radiator và coolant.",
-            good: [
-                "Rất đẹp",
-                "Cá nhân hóa cao",
-                "Có thể làm mát cả CPU + GPU",
-                "Hiệu năng rất mạnh nếu thiết kế tốt",
-            ],
-            bad: [
-                "Rất đắt",
-                "Khó lắp",
-                "Cần bảo trì",
-                "Có rủi ro rò nếu làm sai",
-            ],
-            fit: "Người chơi PC chuyên sâu, modder, workstation cao cấp",
-        },
-        closed: {
-            icon: <ShieldCheck />,
-            title: "Closed Loop",
-            color: "emerald",
-            desc: "Hệ thống kín, người dùng gần như không cần châm nước.",
-            good: ["Tiện", "Ít bảo trì", "Dễ dùng hơn"],
-            bad: ["Khó sửa từng phần", "Pump vẫn có tuổi thọ"],
-            fit: "AIO CPU phổ thông",
-        },
-        open: {
-            icon: <Droplets />,
-            title: "Open Loop",
-            color: "blue",
-            desc: "Hệ thống có thể mở, châm/xả nước, thay ống, thay block và mở rộng.",
-            good: ["Linh hoạt", "Mở rộng được", "Dễ cá nhân hóa"],
-            bad: ["Cần kiến thức", "Cần leak test", "Bảo trì định kỳ"],
-            fit: "Custom loop",
-        },
-    };
-    const [active, setActive] = useState("aio");
-    const item = types[active];
+function NeedMatrix() {
+    const rows = [
+        [
+            "Văn phòng, học tập, không GPU rời",
+            "Hãng uy tín, Bronze trở lên nếu có",
+            "300–450W",
+            "Không cần nguồn quá lớn",
+        ],
+        [
+            "Gaming phổ thông RTX 4060 / RX 7600",
+            "Bronze tốt hoặc Gold",
+            "550–650W",
+            "Ưu tiên 650W nếu muốn nâng cấp",
+        ],
+        [
+            "Gaming RTX 4070 / RX 7800 XT",
+            "Gold, dòng tốt",
+            "650–750W",
+            "750W là mức đẹp",
+        ],
+        [
+            "Gaming cao cấp RTX 4080 class",
+            "Gold tốt, ATX 3.0/3.1",
+            "850W",
+            "Nên có dây native nếu GPU cần",
+        ],
+        [
+            "RTX 4090 / GPU rất mạnh",
+            "Gold/Platinum cao cấp",
+            "1000W+",
+            "Không chọn nguồn sát tải",
+        ],
+        [
+            "Workstation/render/AI",
+            "PSU cao cấp, bảo hành dài",
+            "1000W+ tùy cấu hình",
+            "Ưu tiên review kỹ thuật tốt",
+        ],
+        [
+            "Mini-ITX/SFF",
+            "SFX/SFX-L full-modular",
+            "Tùy GPU",
+            "Kiểm tra chiều dài dây và kích thước PSU",
+        ],
+    ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="5"
-                color="cyan"
-                title="Các loại tản nhiệt nước"
+                color="emerald"
+                title="Chọn PSU theo nhu cầu sử dụng"
                 icon={<Search />}
             />
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                    {Object.entries(types).map(([key, t]) => (
-                        <button
-                            key={key}
-                            onClick={() => setActive(key)}
-                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(t.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
-                        >
-                            <div className="flex items-center gap-2 font-bold text-sm">
-                                {React.cloneElement(t.icon, { size: 20 })}{" "}
-                                {t.title}
-                            </div>
-                            <p className="text-xs opacity-75 mt-1">{t.desc}</p>
-                        </button>
-                    ))}
-                </div>
-                <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-6">
-                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
-                        <div
-                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
-                        >
-                            {React.cloneElement(item.icon, { size: 32 })}
-                        </div>
-                        <h3 className="text-2xl font-extrabold text-white mb-3">
-                            {item.title}
-                        </h3>
-                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                            {item.desc}
-                        </p>
-                        <p className="text-sm text-slate-400">
-                            <strong className="text-white">Phù hợp:</strong>{" "}
-                            {item.fit}
-                        </p>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                        <div
-                            className={`${softBorder(item.color)} border rounded-3xl p-5`}
-                        >
-                            <p
-                                className={`${textColor(item.color)} font-bold mb-3`}
-                            >
-                                Ưu điểm
-                            </p>
-                            <div className="space-y-2">
-                                {item.good.map((g) => (
-                                    <Bullet key={g} text={g} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-5">
-                            <p className="text-red-300 font-bold mb-3">
-                                Nhược điểm
-                            </p>
-                            <div className="space-y-2">
-                                {item.bad.map((b) => (
-                                    <WarnBullet key={b} text={b} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
-
-function AirVsAioCustom() {
-    const rows = [
-        ["Giá", "Thấp đến cao", "Trung bình đến cao", "Rất cao"],
-        ["Dễ lắp", "Dễ", "Trung bình", "Khó"],
-        ["Bảo trì", "Ít", "Ít đến trung bình", "Nhiều"],
-        [
-            "Rủi ro rò nước",
-            "Không",
-            "Rất thấp nhưng vẫn có",
-            "Có, phụ thuộc tay nghề",
-        ],
-        [
-            "Độ bền",
-            "Rất tốt",
-            "Phụ thuộc pump/ống",
-            "Phụ thuộc linh kiện và bảo trì",
-        ],
-        [
-            "Thẩm mỹ",
-            "Tùy mẫu",
-            "Đẹp, gọn quanh CPU",
-            "Rất đẹp, cá nhân hóa mạnh",
-        ],
-        [
-            "Làm mát GPU",
-            "Không trực tiếp",
-            "Thường không",
-            "Có thể làm rất tốt",
-        ],
-        [
-            "Phù hợp người mới",
-            "Rất phù hợp",
-            "Phù hợp nếu chọn đúng",
-            "Không khuyến nghị",
-        ],
-    ];
-    return (
-        <section className="space-y-6">
-            <SectionTitle
-                number="6"
-                color="blue"
-                title="So sánh tản khí, AIO và Custom Loop"
-                icon={<Layers3 />}
-            />
             <DataTable
-                title="Không phải lúc nào tản nước cũng hơn tản khí"
+                title="Ma trận chọn nguồn thực chiến"
                 rows={rows}
-                headers={["Tiêu chí", "Tản khí", "AIO", "Custom Loop"]}
-                accent="blue"
-            />
-        </section>
-    );
-}
-
-function RadiatorGuide() {
-    const rows = [
-        ["120mm", "1 quạt 120mm", "CPU nhẹ, ít dùng hiện nay"],
-        ["240mm", "2 quạt 120mm", "CPU tầm trung"],
-        ["280mm", "2 quạt 140mm", "Cân bằng tốt, thường êm"],
-        ["360mm", "3 quạt 120mm", "CPU mạnh, gaming/render"],
-        ["420mm", "3 quạt 140mm", "CPU rất nóng, case lớn"],
-    ];
-    return (
-        <section className="space-y-6">
-            <SectionTitle
-                number="7"
-                color="emerald"
-                title="Kích thước radiator"
-                icon={<Fan />}
-            />
-            <DataTable
-                title="Radiator càng lớn thường càng có nhiều diện tích tản nhiệt"
-                rows={rows}
-                headers={["Radiator", "Số quạt thường dùng", "Phù hợp"]}
+                headers={[
+                    "Nhu cầu",
+                    "PSU nên chọn",
+                    "Công suất gợi ý",
+                    "Ghi chú",
+                ]}
                 accent="emerald"
             />
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
-                Radiator mỏng 27mm + quạt 25mm ≈ 52mm tổng độ dày
-                <br />
-                Radiator dày 38mm + quạt 25mm ≈ 63mm tổng độ dày
-                <br />
-                <span className="text-emerald-300">
-                    Lắp nóc case phải kiểm tra RAM, VRM, dây CPU 8-pin và nắp
-                    trên.
-                </span>
-            </div>
         </section>
     );
 }
 
 function SpecsExplorer() {
     const specs = {
-        radiator: {
-            icon: <Fan />,
-            title: "Radiator Size",
-            detail: "120/240/280/360/420mm. Radiator lớn hơn thường có diện tích tản nhiệt nhiều hơn.",
-            impact: "CPU tầm trung thường 240/280mm là đủ; CPU cao cấp tải nặng nên cân nhắc 280/360mm hoặc hơn nếu case hỗ trợ.",
-        },
-        thickness: {
-            icon: <Layers3 />,
-            title: "Độ dày radiator",
-            detail: "Radiator dày hơn có thể tản tốt hơn nhưng cần quạt đủ mạnh và case đủ khoảng trống.",
-            impact: "Lắp top radiator có thể cấn RAM, heatsink VRM, dây CPU 8-pin hoặc nắp trên case.",
-        },
-        mount: {
-            icon: <PackageCheck />,
-            title: "Vị trí lắp",
-            detail: "Top, front, side, bottom. Mỗi vị trí ảnh hưởng nhiệt CPU/GPU và thẩm mỹ khác nhau.",
-            impact: "Top mount thường an toàn/gọn; front mount CPU mát hơn nhưng có thể làm GPU nóng hơn.",
-        },
-        pump: {
+        watt: {
             icon: <Gauge />,
-            title: "Pump",
-            detail: "Bơm đẩy chất lỏng lưu thông. Pump yếu/hỏng làm CPU nóng rất nhanh.",
-            impact: "Dấu hiệu lỗi: CPU nóng ngay sau bật máy, tiếng rè/lọc cọc, pump RPM bằng 0, một ống rất nóng một ống rất mát bất thường.",
+            title: "Công suất thật",
+            detail: "Không chỉ nhìn số Watt lớn trên hộp. Hãy xem công suất tổng, công suất đường 12V, hãng/dòng, review và bảo hành.",
+            impact: "PSU 650W tốt thường có đường 12V gần toàn bộ 650W; nguồn 650W kém có 12V yếu bất thường cần tránh.",
         },
-        fans: {
-            icon: <Wind />,
-            title: "Quạt radiator",
-            detail: "Radiator cần quạt static pressure tốt vì gió phải đi qua lá radiator có lực cản.",
-            impact: "Xem RPM, CFM, static pressure, noise level và PWM; đừng chỉ nhìn RGB.",
+        efficiency: {
+            icon: <Sparkles />,
+            title: "Hiệu suất",
+            detail: "Bronze, Gold, Platinum nói về hiệu suất chuyển đổi điện, không nói toàn bộ chất lượng PSU.",
+            impact: "Gaming hiện nay thường cân bằng với 650–850W Gold từ dòng uy tín.",
         },
-        socket: {
-            icon: <Cpu />,
-            title: "Socket hỗ trợ",
-            detail: "AIO phải có bộ gá hỗ trợ socket CPU như Intel LGA1700/LGA1851 hoặc AMD AM4/AM5.",
-            impact: "Tản đẹp nhưng thiếu mounting kit đúng socket thì không lắp được.",
+        atx: {
+            icon: <PlugZap />,
+            title: "ATX 3.0 / 3.1",
+            detail: "GPU dùng 12VHPWR hoặc 12V-2x6 nên cân nhắc PSU chuẩn mới và dây native.",
+            impact: "GPU cao cấp không nên phụ thuộc adapter rẻ/kém chất lượng.",
+        },
+        cable: {
+            icon: <Puzzle />,
+            title: "Đủ đầu cắm",
+            detail: "Cần 24-pin ATX, 4+4/8-pin EPS, PCIe 6+2, 12VHPWR/12V-2x6, SATA Power và Molex nếu thiết bị cũ cần.",
+            impact: "PSU tốt nhưng thiếu dây vẫn gây phiền, phải dùng adapter hoặc đổi nguồn.",
+        },
+        protection: {
+            icon: <ShieldCheck />,
+            title: "Bảo vệ điện",
+            detail: "OCP, OVP, UVP, OPP, OTP, SCP giúp giảm nguy cơ kéo theo linh kiện khi có sự cố.",
+            impact: "Nguồn an toàn không chỉ cấp điện, mà phải biết tự ngắt/bảo vệ khi bất thường.",
         },
         warranty: {
-            icon: <ShieldCheck />,
-            title: "Bảo hành / tuổi thọ",
-            detail: "AIO có pump, ống và dung dịch nên không có tuổi thọ gần như vô hạn như tản khí đơn giản.",
-            impact: "Nên xem bảo hành, chính sách rò rỉ, chất lượng pump, review độ ồn pump và dễ thay quạt không.",
+            icon: <Award />,
+            title: "Bảo hành",
+            detail: "Bảo hành không đảm bảo tuyệt đối, nhưng là tín hiệu quan trọng về phân khúc và độ tin cậy.",
+            impact: "5 năm tốt cho tầm trung; 7–10 năm thường gặp ở dòng cao hơn.",
+        },
+        size: {
+            icon: <Layers3 />,
+            title: "Kích thước PSU",
+            detail: "PSU phải vừa case: ATX, SFX, SFX-L, TFX và chiều dài nguồn.",
+            impact: "PSU công suất cao có thể dài hơn, vướng ổ cứng/dây trong case nhỏ.",
+        },
+        old: {
+            icon: <AlertTriangle />,
+            title: "Tuổi PSU",
+            detail: "PSU cũng lão hóa: tụ điện, quạt và linh kiện bên trong suy giảm theo thời gian.",
+            impact: "Nguồn 5–7 năm, hết bảo hành, có tiếng lạ hoặc restart khi tải nặng nên cân nhắc thay khi nâng GPU.",
         },
     };
-    const [active, setActive] = useState("mount");
+    const [active, setActive] = useState("watt");
     const item = specs[active];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="8"
+                number="6"
                 color="yellow"
-                title="Thông số kỹ thuật quan trọng"
+                title="Thông số kỹ thuật quan trọng khi chọn PSU"
                 icon={<Puzzle />}
             />
             <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
-                <div className="grid grid-cols-2 md:grid-cols-7 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
                     {Object.entries(specs).map(([key, s]) => (
                         <button
                             key={key}
                             onClick={() => setActive(key)}
-                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-3 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
                         >
-                            {React.cloneElement(s.icon, { size: 19 })}
-                            <span className="font-bold text-[11px]">
-                                {s.title}
-                            </span>
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
                         </button>
                     ))}
                 </div>
@@ -783,51 +622,166 @@ function SpecsExplorer() {
     );
 }
 
-function MountingGuide() {
+function ProtectionTable() {
     const rows = [
-        [
-            "Top / nóc case",
-            "Xả khí nóng ra ngoài tốt, gọn",
-            "Cần case đủ cao, có thể cấn main/RAM",
-            "Thường an toàn cho người mới nếu case hỗ trợ",
-        ],
-        [
-            "Front / mặt trước",
-            "Hút gió mát qua radiator, CPU mát",
-            "Khí nóng từ radiator đi vào case, GPU có thể nóng hơn",
-            "Dùng được, chú ý hướng ống và GPU clearance",
-        ],
-        [
-            "Side / hông",
-            "Đẹp, phổ biến ở case dual-chamber",
-            "Tùy case, cần kiểm tra hướng gió",
-            "Hợp build trưng bày/dual-chamber",
-        ],
-        [
-            "Bottom / đáy",
-            "Một số case hỗ trợ",
-            "Không khuyến nghị cho AIO CPU nếu pump là điểm cao nhất",
-            "Cần hiểu rõ layout trước khi dùng",
-        ],
+        ["OCP", "Over Current Protection", "Bảo vệ quá dòng"],
+        ["OVP", "Over Voltage Protection", "Bảo vệ quá áp"],
+        ["UVP", "Under Voltage Protection", "Bảo vệ thấp áp"],
+        ["OPP", "Over Power Protection", "Bảo vệ quá công suất"],
+        ["OTP", "Over Temperature Protection", "Bảo vệ quá nhiệt"],
+        ["SCP", "Short Circuit Protection", "Bảo vệ chập mạch"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="cyan"
+                title="Các cơ chế bảo vệ điện cần có"
+                icon={<ShieldCheck />}
+            />
+            <DataTable
+                title="PSU an toàn nên có các bảo vệ này"
+                rows={rows}
+                headers={["Bảo vệ", "Tên đầy đủ", "Ý nghĩa dễ hiểu"]}
+                accent="cyan"
+            />
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-cyan-300">Ghi nhớ:</strong> nếu PSU gặp
+                sự cố, các bảo vệ này giúp giảm nguy cơ kéo theo linh kiện khác.
+            </div>
+        </section>
+    );
+}
+
+function WarrantyGuide() {
+    const rows = [
+        ["12–24 tháng", "Cần cân nhắc kỹ"],
+        ["36 tháng", "Tạm ổn"],
+        ["5 năm", "Tốt cho PSU tầm trung"],
+        ["7–10 năm", "Thường là dòng cao cấp hơn"],
+    ];
+    const efficiency = [
+        ["80 PLUS Bronze", "Đủ dùng nếu là dòng tốt, phù hợp máy phổ thông"],
+        ["80 PLUS Gold", "Điểm cân bằng tốt cho gaming/làm việc"],
+        ["80 PLUS Platinum/Titanium", "Cao cấp, hợp máy chạy lâu, workstation"],
+        ["Không chứng nhận rõ", "Cần rất thận trọng"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="blue"
+                title="Hiệu suất và bảo hành: đọc đúng tín hiệu"
+                icon={<Award />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="Hiểu đúng 80 PLUS"
+                    rows={efficiency}
+                    headers={["Chứng nhận", "Nên hiểu thế nào?"]}
+                    accent="blue"
+                />
+                <DataTable
+                    title="Bảo hành PSU"
+                    rows={rows}
+                    headers={["Thời gian", "Nhận xét"]}
+                    accent="emerald"
+                />
+            </div>
+        </section>
+    );
+}
+
+function CaseAndCableGuide() {
+    const cases = [
+        ["Case ATX / Mid Tower", "ATX PSU"],
+        ["Case mATX phổ thông", "ATX PSU"],
+        ["Case Mini-ITX / SFF", "SFX hoặc SFX-L"],
+        ["Case slim", "TFX hoặc nguồn riêng theo case"],
+    ];
+    const cables = [
+        ["GPU dùng 1 x 8-pin PCIe", "PSU ATX 2.x tốt vẫn ổn"],
+        ["GPU dùng 2 x 8-pin PCIe", "Kiểm tra đủ dây PCIe"],
+        ["GPU dùng 12VHPWR", "Nên ưu tiên PSU có dây native"],
+        ["GPU dùng 12V-2x6", "Nên ưu tiên ATX 3.1 / PCIe 5.1"],
+        ["GPU cao cấp", "Không dùng adapter rẻ/kém chất lượng"],
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="9"
-                color="orange"
-                title="Vị trí lắp radiator và quy tắc pump"
-                icon={<Settings />}
+                color="purple"
+                title="Kích thước PSU, case và dây GPU mới"
+                icon={<Layers3 />}
             />
-            <DataTable
-                title="Radiator lắp ở đâu thì hợp?"
-                rows={rows}
-                headers={["Vị trí", "Ưu điểm", "Nhược điểm", "Gợi ý"]}
-                accent="orange"
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="PSU phải vừa case"
+                    rows={cases}
+                    headers={["Loại case", "PSU thường dùng"]}
+                    accent="purple"
+                />
+                <DataTable
+                    title="GPU đời mới cần kiểm tra gì?"
+                    rows={cables}
+                    headers={["Tình huống", "Khuyến nghị"]}
+                    accent="orange"
+                />
+            </div>
+            <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-orange-300">Với RTX cao cấp:</strong> ưu
+                tiên dây native 12VHPWR hoặc 12V-2x6, không gập dây sát đầu cắm,
+                cắm vào hết nấc và tránh adapter rẻ.
+            </div>
+        </section>
+    );
+}
+
+function FakeWattageDetector() {
+    const signs = [
+        "Giá quá rẻ so với công suất",
+        "Thương hiệu lạ",
+        "Không có thông số đường 12V rõ ràng",
+        "Không ghi bảo vệ điện",
+        "Không có bảo hành rõ",
+        "Trọng lượng quá nhẹ bất thường",
+        "Thông tin sản phẩm mập mờ",
+        "Không có review kỹ thuật đáng tin",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="red"
+                title="Nhận diện nguồn công suất ảo / đáng nghi"
+                icon={<AlertTriangle />}
             />
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
-                <strong className="text-red-300">Quy tắc an toàn:</strong> không
-                để pump là điểm cao nhất trong vòng nước, vì bọt khí có thể kẹt
-                ở pump, gây ồn, giảm hiệu quả và giảm tuổi thọ.
+            <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-6">
+                <h3 className="text-xl font-bold text-red-300 mb-5">
+                    Dấu hiệu nên tránh
+                </h3>
+                <div className="grid md:grid-cols-2 gap-3">
+                    {signs.map((s) => (
+                        <div
+                            key={s}
+                            className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                        >
+                            <XCircle
+                                className="text-red-400 shrink-0 mt-0.5"
+                                size={18}
+                            />
+                            <span>{s}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                650W chất lượng tốt{" "}
+                <span className="text-emerald-300">&gt;</span> 900W công suất ảo
+                <br />
+                750W Gold dòng tốt{" "}
+                <span className="text-emerald-300">&gt;</span> 1000W dòng lạ,
+                thông số mập mờ
             </div>
         </section>
     );
@@ -836,68 +790,68 @@ function MountingGuide() {
 function RealExamples() {
     const examples = [
         {
-            icon: <Fan />,
-            title: "AIO 240mm",
-            subtitle: "CPU tầm trung",
-            color: "cyan",
+            icon: <Gamepad2 />,
+            title: "Gaming phổ thông",
+            subtitle: "RTX 4060 / RX 7600",
+            color: "emerald",
             points: [
-                "2 quạt 120mm",
-                "Phù hợp Core i5/Ryzen 5/Ryzen 7",
-                "Gọn quanh socket CPU",
-                "Đẹp hơn tản khí lớn",
-                "Cần case hỗ trợ radiator 240mm",
+                "550W tốt: đủ dùng",
+                "650W Gold: đẹp hơn, dư nâng cấp nhẹ",
+                "Đường 12V khỏe",
+                "Ít nhất 1 đầu PCIe 8-pin",
+                "Bảo hành rõ ràng",
             ],
-            lesson: "AIO 240mm hợp khi muốn thẩm mỹ gọn và CPU không quá nóng; tản khí tốt vẫn là lựa chọn hợp lý nếu ưu tiên bền/rẻ.",
+            lesson: "Với ngân sách vừa phải, chọn 650W từ dòng uy tín hơn nguồn 750W giá rẻ bất thường.",
         },
         {
             icon: <Sparkles />,
-            title: "Corsair iCUE LINK TITAN 360 RX RGB",
-            subtitle: "AIO 360mm cao cấp",
+            title: "Corsair RM750e",
+            subtitle: "Gaming tầm khá RTX 4070/Super",
+            color: "cyan",
+            points: [
+                "750W",
+                "Full-modular",
+                "ATX 3.1 / PCIe 5.1",
+                "12V-2x6",
+                "Cybenetics Gold",
+            ],
+            lesson: "750W Gold full-modular, chuẩn mới và dây GPU native phù hợp build tầm khá hiện đại.",
+        },
+        {
+            icon: <Award />,
+            title: "Cooler Master MWE Gold 750 V2",
+            subtitle: "750W Gold cân bằng",
+            color: "yellow",
+            points: [
+                "80 PLUS Gold",
+                "2 EPS connectors",
+                "Full modular ở bản FM",
+                "Quạt 120mm HDB",
+                "Bảo hành 5 năm",
+            ],
+            lesson: "Dòng 750W Gold tốt là lựa chọn cân bằng cho Core i5/i7 hoặc Ryzen 5/7 với GPU tầm trung khá.",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Seasonic Focus GX 850",
+            subtitle: "Gaming cao cấp / workstation nhẹ",
             color: "blue",
             points: [
-                "Radiator 360mm",
-                "3 quạt",
-                "Hợp Core i7/i9 hoặc Ryzen 7/9",
-                "RGB và hệ sinh thái đồng bộ",
-                "Cần kiểm tra case, RAM, VRM, GPU clearance",
+                "850W",
+                "80 PLUS Gold",
+                "Full modular",
+                "ATX 3.0 / PCIe 5.0",
+                "Dòng Focus GX uy tín",
             ],
-            lesson: "AIO 360mm mạnh và đẹp nhưng phải kiểm tra vị trí lắp; giá có thể thay đổi mạnh theo phiên bản và bundle.",
-        },
-        {
-            icon: <Gauge />,
-            title: "ARCTIC Liquid Freezer III 360",
-            subtitle: "AIO hiệu năng/giá tốt",
-            color: "emerald",
-            points: [
-                "Radiator 360mm",
-                "Ưu tiên hiệu năng hơn RGB",
-                "Hợp CPU nhiều nhân",
-                "Cần case đủ chỗ",
-                "Phù hợp render/compile lâu",
-            ],
-            lesson: "AIO hiệu năng/giá tốt đáng cân nhắc nếu CPU tải lâu và case hỗ trợ radiator lớn.",
-        },
-        {
-            icon: <Wrench />,
-            title: "EK-Quantum Power Kit",
-            subtitle: "Custom loop kit",
-            color: "purple",
-            points: [
-                "CPU water block",
-                "Pump/reservoir",
-                "Radiator",
-                "Tubing + fittings",
-                "Có thể mở rộng/nâng cấp",
-            ],
-            lesson: "Custom loop đẹp và mạnh nhưng đắt, khó lắp, cần leak test và bảo trì định kỳ; không phải lựa chọn cho người mới chỉ muốn máy mát hơn chút.",
+            lesson: "850W Gold dòng tốt hợp RTX 4070 Ti Super / RTX 4080 class và CPU mạnh.",
         },
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="10"
+                number="11"
                 color="pink"
-                title="Ví dụ thực tế"
+                title="Ví dụ thực tế cụ thể"
                 icon={<PackageCheck />}
             />
             <div className="grid lg:grid-cols-4 gap-4">
@@ -935,51 +889,51 @@ function RealExamples() {
 
 function PickerLab() {
     const scenarios = {
-        mid: {
+        office: {
             icon: <Cpu />,
-            title: "CPU tầm trung",
-            answer: "AIO 240mm là đủ nếu thích tản nước. Nhưng nếu không cần thẩm mỹ gọn quanh CPU, tản khí tốt vẫn rất hợp lý về giá, độ bền và ít rủi ro.",
+            title: "Văn phòng",
+            answer: "Chọn 300–450W từ hãng/dòng uy tín. Bronze tốt là đủ nếu không có GPU rời; không cần nguồn quá lớn.",
             color: "cyan",
         },
-        high: {
-            icon: <Thermometer />,
-            title: "CPU cao cấp tải nặng",
-            answer: "Ưu tiên AIO 280/360mm hoặc tản khí dual-tower cao cấp. Nếu render/compile lâu, radiator lớn và airflow case tốt rất quan trọng.",
-            color: "orange",
-        },
-        beauty: {
-            icon: <Sparkles />,
-            title: "Build RGB/trưng bày",
-            answer: "AIO giúp khu vực socket CPU gọn và đẹp. Kiểm tra ARGB header/controller, dây pump/fan và vị trí radiator để đi dây sạch.",
-            color: "purple",
-        },
-        gpu: {
+        rtx4060: {
             icon: <Gamepad2 />,
-            title: "Muốn làm mát GPU",
-            answer: "AIO CPU thường không làm mát GPU trực tiếp. Muốn làm mát cả GPU thường cần GPU AIO riêng hoặc custom loop, chi phí và độ khó cao hơn nhiều.",
-            color: "red",
+            title: "RTX 4060/RX 7600",
+            answer: "550–650W Bronze tốt hoặc Gold. Ưu tiên 650W nếu muốn dư nâng cấp và case đi dây gọn.",
+            color: "emerald",
         },
-        custom: {
-            icon: <Wrench />,
-            title: "Muốn custom loop",
-            answer: "Chỉ nên bắt đầu nếu bạn chấp nhận chi phí cao, có thời gian học fitting/tubing/leak test/bảo trì, và mục tiêu là thẩm mỹ/cá nhân hóa sâu.",
-            color: "blue",
-        },
-        old: {
-            icon: <AlertTriangle />,
-            title: "AIO dùng vài năm",
-            answer: "Theo dõi tiếng pump, nhiệt CPU, bọt khí và quạt radiator. AIO có pump/ống/dung dịch nên tuổi thọ hữu hạn; nếu nhiệt tăng bất thường, cần kiểm tra nghiêm túc.",
+        rtx4070: {
+            icon: <Sparkles />,
+            title: "RTX 4070/RX 7800 XT",
+            answer: "650–750W Gold dòng tốt. 750W là mức đẹp cho gaming tầm khá, mát, êm và có dư vừa phải.",
             color: "yellow",
         },
+        rtx4080: {
+            icon: <Zap />,
+            title: "RTX 4080 class",
+            answer: "850W Gold tốt, ưu tiên ATX 3.0/3.1 và dây native 12VHPWR/12V-2x6 nếu GPU cần.",
+            color: "orange",
+        },
+        workstation: {
+            icon: <Database />,
+            title: "Workstation/AI",
+            answer: "1000W+ tùy cấu hình. Ưu tiên Gold/Platinum dòng cao cấp, bảo hành dài, review kỹ thuật tốt, không chọn sát tải.",
+            color: "purple",
+        },
+        used: {
+            icon: <AlertTriangle />,
+            title: "Mua PSU cũ",
+            answer: "Rất thận trọng: kiểm tra bảo hành, đủ dây gốc, từng chạy đào coin/render không, quạt/mùi khét/ốc tháo mở và dòng PSU có uy tín không.",
+            color: "red",
+        },
     };
-    const [active, setActive] = useState("high");
+    const [active, setActive] = useState("rtx4070");
     const item = scenarios[active];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="11"
+                number="12"
                 color="blue"
-                title="Lab: chọn tản nước theo tình huống"
+                title="Lab: chọn PSU an toàn theo tình huống"
                 icon={<Search />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -1020,39 +974,42 @@ function PickerLab() {
 function CommonMistakes() {
     const mistakes = [
         {
-            wrong: "Tản nước luôn tốt hơn tản khí",
-            right: "Không phải lúc nào cũng vậy. AIO 120mm hoặc AIO rẻ có thể thua tản khí dual-tower tốt. Còn tùy radiator, pump, quạt, case và CPU.",
+            wrong: "Chọn PSU theo Watt lớn nhất trong tầm tiền",
+            right: "Công suất lớn bất thường nhưng giá quá rẻ rất đáng nghi. 650W chất lượng tốt thường hơn 900W công suất ảo.",
         },
         {
-            wrong: "AIO không cần airflow case",
-            right: "Radiator vẫn phải thải nhiệt ra không khí. Case bí gió làm hiệu năng AIO giảm và toàn hệ thống nóng hơn.",
+            wrong: "Tin tuyệt đối vào 80 PLUS Gold",
+            right: "80 PLUS chỉ nói về hiệu suất, không nói hết ripple, độ ổn định điện áp, tụ, bảo vệ, độ ồn và spike tải.",
         },
         {
-            wrong: "Lắp radiator ở đâu cũng được",
-            right: "Vị trí radiator ảnh hưởng nhiệt CPU/GPU và tuổi thọ pump. Tránh để pump là điểm cao nhất trong vòng nước.",
+            wrong: "Dùng PSU quá cũ cho GPU mới mạnh",
+            right: "PSU 5–7 năm, hết bảo hành, thiếu đầu GPU mới, restart khi tải nặng hoặc có tiếng/mùi lạ nên cân nhắc thay.",
         },
         {
-            wrong: "Custom loop chỉ là AIO đẹp hơn",
-            right: "Custom loop phức tạp hơn nhiều: chọn fitting, cắt/uốn ống, leak test, xả khí, thay coolant và bảo trì định kỳ.",
+            wrong: "Dùng dây modular lẫn nhau",
+            right: "Cắm vừa không có nghĩa pinout đúng. Chỉ dùng dây đi kèm đúng PSU hoặc dây được hãng xác nhận tương thích đúng model.",
         },
         {
-            wrong: "AIO dùng mãi không hỏng",
-            right: "AIO có pump, ống và dung dịch. Sau vài năm có thể gặp pump yếu/hỏng, bay hơi, bọt khí, quạt xuống cấp hoặc hiệu năng giảm.",
+            wrong: "Chọn PSU thiếu đầu cắm",
+            right: "Trước khi mua, xem mainboard cần 8+4 CPU không, GPU cần bao nhiêu PCIe/12VHPWR, hub fan/RGB cần SATA Power không.",
+        },
+        {
+            wrong: "Tiết kiệm PSU nhưng mua GPU rất đắt",
+            right: "GPU mạnh cần PSU đủ tốt để bảo vệ và cấp điện ổn định. Đừng để GPU 10–30 triệu đi với nguồn rẻ, dòng mập mờ.",
         },
     ];
     const tips = [
-        "CPU tầm trung: AIO 240mm là đủ nếu thích tản nước; tản khí tốt vẫn hợp lý.",
-        "CPU cao cấp tải nặng: ưu tiên AIO 280/360mm hoặc tản khí dual-tower cao cấp.",
-        "Trước khi mua AIO: kiểm tra case hỗ trợ radiator, vị trí lắp, cấn RAM/VRM/GPU, socket và header CPU_FAN/PUMP/ARGB.",
-        "Không mua AIO chỉ vì đẹp nếu CPU không nóng; tiền đó có thể nâng SSD, RAM hoặc GPU thực tế hơn.",
-        "Ưu tiên hãng có bảo hành rõ ràng vì AIO có pump và chất lỏng bên trong.",
-        "Với custom loop, luôn leak test trước khi cấp điện đầy đủ cho hệ thống.",
-        "Không trộn linh tinh coolant, kim loại và phụ gia trong custom loop.",
+        "Chọn PSU theo dòng sản phẩm, không chỉ theo hãng.",
+        "Gaming PC nên ưu tiên Gold nếu ngân sách cho phép.",
+        "Tránh nguồn có giá quá rẻ so với công suất và thông số mập mờ.",
+        "GPU đời mới nên ưu tiên PSU ATX 3.0/3.1, dây native 12VHPWR/12V-2x6.",
+        "Đừng để PSU chạy sát tải lâu dài; nguồn chạy thoải mái thường mát, êm, bền và ổn định hơn.",
+        "PSU cũ rủi ro hơn nhiều linh kiện khác; không nên mua PSU cũ cho máy đắt tiền nếu không kiểm tra được.",
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="12"
+                number="13"
                 color="red"
                 title="Sai lầm phổ biến & mẹo thực chiến"
                 icon={<AlertTriangle />}
@@ -1112,9 +1069,9 @@ function SummaryAndQuiz() {
                 <div className="bg-slate-950 p-6 border-b border-slate-800">
                     <h3 className="text-xl font-bold text-white flex items-center gap-3">
                         <span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">
-                            13
+                            14
                         </span>{" "}
-                        Tóm tắt & Kiểm tra cuối bài
+                        Tóm tắt & Kiểm tra cuối Phần 7
                     </h3>
                 </div>
                 <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
@@ -1124,26 +1081,24 @@ function SummaryAndQuiz() {
                         </h4>
                         <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-cyan-300 border border-slate-800 shadow-inner space-y-2">
                             <p>
-                                Liquid Cooling = dùng chất lỏng vận chuyển nhiệt
+                                PSU an toàn = đủ Watt thật + 12V khỏe + điện ổn
+                                định
                             </p>
                             <p>
-                                CPU/GPU → Block → Pump → Radiator + Fans →
-                                Coolant quay lại
+                                + đủ đầu cắm + bảo vệ điện + bảo hành rõ + dòng
+                                uy tín
                             </p>
                             <br />
-                            <p className="text-slate-500"># Loại chính</p>
-                            <p className="text-slate-300">
-                                AIO = đóng sẵn, tiện, đẹp, có pump
+                            <p className="text-slate-500">
+                                # Không nên chỉ nhìn
                             </p>
                             <p className="text-slate-300">
-                                Custom Loop = tự thiết kế, đẹp/mạnh, đắt/khó/bảo
-                                trì nhiều
+                                Watt lớn • 80 PLUS Gold • hãng quen • giá rẻ
                             </p>
                             <br />
                             <p className="text-red-300">
-                                Tản nước không luôn hơn tản khí. Chọn theo CPU,
-                                case, radiator, pump, quạt, ngân sách và rủi ro
-                                chấp nhận được.
+                                GPU đắt không nên đi với PSU rẻ, không rõ dòng,
+                                thông số mập mờ.
                             </p>
                         </div>
                     </div>
@@ -1156,65 +1111,64 @@ function SummaryAndQuiz() {
 
 const questions = [
     {
-        question: "AIO là viết tắt của gì?",
+        question: "Khi chọn PSU, yếu tố nào quan trọng nhất?",
         options: [
-            "Air Inside Only",
-            "All-in-One",
-            "Automatic Input Output",
-            "Advanced Internal Overclock",
+            "Chỉ cần Watt thật lớn",
+            "Đủ công suất, chất lượng tốt, đủ bảo vệ và phù hợp cấu hình",
+            "Có RGB là được",
+            "Nặng nhất là tốt nhất",
         ],
         correct: 1,
         explanation:
-            "AIO là All-in-One Liquid Cooler, tức tản nước đóng sẵn gần như một bộ hoàn chỉnh.",
+            "PSU tốt phải đủ công suất, chất lượng ổn, đủ bảo vệ, đủ dây và phù hợp cấu hình thực tế.",
     },
     {
-        question: "Trong tản nhiệt nước, radiator có nhiệm vụ gì?",
+        question: "80 PLUS Gold có đảm bảo PSU tốt toàn diện không?",
         options: [
-            "Lưu dữ liệu tạm thời",
-            "Tản nhiệt từ chất lỏng ra không khí",
-            "Cấp điện cho RAM",
-            "Làm tăng dung lượng SSD",
+            "Có, chắc chắn 100%",
+            "Không, nó chủ yếu nói về hiệu suất, vẫn phải xem chất lượng dòng PSU",
+            "Có, nếu PSU màu đen",
+            "Không liên quan gì đến PSU",
         ],
         correct: 1,
         explanation:
-            "Radiator là nơi coolant truyền nhiệt ra lá tản, sau đó quạt thổi nhiệt ra không khí.",
+            "80 PLUS chủ yếu nói về hiệu suất chuyển đổi điện, không đánh giá toàn bộ ripple, linh kiện, bảo vệ và độ bền.",
     },
     {
-        question: "Custom loop khác AIO ở điểm nào?",
+        question: "Với GPU dùng 12VHPWR/12V-2x6, nên ưu tiên gì?",
         options: [
-            "Custom loop tự chọn và lắp từng bộ phận, có thể mở rộng/bảo trì sâu hơn",
-            "Custom loop không cần nước",
-            "Custom loop chỉ dùng cho laptop",
-            "Custom loop không cần pump",
-        ],
-        correct: 0,
-        explanation:
-            "Custom loop là vòng nước tự thiết kế với block, pump, reservoir, tubing, fittings, radiator và coolant.",
-    },
-    {
-        question:
-            "Vì sao không nên để pump AIO là điểm cao nhất trong vòng nước?",
-        options: [
-            "Vì bọt khí có thể kẹt ở pump, gây ồn và giảm tuổi thọ",
-            "Vì CPU sẽ có thêm nhân",
-            "Vì GPU sẽ mất VRAM",
-            "Vì radiator sẽ biến thành SSD",
-        ],
-        correct: 0,
-        explanation:
-            "Bọt khí có xu hướng lên điểm cao; nếu kẹt ở pump có thể gây ồn, giảm hiệu quả và giảm tuổi thọ pump.",
-    },
-    {
-        question: "Tản nước có luôn tốt hơn tản khí không?",
-        options: [
-            "Có, mọi AIO đều hơn mọi tản khí",
-            "Không, còn tùy radiator, pump/quạt, case và CPU",
-            "Chỉ tốt hơn khi không lắp quạt",
-            "Chỉ dùng được cho máy văn phòng",
+            "Adapter rẻ nhất",
+            "PSU có dây native phù hợp, ATX 3.0/3.1 nếu có thể",
+            "Dây Molex chuyển đổi",
+            "Không cần cắm dây nguồn GPU",
         ],
         correct: 1,
         explanation:
-            "Một AIO nhỏ/rẻ có thể thua tản khí dual-tower tốt; hiệu quả phụ thuộc toàn bộ hệ thống.",
+            "GPU dùng đầu mới nên ưu tiên PSU chuẩn mới và dây native phù hợp để giảm rủi ro adapter kém.",
+    },
+    {
+        question: "Có nên dùng dây modular của PSU khác không?",
+        options: [
+            "Có, miễn cắm vừa",
+            "Có, nếu cùng màu",
+            "Không, vì pinout có thể khác và gây hỏng linh kiện",
+            "Có, nếu dây dài hơn",
+        ],
+        correct: 2,
+        explanation:
+            "Dây modular có thể khác pinout giữa các PSU; cắm vừa không có nghĩa dùng được.",
+    },
+    {
+        question: "Dấu hiệu PSU đáng nghi là gì?",
+        options: [
+            "Bảo hành rõ ràng",
+            "Có thông số đường 12V rõ",
+            "Giá quá rẻ so với công suất, thương hiệu lạ, thông số mập mờ",
+            "Có review kỹ thuật tốt",
+        ],
+        correct: 2,
+        explanation:
+            "Giá quá rẻ, thương hiệu lạ và thông số mập mờ là dấu hiệu nguồn đáng nghi/công suất ảo.",
     },
 ];
 
@@ -1251,7 +1205,7 @@ function InteractiveQuiz() {
                     {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
-                    Hoàn thành!
+                    Hoàn thành Phần 7!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
@@ -1327,19 +1281,22 @@ function InteractiveQuiz() {
     );
 }
 
-function NextLesson() {
+function NextPart() {
     return (
         <div className="text-center pt-8 border-t border-slate-800">
             <p className="text-slate-400 mb-4">
-                Bạn đã hiểu tản nhiệt nước. Tiếp theo là keo tản nhiệt Thermal
-                Paste — mắt xích nhỏ nhưng rất quan trọng giữa CPU và đế tản, dù
-                bạn dùng tản khí hay tản nước.
+                Bạn đã học xong Phần 7 — PSU Nguồn điện: từ PSU là gì, thông số
+                Watt/hiệu suất/80 PLUS, các đầu cắm điện, modular, cách tính
+                công suất đến cách chọn PSU an toàn và bền. Phần tiếp theo là Vỏ
+                máy tính / Case, vì case ảnh hưởng trực tiếp đến kích thước linh
+                kiện, airflow, nhiệt độ, độ ồn, thẩm mỹ và khả năng nâng cấp.
             </p>
             <Link
-                to="/phan-9-4"
+                to="/phan-8-1"
                 className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20"
             >
-                Bài tiếp theo: 9.4 — Keo tản nhiệt <ChevronRight size={20} />
+                Phần tiếp theo: 8.1 — Vai trò của vỏ máy tính{" "}
+                <ChevronRight size={20} />
             </Link>
         </div>
     );
@@ -1436,7 +1393,7 @@ function DataTable({ title, rows, headers, accent }) {
                         <tr key={row[0]} className="border-t border-slate-800">
                             {row.map((cell, i) => (
                                 <td
-                                    key={`${row[0]}-${i}`}
+                                    key={cell}
                                     className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
                                 >
                                     {cell}
@@ -1451,21 +1408,10 @@ function DataTable({ title, rows, headers, accent }) {
 }
 function Bullet({ text }) {
     return (
-        <div className="flex items-start gap-2 text-sm text-slate-300">
+        <div className="flex items-start gap-2 text-xs text-slate-300">
             <CheckCircle2
                 className="text-green-400 shrink-0 mt-0.5"
-                size={16}
-            />{" "}
-            <span>{text}</span>
-        </div>
-    );
-}
-function WarnBullet({ text }) {
-    return (
-        <div className="flex items-start gap-2 text-sm text-slate-300">
-            <AlertTriangle
-                className="text-orange-400 shrink-0 mt-0.5"
-                size={16}
+                size={15}
             />{" "}
             <span>{text}</span>
         </div>

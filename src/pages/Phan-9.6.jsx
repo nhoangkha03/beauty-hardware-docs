@@ -7,12 +7,12 @@ import {
     CheckCircle2,
     ChevronRight,
     Cpu,
-    Droplet,
-    Eraser,
     Fan,
+    Gamepad2,
     Gauge,
     Layers3,
     Lightbulb,
+    Monitor,
     PackageCheck,
     Puzzle,
     Search,
@@ -20,6 +20,7 @@ import {
     ShieldCheck,
     Sparkles,
     Thermometer,
+    Wind,
     Workflow,
     XCircle,
     Zap,
@@ -28,12 +29,12 @@ import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-white pb-20">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-violet-500 selection:text-white pb-20">
             <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shadow-lg shadow-amber-500/10">
-                            <Droplet className="text-amber-400" size={24} />
+                        <div className="w-11 h-11 rounded-2xl bg-violet-500/10 border border-violet-400/30 flex items-center justify-center shadow-lg shadow-violet-500/10">
+                            <Monitor className="text-violet-400" size={24} />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
@@ -44,8 +45,8 @@ export default function App() {
                             </p>
                         </div>
                     </div>
-                    <div className="text-sm font-semibold text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
-                        Bài 9.4
+                    <div className="text-sm font-semibold text-violet-300 bg-violet-400/10 px-3 py-1 rounded-full border border-violet-400/20">
+                        Bài 9.6
                     </div>
                 </div>
             </header>
@@ -54,18 +55,17 @@ export default function App() {
                 <HeroSection />
                 <LearningGoals />
                 <CoreConcept />
-                <PanAnalogy />
-                <HeatTransferSimulator />
-                <PasteTypeExplorer />
-                <NormalVsLiquidMetal />
-                <PasteVsPad />
+                <SmallRoomAnalogy />
+                <LaptopCoolingSimulator />
+                <CoolingTypeExplorer />
                 <SpecsExplorer />
-                <ApplicationGuide />
+                <TemperatureGuide />
+                <CoolingPadGuide />
                 <RealExamples />
-                <TroubleshootingLab />
+                <OptimizationLab />
                 <CommonMistakes />
                 <SummaryAndQuiz />
-                <NextLesson />
+                <NextPart />
             </main>
         </div>
     );
@@ -73,37 +73,34 @@ export default function App() {
 
 function HeroSection() {
     return (
-        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 p-8 md:p-12 shadow-2xl">
-            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
-            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-orange-500/10 blur-3xl" />
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-violet-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
             <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
                 <div className="space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-amber-300">
-                        <BookOpen size={16} /> Phần 9: Thermal Paste
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-violet-300">
+                        <BookOpen size={16} /> Phần 9: Laptop Cooling
                     </div>
                     <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                        Keo tản nhiệt
-                        <span className="block text-amber-400">
-                            vai trò và cách thoa
+                        Tản nhiệt cho Laptop
+                        <span className="block text-violet-400">
+                            Heatpipe, fan và khe gió
                         </span>
                     </h2>
                     <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-                        Một lớp keo nhỏ giữa CPU và đế tản có thể quyết định CPU
-                        truyền nhiệt tốt hay nóng bất thường. Keo không làm mát
-                        chính, nhưng nó là mắt xích truyền nhiệt cực kỳ quan
-                        trọng.
+                        Laptop nóng hơn desktop là chuyện rất phổ biến vì CPU,
+                        GPU, RAM, SSD, pin, quạt và khe gió đều nằm trong một
+                        không gian rất mỏng. Hiểu hệ thống tản nhiệt giúp bạn
+                        biết khi nào bình thường và khi nào cần xử lý.
                     </p>
                     <div className="flex flex-wrap gap-3 pt-2">
-                        <Tag icon={<Cpu size={16} />} text="CPU / IHS" />
+                        <Tag icon={<Workflow size={16} />} text="Heatpipe" />
+                        <Tag icon={<Fan size={16} />} text="Fan" />
+                        <Tag icon={<Layers3 size={16} />} text="Heatsink" />
+                        <Tag icon={<Puzzle size={16} />} text="Thermal Pad" />
                         <Tag
-                            icon={<Droplet size={16} />}
-                            text="Thermal Paste"
-                        />
-                        <Tag icon={<Layers3 size={16} />} text="Cold Plate" />
-                        <Tag icon={<Zap size={16} />} text="Liquid Metal" />
-                        <Tag
-                            icon={<Eraser size={16} />}
-                            text="Clean & Reapply"
+                            icon={<Wind size={16} />}
+                            text="Intake / Exhaust"
                         />
                     </div>
                 </div>
@@ -111,35 +108,37 @@ function HeroSection() {
                     <div className="grid grid-cols-2 gap-3">
                         <HeroTile
                             icon={<Cpu />}
-                            label="CPU"
-                            desc="Nguồn nhiệt"
+                            label="CPU/GPU"
+                            desc="Bếp sinh nhiệt"
                             color="orange"
                         />
                         <HeroTile
-                            icon={<Droplet />}
-                            label="Paste"
-                            desc="Lấp khe hở"
-                            color="amber"
+                            icon={<Workflow />}
+                            label="Heatpipe"
+                            desc="Ống dẫn nhiệt"
+                            color="violet"
                             highlight
                         />
                         <HeroTile
-                            icon={<Layers3 />}
-                            label="Cold Plate"
-                            desc="Nhận nhiệt"
-                            color="blue"
+                            icon={<Fan />}
+                            label="Fan"
+                            desc="Thổi khí nóng"
+                            color="cyan"
                         />
                         <HeroTile
-                            icon={<Fan />}
-                            label="Cooler"
-                            desc="Đưa nhiệt đi"
-                            color="cyan"
+                            icon={<Wind />}
+                            label="Vent"
+                            desc="Khe xả gió"
+                            color="emerald"
                         />
                     </div>
                     <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
-                        <p className="text-slate-500">// Keo là cầu nối</p>
-                        <p>CPU nóng → Keo lấp khe</p>
-                        <p className="text-amber-300">
-                            → Đế tản → Heatpipe/Radiator
+                        <p className="text-slate-500">
+                            // Chuỗi laptop cooling
+                        </p>
+                        <p>CPU/GPU → Cold plate → Heatpipe</p>
+                        <p className="text-violet-300">
+                            → Heatsink → Fan → Khe xả
                         </p>
                     </div>
                 </div>
@@ -150,17 +149,17 @@ function HeroSection() {
 
 function LearningGoals() {
     const goals = [
-        "Hiểu keo tản nhiệt là lớp vật liệu mỏng nằm giữa CPU và đế tản để lấp khe hở siêu nhỏ.",
-        "Biết vì sao không khí dẫn nhiệt kém và vì sao CPU có thể nóng nếu keo khô, thiếu hoặc bôi sai.",
-        "Phân biệt keo silicone/ceramic/carbon/metal oxide, liquid metal, thermal pad và graphite pad.",
-        "Đọc được thông số: thermal conductivity W/m·K, viscosity, electrical conductivity, burn-in/cure time và thời gian sử dụng.",
-        "Biết cách bôi keo đơn giản, lau keo cũ, tránh quên tháo film đế tản và kiểm tra nhiệt sau khi lắp.",
+        "Hiểu tản nhiệt laptop là hệ thống làm mát được thiết kế cho không gian rất nhỏ, gồm heatpipe, heatsink, fan, keo, thermal pad và khe gió.",
+        "Nắm cơ chế truyền nhiệt: CPU/GPU sinh nhiệt → cold plate → heatpipe → heatsink → fan → khe xả khí nóng.",
+        "Phân biệt laptop văn phòng/mỏng nhẹ, laptop gaming phổ thông, gaming cao cấp/workstation và fanless laptop.",
+        "Biết các yếu tố ảnh hưởng nhiệt laptop: độ mỏng, số heatpipe, kích thước quạt, bụi, keo, pad, nhiệt độ phòng và cách đặt máy.",
+        "Biết cách giữ laptop mát hơn: kê cao, vệ sinh bụi, không đặt trên chăn/nệm, giới hạn FPS, dùng Balanced và bảo trì đúng lúc.",
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="1"
-                color="amber"
+                color="violet"
                 title="Mục tiêu bài học"
                 icon={<Award />}
             />
@@ -168,9 +167,9 @@ function LearningGoals() {
                 {goals.map((goal, i) => (
                     <div
                         key={goal}
-                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/50 transition-colors"
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-violet-500/50 transition-colors"
                     >
-                        <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold mb-4">
+                        <div className="w-10 h-10 rounded-xl bg-violet-500/10 text-violet-300 flex items-center justify-center font-bold mb-4">
                             {i + 1}
                         </div>
                         <p className="text-sm text-slate-300 leading-relaxed">
@@ -186,28 +185,28 @@ function LearningGoals() {
 function CoreConcept() {
     const cards = [
         {
-            icon: <Cpu />,
-            title: "CPU/IHS",
-            desc: "Bề mặt CPU nhìn phẳng nhưng vẫn có điểm lồi lõm siêu nhỏ.",
-            color: "orange",
-        },
-        {
-            icon: <XCircle />,
-            title: "Túi khí",
-            desc: "Không khí dẫn nhiệt rất kém, làm nhiệt truyền sang tản không hiệu quả.",
-            color: "red",
-        },
-        {
-            icon: <Droplet />,
-            title: "Keo tản nhiệt",
-            desc: "Lấp khe siêu nhỏ để tăng diện tích tiếp xúc truyền nhiệt.",
-            color: "amber",
+            icon: <Workflow />,
+            title: "Heatpipe",
+            desc: "Ống dẫn nhiệt từ CPU/GPU ra cụm lá tản gần khe xả.",
+            color: "violet",
         },
         {
             icon: <Layers3 />,
-            title: "Đế tản",
-            desc: "Nhận nhiệt rồi đưa qua heatpipe, water block, heatsink hoặc radiator.",
+            title: "Heatsink",
+            desc: "Cụm lá đồng/nhôm mỏng giúp tăng diện tích thoát nhiệt.",
             color: "blue",
+        },
+        {
+            icon: <Fan />,
+            title: "Fan laptop",
+            desc: "Quạt nhỏ, mỏng, thường phải quay nhanh nên dễ ồn khi tải nặng.",
+            color: "cyan",
+        },
+        {
+            icon: <Puzzle />,
+            title: "Paste & Pad",
+            desc: "Keo cho CPU/GPU; thermal pad cho VRAM, VRM, chipset và chip phụ.",
+            color: "orange",
         },
     ];
     return (
@@ -215,64 +214,56 @@ function CoreConcept() {
             <SectionTitle
                 number="2"
                 color="blue"
-                title="Keo tản nhiệt là gì?"
+                title="Tản nhiệt laptop là gì?"
                 icon={<Brain />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
                 <p className="text-slate-300 leading-relaxed mb-6">
-                    <strong className="text-white">Keo tản nhiệt</strong>, tiếng
-                    Anh là{" "}
-                    <strong className="text-amber-300">Thermal Paste</strong>{" "}
-                    hoặc{" "}
-                    <strong className="text-amber-300">Thermal Compound</strong>
-                    , là lớp vật liệu mỏng nằm giữa bề mặt CPU và đế tản nhiệt.
-                    Nhiệm vụ chính là lấp khe hở siêu nhỏ để nhiệt truyền từ CPU
-                    sang tản hiệu quả hơn.
+                    <strong className="text-white">Tản nhiệt laptop</strong> là
+                    hệ thống làm mát được thiết kế riêng cho không gian nhỏ. Nó
+                    đưa nhiệt từ CPU/GPU qua keo tản nhiệt vào cold plate, sau
+                    đó heatpipe dẫn nhiệt ra cụm heatsink để quạt thổi khí nóng
+                    ra ngoài.
                 </p>
                 <div className="grid md:grid-cols-4 gap-4">
                     {cards.map((c) => (
                         <RoleCard key={c.title} {...c} />
                     ))}
                 </div>
-                <div className="mt-6 bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
-                    Keo tốt + tản lắp sai → vẫn nóng
-                    <br />
-                    Keo thường + tản lắp đúng → vẫn có thể ổn
-                    <br />
-                    <span className="text-amber-300">
-                        Keo tốt + tản tốt + airflow tốt → hiệu quả nhất
-                    </span>
+                <div className="mt-6 bg-violet-500/10 border border-violet-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    [CPU/GPU] → [Cold plate] → [Heatpipe] → [Heatsink] → [Fan] →
+                    [Khe xả khí nóng]
                 </div>
             </div>
         </section>
     );
 }
 
-function PanAnalogy() {
+function SmallRoomAnalogy() {
     const cards = [
         {
-            icon: <Thermometer />,
-            title: "CPU = chảo nóng",
-            desc: "CPU sinh nhiệt khi xử lý dữ liệu.",
+            icon: <Cpu />,
+            title: "CPU/GPU = bếp gas",
+            desc: "Sinh nhiệt mạnh trong không gian nhỏ.",
             color: "orange",
         },
         {
-            icon: <Droplet />,
-            title: "Keo = lớp dầu mỏng",
-            desc: "Giúp hai bề mặt tiếp xúc đều hơn và truyền nhiệt tốt hơn.",
-            color: "amber",
+            icon: <Workflow />,
+            title: "Heatpipe = ống dẫn nhiệt",
+            desc: "Dẫn nhiệt từ bếp ra vùng gần cửa thông gió.",
+            color: "violet",
+        },
+        {
+            icon: <Fan />,
+            title: "Fan = quạt hút/xả",
+            desc: "Thổi khí nóng qua lá tản và ra khỏi máy.",
+            color: "cyan",
         },
         {
             icon: <AlertTriangle />,
-            title: "Quá ít = còn khe khí",
-            desc: "Không phủ đủ vùng tiếp xúc làm nhiệt truyền kém.",
+            title: "Chăn/nệm = bịt cửa gió",
+            desc: "Khi khe hút bị che, máy nóng rất nhanh.",
             color: "red",
-        },
-        {
-            icon: <XCircle />,
-            title: "Quá nhiều = bừa bộn",
-            desc: "Không mát hơn đáng kể, dễ tràn và khó vệ sinh.",
-            color: "purple",
         },
     ];
     return (
@@ -280,7 +271,7 @@ function PanAnalogy() {
             <SectionTitle
                 number="3"
                 color="amber"
-                title="Ví dụ đời thường: lớp dầu mỏng giữa chảo và miếng thịt"
+                title="Ví dụ đời thường: căn phòng nhỏ đặt bếp gas"
                 icon={<Lightbulb />}
             />
             <div className="grid md:grid-cols-4 gap-4">
@@ -292,93 +283,93 @@ function PanAnalogy() {
     );
 }
 
-function HeatTransferSimulator() {
+function LaptopCoolingSimulator() {
     const flows = {
-        correct: {
-            title: "Bôi đúng",
-            color: "emerald",
+        normal: {
+            title: "Luồng nhiệt đúng",
+            color: "violet",
             steps: [
                 {
                     icon: <Cpu />,
-                    title: "CPU sinh nhiệt",
-                    desc: "Nhiệt đi qua nắp CPU/IHS.",
+                    title: "CPU/GPU sinh nhiệt",
+                    desc: "Laptop xử lý game, render hoặc học online lâu làm CPU/GPU nóng lên.",
                 },
                 {
-                    icon: <Droplet />,
-                    title: "Keo lấp khe hở",
-                    desc: "Một lớp mỏng lấp các điểm lồi lõm siêu nhỏ.",
+                    icon: <Thermometer />,
+                    title: "Keo truyền nhiệt",
+                    desc: "Thermal paste truyền nhiệt từ chip sang cold plate.",
+                },
+                {
+                    icon: <Workflow />,
+                    title: "Heatpipe dẫn nhiệt",
+                    desc: "Heatpipe đưa nhiệt từ CPU/GPU ra vùng heatsink gần khe xả.",
                 },
                 {
                     icon: <Layers3 />,
-                    title: "Đế tản nhận nhiệt",
-                    desc: "Cold plate/heatsink tiếp xúc đều hơn với CPU.",
+                    title: "Heatsink tỏa nhiệt",
+                    desc: "Cụm lá kim loại mỏng tăng diện tích tiếp xúc với không khí.",
                 },
                 {
                     icon: <Fan />,
-                    title: "Tản đưa nhiệt đi",
-                    desc: "Heatpipe, water block, radiator và quạt đẩy nhiệt ra ngoài.",
-                },
-                {
-                    icon: <CheckCircle2 />,
-                    title: "Nhiệt ổn định hơn",
-                    desc: "CPU ít bị spike nhiệt bất thường, quạt không phải hú quá mạnh.",
+                    title: "Fan thổi khí nóng",
+                    desc: "Quạt đẩy gió qua heatsink và xả ra cạnh sau hoặc cạnh bên.",
                 },
             ],
         },
-        little: {
-            title: "Bôi quá ít",
+        dusty: {
+            title: "Bụi chặn heatsink",
             color: "red",
             steps: [
                 {
-                    icon: <Droplet />,
-                    title: "Keo không phủ đủ",
-                    desc: "Một phần bề mặt CPU/đế tản còn túi khí.",
+                    icon: <XCircle />,
+                    title: "Bụi thành mảng",
+                    desc: "Bụi tích ở cụm lá tản gần khe xả như một lớp chặn gió.",
                 },
                 {
-                    icon: <XCircle />,
-                    title: "Túi khí cách nhiệt",
-                    desc: "Không khí dẫn nhiệt kém làm nhiệt truyền không đều.",
+                    icon: <Fan />,
+                    title: "Quạt quay mạnh hơn",
+                    desc: "Fan cố tăng RPM nhưng gió không đi qua được heatsink.",
                 },
                 {
                     icon: <Thermometer />,
                     title: "Nhiệt tăng nhanh",
-                    desc: "Một số nhân CPU có thể nóng bất thường.",
+                    desc: "CPU/GPU nóng, quạt hú, hiệu năng tụt sau vài phút tải.",
                 },
                 {
-                    icon: <AlertTriangle />,
-                    title: "Throttle",
-                    desc: "CPU có thể giảm xung nếu quá nóng.",
+                    icon: <PackageCheck />,
+                    title: "Cần vệ sinh",
+                    desc: "Vệ sinh quạt + heatsink thường quan trọng hơn chỉ thay keo.",
                 },
             ],
         },
-        much: {
-            title: "Bôi quá nhiều",
+        blocked: {
+            title: "Bịt khe hút gió",
             color: "orange",
             steps: [
                 {
-                    icon: <Droplet />,
-                    title: "Lớp keo quá dày",
-                    desc: "Keo không dẫn nhiệt tốt bằng kim loại, nên lớp quá dày không có lợi.",
+                    icon: <Monitor />,
+                    title: "Đặt trên chăn/nệm",
+                    desc: "Bề mặt mềm che khe hút gió dưới đáy laptop.",
                 },
                 {
-                    icon: <XCircle />,
-                    title: "Dễ tràn ra ngoài",
-                    desc: "Làm bẩn socket/khu vực quanh CPU và khó vệ sinh lần sau.",
+                    icon: <Wind />,
+                    title: "Fan thiếu khí mát",
+                    desc: "Quạt không lấy đủ không khí để thổi qua heatsink.",
                 },
                 {
-                    icon: <Gauge />,
-                    title: "Không cải thiện đáng kể",
-                    desc: "Nhiệt thường không giảm thêm tương xứng với lượng keo dư.",
+                    icon: <AlertTriangle />,
+                    title: "Nóng và throttle",
+                    desc: "CPU/GPU tăng nhiệt, giảm xung và quạt hú.",
                 },
                 {
-                    icon: <Eraser />,
-                    title: "Khó vệ sinh",
-                    desc: "Lần tháo tản sau sẽ mất công lau hơn.",
+                    icon: <ShieldCheck />,
+                    title: "Đặt trên mặt cứng",
+                    desc: "Bàn phẳng, kê cao đuôi máy 1–3cm giúp khe hút thoáng hơn.",
                 },
             ],
         },
     };
-    const [mode, setMode] = useState("correct");
+    const [mode, setMode] = useState("normal");
     const [active, setActive] = useState(0);
     const flow = flows[mode];
     const step = flow.steps[active];
@@ -391,7 +382,7 @@ function HeatTransferSimulator() {
             <SectionTitle
                 number="4"
                 color="purple"
-                title="Keo truyền nhiệt như thế nào?"
+                title="Laptop tản nhiệt như thế nào?"
                 icon={<Workflow />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -464,58 +455,61 @@ function HeatTransferSimulator() {
     );
 }
 
-function PasteTypeExplorer() {
+function CoolingTypeExplorer() {
     const types = {
-        ceramic: {
-            icon: <ShieldCheck />,
-            title: "Silicone / Ceramic",
+        thin: {
+            icon: <Monitor />,
+            title: "Laptop văn phòng / mỏng nhẹ",
             color: "cyan",
-            desc: "Dễ bôi, thường không dẫn điện hoặc dẫn điện rất thấp.",
-            good: ["An toàn", "Rẻ", "Dễ dùng", "Hợp người mới"],
-            bad: ["Hiệu năng trung bình đến khá"],
-            fit: "PC văn phòng, gaming phổ thông",
-        },
-        carbon: {
-            icon: <Sparkles />,
-            title: "Carbon-based",
-            color: "emerald",
-            desc: "Dùng hạt carbon để tăng dẫn nhiệt.",
-            good: ["Hiệu năng tốt", "Dễ dùng", "Thường không dẫn điện"],
-            bad: ["Giá cao hơn loại thường"],
-            fit: "Gaming, laptop, desktop",
-        },
-        oxide: {
-            icon: <Layers3 />,
-            title: "Metal oxide-based",
-            color: "blue",
-            desc: "Có hạt oxit kim loại, dẫn nhiệt tốt và khá phổ biến.",
-            good: ["Hiệu năng tốt", "Phổ biến", "Hợp tầm trung/cao"],
-            bad: ["Cần bôi đúng lượng"],
-            fit: "PC tầm trung/cao",
-        },
-        liquid: {
-            icon: <Zap />,
-            title: "Liquid Metal",
-            color: "red",
-            desc: "Kim loại lỏng, thường chứa gallium, dẫn nhiệt rất cao.",
-            good: ["Hiệu năng rất cao nếu dùng đúng"],
+            good: ["Nhẹ, mỏng", "Pin tốt", "Ít ồn", "Hợp tác vụ nhẹ"],
             bad: [
-                "Dẫn điện",
-                "Có thể gây chập",
-                "Có thể ăn mòn nhôm",
-                "Không hợp người mới",
+                "Không hợp game/render nặng lâu",
+                "Heatpipe/quạt nhỏ",
+                "Dễ giảm hiệu năng khi tải lâu",
             ],
-            fit: "Người rất có kinh nghiệm, overclock, laptop mod đặc biệt",
+            fit: "Office, học online, lướt web, xem phim, lập trình nhẹ",
+        },
+        gaming: {
+            icon: <Gamepad2 />,
+            title: "Laptop gaming phổ thông",
+            color: "orange",
+            good: [
+                "Chơi game 1080p tốt",
+                "Thường có 2 quạt",
+                "Nhiều heatpipe hơn laptop mỏng nhẹ",
+            ],
+            bad: ["Nóng hơn", "Ồn hơn", "Cần vệ sinh định kỳ"],
+            fit: "Gaming 1080p, đồ họa nhẹ/vừa, lập trình nặng",
+        },
+        workstation: {
+            icon: <Cpu />,
+            title: "Gaming cao cấp / workstation",
+            color: "red",
+            good: [
+                "Hiệu năng mạnh",
+                "Nhiều heatpipe hoặc vapor chamber",
+                "Có thể chạy render/AI nhẹ-vừa",
+            ],
+            bad: ["Nặng", "Nóng", "Ồn", "Giá cao"],
+            fit: "Render 3D, dựng video nặng, gaming AAA, workstation di động",
+        },
+        fanless: {
+            icon: <ShieldCheck />,
+            title: "Fanless laptop",
+            color: "emerald",
+            good: ["Im lặng tuyệt đối", "Ít bụi hơn", "Ít linh kiện cơ khí"],
+            bad: ["Không hợp tải nặng lâu", "Dễ giảm hiệu năng khi nóng"],
+            fit: "Văn phòng, học tập, tác vụ nhẹ",
         },
     };
-    const [active, setActive] = useState("carbon");
+    const [active, setActive] = useState("gaming");
     const item = types[active];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="5"
-                color="amber"
-                title="Các loại keo tản nhiệt"
+                color="violet"
+                title="Các kiểu tản nhiệt laptop"
                 icon={<Search />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -530,7 +524,6 @@ function PasteTypeExplorer() {
                                 {React.cloneElement(t.icon, { size: 20 })}{" "}
                                 {t.title}
                             </div>
-                            <p className="text-xs opacity-75 mt-1">{t.desc}</p>
                         </button>
                     ))}
                 </div>
@@ -544,9 +537,6 @@ function PasteTypeExplorer() {
                         <h3 className="text-2xl font-extrabold text-white mb-3">
                             {item.title}
                         </h3>
-                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                            {item.desc}
-                        </p>
                         <p className="text-sm text-slate-400">
                             <strong className="text-white">Phù hợp:</strong>{" "}
                             {item.fit}
@@ -584,135 +574,73 @@ function PasteTypeExplorer() {
     );
 }
 
-function NormalVsLiquidMetal() {
-    const rows = [
-        ["Độ an toàn", "Cao", "Thấp hơn nhiều"],
-        ["Có dẫn điện không", "Thường không dẫn điện", "Có dẫn điện"],
-        ["Dễ bôi", "Dễ", "Khó"],
-        ["Rủi ro khi tràn", "Thấp", "Có thể chập linh kiện"],
-        ["Ăn mòn nhôm", "Không đáng kể", "Có thể ăn mòn nhôm"],
-        ["Hiệu năng", "Tốt", "Rất cao nếu dùng đúng"],
-        ["Phù hợp người mới", "Có", "Không"],
-    ];
-    return (
-        <section className="space-y-6">
-            <SectionTitle
-                number="6"
-                color="red"
-                title="Keo thường vs Liquid Metal"
-                icon={<Zap />}
-            />
-            <DataTable
-                title="Liquid Metal không dành cho người mới"
-                rows={rows}
-                headers={["Tiêu chí", "Keo thường", "Liquid Metal"]}
-                accent="red"
-            />
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
-                <strong className="text-red-300">Cảnh báo:</strong> liquid metal
-                dẫn điện. Nếu tràn ra socket, linh kiện quanh CPU/GPU hoặc
-                mainboard, nó có thể gây chập điện.
-            </div>
-        </section>
-    );
-}
-
-function PasteVsPad() {
-    const rows = [
-        ["Thermal Paste", "CPU, GPU die/IHS", "Cần lớp mỏng, lấp khe siêu nhỏ"],
-        [
-            "Thermal Pad",
-            "VRAM, VRM, SSD, chipset",
-            "Có độ dày cụ thể, lấp khoảng cách vật lý",
-        ],
-        [
-            "Graphite Pad",
-            "Một số CPU/GPU",
-            "Có thể tái sử dụng, hiệu năng tùy loại",
-        ],
-    ];
-    return (
-        <section className="space-y-6">
-            <SectionTitle
-                number="7"
-                color="blue"
-                title="Thermal Paste, Thermal Pad và Graphite Pad"
-                icon={<Layers3 />}
-            />
-            <DataTable
-                title="Không thay thermal pad bằng keo thường tùy tiện"
-                rows={rows}
-                headers={["Loại", "Dùng ở đâu", "Ghi chú"]}
-                accent="blue"
-            />
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
-                <strong className="text-blue-300">Lưu ý:</strong> thermal pad
-                còn có nhiệm vụ lấp khoảng cách vật lý giữa chip và heatsink.
-                Nếu thay sai độ dày, VRAM/VRM có thể không tiếp xúc tốt.
-            </div>
-        </section>
-    );
-}
-
 function SpecsExplorer() {
     const specs = {
-        wmk: {
-            icon: <Gauge />,
-            title: "Thermal Conductivity",
-            detail: "Khả năng dẫn nhiệt, thường đo bằng W/m·K. Số càng cao thường càng tốt trên lý thuyết.",
-            impact: "Đừng chỉ nhìn W/m·K: hiệu quả còn phụ thuộc độ nhớt, cách bôi, lực ép tản, độ phẳng bề mặt và thời gian sử dụng.",
-        },
-        viscosity: {
-            icon: <Droplet />,
-            title: "Viscosity",
-            detail: "Độ đặc/độ nhớt của keo. Quá lỏng dễ tràn, quá đặc khó tán, vừa phải dễ dùng hơn.",
-            impact: "Người mới nên chọn keo dễ bơm, dễ lau, độ đặc vừa phải.",
-        },
-        electric: {
-            icon: <Zap />,
-            title: "Electrical Conductivity",
-            detail: "Keo có dẫn điện không. Keo không dẫn điện an toàn hơn nếu lem nhẹ.",
-            impact: "Liquid metal dẫn điện nên nguy hiểm nếu tràn; keo phổ thông chất lượng tốt an toàn hơn cho đa số người dùng.",
-        },
-        cure: {
-            icon: <Settings />,
-            title: "Burn-in / Cure Time",
-            detail: "Một số keo cũ cần thời gian ổn định; nhiều keo hiện đại không cần burn-in.",
-            impact: "Sau khi bôi keo hiện đại, bạn thường có thể test nhiệt ngay; vẫn nên theo dõi vài ngày đầu.",
-        },
-        life: {
-            icon: <Thermometer />,
-            title: "Thời gian sử dụng",
-            detail: "Keo có thể khô, nứt, pump-out và giảm hiệu quả theo thời gian.",
-            impact: "Desktop CPU thường 2–5 năm hoặc khi nhiệt tăng bất thường; laptop có thể 1–3 năm nếu nóng/ồn nhiều.",
-        },
-        pumpout: {
+        heatpipe: {
             icon: <Workflow />,
-            title: "Pump-out",
-            detail: "Keo bị đẩy dần ra khỏi vùng tiếp xúc do chu kỳ nóng/lạnh và lực ép.",
-            impact: "Thường đáng chú ý hơn ở laptop hoặc GPU vì nhiệt dao động mạnh.",
+            title: "Heatpipe",
+            detail: "Ống kim loại chứa môi chất bên trong, dẫn nhiệt từ CPU/GPU ra vùng heatsink.",
+            impact: "Laptop mạnh thường cần nhiều heatpipe hoặc vapor chamber; nhưng thiết kế tổng thể vẫn quan trọng hơn chỉ đếm số ống.",
+        },
+        fan: {
+            icon: <Fan />,
+            title: "Fan laptop",
+            detail: "Quạt laptop nhỏ và mỏng hơn desktop, nên khi cần tản mạnh phải quay rất nhanh.",
+            impact: "Dấu hiệu lỗi: quạt rè/rít, lúc quay lúc không, máy nóng nhanh, một bên khe xả không có gió hoặc BIOS báo fan error.",
+        },
+        heatsink: {
+            icon: <Layers3 />,
+            title: "Heatsink",
+            detail: "Cụm lá kim loại mỏng gần khe xả. Đây là nơi bụi rất hay bám thành mảng.",
+            impact: "Heatsink bụi dày làm gió nghẹt, máy nóng và quạt hú dù keo vẫn còn tốt.",
+        },
+        paste: {
+            icon: <Puzzle />,
+            title: "Thermal Paste",
+            detail: "Keo nằm giữa CPU/GPU và cold plate. Theo thời gian, keo có thể khô hoặc pump-out.",
+            impact: "Nếu máy nóng hơn trước rõ rệt dù đã vệ sinh bụi, có thể cần kiểm tra keo.",
+        },
+        pad: {
+            icon: <PackageCheck />,
+            title: "Thermal Pad",
+            detail: "Miếng dẫn nhiệt cho VRAM, VRM, chipset hoặc chip phụ, có độ dày riêng.",
+            impact: "Pad quá dày làm CPU/GPU không ép sát; pad quá mỏng làm VRAM/VRM tiếp xúc kém.",
+        },
+        vents: {
+            icon: <Wind />,
+            title: "Intake / Exhaust",
+            detail: "Laptop thường hút gió từ đáy hoặc bàn phím, xả ra cạnh sau/cạnh bên.",
+            impact: "Đặt trên chăn/nệm hoặc sát tường có thể chặn gió và làm máy nóng nhanh.",
+        },
+        mode: {
+            icon: <Settings />,
+            title: "Performance Mode",
+            detail: "Balanced, Performance/Turbo hoặc Silent quyết định power limit và fan curve.",
+            impact: "Turbo mạnh hơn nhưng nóng/ồn hơn; Balanced thường hợp học/làm việc lâu nếu không cần tối đa FPS.",
         },
     };
-    const [active, setActive] = useState("electric");
+    const [active, setActive] = useState("vents");
     const item = specs[active];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="8"
+                number="6"
                 color="yellow"
-                title="Thông số kỹ thuật quan trọng"
+                title="Thông số và bộ phận quan trọng"
                 icon={<Puzzle />}
             />
             <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                <div className="grid grid-cols-2 md:grid-cols-7 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
                     {Object.entries(specs).map(([key, s]) => (
                         <button
                             key={key}
                             onClick={() => setActive(key)}
-                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-3 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
                         >
-                            {React.cloneElement(s.icon, { size: 20 })}
-                            <span className="font-bold text-xs">{s.title}</span>
+                            {React.cloneElement(s.icon, { size: 19 })}
+                            <span className="font-bold text-[11px]">
+                                {s.title}
+                            </span>
                         </button>
                     ))}
                 </div>
@@ -740,70 +668,108 @@ function SpecsExplorer() {
     );
 }
 
-function ApplicationGuide() {
-    const steps = [
-        ["1", "Tháo tản", "Tắt máy, rút điện, tháo tản cẩn thận."],
+function TemperatureGuide() {
+    const rows = [
+        ["Idle", "40–60°C", "Bình thường"],
+        ["Office / web", "50–70°C", "Bình thường"],
+        ["Gaming / render", "75–95°C", "Thường gặp trên laptop gaming"],
         [
-            "2",
-            "Lau keo cũ",
-            "Dùng khăn mềm không xơ và cồn isopropyl 90%+ nếu có.",
-        ],
-        [
-            "3",
-            "Bôi lượng vừa đủ",
-            "Hạt đậu nhỏ ở giữa CPU hoặc đường mảnh tùy CPU/hãng khuyến nghị.",
-        ],
-        [
-            "4",
-            "Đặt tản thẳng",
-            "Đặt xuống một lần, tránh nhấc lên đặt lại nhiều lần.",
-        ],
-        ["5", "Siết ốc chéo đều", "Siết đều hai bên để lực ép cân bằng."],
-        [
-            "6",
-            "Kiểm tra nhiệt",
-            "Xem idle và load bằng HWiNFO/HWMonitor sau khi lắp.",
+            "Gần 100°C liên tục",
+            "Cao",
+            "Cần kiểm tra nếu kèm tụt hiệu năng/ồn bất thường",
         ],
     ];
-    const dont = [
+    const signs = [
+        ["Quạt kêu rè/rít", "Có thể fan mòn, bụi hoặc vật cản"],
+        ["Quạt lúc quay lúc không", "Cần kiểm tra fan/cáp/quạt lỗi"],
         [
-            "Không dùng",
-            "Nước, khăn giấy dễ rã vụn, vật kim loại cạo mạnh, dung dịch tẩy rửa gia dụng",
+            "Một bên khe xả không có gió",
+            "Có thể quạt bên đó không chạy hoặc heatsink nghẹt",
         ],
-        ["Không làm", "Tháo tản rồi lắp lại bằng keo cũ"],
-        ["Không quên", "Bóc lớp nilon/film bảo vệ trên đế tản mới"],
+        [
+            "Nhiệt tăng rất nhanh khi mở game",
+            "Có thể keo khô, heatsink bụi, tản ép kém hoặc fan/power mode lỗi",
+        ],
+        ["FPS tụt sau 10–20 phút", "Có thể thermal throttling"],
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="9"
-                color="emerald"
-                title="Cách bôi keo đơn giản cho người mới"
-                icon={<PackageCheck />}
+                number="7"
+                color="orange"
+                title="Nhiệt độ laptop khi tải nặng"
+                icon={<Thermometer />}
             />
             <div className="grid lg:grid-cols-2 gap-6">
                 <DataTable
-                    title="Quy trình bôi lại keo"
-                    rows={steps}
-                    headers={["Bước", "Việc cần làm", "Ghi chú"]}
-                    accent="emerald"
+                    title="Mức nhiệt thường gặp"
+                    rows={rows}
+                    headers={["Tình huống", "Nhiệt độ thường gặp", "Nhận xét"]}
+                    accent="orange"
                 />
                 <DataTable
-                    title="Những điều cần tránh"
-                    rows={dont}
-                    headers={["Nhóm", "Tránh gì"]}
+                    title="Dấu hiệu cần kiểm tra"
+                    rows={signs}
+                    headers={["Dấu hiệu", "Khả năng liên quan"]}
                     accent="red"
                 />
             </div>
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
-                Bóp hạt đậu nhỏ ở giữa CPU
+            <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-orange-300">
+                    Laptop gaming 85–90°C chưa chắc hỏng.
+                </strong>{" "}
+                Hãy xem thêm: có tụt FPS không, có throttling nặng không, quạt
+                có bất thường không, nhiệt có cao hơn trước nhiều không và máy
+                có tự tắt không.
+            </div>
+        </section>
+    );
+}
+
+function CoolingPadGuide() {
+    const rows = [
+        [
+            "Đế tản phổ thông",
+            "Kê cao máy + quạt thổi đáy",
+            "Laptop có khe hút gió dưới đáy, người muốn mát hơn vài độ",
+        ],
+        [
+            "Đế tản áp suất cao",
+            "Quạt turbo + foam seal ép gió vào đáy",
+            "Laptop gaming nóng, chấp nhận ồn hơn",
+        ],
+        [
+            "Kê cao đuôi máy",
+            "Tăng khoảng hở dưới đáy",
+            "Giải pháp rẻ, dễ làm, hiệu quả với nhiều laptop",
+        ],
+        [
+            "Không phù hợp",
+            "Laptop ít khe đáy hoặc xả gió bị chặn",
+            "Đế tản có thể chỉ giúp kê cao, hiệu quả thấp",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="cyan"
+                title="Đế tản laptop có hiệu quả không?"
+                icon={<Fan />}
+            />
+            <DataTable
+                title="Hiệu quả phụ thuộc thiết kế khe hút gió"
+                rows={rows}
+                headers={["Giải pháp", "Cách hoạt động", "Phù hợp"]}
+                accent="cyan"
+            />
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                Laptop hút gió từ đáy → đế tản thường có tác dụng hơn
                 <br />
-                Đặt tản xuống thẳng
+                Laptop ít khe đáy → đế tản có thể chỉ giúp kê cao
                 <br />
-                Siết ốc chéo đều hai bên
-                <br />
-                <span className="text-emerald-300">
-                    Áp lực tản sẽ tự ép keo lan ra.
+                <span className="text-cyan-300">
+                    Không che khe xả sau/bên hông.
                 </span>
             </div>
         </section>
@@ -813,71 +779,85 @@ function ApplicationGuide() {
 function RealExamples() {
     const examples = [
         {
-            icon: <Droplet />,
-            title: "ARCTIC MX-6",
-            subtitle: "Phổ thông, dễ dùng, giá hợp lý",
+            icon: <Fan />,
+            title: "Cooler Master NotePal X3",
+            subtitle: "Đế tản phổ thông",
             color: "cyan",
             points: [
-                "Gốc carbon",
-                "Có nhiều gói dung lượng",
-                "Dễ dùng cho người mới",
-                "Không cần burn-in theo mô tả",
-                "Hợp PC văn phòng/gaming phổ thông/laptop",
+                "Quạt lớn 200mm",
+                "Mặt lưới kim loại",
+                "Có núm chỉnh tốc độ quạt",
+                "Hỗ trợ laptop tới 17 inch theo mô tả bán lẻ",
+                "Hợp laptop có khe hút gió đáy",
             ],
-            lesson: "Keo phổ thông tốt, an toàn và dễ dùng thường thực tế hơn việc chạy theo keo quá khó bôi.",
+            lesson: "Đế tản phổ thông thường giúp kê cao máy và tăng gió đáy, hiệu quả tùy thiết kế laptop.",
         },
         {
-            icon: <ShieldCheck />,
-            title: "Noctua NT-H2",
-            subtitle: "Cao cấp, dễ bôi, ổn định lâu dài",
-            color: "emerald",
-            points: [
-                "Dễ dùng",
-                "Thường đi kèm khăn vệ sinh ở một số gói",
-                "Hợp tản khí/AIO",
-                "Dùng được CPU/GPU/laptop",
-                "Ổn định lâu dài",
-            ],
-            lesson: "Keo cao cấp dễ dùng hợp người muốn sạch, ổn định và không phải thay quá thường xuyên.",
-        },
-        {
-            icon: <Sparkles />,
-            title: "Thermal Grizzly Kryonaut",
-            subtitle: "Hiệu năng cao",
+            icon: <Gauge />,
+            title: "IETS GT500",
+            subtitle: "Đế tản áp suất cao",
             color: "orange",
             points: [
-                "Dành cho ứng dụng khắt khe",
-                "Hợp người thích tối ưu nhiệt",
-                "Thường giá cao hơn",
-                "Cần thao tác cẩn thận",
-                "Không thay thế airflow/tản chính",
+                "Quạt turbo tới 5000 RPM",
+                "Có foam seal ép gió",
+                "Hỗ trợ laptop 13–17.3 inch theo mô tả bán lẻ",
+                "Phù hợp laptop gaming nóng",
+                "Đổi lại là tiếng ồn cao hơn",
             ],
-            lesson: "Keo hiệu năng cao có thể giảm vài độ, nhưng nếu airflow hoặc tản chính kém thì chênh lệch không đáng so với sửa nguyên nhân chính.",
+            lesson: "Đế tản mạnh có thể giảm nhiệt tốt hơn, nhưng không thần kỳ nếu laptop không hút gió từ đáy.",
+        },
+        {
+            icon: <Puzzle />,
+            title: "Noctua NT-H2",
+            subtitle: "Keo tản nhiệt cao cấp",
+            color: "emerald",
+            points: [
+                "Dùng cho CPU/GPU/laptop/console",
+                "Một số gói kèm khăn vệ sinh",
+                "Không cần tán keo trước khi lắp heatsink theo mô tả",
+                "Hợp máy đã dùng lâu",
+                "Cần thao tác tháo laptop cẩn thận",
+            ],
+            lesson: "Với laptop, thay keo khó hơn desktop vì phải chú ý thermal pad VRAM/VRM và lực siết cụm heatsink.",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "Laptop gaming RTX 4060",
+            subtitle: "Ví dụ nhiệt thực tế",
+            color: "purple",
+            points: [
+                "Idle: CPU 45–60°C, GPU 40–55°C",
+                "Gaming: CPU 80–95°C",
+                "Gaming: GPU 70–85°C",
+                "Quạt nghe rõ khi chơi game",
+                "Bình thường nếu FPS ổn và không tự tắt",
+            ],
+            lesson: "Laptop gaming nóng hơn desktop; đánh giá bằng hiệu năng ổn định, throttling, tiếng quạt và thay đổi so với trước.",
         },
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="10"
+                number="9"
                 color="pink"
                 title="Ví dụ thực tế"
                 icon={<PackageCheck />}
             />
-            <div className="grid lg:grid-cols-3 gap-4">
+            <div className="grid lg:grid-cols-4 gap-4">
                 {examples.map((e) => (
                     <div
                         key={e.title}
-                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-5 hover:border-pink-500/40 transition-all"
                     >
                         <div
                             className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
                         >
                             {React.cloneElement(e.icon, { size: 24 })}
                         </div>
-                        <h3 className="text-white font-bold text-lg mb-1">
+                        <h3 className="text-white font-bold text-base mb-1">
                             {e.title}
                         </h3>
-                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                        <p className="text-pink-300 text-xs font-semibold mb-4">
                             {e.subtitle}
                         </p>
                         <div className="space-y-2 mb-5">
@@ -885,7 +865,7 @@ function RealExamples() {
                                 <Bullet key={p} text={p} />
                             ))}
                         </div>
-                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300">
                             <strong className="text-pink-300">Bài học:</strong>{" "}
                             {e.lesson}
                         </div>
@@ -896,53 +876,53 @@ function RealExamples() {
     );
 }
 
-function TroubleshootingLab() {
+function OptimizationLab() {
     const scenarios = {
-        hot: {
-            icon: <Thermometer />,
-            title: "CPU nóng 90–100°C",
-            answer: "Kiểm tra lượng keo, lực ép tản, quạt CPU, airflow case và đặc biệt là có quên tháo lớp film đế tản không.",
+        bed: {
+            icon: <XCircle />,
+            title: "Đặt trên chăn/nệm",
+            answer: "Chuyển sang bàn cứng/phẳng hoặc kê cao đuôi máy. Chăn/nệm che khe hút gió làm laptop nóng nhanh và dễ throttle.",
             color: "red",
         },
-        remove: {
-            icon: <Eraser />,
-            title: "Tháo tản ra lắp lại",
-            answer: "Nên lau sạch keo cũ và bôi keo mới. Lớp keo cũ đã bị phá vỡ bề mặt tiếp xúc, dễ tạo bọt khí nếu lắp lại ngay.",
+        gaming: {
+            icon: <Gamepad2 />,
+            title: "Gaming nóng/ồn",
+            answer: "Giới hạn FPS theo tần số màn hình, dùng Balanced nếu không cần tối đa, kê cao máy và theo dõi nhiệt bằng MSI Afterburner/HWiNFO.",
             color: "orange",
         },
-        beginner: {
-            icon: <ShieldCheck />,
-            title: "Người mới",
-            answer: "Chọn keo không dẫn điện, dễ bôi như dòng phổ thông chất lượng tốt. Tránh liquid metal nếu chưa có kinh nghiệm.",
-            color: "emerald",
+        dusty: {
+            icon: <Fan />,
+            title: "Máy dùng 1–2 năm",
+            answer: "Nên vệ sinh bụi quạt + heatsink. Nếu vẫn nóng sau vệ sinh, kiểm tra keo tản nhiệt và thermal pad.",
+            color: "cyan",
         },
-        laptop: {
-            icon: <Gauge />,
-            title: "Laptop nóng/ồn",
-            answer: "Laptop có thể cần thay keo sau 1–3 năm nếu nóng/ồn nhiều. Đồng thời vệ sinh bụi ở quạt/heatsink, không chỉ thay keo.",
-            color: "blue",
-        },
-        gpu: {
-            icon: <Layers3 />,
-            title: "GPU/VRAM",
-            answer: "Không tự ý thay thermal pad VRAM/VRM bằng keo thường. Pad có độ dày để lấp khoảng cách vật lý giữa chip và heatsink.",
+        pad: {
+            icon: <Puzzle />,
+            title: "Muốn thay thermal pad",
+            answer: "Không thay tùy tiện. Pad phải đúng độ dày; sai độ dày có thể làm CPU/GPU hoặc VRAM/VRM tiếp xúc kém hơn trước.",
             color: "purple",
         },
-        liquid: {
-            icon: <Zap />,
-            title: "Muốn dùng liquid metal",
-            answer: "Chỉ dùng nếu rất có kinh nghiệm: nó dẫn điện, có thể chập linh kiện và ăn mòn nhôm. Phải che chắn khu vực xung quanh thật kỹ.",
+        warranty: {
+            icon: <ShieldCheck />,
+            title: "Còn bảo hành",
+            answer: "Cân nhắc trung tâm bảo hành để vệ sinh/thay keo nếu cần. Tự tháo có thể ảnh hưởng bảo hành tùy hãng/chính sách.",
+            color: "emerald",
+        },
+        fanerror: {
+            icon: <AlertTriangle />,
+            title: "Fan error / không có gió",
+            answer: "Tắt máy kiểm tra sớm. Có thể fan lỗi, dây fan lỏng hoặc heatsink bị nghẹt nặng; không nên tiếp tục tải nặng.",
             color: "red",
         },
     };
-    const [active, setActive] = useState("beginner");
+    const [active, setActive] = useState("gaming");
     const item = scenarios[active];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="11"
+                number="10"
                 color="blue"
-                title="Lab: xử lý tình huống với keo tản nhiệt"
+                title="Lab: giữ laptop mát hơn theo tình huống"
                 icon={<Search />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -983,43 +963,39 @@ function TroubleshootingLab() {
 function CommonMistakes() {
     const mistakes = [
         {
-            wrong: "Bôi càng nhiều càng mát",
-            right: "Keo chỉ cần vừa đủ phủ vùng tiếp xúc. Quá nhiều dễ tràn, bẩn socket và không cải thiện đáng kể.",
+            wrong: "Đặt laptop trên chăn/nệm khi chơi game",
+            right: "Chăn/nệm che khe hút gió dưới đáy, làm fan thiếu khí mát và CPU/GPU nóng nhanh.",
         },
         {
-            wrong: "Bôi quá ít",
-            right: "Keo quá ít để lại túi khí, làm nhiệt truyền kém và CPU có thể nóng nhanh.",
+            wrong: "Laptop gaming 85–90°C là chắc chắn hỏng",
+            right: "Mức này có thể thường gặp. Cần xem FPS, throttling, tiếng quạt, máy có tự tắt không và nhiệt có cao hơn trước nhiều không.",
         },
         {
-            wrong: "Không lau keo cũ trước khi bôi mới",
-            right: "Luôn lau sạch keo cũ bằng khăn mềm không xơ và cồn isopropyl 90%+ nếu có.",
+            wrong: "Đế tản nào cũng hiệu quả như nhau",
+            right: "Đế tản hiệu quả nhất khi laptop có khe hút gió dưới đáy và đế thổi đúng vị trí.",
         },
         {
-            wrong: "Tháo tản ra rồi lắp lại ngay",
-            right: "Khi tháo tản, lớp keo đã bị phá vỡ. Nên lau sạch và bôi keo mới.",
+            wrong: "Tự thay thermal pad mà không biết độ dày",
+            right: "Pad sai độ dày có thể làm CPU/GPU hoặc VRAM/VRM tiếp xúc kém, máy nóng hơn trước.",
         },
         {
-            wrong: "Dùng liquid metal như keo thường",
-            right: "Liquid metal dẫn điện, có thể gây chập và ăn mòn nhôm; không dành cho người mới.",
-        },
-        {
-            wrong: "Quên tháo lớp nilon trên đế tản",
-            right: "Film bảo vệ làm truyền nhiệt cực kém, khiến CPU nóng rất nhanh sau khi lắp tản mới.",
+            wrong: "Chỉ thay keo mà không vệ sinh bụi",
+            right: "Heatsink bị bụi chặn thì keo mới cũng không giúp nhiều. Quy trình đúng thường là vệ sinh quạt + heatsink + thay keo nếu cần.",
         },
     ];
     const tips = [
-        "Cách dễ nhất cho người mới: hạt đậu nhỏ ở giữa CPU.",
-        "Với CPU hình chữ nhật dài, có thể dùng một đường mảnh hoặc theo khuyến nghị của hãng.",
-        "Không cần dùng thẻ tán keo nếu chưa quen; tán sai có thể tạo bọt khí hoặc lớp quá dày.",
-        "Luôn lau sạch keo cũ trước khi bôi mới.",
-        "Sau khi thay keo, kiểm tra nhiệt độ idle và tải nặng.",
-        "Nếu nhiệt vẫn cao, kiểm tra lực ép tản, quạt CPU, header CPU_FAN/PUMP, film đế tản, airflow và fan curve.",
-        "Đóng nắp tuýp keo ngay sau khi dùng để tránh khô hoặc đổi tính chất.",
+        "Luôn đặt laptop trên mặt phẳng cứng khi chơi game/render/học lâu.",
+        "Kê cao phần đuôi laptop 1–3cm giúp khe hút gió dưới đáy thoáng hơn.",
+        "Vệ sinh bụi định kỳ 6–12 tháng/lần nếu dùng nhiều, phòng bụi hoặc nuôi thú cưng.",
+        "Dùng HWiNFO, HWMonitor hoặc MSI Afterburner để theo dõi nhiệt độ, power và throttling.",
+        "Giới hạn FPS theo màn hình: 144Hz thì không nhất thiết để game chạy 220 FPS.",
+        "Dùng Balanced khi không cần tối đa hiệu năng; Turbo/Performance thường nóng và ồn hơn.",
+        "Không bịt khe xả gió phía sau hoặc bên hông; đừng đặt laptop sát tường quá gần.",
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
-                number="12"
+                number="11"
                 color="red"
                 title="Sai lầm phổ biến & mẹo thực chiến"
                 icon={<AlertTriangle />}
@@ -1078,10 +1054,10 @@ function SummaryAndQuiz() {
             <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
                 <div className="bg-slate-950 p-6 border-b border-slate-800">
                     <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                        <span className="bg-amber-500/20 text-amber-300 p-2 rounded-xl">
-                            13
+                        <span className="bg-violet-500/20 text-violet-300 p-2 rounded-xl">
+                            12
                         </span>{" "}
-                        Tóm tắt & Kiểm tra cuối bài
+                        Tóm tắt & Kiểm tra cuối Phần 9
                     </h3>
                 </div>
                 <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
@@ -1089,26 +1065,27 @@ function SummaryAndQuiz() {
                         <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
                             Ghi nhớ nhanh
                         </h4>
-                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-amber-300 border border-slate-800 shadow-inner space-y-2">
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-violet-300 border border-slate-800 shadow-inner space-y-2">
                             <p>
-                                Thermal Paste = lớp mỏng lấp khe giữa CPU và đế
-                                tản
+                                Laptop cooling = CPU/GPU → Keo → Cold plate →
+                                Heatpipe
                             </p>
-                            <p>
-                                Không khí dẫn nhiệt kém → cần keo để truyền
-                                nhiệt đều hơn
-                            </p>
+                            <p>→ Heatsink → Fan → Khe xả khí nóng</p>
                             <br />
-                            <p className="text-slate-500"># Bôi đúng</p>
+                            <p className="text-slate-500">
+                                # Laptop nóng hơn desktop vì
+                            </p>
                             <p className="text-slate-300">
-                                Lau keo cũ → hạt đậu nhỏ → đặt tản thẳng → siết
-                                chéo đều
+                                Không gian mỏng • Quạt nhỏ • Khe gió hạn chế •
+                                Pin/RAM/SSD sát nhau
                             </p>
                             <br />
-                            <p className="text-slate-500"># Tránh</p>
                             <p className="text-red-300">
-                                Quá nhiều • Quá ít • Keo cũ • Liquid metal nếu
-                                chưa kinh nghiệm • Quên bóc film đế tản
+                                Không đặt laptop trên chăn/nệm khi tải nặng.
+                            </p>
+                            <p className="text-emerald-300">
+                                Bàn cứng + kê cao + vệ sinh bụi + fan
+                                curve/power mode hợp lý.
                             </p>
                         </div>
                     </div>
@@ -1121,64 +1098,64 @@ function SummaryAndQuiz() {
 
 const questions = [
     {
-        question: "Keo tản nhiệt có vai trò chính là gì?",
+        question: "Heatpipe trong laptop có nhiệm vụ gì?",
         options: [
-            "Lấp khe hở siêu nhỏ giữa CPU và đế tản để truyền nhiệt tốt hơn",
-            "Làm CPU có thêm nhân",
+            "Dẫn nhiệt từ CPU/GPU ra cụm heatsink",
             "Tăng dung lượng RAM",
-            "Thay thế quạt case",
+            "Lưu dữ liệu hệ điều hành",
+            "Làm màn hình sáng hơn",
         ],
         correct: 0,
         explanation:
-            "Keo lấp các khe hở siêu nhỏ giữa CPU và đế tản để giảm túi khí và truyền nhiệt tốt hơn.",
+            "Heatpipe dẫn nhiệt từ CPU/GPU tới cụm lá tản gần khe xả để quạt thổi khí nóng ra ngoài.",
     },
     {
-        question: "Bôi keo tản nhiệt quá nhiều có tốt không?",
+        question: "Vì sao không nên đặt laptop trên chăn/nệm khi chơi game?",
         options: [
-            "Có, càng nhiều càng mát",
-            "Không, chỉ cần lượng vừa đủ; quá nhiều dễ tràn và không cải thiện đáng kể",
-            "Có, vì keo sẽ biến thành quạt",
-            "Không cần keo nếu CPU mạnh",
-        ],
-        correct: 1,
-        explanation:
-            "Keo chỉ cần lớp vừa đủ. Quá nhiều dễ tràn, bẩn và không giúp mát hơn đáng kể.",
-    },
-    {
-        question: "Khi tháo tản CPU ra rồi lắp lại, nên làm gì?",
-        options: [
-            "Lắp lại ngay, không cần quan tâm keo cũ",
-            "Lau sạch keo cũ và bôi keo mới",
-            "Đổ nước lên CPU",
-            "Cắm thêm RAM để keo tự phục hồi",
-        ],
-        correct: 1,
-        explanation:
-            "Khi tháo tản, bề mặt keo cũ đã bị phá vỡ, dễ tạo bọt khí nếu lắp lại ngay.",
-    },
-    {
-        question: "Liquid Metal có điểm gì cần đặc biệt cẩn thận?",
-        options: [
-            "Có thể dẫn điện và gây chập nếu tràn",
-            "Không truyền nhiệt",
-            "Chỉ dùng để dán màn hình",
-            "Không cần tản nhiệt đi kèm",
+            "Vì chăn/nệm có thể che khe hút gió, làm máy nóng nhanh",
+            "Vì laptop sẽ mất Wi‑Fi",
+            "Vì CPU sẽ mất nhân xử lý",
+            "Vì SSD sẽ tự xóa dữ liệu",
         ],
         correct: 0,
         explanation:
-            "Liquid metal dẫn điện và có thể gây chập nếu tràn ra linh kiện hoặc socket.",
+            "Bề mặt mềm như chăn/nệm dễ che khe hút gió dưới đáy, làm fan thiếu khí mát.",
     },
     {
-        question: "Lỗi nào khiến CPU nóng rất nhanh sau khi lắp tản mới?",
+        question: "Thermal pad trong laptop thường dùng cho bộ phận nào?",
         options: [
-            "Quên tháo lớp nilon bảo vệ trên đế tản",
-            "Dùng SSD NVMe",
-            "Màn hình quá lớn",
-            "Chuột có DPI cao",
+            "VRAM, VRM, chipset hoặc linh kiện phụ cần lấp khoảng cách",
+            "Màn hình",
+            "Bàn phím",
+            "Touchpad",
         ],
         correct: 0,
         explanation:
-            "Film bảo vệ trên đế tản cản truyền nhiệt rất mạnh, khiến CPU nóng nhanh.",
+            "Thermal pad thường dùng cho VRAM, VRM, chipset hoặc chip phụ, nơi cần lấp khoảng cách vật lý với heatsink.",
+    },
+    {
+        question: "Đế tản laptop hiệu quả nhất khi nào?",
+        options: [
+            "Khi laptop có khe hút gió dưới đáy và đế tản thổi đúng vị trí",
+            "Khi laptop không có khe gió nào",
+            "Khi đặt laptop trên nệm",
+            "Khi tắt toàn bộ quạt laptop",
+        ],
+        correct: 0,
+        explanation:
+            "Đế tản có tác dụng rõ hơn khi luồng gió của đế đi đúng vào khe hút gió dưới đáy laptop.",
+    },
+    {
+        question: "Laptop gaming 85–90°C khi chơi game có luôn là hỏng không?",
+        options: [
+            "Không, cần xem thêm FPS, throttling, tiếng quạt và tình trạng máy",
+            "Có, chắc chắn hỏng ngay",
+            "Không thể có nhiệt độ này",
+            "Chỉ do màn hình quá sáng",
+        ],
+        correct: 0,
+        explanation:
+            "Laptop gaming thường nóng hơn desktop; cần đánh giá theo hiệu năng ổn định, throttling, tiếng quạt và thay đổi so với trước.",
     },
 ];
 
@@ -1215,11 +1192,11 @@ function InteractiveQuiz() {
                     {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
-                    Hoàn thành!
+                    Hoàn thành Phần 9!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-amber-400">
+                    <strong className="text-violet-400">
                         {score}/{questions.length}
                     </strong>{" "}
                     câu hỏi.
@@ -1235,7 +1212,7 @@ function InteractiveQuiz() {
     return (
         <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
             <div className="flex justify-between items-center mb-4 text-sm font-medium">
-                <span className="text-amber-400">
+                <span className="text-violet-400">
                     Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
                 <span className="text-slate-500">Điểm: {score}</span>
@@ -1279,7 +1256,7 @@ function InteractiveQuiz() {
                     </div>
                     <button
                         onClick={handleNext}
-                        className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors"
+                        className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-bold rounded-xl transition-colors"
                     >
                         {currentQ < questions.length - 1
                             ? "Câu tiếp theo"
@@ -1291,32 +1268,34 @@ function InteractiveQuiz() {
     );
 }
 
-function NextLesson() {
+function NextPart() {
     return (
         <div className="text-center pt-8 border-t border-slate-800">
             <p className="text-slate-400 mb-4">
-                Bạn đã hiểu keo tản nhiệt. Tiếp theo là nhiệt độ hoạt động an
-                toàn cho CPU và GPU, để biết mức nhiệt nào bình thường, mức nào
-                đáng lo và khi nào cần vệ sinh hoặc nâng cấp tản nhiệt.
+                Bạn đã học xong Phần 9 — Tản nhiệt: vì sao cần tản nhiệt, tản
+                khí, tản nước, keo tản nhiệt, nhiệt độ an toàn và tản nhiệt
+                laptop. Tiếp theo là Phần 10 — Thiết bị nhập liệu, bắt đầu với
+                bàn phím: cơ chế, loại switch và kết nối.
             </p>
             <Link
-                to="/phan-9-5"
-                className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-amber-500/20"
+                to="/phan-10-1"
+                className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-violet-500/20"
             >
-                Bài tiếp theo: 9.5 — Nhiệt độ hoạt động an toàn cho CPU, GPU{" "}
+                Phần tiếp theo: 10.1 — Bàn phím Keyboard{" "}
                 <ChevronRight size={20} />
             </Link>
         </div>
     );
 }
 
-function SectionTitle({ number, title, icon, color = "amber" }) {
+function SectionTitle({ number, title, icon, color = "violet" }) {
     const colorMap = {
-        amber: "bg-amber-500/20 text-amber-300",
+        violet: "bg-violet-500/20 text-violet-300",
         yellow: "bg-yellow-500/20 text-yellow-300",
         blue: "bg-blue-500/20 text-blue-300",
         cyan: "bg-cyan-500/20 text-cyan-300",
         emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
         purple: "bg-purple-500/20 text-purple-300",
         pink: "bg-pink-500/20 text-pink-300",
         orange: "bg-orange-500/20 text-orange-300",
@@ -1344,7 +1323,7 @@ function Tag({ icon, text }) {
 function HeroTile({ icon, label, desc, color, highlight }) {
     return (
         <div
-            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-amber-500/10 border-amber-400/50" : softBorder(color)}`}
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-violet-500/10 border-violet-400/50" : softBorder(color)}`}
         >
             <div
                 className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
@@ -1438,44 +1417,47 @@ function WarnBullet({ text }) {
 }
 function badgeColor(color) {
     const map = {
-        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        violet: "bg-violet-500/10 text-violet-300 border border-violet-500/20",
         yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
         blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
         cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
         emerald:
             "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
         orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
         purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
         pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
         red: "bg-red-500/10 text-red-300 border border-red-500/20",
     };
-    return map[color] || map.amber;
+    return map[color] || map.violet;
 }
 function softBorder(color) {
     const map = {
-        amber: "bg-amber-500/5 border-amber-500/20",
+        violet: "bg-violet-500/5 border-violet-500/20",
         yellow: "bg-yellow-500/5 border-yellow-500/20",
         blue: "bg-blue-500/5 border-blue-500/20",
         cyan: "bg-cyan-500/5 border-cyan-500/20",
         emerald: "bg-emerald-500/5 border-emerald-500/20",
         orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
         purple: "bg-purple-500/5 border-purple-500/20",
         pink: "bg-pink-500/5 border-pink-500/20",
         red: "bg-red-500/5 border-red-500/20",
     };
-    return map[color] || map.amber;
+    return map[color] || map.violet;
 }
 function textColor(color) {
     const map = {
-        amber: "text-amber-300",
+        violet: "text-violet-300",
         yellow: "text-yellow-300",
         blue: "text-blue-300",
         cyan: "text-cyan-300",
         emerald: "text-emerald-300",
         orange: "text-orange-300",
+        amber: "text-amber-300",
         purple: "text-purple-300",
         pink: "text-pink-300",
         red: "text-red-300",
     };
-    return map[color] || "text-amber-300";
+    return map[color] || "text-violet-300";
 }

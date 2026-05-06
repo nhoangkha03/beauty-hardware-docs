@@ -1,1253 +1,1540 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-    Terminal,
-    GitBranch,
-    Split,
-    Binary,
-    Type,
-    FileSearch,
-    Link2,
-    ShieldCheck,
-    Server,
-    Menu,
-    Zap,
-    ListChecks,
-    Play,
-    Copy,
-    Info,
-    CheckCircle2,
-    XCircle,
     AlertTriangle,
+    Award,
+    BookOpen,
+    Brain,
+    CheckCircle2,
     ChevronRight,
-    RotateCcw,
-    Sparkles,
-    Folder,
-    FileText,
-    Lock,
-    Eye,
-    Settings,
-    Activity,
+    Cpu,
+    Database,
+    Fan,
+    Gamepad2,
     Gauge,
-    ArrowRight,
-    Code2,
-    SearchCheck,
+    HardDrive,
+    Layers3,
+    Lightbulb,
+    PackageCheck,
+    PlugZap,
+    Puzzle,
+    Search,
+    Settings,
+    ShieldCheck,
+    Sparkles,
+    Thermometer,
+    Wind,
     Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-orange-500 selection:text-white pb-20">
-            <header className="bg-slate-950/90 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-2xl">
-                            🐧
+                        <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
+                            <Wind className="text-cyan-400" size={24} />
                         </div>
                         <div>
-                            <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden sm:block">
-                                Bash Script · Conditions · Control Flow
+                            <p className="text-xs text-slate-500">
+                                Phần 8: Case — Vỏ máy tính
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-500 hidden md:inline-block">
-                            Chương 8
-                        </span>
-                        <div className="text-sm font-semibold text-orange-300 bg-orange-400/10 px-3 py-1 rounded-full border border-orange-400/20">
-                            Bài 8.3
-                        </div>
+                    <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">
+                        Bài 8.3
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <section className="text-center py-8 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-sm">
-                        <Sparkles size={16} className="text-orange-400" /> Cho
-                        script biết ra quyết định
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Câu Lệnh Điều Kiện <br />
-                        <span className="text-orange-500">if, else, case</span>
-                    </h2>
-                    <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                        Điều kiện giúp Bash Script chọn hướng xử lý: file có tồn
-                        tại không, user nhập đúng chưa, dịch vụ đang chạy không,
-                        và nên thực hiện hành động nào.
-                    </p>
-                </section>
-
-                <section className="grid lg:grid-cols-2 gap-6 items-stretch">
-                    <ConditionConceptCard />
-                    <IfFlowSimulator />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="1"
-                        color="blue"
-                        icon={<GitBranch size={22} />}
-                        title="if – Cấu trúc cơ bản"
-                        subtitle="if chạy một khối lệnh khi điều kiện đúng. else chạy khi điều kiện sai. elif dùng cho nhiều nhánh."
-                    />
-                    <IfStructureSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="2"
-                        color="purple"
-                        icon={<Binary size={22} />}
-                        title="Toán tử so sánh"
-                        subtitle="Bash có nhóm toán tử riêng cho số, chuỗi, file và thư mục."
-                    />
-                    <OperatorsTabs />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="3"
-                        color="green"
-                        icon={<Link2 size={22} />}
-                        title="Kết hợp điều kiện"
-                        subtitle="Dùng AND, OR, NOT để xây dựng điều kiện thực tế phức tạp hơn."
-                    />
-                    <CombineConditionsSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="4"
-                        color="orange"
-                        icon={<Code2 size={22} />}
-                        title="[ ] vs [[ ]] – Dùng cái nào?"
-                        subtitle="[ ] là POSIX, còn [[ ]] là Bash mở rộng: an toàn hơn, hỗ trợ wildcard và regex."
-                    />
-                    <BracketComparison />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="5"
-                        color="cyan"
-                        icon={<SearchCheck size={22} />}
-                        title="Ví dụ thực tế với if"
-                        subtitle="Kiểm tra tham số, kiểm tra file, monitor dịch vụ và phân loại điểm."
-                    />
-                    <RealIfExamples />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="6"
-                        color="pink"
-                        icon={<Menu size={22} />}
-                        title="case – Nhiều nhánh gọn hơn"
-                        subtitle="case phù hợp khi kiểm tra một biến với nhiều giá trị cố định, như menu hoặc action dòng lệnh."
-                    />
-                    <CaseSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="7"
-                        color="yellow"
-                        icon={<Zap size={22} />}
-                        title="Một dòng – Viết ngắn gọn"
-                        subtitle="Dùng && và || khi điều kiện đơn giản, ví dụ tạo thư mục nếu chưa có hoặc kiểm tra mạng."
-                    />
-                    <OneLineSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="8"
-                        color="teal"
-                        icon={<ListChecks size={22} />}
-                        title="Tóm tắt nhanh"
-                        subtitle="Các cấu trúc và toán tử bạn cần nhớ sau bài 8.3."
-                    />
-                    <SummaryGrid />
-                </section>
-
-                <section className="pt-4">
-                    <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-                        <div className="p-6 border-b border-slate-800 flex items-center justify-between gap-4">
-                            <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <ShieldCheck className="text-orange-400" />{" "}
-                                    Kiểm tra kiến thức bài 8.3
-                                </h3>
-                                <p className="text-slate-500 text-sm mt-1">
-                                    Ôn lại if, toán tử, [[ ]], case và viết gọn
-                                    bằng && / ||.
-                                </p>
-                            </div>
-                            <div className="hidden sm:block text-3xl">🧪</div>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <footer className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Script đã biết ra quyết định. Tiếp theo là cho script
-                        lặp lại công việc hàng trăm lần.
-                    </p>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
-                        Bài tiếp theo: 8.4 — Vòng lặp for, while, until{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </footer>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <RoomAnalogy />
+                <AirflowPathSimulator />
+                <FanDirectionExplorer />
+                <PressureExplorer />
+                <FrontPanelGuide />
+                <SpecsExplorer />
+                <FanLayoutGuide />
+                <MonitoringGuide />
+                <RealExamples />
+                <AirflowLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function SectionTitle({ number, color, icon, title, subtitle }) {
-    const colorMap = {
-        blue: "bg-blue-500/20 text-blue-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        green: "bg-green-500/20 text-green-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        pink: "bg-pink-500/20 text-pink-400",
-        yellow: "bg-yellow-500/20 text-yellow-400",
-        teal: "bg-teal-500/20 text-teal-400",
-    };
+function HeroSection() {
     return (
-        <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                <span
-                    className={`${colorMap[color]} p-2 rounded-xl inline-flex items-center gap-2`}
-                >
-                    <span className="text-sm font-black">{number}</span>
-                    {icon}
-                </span>
-                {title}
-            </h3>
-            <p className="text-slate-400 mt-2 max-w-3xl">{subtitle}</p>
-        </div>
-    );
-}
-
-function CodeBlock({ title, code, note }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-300">
-                    <Terminal size={16} className="text-orange-400" /> {title}
-                </div>
-                <Copy size={15} className="text-slate-600" />
-            </div>
-            <pre className="p-5 overflow-x-auto text-sm leading-6 text-slate-200">
-                <code>{code}</code>
-            </pre>
-            {note && (
-                <div className="px-5 pb-5 text-xs text-slate-500">{note}</div>
-            )}
-        </div>
-    );
-}
-
-function ConditionConceptCard() {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-orange-500/15 text-orange-400 rounded-2xl flex items-center justify-center">
-                    <GitBranch size={26} />
-                </div>
-                <div>
-                    <h3 className="text-2xl font-bold text-white">
-                        Điều kiện là gì?
-                    </h3>
-                    <p className="text-slate-500 text-sm">
-                        Cơ chế rẽ nhánh trong script
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
+                        <BookOpen size={16} /> Phần 8: Case — Airflow
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Hệ thống tản nhiệt
+                        <span className="block text-cyan-400">
+                            và luồng gió Airflow
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        PC mạnh nhưng quạt hú, nóng và tụt FPS thường không chỉ
+                        do linh kiện. Luồng gió trong case kém có thể giữ khí
+                        nóng lại quanh CPU, GPU, SSD và VRM.
                     </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Wind size={16} />} text="Airflow" />
+                        <Tag icon={<Fan size={16} />} text="Intake / Exhaust" />
+                        <Tag icon={<Gauge size={16} />} text="Pressure" />
+                        <Tag
+                            icon={<Thermometer size={16} />}
+                            text="Temperature"
+                        />
+                        <Tag
+                            icon={<ShieldCheck size={16} />}
+                            text="Dust Filter"
+                        />
+                    </div>
+                </div>
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Fan />}
+                            label="Front"
+                            desc="Intake"
+                            color="cyan"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Cpu />}
+                            label="CPU"
+                            desc="Nhận gió mát"
+                            color="blue"
+                        />
+                        <HeroTile
+                            icon={<Gamepad2 />}
+                            label="GPU"
+                            desc="Nguồn nhiệt lớn"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<Thermometer />}
+                            label="Rear/Top"
+                            desc="Exhaust"
+                            color="red"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Sơ đồ phổ biến</p>
+                        <p>Front intake → CPU/GPU</p>
+                        <p className="text-cyan-300">→ Rear/Top exhaust</p>
+                    </div>
                 </div>
             </div>
-            <div className="grid sm:grid-cols-3 gap-3 mb-5">
-                <MiniConcept
-                    icon={<Binary size={18} />}
-                    title="Số"
-                    desc="tuổi, điểm, dung lượng"
-                />
-                <MiniConcept
-                    icon={<Type size={18} />}
-                    title="Chuỗi"
-                    desc="tên, action, pattern"
-                />
-                <MiniConcept
-                    icon={<FileSearch size={18} />}
-                    title="File"
-                    desc="tồn tại, đọc, ghi, chạy"
-                />
-            </div>
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 font-mono text-sm space-y-2">
-                <div>
-                    <span className="text-purple-400">if</span> [{" "}
-                    <span className="text-green-400">$diem -ge 50</span> ];{" "}
-                    <span className="text-purple-400">then</span>
-                </div>
-                <div className="pl-5 text-slate-300">echo "Đậu"</div>
-                <div>
-                    <span className="text-purple-400">else</span>
-                </div>
-                <div className="pl-5 text-slate-300">echo "Rớt"</div>
-                <div>
-                    <span className="text-purple-400">fi</span>
-                </div>
-            </div>
-            <div className="mt-5 bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 text-sm text-blue-100 flex gap-3">
-                <Info size={20} className="text-blue-400 shrink-0 mt-0.5" />
-                <p>
-                    <strong>fi</strong> là kết thúc của <strong>if</strong>.
-                    Trong Bash, nhiều block kết thúc bằng từ khóa viết ngược như{" "}
-                    <code className="text-white">case ... esac</code>.
-                </p>
-            </div>
-        </div>
+        </section>
     );
 }
 
-function MiniConcept({ icon, title, desc }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
-            <div className="text-orange-400 mb-2">{icon}</div>
-            <div className="font-bold text-white text-sm">{title}</div>
-            <div className="text-xs text-slate-500 mt-1">{desc}</div>
-        </div>
-    );
-}
-
-function IfFlowSimulator() {
-    const [score, setScore] = useState(85);
-    const result = useMemo(() => {
-        if (score >= 90)
-            return {
-                branch: "if",
-                label: "Xuất sắc",
-                color: "text-green-400",
-                line: "if [ $diem -ge 90 ]",
-            };
-        if (score >= 80)
-            return {
-                branch: "elif 80",
-                label: "Giỏi",
-                color: "text-cyan-400",
-                line: "elif [ $diem -ge 80 ]",
-            };
-        if (score >= 70)
-            return {
-                branch: "elif 70",
-                label: "Khá",
-                color: "text-yellow-400",
-                line: "elif [ $diem -ge 70 ]",
-            };
-        if (score >= 50)
-            return {
-                branch: "elif 50",
-                label: "Trung bình",
-                color: "text-purple-400",
-                line: "elif [ $diem -ge 50 ]",
-            };
-        return {
-            branch: "else",
-            label: "Yếu",
-            color: "text-red-400",
-            line: "else",
-        };
-    }, [score]);
-
-    const rows = [
-        ["if [ $diem -ge 90 ]", score >= 90],
-        ["elif [ $diem -ge 80 ]", score < 90 && score >= 80],
-        ["elif [ $diem -ge 70 ]", score < 80 && score >= 70],
-        ["elif [ $diem -ge 50 ]", score < 70 && score >= 50],
-        ["else", score < 50],
+function LearningGoals() {
+    const goals = [
+        "Hiểu airflow là luồng không khí di chuyển bên trong case: hút gió mát vào, đưa qua linh kiện nóng và xả khí nóng ra ngoài.",
+        "Phân biệt intake fan và exhaust fan, biết vị trí phổ biến: front/bottom intake, rear/top exhaust.",
+        "Hiểu positive pressure, negative pressure và neutral pressure; biết vì sao người mới nên ưu tiên positive pressure nhẹ.",
+        "Đọc được thông số quạt: kích thước 120/140/160mm, RPM, CFM, static pressure, fan curve và lọc bụi.",
+        "Biết bố trí quạt cơ bản, tránh lỗi lắp sai hướng, case mặt trước kín, lọc bụi bẩn và dây chắn luồng gió.",
     ];
-
     return (
-        <div className="bg-gradient-to-br from-orange-500/20 via-slate-900 to-blue-500/20 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <Workflow className="text-orange-400" /> Mô phỏng luồng if /
-                elif / else
-            </h3>
-            <p className="text-slate-400 mb-6">
-                Kéo điểm để xem script đi vào nhánh nào.
-            </p>
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 mb-5">
-                <div className="flex items-center justify-between mb-3">
-                    <span className="text-slate-400 text-sm">Điểm</span>
-                    <span className="text-3xl font-black text-white">
-                        {score}
-                    </span>
-                </div>
-                <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={score}
-                    onChange={(e) => setScore(Number(e.target.value))}
-                    className="w-full accent-orange-500"
-                />
-            </div>
-            <div className="space-y-2 mb-5">
-                {rows.map(([text, active]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="cyan"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
                     <div
-                        key={text}
-                        className={`rounded-xl border p-3 flex items-center justify-between transition-all ${active ? "bg-orange-500/10 border-orange-500/40 text-white" : "bg-slate-950 border-slate-800 text-slate-500"}`}
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition-colors"
                     >
-                        <code className="text-sm">{text}</code>
-                        {active ? (
-                            <CheckCircle2
-                                size={18}
-                                className="text-orange-400"
-                            />
-                        ) : (
-                            <span className="text-xs">bỏ qua</span>
-                        )}
+                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
                     </div>
                 ))}
             </div>
-            <div className="bg-black border border-slate-800 rounded-2xl p-5">
-                <div className="text-xs text-slate-500 mb-2">
-                    Terminal output
-                </div>
-                <div className={`font-mono text-lg font-bold ${result.color}`}>
-                    Điểm {score} → {result.label}
-                </div>
-            </div>
-        </div>
+        </section>
     );
 }
 
-function IfStructureSection() {
-    return (
-        <div className="grid lg:grid-cols-3 gap-6">
-            <CodeBlock
-                title="if cơ bản"
-                code={`if [ điều_kiện ]; then\n    # chạy nếu ĐÚNG\nfi`}
-            />
-            <CodeBlock
-                title="if / else"
-                code={`if [ điều_kiện ]; then\n    # chạy nếu ĐÚNG\nelse\n    # chạy nếu SAI\nfi`}
-            />
-            <CodeBlock
-                title="if / elif / else"
-                code={`if [ điều_kiện_1 ]; then\n    # nhánh 1\nelif [ điều_kiện_2 ]; then\n    # nhánh 2\nelif [ điều_kiện_3 ]; then\n    # nhánh 3\nelse\n    # không nhánh nào đúng\nfi`}
-            />
-        </div>
-    );
-}
-
-function OperatorsTabs() {
-    const [tab, setTab] = useState("number");
-    const tabs = [
-        { id: "number", label: "Số", icon: <Binary size={16} /> },
-        { id: "string", label: "Chuỗi", icon: <Type size={16} /> },
-        { id: "file", label: "File & thư mục", icon: <FileSearch size={16} /> },
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <Fan />,
+            title: "Hút gió mát",
+            desc: "Quạt intake đưa không khí mát từ ngoài vào case, thường ở mặt trước hoặc mặt dưới.",
+            color: "cyan",
+        },
+        {
+            icon: <Cpu />,
+            title: "Đi qua linh kiện nóng",
+            desc: "Gió mát đi qua CPU, GPU, SSD, VRM và mainboard để mang nhiệt đi.",
+            color: "blue",
+        },
+        {
+            icon: <Thermometer />,
+            title: "Xả khí nóng",
+            desc: "Quạt rear/top đẩy khí nóng ra ngoài, tránh tích tụ nhiệt trong case.",
+            color: "orange",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Giữ máy mát, êm, bền",
+            desc: "Airflow tốt giúp quạt quay chậm hơn, ít ồn hơn và linh kiện bền hơn.",
+            color: "emerald",
+        },
     ];
     return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map((t) => (
-                    <button
-                        key={t.id}
-                        onClick={() => setTab(t.id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 ${tab === t.id ? "bg-orange-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {t.icon}
-                        {t.label}
-                    </button>
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Airflow là gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">Airflow</strong> là luồng
+                    không khí di chuyển bên trong vỏ máy tính. Một case airflow
+                    tốt không nhất thiết phải có thật nhiều quạt; quan trọng là
+                    gió đi đúng hướng, không bị cản và không tạo vòng xoáy khí
+                    nóng bên trong.
+                </p>
+                <div className="grid md:grid-cols-4 gap-4">
+                    {cards.map((c) => (
+                        <RoleCard key={c.title} {...c} />
+                    ))}
+                </div>
+                <div className="mt-6 bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    Mặt trước case → gió mát vào → CPU / GPU / Mainboard → mặt
+                    sau / mặt trên → khí nóng ra ngoài
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RoomAnalogy() {
+    const cards = [
+        {
+            icon: <Wind />,
+            title: "Case = căn phòng",
+            desc: "Nếu phòng không có đường gió, không khí nóng và bí sẽ tích tụ.",
+            color: "cyan",
+        },
+        {
+            icon: <Fan />,
+            title: "Intake = cửa sổ",
+            desc: "Đưa gió mát vào phòng, thường đặt ở mặt trước hoặc đáy case.",
+            color: "blue",
+        },
+        {
+            icon: <Thermometer />,
+            title: "Exhaust = quạt thông gió",
+            desc: "Đẩy khí nóng ra ngoài, thường đặt phía sau và trên nóc case.",
+            color: "orange",
+        },
+        {
+            icon: <AlertTriangle />,
+            title: "Sai hướng = phòng bí",
+            desc: "Chỉ có cửa vào hoặc chỉ có cửa ra đều làm airflow kém hiệu quả.",
+            color: "red",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: căn phòng và quạt thông gió"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
                 ))}
             </div>
-            <div className="p-5">
-                {tab === "number" && <NumberOperators />}
-                {tab === "string" && <StringOperators />}
-                {tab === "file" && <FileOperators />}
-            </div>
-        </div>
+        </section>
     );
 }
 
-function NumberOperators() {
+function AirflowPathSimulator() {
+    const flows = {
+        basic: {
+            title: "Airflow cơ bản",
+            color: "cyan",
+            steps: [
+                {
+                    icon: <Fan />,
+                    title: "Quạt trước hút vào",
+                    desc: "2–3 quạt front intake đưa không khí mát vào case.",
+                },
+                {
+                    icon: <Gamepad2 />,
+                    title: "Gió đi qua GPU",
+                    desc: "GPU thường là nguồn nhiệt lớn nhất trong PC gaming.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "Gió hỗ trợ CPU cooler",
+                    desc: "Tản CPU nhận không khí mát hơn, quạt CPU không cần hú quá mạnh.",
+                },
+                {
+                    icon: <Thermometer />,
+                    title: "Quạt sau xả ra",
+                    desc: "Rear fan đẩy khí nóng ra khỏi case.",
+                },
+                {
+                    icon: <Wind />,
+                    title: "Top fans xả thêm",
+                    desc: "Quạt trên nóc thường xả khí nóng vì khí nóng có xu hướng bay lên.",
+                },
+            ],
+        },
+        bad: {
+            title: "Airflow kém",
+            color: "red",
+            steps: [
+                {
+                    icon: <XCircle />,
+                    title: "Mặt trước quá kín",
+                    desc: "Quạt front khó lấy gió, GPU và CPU nhận ít khí mát.",
+                },
+                {
+                    icon: <Fan />,
+                    title: "Quạt lắp cùng hướng sai",
+                    desc: "Tất cả quạt cùng hút vào hoặc cùng xả ra làm đường gió mất cân bằng.",
+                },
+                {
+                    icon: <Thermometer />,
+                    title: "Khí nóng bị giữ lại",
+                    desc: "Nhiệt tích tụ quanh GPU, CPU, VRM và SSD.",
+                },
+                {
+                    icon: <AlertTriangle />,
+                    title: "Quạt hú và tụt hiệu năng",
+                    desc: "CPU/GPU nóng khiến quạt tăng tốc, máy ồn hơn và có thể giảm xung.",
+                },
+            ],
+        },
+        clean: {
+            title: "Airflow lâu dài",
+            color: "emerald",
+            steps: [
+                {
+                    icon: <ShieldCheck />,
+                    title: "Lọc bụi sạch",
+                    desc: "Lọc bụi ở vị trí hút gió giúp giảm bụi vào case.",
+                },
+                {
+                    icon: <Search />,
+                    title: "Dây không chắn gió",
+                    desc: "Giấu dây sau khay mainboard, không để dây trước quạt hút hoặc chạm cánh quạt.",
+                },
+                {
+                    icon: <Gauge />,
+                    title: "Fan curve hợp lý",
+                    desc: "Máy êm khi nhẹ tải và tăng quạt khi chơi game/render.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "Máy mát, êm, bền",
+                    desc: "Airflow tốt giúp giữ nhiệt độ ổn định theo thời gian.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("basic");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
+    };
     return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="compare-number.sh"
-                code={`#!/bin/bash\n\na=10\nb=20\n\nif [ $a -eq $b ]; then echo "bằng nhau"; fi\nif [ $a -ne $b ]; then echo "khác nhau"; fi\nif [ $a -lt $b ]; then echo "a nhỏ hơn b"; fi\nif [ $a -le $b ]; then echo "a nhỏ hơn hoặc bằng"; fi\nif [ $a -gt $b ]; then echo "a lớn hơn b"; fi\nif [ $a -ge $b ]; then echo "a lớn hơn hoặc bằng"; fi`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Luồng gió trong case hoạt động thế nào?"
+                icon={<Workflow />}
             />
-            <CheatCard
-                title="Toán tử số"
-                rows={[
-                    ["-eq", "==", "bằng"],
-                    ["-ne", "!=", "khác"],
-                    ["-lt", "<", "nhỏ hơn"],
-                    ["-le", "<=", "nhỏ hơn hoặc bằng"],
-                    ["-gt", ">", "lớn hơn"],
-                    ["-ge", ">=", "lớn hơn hoặc bằng"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function StringOperators() {
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="compare-string.sh"
-                code={`#!/bin/bash\n\na="hello"\nb="world"\n\nif [ "$a" = "$b" ];  then echo "bằng nhau"; fi\nif [ "$a" != "$b" ]; then echo "khác nhau"; fi\nif [ -z "$a" ];      then echo "chuỗi rỗng"; fi\nif [ -n "$a" ];      then echo "chuỗi không rỗng"; fi\n\n# [[ ]] mạnh hơn [ ]\nif [[ "$a" == "hel"* ]]; then echo "bắt đầu bằng hel"; fi\nif [[ "$a" =~ ^[a-z]+$ ]]; then echo "toàn chữ thường"; fi\nif [[ "$a" < "$b" ]]; then echo "a đứng trước b"; fi`}
-            />
-            <CheatCard
-                title="Toán tử chuỗi"
-                rows={[
-                    ["= / ==", "", "bằng nhau"],
-                    ["!=", "", "khác nhau"],
-                    ["-z", "zero", "chuỗi rỗng"],
-                    ["-n", "non-zero", "không rỗng"],
-                    ["<", "alphabet", "đứng trước"],
-                    [">", "alphabet", "đứng sau"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function FileOperators() {
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="check-file.sh"
-                code={`#!/bin/bash\n\nduong_dan="/etc/hosts"\n\nif [ -e "$duong_dan" ]; then echo "tồn tại"; fi\nif [ -f "$duong_dan" ]; then echo "là file"; fi\nif [ -d "$duong_dan" ]; then echo "là thư mục"; fi\nif [ -r "$duong_dan" ]; then echo "đọc được"; fi\nif [ -w "$duong_dan" ]; then echo "ghi được"; fi\nif [ -x "$duong_dan" ]; then echo "chạy được"; fi\nif [ -s "$duong_dan" ]; then echo "không rỗng"; fi\nif [ -L "$duong_dan" ]; then echo "là symlink"; fi`}
-            />
-            <CheatCard
-                title="Toán tử file"
-                rows={[
-                    ["-e", "exist", "tồn tại"],
-                    ["-f", "file", "file thường"],
-                    ["-d", "directory", "thư mục"],
-                    ["-r", "readable", "đọc được"],
-                    ["-w", "writable", "ghi được"],
-                    ["-x", "executable", "chạy được"],
-                    ["-s", "size", "> 0 byte"],
-                    ["-L", "link", "symlink"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function CheatCard({ title, rows }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 h-fit">
-            <h4 className="font-bold text-white mb-4">{title}</h4>
-            <div className="space-y-2">
-                {rows.map(([cmd, alias, desc]) => (
-                    <div
-                        key={cmd + desc}
-                        className="bg-slate-900 border border-slate-800 rounded-xl p-3 grid grid-cols-[70px_1fr] gap-2 items-center"
-                    >
-                        <code className="text-orange-300 text-sm font-bold">
-                            {cmd}
-                        </code>
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
+                        <button
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {f.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
                         <div>
-                            {alias && (
-                                <span className="text-xs text-slate-600 mr-2">
-                                    {alias}
-                                </span>
-                            )}
-                            <span className="text-xs text-slate-400">
-                                {desc}
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
+                            >
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function FanDirectionExplorer() {
+    const rows = [
+        [
+            "Intake Fan",
+            "Hút gió vào",
+            "Mặt trước, mặt dưới, đôi khi mặt hông",
+            "Đưa không khí mát vào case",
+        ],
+        [
+            "Exhaust Fan",
+            "Xả gió ra",
+            "Mặt sau, mặt trên",
+            "Đẩy khí nóng ra ngoài",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="cyan"
+                title="Intake và Exhaust"
+                icon={<Fan />}
+            />
+            <DataTable
+                title="Hai hướng quạt cơ bản"
+                rows={rows}
+                headers={[
+                    "Loại quạt",
+                    "Ý nghĩa",
+                    "Vị trí thường dùng",
+                    "Tác dụng",
+                ]}
+                accent="cyan"
+            />
+            <div className="grid md:grid-cols-2 gap-4">
+                <RuleCard
+                    label="Intake = In"
+                    value="Quạt hút gió mát vào, thường ở mặt trước hoặc mặt dưới case."
+                    color="blue"
+                />
+                <RuleCard
+                    label="Exhaust = Exit"
+                    value="Quạt xả khí nóng ra, thường ở mặt sau hoặc mặt trên case."
+                    color="orange"
+                />
+            </div>
+        </section>
+    );
+}
+
+function PressureExplorer() {
+    const pressures = {
+        positive: {
+            icon: <ShieldCheck />,
+            title: "Positive Pressure",
+            color: "emerald",
+            setup: "Quạt hút vào mạnh/nhiều hơn quạt xả",
+            good: "Ít bụi hơn nếu có lọc bụi, dễ kiểm soát đường gió",
+            bad: "Nếu xả yếu, khí nóng có thể thoát chậm",
+            fit: "Đa số PC gia đình, phòng nhiều bụi",
+        },
+        negative: {
+            icon: <Wind />,
+            title: "Negative Pressure",
+            color: "orange",
+            setup: "Quạt xả mạnh/nhiều hơn quạt hút",
+            good: "Đẩy khí nóng ra nhanh",
+            bad: "Dễ hút bụi qua khe hở không có lọc bụi",
+            fit: "PC cần xả nhiệt mạnh, nhưng phải vệ sinh thường xuyên",
+        },
+        neutral: {
+            icon: <Gauge />,
+            title: "Neutral Pressure",
+            color: "blue",
+            setup: "Hút và xả gần cân bằng",
+            good: "Cân bằng giữa nhiệt độ và bụi",
+            bad: "Khó đạt chính xác",
+            fit: "PC tối ưu kỹ, người có kinh nghiệm",
+        },
+    };
+    const [active, setActive] = useState("positive");
+    const item = pressures[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="Áp suất không khí trong case"
+                icon={<Gauge />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(pressures).map(([key, p]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(p.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(p.icon, { size: 20 })}{" "}
+                                {p.title}
+                            </div>
+                            <p className="text-xs opacity-75 mt-1">{p.setup}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid md:grid-cols-[0.7fr_1.3fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className={`${textColor(item.color)} font-semibold`}>
+                            {item.setup}
+                        </p>
+                    </div>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                        <InfoCard
+                            label="Ưu điểm"
+                            value={item.good}
+                            color={item.color}
+                        />
+                        <InfoCard
+                            label="Nhược điểm"
+                            value={item.bad}
+                            color="orange"
+                        />
+                        <InfoCard
+                            label="Phù hợp"
+                            value={item.fit}
+                            color="blue"
+                        />
+                    </div>
+                </div>
+                <div className="mt-6 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                    <strong className="text-emerald-300">
+                        Gợi ý cho người mới:
+                    </strong>{" "}
+                    ưu tiên positive pressure nhẹ, ví dụ 2–3 quạt hút trước + 1
+                    quạt xả sau.
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function FrontPanelGuide() {
+    const rows = [
+        [
+            "Mesh Front",
+            "Mặt trước dạng lưới thoáng",
+            "Airflow tốt, dễ hút gió mát",
+            "Có thể bụi hơn nếu lọc bụi kém",
+            "Gaming, GPU rời, máy tải nặng",
+        ],
+        [
+            "Solid Front",
+            "Mặt trước kín, nhựa/kính/kim loại",
+            "Đẹp, có thể yên tĩnh hơn",
+            "Hút gió kém hơn, dễ nóng hơn",
+            "PC nhẹ, ưu tiên thẩm mỹ",
+        ],
+        [
+            "Side Intake",
+            "Hút gió từ cạnh/hông",
+            "Có thể vừa đẹp vừa thoáng nếu thiết kế tốt",
+            "Hiệu quả tùy case",
+            "Case hiện đại, dual-chamber",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="blue"
+                title="Mesh front, solid front và side intake"
+                icon={<Layers3 />}
+            />
+            <DataTable
+                title="Mặt trước case ảnh hưởng airflow rất lớn"
+                rows={rows}
+                headers={[
+                    "Kiểu mặt trước",
+                    "Đặc điểm",
+                    "Ưu điểm",
+                    "Nhược điểm",
+                    "Phù hợp",
+                ]}
+                accent="blue"
+            />
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-blue-300">Gaming/GPU rời mạnh:</strong>{" "}
+                case mặt lưới mesh thường an toàn hơn vì GPU cần nhiều gió mát
+                liên tục.
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        fanCount: {
+            icon: <Fan />,
+            title: "Số lượng quạt",
+            detail: "Case có thể hỗ trợ nhiều vị trí như front, top, rear, bottom, side.",
+            impact: "Không phải lắp càng nhiều càng tốt. Bố trí 2–3 front intake + 1 rear exhaust đã đủ tốt cho đa số PC.",
+        },
+        size: {
+            icon: <Gauge />,
+            title: "120/140/160mm",
+            detail: "120mm phổ biến nhất; 140mm lớn hơn, có thể êm hơn; 160/180mm đẩy nhiều gió nhưng kén case.",
+            impact: "Quạt lớn có thể tạo cùng lượng gió ở RPM thấp hơn, nên có thể êm hơn nếu thiết kế tốt.",
+        },
+        rpm: {
+            icon: <Settings />,
+            title: "RPM",
+            detail: "Revolutions Per Minute: số vòng quay mỗi phút của quạt.",
+            impact: "RPM cao thường đẩy nhiều gió hơn nhưng cũng ồn và rung hơn nếu fan curve đặt quá mạnh.",
+        },
+        cfm: {
+            icon: <Wind />,
+            title: "CFM",
+            detail: "Cubic Feet per Minute: lượng không khí quạt có thể đẩy trong một phút.",
+            impact: "CFM cao hữu ích cho quạt case ở vị trí thoáng như intake/exhaust không bị cản nhiều.",
+        },
+        static: {
+            icon: <Zap />,
+            title: "Static Pressure",
+            detail: "Khả năng đẩy gió qua vật cản như lọc bụi, mesh dày, radiator, heatsink.",
+            impact: "Radiator AIO và mặt trước bị cản nhiều nên ưu tiên quạt static pressure tốt.",
+        },
+        curve: {
+            icon: <Workflow />,
+            title: "Fan Curve",
+            detail: "Cách tốc độ quạt thay đổi theo nhiệt độ CPU/GPU/mainboard.",
+            impact: "Fan curve tốt giúp máy êm khi nhẹ tải và tăng tốc khi chơi game/render mà không hú bất ngờ.",
+        },
+        dust: {
+            icon: <ShieldCheck />,
+            title: "Lọc bụi",
+            detail: "Lưới lọc bụi thường ở mặt trước, mặt trên, đáy PSU hoặc mặt hông.",
+            impact: "Lọc bụi bẩn làm gió yếu dần, nên vệ sinh 1–3 tháng/lần tùy môi trường.",
+        },
+    };
+    const [active, setActive] = useState("static");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng của airflow"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-7 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-3 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 19 })}
+                            <span className="font-bold text-[11px]">
+                                {s.title}
                             </span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function FanLayoutGuide() {
+    const rows = [
+        [
+            "Cơ bản tốt cho đa số PC",
+            "2–3 quạt trước hút vào + 1 quạt sau xả ra",
+            "Dễ lắp, dễ hiểu, hiệu quả",
+        ],
+        [
+            "Gaming nóng hơn",
+            "3 quạt trước hút vào + 1 sau xả + 1–2 trên xả",
+            "Hỗ trợ GPU/CPU tải nặng",
+        ],
+        [
+            "Case nhiều bụi",
+            "Positive pressure nhẹ + lọc bụi sạch",
+            "Giảm bụi lọt qua khe hở",
+        ],
+        [
+            "AIO radiator",
+            "Radiator cần quạt static pressure tốt",
+            "Đẩy gió qua radiator hiệu quả hơn",
+        ],
+        [
+            "Case nhỏ",
+            "Ít quạt nhưng đường gió rõ",
+            "Tránh dây chắn gió và khí nóng vòng lại",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="emerald"
+                title="Công thức bố trí quạt dễ dùng"
+                icon={<PackageCheck />}
+            />
+            <DataTable
+                title="Layout quạt thực chiến"
+                rows={rows}
+                headers={["Tình huống", "Bố trí gợi ý", "Lý do"]}
+                accent="emerald"
+            />
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                Front = Intake
+                <br />
+                Rear = Exhaust
+                <br />
+                Top = Exhaust
+                <br />
+                <span className="text-emerald-300">
+                    3 intake + 1–2 exhaust = positive pressure nhẹ
+                </span>
+            </div>
+        </section>
+    );
+}
+
+function MonitoringGuide() {
+    const software = [
+        ["HWMonitor", "Xem nhiệt độ CPU, GPU, mainboard"],
+        ["HWiNFO", "Xem cảm biến chi tiết"],
+        ["MSI Afterburner", "Theo dõi GPU, FPS, nhiệt độ khi chơi game"],
+        ["FanControl", "Tùy chỉnh fan curve nâng cao"],
+    ];
+    const temps = [
+        ["CPU", "Khoảng 60–85°C khi tải nặng"],
+        ["GPU", "Khoảng 60–83°C khi chơi game"],
+        ["SSD NVMe", "Nên giữ dưới khoảng 70°C nếu có thể"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="purple"
+                title="Theo dõi nhiệt độ và chỉnh fan curve"
+                icon={<Thermometer />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="Phần mềm theo dõi"
+                    rows={software}
+                    headers={["Phần mềm", "Dùng để làm gì"]}
+                    accent="purple"
+                />
+                <DataTable
+                    title="Mốc nhiệt độ tham khảo"
+                    rows={temps}
+                    headers={["Linh kiện", "Nhiệt độ thường ổn"]}
+                    accent="orange"
+                />
+            </div>
+            <div className="bg-purple-500/10 border border-purple-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-purple-300">Lưu ý:</strong> mốc nhiệt độ
+                chỉ mang tính tham khảo vì mỗi CPU/GPU có giới hạn khác nhau.
+                Nếu máy thường xuyên rất nóng và quạt hú lớn, hãy kiểm tra
+                airflow.
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <PackageCheck />,
+            title: "Corsair 4000D Airflow",
+            subtitle: "Mid Tower airflow phổ thông",
+            color: "cyan",
+            points: [
+                "Mặt trước thoáng",
+                "Hỗ trợ tối đa 6 quạt 120mm hoặc 4 quạt 140mm",
+                "Radiator 360mm phía trước",
+                "Radiator 280mm nóc case",
+                "Hợp Core i5/Ryzen 5 + RTX 4060/4070",
+            ],
+            lesson: "Case airflow tốt cần đủ quạt hút/xả để phát huy hiệu quả, không chỉ có mặt trước thoáng.",
+        },
+        {
+            icon: <Fan />,
+            title: "Lian Li LANCOOL 216",
+            subtitle: "Airflow mạnh sẵn quạt lớn",
+            color: "emerald",
+            points: [
+                "Mặt lưới thoáng",
+                "2 quạt trước 160mm",
+                "1 quạt sau 140mm PWM",
+                "Hợp GPU nóng hơn",
+                "Hợp Core i7/Ryzen 7 + RTX 4070 Ti/4080 class",
+            ],
+            lesson: "Case có quạt lớn sẵn giúp giảm chi phí mua quạt thêm và hỗ trợ cấu hình sinh nhiệt cao.",
+        },
+        {
+            icon: <Sparkles />,
+            title: "NZXT H5 Flow",
+            subtitle: "Compact Mid Tower airflow",
+            color: "blue",
+            points: [
+                "Case gọn, đẹp",
+                "Mặt trước mesh",
+                "Hợp gaming tầm trung",
+                "Ryzen 5/Core i5",
+                "RTX 4060/RTX 4070",
+            ],
+            lesson: "Mặt trước mesh cần quạt intake đủ tốt; nếu bản case ít quạt sẵn, nên bổ sung quạt trước.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     );
 }
 
-function CombineConditionsSection() {
-    return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <CodeBlock
-                title="combine-conditions.sh"
-                code={`#!/bin/bash\n\ntuoi=25\nluong=15000000\n\n# AND: cả hai đều đúng\nif [[ $tuoi -ge 18 && $luong -gt 10000000 ]]; then\n    echo "Đủ điều kiện vay"\nfi\n\n# OR: một trong hai đúng\nif [[ $tuoi -lt 18 || $tuoi -gt 60 ]]; then\n    echo "Không trong độ tuổi lao động"\nfi\n\n# NOT: phủ định\nif ! [ -f "/etc/nonexistent" ]; then\n    echo "File không tồn tại"\nfi\n\nif [[ ! $tuoi -eq 30 ]]; then\n    echo "Không phải 30 tuổi"\nfi\n\n# Kết hợp phức tạp: năm nhuận\nnam=2024\nif [[ ($nam % 4 -eq 0 && $nam % 100 -ne 0) || $nam % 400 -eq 0 ]]; then\n    echo "$nam là năm nhuận"\nfi`}
-            />
-            <div className="space-y-4">
-                <LogicCard
-                    symbol="&&"
-                    name="AND"
-                    desc="Cả hai điều kiện đều phải đúng."
-                    example="tuoi >= 18 && luong > 10000000"
-                />
-                <LogicCard
-                    symbol="||"
-                    name="OR"
-                    desc="Chỉ cần một điều kiện đúng."
-                    example="tuoi < 18 || tuoi > 60"
-                />
-                <LogicCard
-                    symbol="!"
-                    name="NOT"
-                    desc="Phủ định kết quả điều kiện."
-                    example="! [ -f file.txt ]"
-                />
-                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm text-yellow-100 flex gap-3">
-                    <AlertTriangle
-                        size={20}
-                        className="text-yellow-400 shrink-0"
-                    />
-                    <p>
-                        Nên ưu tiên{" "}
-                        <code className="text-white">[[ ... && ... ]]</code> và{" "}
-                        <code className="text-white">[[ ... || ... ]]</code>{" "}
-                        trong Bash hiện đại thay vì{" "}
-                        <code className="text-white">-a</code> /{" "}
-                        <code className="text-white">-o</code>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function LogicCard({ symbol, name, desc, example }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-            <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400 flex items-center justify-center font-black text-xl">
-                    {symbol}
-                </div>
-                <div>
-                    <div className="font-bold text-white">{name}</div>
-                    <div className="text-sm text-slate-500">{desc}</div>
-                </div>
-            </div>
-            <code className="block bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-orange-300">
-                {example}
-            </code>
-        </div>
-    );
-}
-
-function BracketComparison() {
-    return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <h4 className="text-lg font-bold text-white mb-4">
-                    So sánh nhanh
-                </h4>
-                <div className="grid gap-3">
-                    <CompareRow
-                        left="[ ]"
-                        right="POSIX chuẩn, chạy trên nhiều shell"
-                    />
-                    <CompareRow
-                        left="[[ ]]"
-                        right="Bash mở rộng, mạnh hơn, an toàn hơn"
-                        highlight
-                    />
-                    <CompareRow
-                        left="[ ]"
-                        right="Biến có dấu cách phải đặt trong dấu nháy kép"
-                    />
-                    <CompareRow
-                        left="[[ ]]"
-                        right="Hỗ trợ wildcard với == và regex với =~"
-                        highlight
-                    />
-                </div>
-            </div>
-            <CodeBlock
-                title="brackets.sh"
-                code={`#!/bin/bash\n\nten="Nguyen Van A"\n\n# Vấn đề của [ ] khi biến có dấu cách\nif [ $ten = "Nguyen Van A" ]; then   # LỖI\n    echo "OK"\nfi\n\nif [ "$ten" = "Nguyen Van A" ]; then # ĐÚNG\n    echo "OK"\nfi\n\n# [[ ]] an toàn hơn\nif [[ $ten = "Nguyen Van A" ]]; then\n    echo "OK"\nfi\n\n# [[ ]] hỗ trợ wildcard và regex\nif [[ $ten == Nguyen* ]]; then echo "bắt đầu bằng Nguyen"; fi\nif [[ $ten =~ ^[A-Z] ]]; then echo "bắt đầu bằng chữ hoa"; fi`}
-            />
-        </div>
-    );
-}
-
-function CompareRow({ left, right, highlight }) {
-    return (
-        <div
-            className={`rounded-xl border p-4 grid grid-cols-[80px_1fr] gap-3 items-center ${highlight ? "bg-orange-500/10 border-orange-500/30" : "bg-slate-950 border-slate-800"}`}
-        >
-            <code
-                className={
-                    highlight
-                        ? "text-orange-300 font-bold"
-                        : "text-slate-300 font-bold"
-                }
-            >
-                {left}
-            </code>
-            <span className="text-sm text-slate-400">{right}</span>
-        </div>
-    );
-}
-
-function RealIfExamples() {
-    const [tab, setTab] = useState("args");
-    const tabs = [
-        { id: "args", label: "Kiểm tra tham số", icon: <FileText size={16} /> },
-        { id: "service", label: "Monitor dịch vụ", icon: <Server size={16} /> },
-        { id: "grade", label: "Xếp loại điểm", icon: <Gauge size={16} /> },
-    ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map((t) => (
-                    <button
-                        key={t.id}
-                        onClick={() => setTab(t.id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 ${tab === t.id ? "bg-cyan-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {t.icon}
-                        {t.label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "args" && <ArgsExample />}
-                {tab === "service" && <ServiceExample />}
-                {tab === "grade" && <GradeExample />}
-            </div>
-        </div>
-    );
-}
-
-function ArgsExample() {
-    return (
-        <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-6">
-            <CodeBlock
-                title="check_args.sh"
-                code={`#!/bin/bash\n\nif [ $# -eq 0 ]; then\n    echo "Lỗi: Chưa truyền tham số!"\n    echo "Dùng: $0 <tên_file>"\n    exit 1\nfi\n\nFILE=$1\n\nif [ ! -f "$FILE" ]; then\n    echo "Lỗi: File '$FILE' không tồn tại!"\n    exit 1\nfi\n\nif [ ! -r "$FILE" ]; then\n    echo "Lỗi: Không có quyền đọc file '$FILE'!"\n    exit 1\nfi\n\necho "Đang xử lý file: $FILE"\nwc -l "$FILE"`}
-            />
-            <ExplainCards
-                items={[
-                    ["$#", "Số lượng tham số được truyền vào script."],
-                    ["$1", "Tham số đầu tiên, ở đây là tên file."],
-                    ["-f", "Kiểm tra có phải file thường không."],
-                    ["-r", "Kiểm tra file có đọc được không."],
-                    ["exit 1", "Thoát script với trạng thái lỗi."],
-                ]}
-            />
-        </div>
-    );
-}
-
-function ServiceExample() {
-    return (
-        <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-6">
-            <CodeBlock
-                title="monitor_nginx.sh"
-                code={`#!/bin/bash\n\nDICH_VU="nginx"\n\nif systemctl is-active --quiet $DICH_VU; then\n    echo "✓ $DICH_VU đang chạy bình thường"\nelse\n    echo "✗ $DICH_VU đã dừng! Đang khởi động lại..."\n    sudo systemctl restart $DICH_VU\n\n    sleep 2\n    if systemctl is-active --quiet $DICH_VU; then\n        echo "✓ Khởi động lại thành công!"\n    else\n        echo "✗ THẤT BẠI! Gửi cảnh báo..."\n        # mail -s "ALERT: nginx down!" admin@example.com\n    fi\nfi`}
-            />
-            <ExplainCards
-                items={[
-                    [
-                        "systemctl is-active --quiet",
-                        "Kiểm tra service có đang active không.",
-                    ],
-                    [
-                        "sudo systemctl restart",
-                        "Khởi động lại dịch vụ khi bị dừng.",
-                    ],
-                    ["sleep 2", "Chờ 2 giây trước khi kiểm tra lại."],
-                    [
-                        "if lồng nhau",
-                        "Sau khi restart, kiểm tra tiếp thành công hay thất bại.",
-                    ],
-                ]}
-            />
-        </div>
-    );
-}
-
-function GradeExample() {
-    const [score, setScore] = useState("85");
-    const valid = /^\d+$/.test(score) && Number(score) <= 100;
-    const grade = !valid
-        ? "Điểm không hợp lệ"
-        : Number(score) >= 90
-          ? "Xuất sắc"
-          : Number(score) >= 80
-            ? "Giỏi"
-            : Number(score) >= 70
-              ? "Khá"
-              : Number(score) >= 50
-                ? "Trung bình"
-                : "Yếu";
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="xep_loai.sh"
-                code={`#!/bin/bash\n\nread -p "Nhập điểm (0-100): " diem\n\nif ! [[ "$diem" =~ ^[0-9]+$ ]] || [ "$diem" -gt 100 ]; then\n    echo "Điểm không hợp lệ!"\n    exit 1\nfi\n\nif [ "$diem" -ge 90 ]; then\n    xep_loai="Xuất sắc"\n    mau="\\e[32m"\nelif [ "$diem" -ge 80 ]; then\n    xep_loai="Giỏi"\n    mau="\\e[36m"\nelif [ "$diem" -ge 70 ]; then\n    xep_loai="Khá"\n    mau="\\e[33m"\nelif [ "$diem" -ge 50 ]; then\n    xep_loai="Trung bình"\n    mau="\\e[35m"\nelse\n    xep_loai="Yếu"\n    mau="\\e[31m"\nfi\n\necho -e "${mau}Điểm $diem → $xep_loai\\e[0m"`}
-            />
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 h-fit">
-                <h4 className="font-bold text-white mb-4">
-                    Thử phân loại điểm
-                </h4>
-                <input
-                    value={score}
-                    onChange={(e) => setScore(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 mb-5"
-                />
-                <div
-                    className={`bg-black border border-slate-800 rounded-xl p-5 font-mono text-lg font-bold ${valid ? "text-green-400" : "text-red-400"}`}
-                >
-                    {valid ? `Điểm ${score} → ${grade}` : grade}
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function ExplainCards({ items }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 h-fit">
-            <h4 className="font-bold text-white mb-4">Điểm cần hiểu</h4>
-            <div className="space-y-3">
-                {items.map(([cmd, desc]) => (
-                    <div
-                        key={cmd}
-                        className="bg-slate-900 border border-slate-800 rounded-xl p-4"
-                    >
-                        <code className="text-orange-300 font-bold text-sm">
-                            {cmd}
-                        </code>
-                        <p className="text-slate-400 text-sm mt-1">{desc}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function CaseSection() {
-    const [tab, setTab] = useState("basic");
-    const tabs = [
-        { id: "basic", label: "Cú pháp & ngày", icon: <GitBranch size={16} /> },
-        {
-            id: "wildcard",
-            label: "Wildcard file",
-            icon: <FileSearch size={16} />,
+function AirflowLab() {
+    const scenarios = {
+        basic: {
+            icon: <Fan />,
+            title: "Build mới",
+            answer: "Bắt đầu với 2–3 quạt trước hút vào và 1 quạt sau xả ra. Theo dõi nhiệt độ, rồi thêm top exhaust nếu CPU/GPU nóng.",
+            color: "cyan",
         },
-        { id: "menu", label: "Menu nginx", icon: <Menu size={16} /> },
-        {
-            id: "args",
-            label: "Tham số dòng lệnh",
-            icon: <Terminal size={16} />,
+        dusty: {
+            icon: <ShieldCheck />,
+            title: "Phòng nhiều bụi",
+            answer: "Ưu tiên positive pressure nhẹ, lọc bụi ở vị trí intake và vệ sinh lọc bụi 1–3 tháng/lần; nếu nuôi thú cưng thì thường xuyên hơn.",
+            color: "emerald",
         },
-    ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map((t) => (
-                    <button
-                        key={t.id}
-                        onClick={() => setTab(t.id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 ${tab === t.id ? "bg-pink-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {t.icon}
-                        {t.label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "basic" && <CaseBasic />}
-                {tab === "wildcard" && <CaseWildcard />}
-                {tab === "menu" && <CaseMenu />}
-                {tab === "args" && <CaseArgs />}
-            </div>
-        </div>
-    );
-}
-
-function CaseBasic() {
-    const [day, setDay] = useState("1");
-    const map = {
-        1: "Thứ Hai",
-        2: "Thứ Ba",
-        3: "Thứ Tư",
-        4: "Thứ Năm",
-        5: "Thứ Sáu",
-        6: "Thứ Bảy",
-        7: "Chủ Nhật",
+        hotGpu: {
+            icon: <Gamepad2 />,
+            title: "GPU nóng",
+            answer: "Ưu tiên case mesh front, quạt trước intake mạnh, dây không chắn trước GPU, có rear/top exhaust để thoát khí nóng.",
+            color: "orange",
+        },
+        aio: {
+            icon: <Thermometer />,
+            title: "Dùng AIO",
+            answer: "Radiator cần quạt static pressure tốt. Kiểm tra vị trí gắn front/top và hướng gió sao cho không làm khí nóng mắc kẹt trong case.",
+            color: "blue",
+        },
+        noise: {
+            icon: <Gauge />,
+            title: "Máy ồn",
+            answer: "Chỉnh fan curve mềm hơn ở nhiệt thấp, dùng quạt lớn hơn nếu case hỗ trợ, vệ sinh lọc bụi và kiểm tra xem case có bị bí gió không.",
+            color: "purple",
+        },
+        cable: {
+            icon: <PlugZap />,
+            title: "Dây rối",
+            answer: "Đi dây sau khay mainboard, dùng dây rút/velcro, không để dây chắn quạt front intake hoặc chạm cánh quạt GPU/case fan.",
+            color: "red",
+        },
     };
+    const [active, setActive] = useState("basic");
+    const item = scenarios[active];
     return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="case-basic.sh"
-                code={`#!/bin/bash\n\nread -p "Nhập ngày trong tuần (1-7): " ngay\n\ncase $ngay in\n    1) echo "Thứ Hai" ;;\n    2) echo "Thứ Ba" ;;\n    3) echo "Thứ Tư" ;;\n    4) echo "Thứ Năm" ;;\n    5) echo "Thứ Sáu" ;;\n    6) echo "Thứ Bảy" ;;\n    7) echo "Chủ Nhật" ;;\n    *) echo "Ngày không hợp lệ!" ;;\nesac`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="blue"
+                title="Lab: tối ưu airflow theo tình huống"
+                icon={<Search />}
             />
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 h-fit">
-                <h4 className="font-bold text-white mb-4">Thử chọn ngày</h4>
-                <div className="grid grid-cols-4 gap-2 mb-5">
-                    {["1", "2", "3", "4", "5", "6", "7", "x"].map((v) => (
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
                         <button
-                            key={v}
-                            onClick={() => setDay(v)}
-                            className={`p-3 rounded-xl border font-bold ${day === v ? "bg-pink-500 text-white border-pink-500" : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"}`}
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
                         >
-                            {v}
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
                         </button>
                     ))}
                 </div>
-                <div className="bg-black border border-slate-800 rounded-xl p-5 font-mono text-green-400">
-                    {map[day] || "Ngày không hợp lệ!"}
-                </div>
-                <div className="mt-4 text-sm text-slate-500">
-                    <code className="text-orange-300">;;</code> kết thúc mỗi
-                    nhánh. <code className="text-orange-300">*)</code> là nhánh
-                    mặc định giống else.
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function CaseWildcard() {
-    return (
-        <CodeBlock
-            title="case-file-type.sh"
-            code={`#!/bin/bash\n\nread -p "Nhập tên file: " file\n\ncase $file in\n    *.txt)\n        echo "File văn bản"\n        cat "$file"\n        ;;\n    *.jpg | *.jpeg | *.png | *.gif)\n        echo "File hình ảnh"\n        ls -lh "$file"\n        ;;\n    *.sh)\n        echo "File script"\n        bash "$file"\n        ;;\n    *.tar.gz | *.zip | *.bz2)\n        echo "File nén"\n        ls -lh "$file"\n        ;;\n    *)\n        echo "Loại file không xác định"\n        ;;\nesac`}
-        />
-    );
-}
-
-function CaseMenu() {
-    return (
-        <CodeBlock
-            title="menu_server.sh"
-            code={`#!/bin/bash\n\necho "=== QUẢN LÝ NGINX ==="\necho "1. Khởi động"\necho "2. Dừng"\necho "3. Khởi động lại"\necho "4. Xem trạng thái"\necho "5. Xem log"\necho "0. Thoát"\necho ""\nread -p "Chọn: " lua_chon\n\ncase $lua_chon in\n    1)\n        sudo systemctl start nginx\n        echo "✓ Đã khởi động nginx"\n        ;;\n    2)\n        sudo systemctl stop nginx\n        echo "✓ Đã dừng nginx"\n        ;;\n    3)\n        sudo systemctl restart nginx\n        echo "✓ Đã khởi động lại nginx"\n        ;;\n    4)\n        systemctl status nginx\n        ;;\n    5)\n        sudo tail -50 /var/log/nginx/access.log\n        ;;\n    0)\n        echo "Tạm biệt!"\n        exit 0\n        ;;\n    *)\n        echo "Lựa chọn không hợp lệ: $lua_chon"\n        exit 1\n        ;;\nesac`}
-        />
-    );
-}
-
-function CaseArgs() {
-    return (
-        <CodeBlock
-            title="service_manager.sh"
-            code={`#!/bin/bash\n# Dùng: ./service_manager.sh start|stop|restart nginx\n\nHANH_DONG=$1\nDICH_VU=$2\n\nif [ $# -ne 2 ]; then\n    echo "Dùng: $0 {start|stop|restart|status} <dịch_vụ>"\n    exit 1\nfi\n\ncase $HANH_DONG in\n    start)\n        sudo systemctl start $DICH_VU\n        echo "Đã start $DICH_VU"\n        ;;\n    stop)\n        sudo systemctl stop $DICH_VU\n        echo "Đã stop $DICH_VU"\n        ;;\n    restart)\n        sudo systemctl restart $DICH_VU\n        echo "Đã restart $DICH_VU"\n        ;;\n    status)\n        systemctl status $DICH_VU\n        ;;\n    *)\n        echo "Hành động không hợp lệ: $HANH_DONG"\n        echo "Dùng: start | stop | restart | status"\n        exit 1\n        ;;\nesac`}
-        />
-    );
-}
-
-function OneLineSection() {
-    return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <CodeBlock
-                title="one-line.sh"
-                code={`# if một dòng\n[ -f file.txt ] && echo "File tồn tại"\n[ -f file.txt ] || echo "File không tồn tại"\n\n# Ý nghĩa:\n# A && B   → chạy B chỉ khi A đúng\n# A || B   → chạy B chỉ khi A sai\n\n# Ví dụ thực tế\n[ -d /backup ] || mkdir -p /backup\n[ $? -eq 0 ] && echo "OK" || echo "LỖI"\nping -c1 google.com &>/dev/null && echo "Có mạng" || echo "Mất mạng"`}
-            />
-            <div className="space-y-4">
-                <OneLineCard
-                    title="A && B"
-                    desc="Nếu A đúng thì chạy B."
-                    example="[ -f file.txt ] && echo OK"
-                />
-                <OneLineCard
-                    title="A || B"
-                    desc="Nếu A sai thì chạy B."
-                    example="[ -d /backup ] || mkdir -p /backup"
-                />
-                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-red-100 flex gap-3">
-                    <AlertTriangle
-                        size={20}
-                        className="text-red-400 shrink-0"
-                    />
-                    <p>
-                        Không nên nhồi điều kiện phức tạp vào một dòng. Dùng
-                        if/else đầy đủ sẽ dễ đọc và dễ debug hơn.
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
                     </p>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
-function OneLineCard({ title, desc, example }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-            <div className="font-bold text-white mb-1">{title}</div>
-            <p className="text-sm text-slate-400 mb-3">{desc}</p>
-            <code className="block bg-slate-950 border border-slate-800 rounded-xl p-3 text-orange-300 text-sm">
-                {example}
-            </code>
-        </div>
-    );
-}
-
-function SummaryGrid() {
-    const groups = [
+function CommonMistakes() {
+    const mistakes = [
         {
-            title: "Cấu trúc",
-            rows: [
-                ["if [ đk ]; then ... fi", "if cơ bản"],
-                ["if ... else ... fi", "có nhánh sai"],
-                ["elif", "nhiều nhánh"],
-                ["case $var in ... esac", "nhiều mẫu"],
-            ],
+            wrong: "Lắp tất cả quạt cùng thổi vào trong",
+            right: "Phải có cả intake và exhaust. Front hút vào, rear/top xả ra là bố trí dễ dùng nhất.",
         },
         {
-            title: "So sánh số",
-            rows: [
-                ["-eq", "bằng"],
-                ["-ne", "khác"],
-                ["-lt", "nhỏ hơn"],
-                ["-le", "<="],
-                ["-gt", ">"],
-                ["-ge", ">="],
-            ],
+            wrong: "Lắp quạt trên nóc hút gió vào",
+            right: "Top fans thường nên exhaust vì khí nóng có xu hướng bay lên. Người mới nên dùng top/rear là xả.",
         },
         {
-            title: "Chuỗi",
-            rows: [
-                ["= / ==", "bằng"],
-                ["!=", "khác"],
-                ["-z", "rỗng"],
-                ["-n", "không rỗng"],
-                ["=~", "regex trong [[ ]]"],
-            ],
+            wrong: "Case đẹp nhưng mặt trước quá kín",
+            right: "Mặt kính/kín đẹp nhưng có thể hút gió kém. PC gaming nên ưu tiên mesh front hoặc khe thoáng tốt.",
         },
         {
-            title: "File",
-            rows: [
-                ["-e", "tồn tại"],
-                ["-f", "file"],
-                ["-d", "thư mục"],
-                ["-r", "đọc"],
-                ["-w", "ghi"],
-                ["-x", "chạy"],
-                ["-s", ">0 byte"],
-            ],
+            wrong: "Không vệ sinh lọc bụi",
+            right: "Lọc bụi bẩn làm gió yếu dần, CPU/GPU nóng và quạt hú. Nên vệ sinh 1–3 tháng/lần tùy môi trường.",
         },
         {
-            title: "Kết hợp",
-            rows: [
-                ["&&", "AND"],
-                ["||", "OR"],
-                ["!", "NOT"],
-                ["if/elif", "điều kiện phức tạp"],
-                ["case", "1 biến nhiều giá trị"],
-            ],
+            wrong: "Dây nguồn chắn luồng gió",
+            right: "Giấu dây sau khay mainboard, dùng dây rút/velcro, không để dây trước quạt hút hoặc gần cánh quạt.",
+        },
+        {
+            wrong: "Mua thật nhiều quạt ngay từ đầu",
+            right: "Không cần quá nhiều quạt. Bắt đầu với layout cơ bản, đo nhiệt độ rồi nâng cấp nếu cần.",
         },
     ];
+    const tips = [
+        "Công thức dễ nhất: 2–3 front intake + 1 rear exhaust + 1–2 top exhaust nếu cần.",
+        "Ưu tiên positive pressure nhẹ để giảm bụi: hút vào hơi nhiều hơn xả ra.",
+        "Nhìn mũi tên trên thân quạt trước khi lắp để biết hướng gió.",
+        "Quạt static pressure hợp radiator/lọc bụi dày; quạt airflow hợp vị trí thoáng.",
+        "Theo dõi nhiệt độ bằng HWiNFO, HWMonitor, MSI Afterburner hoặc FanControl.",
+        "Nếu máy nóng dần sau vài tháng, hãy kiểm tra lọc bụi trước khi mua thêm quạt.",
+    ];
     return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {groups.map((g) => (
-                <div
-                    key={g.title}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-5"
-                >
-                    <h4 className="font-bold text-white mb-4">{g.title}</h4>
-                    <div className="space-y-2">
-                        {g.rows.map(([cmd, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="13"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
                             <div
-                                key={cmd + desc}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3"
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
                             >
-                                <code className="text-orange-300 text-sm">
-                                    {cmd}
-                                </code>
-                                <div className="text-xs text-slate-500 mt-1">
-                                    {desc}
-                                </div>
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
-            ))}
-        </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
-const quizQuestions = [
-    {
-        question: "Từ khóa nào kết thúc một khối if trong Bash?",
-        options: ["endif", "done", "fi", "esac"],
-        correct: 2,
-        explanation:
-            "Bash dùng fi để kết thúc if. case thì kết thúc bằng esac.",
-    },
-    {
-        question: "Toán tử nào dùng để so sánh hai số bằng nhau?",
-        options: ["=", "-eq", "==", "-f"],
-        correct: 1,
-        explanation:
-            "Trong [ ], so sánh số bằng nhau dùng -eq. Dấu = thường dùng cho chuỗi.",
-    },
-    {
-        question: "Toán tử file nào kiểm tra đường dẫn là thư mục?",
-        options: ["-f", "-d", "-e", "-x"],
-        correct: 1,
-        explanation: "-d kiểm tra directory. -f kiểm tra file thường.",
-    },
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">
+                            14
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-cyan-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>
+                                Airflow = hút gió mát vào → đi qua linh kiện
+                                nóng → xả khí nóng ra
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Layout dễ dùng</p>
+                            <p className="text-slate-300">Front = Intake</p>
+                            <p className="text-slate-300">Rear = Exhaust</p>
+                            <p className="text-slate-300">Top = Exhaust</p>
+                            <br />
+                            <p className="text-slate-500"># Người mới</p>
+                            <p className="text-slate-300">
+                                2–3 front intake + 1 rear exhaust
+                            </p>
+                            <p className="text-slate-300">
+                                Positive pressure nhẹ để giảm bụi
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                Case đẹp nhưng bí gió có thể làm CPU/GPU nóng,
+                                quạt ồn và hiệu năng giảm.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const questions = [
     {
         question:
-            "Trong Bash script hiện đại, cú pháp nào an toàn hơn và hỗ trợ regex?",
-        options: ["[ ]", "[[ ]]", "(( ))", "{ }"],
-        correct: 1,
-        explanation:
-            "[[ ]] là Bash mở rộng, hỗ trợ wildcard và regex với =~, đồng thời an toàn hơn khi biến có dấu cách.",
-    },
-    {
-        question: "case phù hợp nhất khi nào?",
+            "Trong case PC phổ thông, quạt mặt trước thường nên làm nhiệm vụ gì?",
         options: [
-            "Khi cần lặp qua danh sách file",
-            "Khi một biến có nhiều giá trị/mẫu cần xử lý",
-            "Khi cần khai báo biến môi trường",
-            "Khi cần nén file",
+            "Xả khí nóng ra ngoài",
+            "Hút gió mát vào trong",
+            "Làm nguồn điện mạnh hơn",
+            "Tăng dung lượng RAM",
         ],
         correct: 1,
         explanation:
-            "case giúp thay chuỗi if-elif dài khi kiểm tra một biến với nhiều giá trị cố định hoặc wildcard pattern.",
+            "Quạt mặt trước thường là intake fan, có nhiệm vụ hút gió mát từ ngoài vào case.",
     },
     {
-        question: "Ý nghĩa của A && B là gì?",
+        question: "Quạt sau case thường nên lắp theo hướng nào?",
         options: [
-            "Luôn chạy B",
-            "Chạy B khi A đúng",
-            "Chạy B khi A sai",
-            "Chạy A và B song song",
+            "Hút gió vào",
+            "Xả khí nóng ra ngoài",
+            "Không cần quan tâm hướng gió",
+            "Thổi vào PSU",
         ],
         correct: 1,
         explanation:
-            "Với &&, lệnh bên phải chỉ chạy khi lệnh bên trái thành công/đúng.",
+            "Quạt sau case thường là exhaust fan, đẩy khí nóng ra ngoài.",
+    },
+    {
+        question: "Positive pressure nghĩa là gì?",
+        options: [
+            "Quạt xả nhiều hơn quạt hút",
+            "Quạt hút vào nhiều/mạnh hơn quạt xả ra",
+            "Không có quạt nào hoạt động",
+            "Chỉ dùng tản nhiệt nước",
+        ],
+        correct: 1,
+        explanation:
+            "Positive pressure là khi intake mạnh/nhiều hơn exhaust, giúp giảm bụi lọt qua khe hở nếu có lọc bụi tốt.",
+    },
+    {
+        question: "Case mặt trước dạng mesh thường có lợi thế gì?",
+        options: [
+            "Hút gió tốt hơn",
+            "Làm GPU có thêm VRAM",
+            "Làm SSD tăng dung lượng",
+            "Thay thế được tản nhiệt CPU",
+        ],
+        correct: 0,
+        explanation:
+            "Mesh front giúp quạt mặt trước hút gió mát vào dễ hơn, thường có airflow tốt hơn mặt trước kín.",
+    },
+    {
+        question: "Static pressure cao hữu ích nhất khi nào?",
+        options: [
+            "Khi đẩy gió qua radiator hoặc lọc bụi dày",
+            "Khi tăng dung lượng RAM",
+            "Khi thay thế PSU",
+            "Khi tắt toàn bộ quạt",
+        ],
+        correct: 0,
+        explanation:
+            "Static pressure là khả năng đẩy gió qua vật cản như radiator, lọc bụi, mesh dày hoặc heatsink.",
     },
 ];
 
 function InteractiveQuiz() {
-    const [current, setCurrent] = useState(0);
+    const [currentQ, setCurrentQ] = useState(0);
     const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
-    const q = quizQuestions[current];
-
-    const choose = (idx) => {
-        if (selected !== null) return;
-        setSelected(idx);
-        if (idx === q.correct) setScore((s) => s + 1);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
     };
-
-    const next = () => {
-        if (current === quizQuestions.length - 1) {
-            setFinished(true);
-        } else {
-            setCurrent((c) => c + 1);
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
             setSelected(null);
-        }
+            setShowResult(false);
+        } else setCurrentQ("finished");
     };
-
-    const reset = () => {
-        setCurrent(0);
+    const resetQuiz = () => {
+        setCurrentQ(0);
         setSelected(null);
+        setShowResult(false);
         setScore(0);
-        setFinished(false);
     };
-
-    if (finished) {
+    if (finished)
         return (
-            <div className="text-center min-h-[280px] flex flex-col items-center justify-center animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
-                    {score === quizQuestions.length ? "🏆" : "👏"}
+                    {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
                     Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-orange-400">
-                        {score}/{quizQuestions.length}
+                    <strong className="text-cyan-400">
+                        {score}/{questions.length}
                     </strong>{" "}
-                    câu.
+                    câu hỏi.
                 </p>
                 <button
-                    onClick={reset}
-                    className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold inline-flex items-center gap-2"
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RotateCcw size={18} /> Làm lại quiz
+                    Làm lại
                 </button>
             </div>
         );
-    }
-
     return (
-        <div className="max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm">
-                <span className="text-orange-300 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full">
-                    Câu {current + 1}/{quizQuestions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-cyan-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-xl font-bold text-white mb-6 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 flex-grow">
                 {q.options.map((opt, idx) => {
                     let cls =
-                        "w-full text-left p-4 rounded-xl border transition-all text-sm ";
-                    if (selected === null)
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
                         cls +=
-                            "bg-slate-950 border-slate-800 hover:bg-slate-800 text-slate-300";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
-                            "bg-green-500/10 border-green-500/40 text-green-300";
+                            "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "bg-red-500/10 border-red-500/40 text-red-300";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "bg-slate-950/50 border-slate-900 text-slate-600";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
-                            onClick={() => choose(idx)}
-                            disabled={selected !== null}
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
                             className={cls}
                         >
-                            <span className="text-slate-500 font-mono mr-2">
-                                {String.fromCharCode(65 + idx)}.
-                            </span>
                             {opt}
                         </button>
                     );
                 })}
             </div>
-            {selected !== null && (
-                <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`rounded-xl p-4 text-sm mb-5 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-200" : "bg-orange-500/10 border border-orange-500/20 text-orange-200"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info size={18} className="shrink-0 mt-0.5" />
-                        <div>
-                            <strong className="text-white block mb-1">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
-                        onClick={next}
-                        className="w-full md:w-auto md:px-8 py-3 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold ml-auto block"
+                        onClick={handleNext}
+                        className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-colors"
                     >
-                        {current === quizQuestions.length - 1
-                            ? "Xem kết quả"
-                            : "Câu tiếp theo"}
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu airflow và cách bố trí quạt trong case. Tiếp theo là
+                vật liệu và thiết kế vỏ máy: thép, nhôm, kính cường lực — vì
+                ngoài luồng gió, chất liệu và thiết kế case cũng ảnh hưởng đến
+                độ bền, trọng lượng, độ ồn và thẩm mỹ.
+            </p>
+            <Link
+                to="/phan-8-4"
+                className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20"
+            >
+                Bài tiếp theo: 8.4 — Vật liệu và thiết kế vỏ máy{" "}
+                <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "cyan" }) {
+    const colorMap = {
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-cyan-500/10 border-cyan-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-5`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed text-sm">
+                {value}
+            </p>
+        </div>
+    );
+}
+function RuleCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className={`${textColor(color)} font-bold text-sm mb-2`}>
+                {label}
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[760px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={`${row[0]}-${i}`}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.cyan;
+}
+function softBorder(color) {
+    const map = {
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.cyan;
+}
+function textColor(color) {
+    const map = {
+        cyan: "text-cyan-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        emerald: "text-emerald-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-cyan-300";
 }

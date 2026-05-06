@@ -2,24 +2,31 @@ import React, { useState } from "react";
 import {
     AlertTriangle,
     Award,
+    BatteryCharging,
+    Bluetooth,
     BookOpen,
     Brain,
     CheckCircle2,
     ChevronRight,
-    Cpu,
-    Droplet,
-    Eraser,
-    Fan,
+    CircleDot,
+    Gamepad2,
     Gauge,
-    Layers3,
+    Hand,
+    Joystick,
     Lightbulb,
+    Monitor,
     PackageCheck,
-    Puzzle,
+    PlugZap,
+    Radio,
+    RotateCcw,
     Search,
     Settings,
     ShieldCheck,
+    SlidersHorizontal,
     Sparkles,
-    Thermometer,
+    Target,
+    Usb,
+    Vibrate,
     Workflow,
     XCircle,
     Zap,
@@ -28,24 +35,24 @@ import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-white pb-20">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-violet-500 selection:text-white pb-20">
             <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shadow-lg shadow-amber-500/10">
-                            <Droplet className="text-amber-400" size={24} />
+                        <div className="w-11 h-11 rounded-2xl bg-violet-500/10 border border-violet-400/30 flex items-center justify-center shadow-lg shadow-violet-500/10">
+                            <Gamepad2 className="text-violet-400" size={24} />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
                                 Khóa học Phần Cứng Máy Tính
                             </h1>
                             <p className="text-xs text-slate-500">
-                                Phần 9: Tản nhiệt máy tính
+                                Phần 10: Thiết bị nhập liệu
                             </p>
                         </div>
                     </div>
-                    <div className="text-sm font-semibold text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
-                        Bài 9.4
+                    <div className="text-sm font-semibold text-violet-300 bg-violet-400/10 px-3 py-1 rounded-full border border-violet-400/20">
+                        Bài 10.6
                     </div>
                 </div>
             </header>
@@ -54,18 +61,18 @@ export default function App() {
                 <HeroSection />
                 <LearningGoals />
                 <CoreConcept />
-                <PanAnalogy />
-                <HeatTransferSimulator />
-                <PasteTypeExplorer />
-                <NormalVsLiquidMetal />
-                <PasteVsPad />
+                <VehicleAnalogy />
+                <ControllerFlowSimulator />
+                <ControllerTypeExplorer />
+                <AnalogAndDriftGuide />
+                <FeedbackGuide />
                 <SpecsExplorer />
-                <ApplicationGuide />
+                <CompatibilityGuide />
                 <RealExamples />
-                <TroubleshootingLab />
+                <PickerLab />
                 <CommonMistakes />
                 <SummaryAndQuiz />
-                <NextLesson />
+                <NextPart />
             </main>
         </div>
     );
@@ -73,73 +80,79 @@ export default function App() {
 
 function HeroSection() {
     return (
-        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 p-8 md:p-12 shadow-2xl">
-            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
-            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-orange-500/10 blur-3xl" />
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-violet-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
             <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
                 <div className="space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-amber-300">
-                        <BookOpen size={16} /> Phần 9: Thermal Paste
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-violet-300">
+                        <BookOpen size={16} /> Phần 10: Controller
                     </div>
                     <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                        Keo tản nhiệt
-                        <span className="block text-amber-400">
-                            vai trò và cách thoa
+                        Bộ điều khiển
+                        <span className="block text-violet-400">
+                            Gamepad, Joystick, Racing Wheel
                         </span>
                     </h2>
                     <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-                        Một lớp keo nhỏ giữa CPU và đế tản có thể quyết định CPU
-                        truyền nhiệt tốt hay nóng bất thường. Keo không làm mát
-                        chính, nhưng nó là mắt xích truyền nhiệt cực kỳ quan
-                        trọng.
+                        Bàn phím và chuột rất mạnh, nhưng game thể thao, đua xe,
+                        bay mô phỏng và game hành động góc nhìn thứ ba thường tự
+                        nhiên hơn với controller nhờ analog, trigger và phản hồi
+                        rung/lực.
                     </p>
                     <div className="flex flex-wrap gap-3 pt-2">
-                        <Tag icon={<Cpu size={16} />} text="CPU / IHS" />
+                        <Tag icon={<Gamepad2 size={16} />} text="Gamepad" />
                         <Tag
-                            icon={<Droplet size={16} />}
-                            text="Thermal Paste"
+                            icon={<Joystick size={16} />}
+                            text="Joystick / HOTAS"
                         />
-                        <Tag icon={<Layers3 size={16} />} text="Cold Plate" />
-                        <Tag icon={<Zap size={16} />} text="Liquid Metal" />
                         <Tag
-                            icon={<Eraser size={16} />}
-                            text="Clean & Reapply"
+                            icon={<Gauge size={16} />}
+                            text="Analog / Trigger"
+                        />
+                        <Tag
+                            icon={<Vibrate size={16} />}
+                            text="Haptic / Rumble"
+                        />
+                        <Tag
+                            icon={<RotateCcw size={16} />}
+                            text="Force Feedback"
                         />
                     </div>
                 </div>
                 <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
                     <div className="grid grid-cols-2 gap-3">
                         <HeroTile
-                            icon={<Cpu />}
-                            label="CPU"
-                            desc="Nguồn nhiệt"
-                            color="orange"
-                        />
-                        <HeroTile
-                            icon={<Droplet />}
-                            label="Paste"
-                            desc="Lấp khe hở"
-                            color="amber"
+                            icon={<Gamepad2 />}
+                            label="Gamepad"
+                            desc="Đa dụng"
+                            color="violet"
                             highlight
                         />
                         <HeroTile
-                            icon={<Layers3 />}
-                            label="Cold Plate"
-                            desc="Nhận nhiệt"
-                            color="blue"
+                            icon={<Joystick />}
+                            label="Flight Stick"
+                            desc="Mô phỏng bay"
+                            color="cyan"
                         />
                         <HeroTile
-                            icon={<Fan />}
-                            label="Cooler"
-                            desc="Đưa nhiệt đi"
-                            color="cyan"
+                            icon={<RotateCcw />}
+                            label="Racing Wheel"
+                            desc="Lái xe thật hơn"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<Target />}
+                            label="Arcade Stick"
+                            desc="Đối kháng"
+                            color="red"
                         />
                     </div>
                     <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
-                        <p className="text-slate-500">// Keo là cầu nối</p>
-                        <p>CPU nóng → Keo lấp khe</p>
-                        <p className="text-amber-300">
-                            → Đế tản → Heatpipe/Radiator
+                        <p className="text-slate-500">// Khác biệt cốt lõi</p>
+                        <p>Keyboard: nhấn / không nhấn</p>
+                        <p className="text-violet-300">
+                            Analog: 20% • 60% • 100%
                         </p>
                     </div>
                 </div>
@@ -150,17 +163,17 @@ function HeroSection() {
 
 function LearningGoals() {
     const goals = [
-        "Hiểu keo tản nhiệt là lớp vật liệu mỏng nằm giữa CPU và đế tản để lấp khe hở siêu nhỏ.",
-        "Biết vì sao không khí dẫn nhiệt kém và vì sao CPU có thể nóng nếu keo khô, thiếu hoặc bôi sai.",
-        "Phân biệt keo silicone/ceramic/carbon/metal oxide, liquid metal, thermal pad và graphite pad.",
-        "Đọc được thông số: thermal conductivity W/m·K, viscosity, electrical conductivity, burn-in/cure time và thời gian sử dụng.",
-        "Biết cách bôi keo đơn giản, lau keo cũ, tránh quên tháo film đế tản và kiểm tra nhiệt sau khi lắp.",
+        "Hiểu controller là thiết bị nhập liệu dùng để điều khiển nhân vật, phương tiện, camera hoặc hệ thống mô phỏng.",
+        "Phân biệt gamepad, joystick/flight stick, racing wheel, arcade stick, HOTAS, pedal và shifter.",
+        "Nắm cơ chế tín hiệu: bấm nút, nghiêng analog, bóp trigger → cảm biến/công tắc → mạch điều khiển → USB/Bluetooth/2.4GHz/Xbox Wireless → game.",
+        "Đọc được thông số quan trọng: analog stick, deadzone, drift, Hall Effect, D-pad, trigger, haptic feedback, force feedback, XInput/DirectInput, pin và remap.",
+        "Biết chọn controller theo thể loại game: FPS, MOBA/RTS, game hành động, thể thao, đua xe, sim racing, mô phỏng bay, fighting game.",
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="1"
-                color="amber"
+                color="violet"
                 title="Mục tiêu bài học"
                 icon={<Award />}
             />
@@ -168,9 +181,9 @@ function LearningGoals() {
                 {goals.map((goal, i) => (
                     <div
                         key={goal}
-                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/50 transition-colors"
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-violet-500/50 transition-colors"
                     >
-                        <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold mb-4">
+                        <div className="w-10 h-10 rounded-xl bg-violet-500/10 text-violet-300 flex items-center justify-center font-bold mb-4">
                             {i + 1}
                         </div>
                         <p className="text-sm text-slate-300 leading-relaxed">
@@ -186,28 +199,28 @@ function LearningGoals() {
 function CoreConcept() {
     const cards = [
         {
-            icon: <Cpu />,
-            title: "CPU/IHS",
-            desc: "Bề mặt CPU nhìn phẳng nhưng vẫn có điểm lồi lõm siêu nhỏ.",
+            icon: <Gamepad2 />,
+            title: "Gamepad",
+            desc: "Tay cầm đa dụng cho game hành động, thể thao, đua xe nhẹ, co-op local.",
+            color: "violet",
+        },
+        {
+            icon: <Joystick />,
+            title: "Joystick / HOTAS",
+            desc: "Điều khiển máy bay, tàu không gian, mô phỏng bay và chiến đấu trên không.",
+            color: "cyan",
+        },
+        {
+            icon: <RotateCcw />,
+            title: "Racing Wheel",
+            desc: "Vô lăng + pedal giúp kiểm soát cua, ga, phanh tốt hơn trong sim racing.",
             color: "orange",
         },
         {
-            icon: <XCircle />,
-            title: "Túi khí",
-            desc: "Không khí dẫn nhiệt rất kém, làm nhiệt truyền sang tản không hiệu quả.",
+            icon: <Target />,
+            title: "Arcade Stick",
+            desc: "Cần gạt và nút lớn cho fighting game, arcade, retro game.",
             color: "red",
-        },
-        {
-            icon: <Droplet />,
-            title: "Keo tản nhiệt",
-            desc: "Lấp khe siêu nhỏ để tăng diện tích tiếp xúc truyền nhiệt.",
-            color: "amber",
-        },
-        {
-            icon: <Layers3 />,
-            title: "Đế tản",
-            desc: "Nhận nhiệt rồi đưa qua heatpipe, water block, heatsink hoặc radiator.",
-            color: "blue",
         },
     ];
     return (
@@ -215,64 +228,60 @@ function CoreConcept() {
             <SectionTitle
                 number="2"
                 color="blue"
-                title="Keo tản nhiệt là gì?"
+                title="Bộ điều khiển là gì?"
                 icon={<Brain />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
                 <p className="text-slate-300 leading-relaxed mb-6">
-                    <strong className="text-white">Keo tản nhiệt</strong>, tiếng
+                    <strong className="text-white">Bộ điều khiển</strong>, tiếng
                     Anh là{" "}
-                    <strong className="text-amber-300">Thermal Paste</strong>{" "}
-                    hoặc{" "}
-                    <strong className="text-amber-300">Thermal Compound</strong>
-                    , là lớp vật liệu mỏng nằm giữa bề mặt CPU và đế tản nhiệt.
-                    Nhiệm vụ chính là lấp khe hở siêu nhỏ để nhiệt truyền từ CPU
-                    sang tản hiệu quả hơn.
+                    <strong className="text-violet-300">Controller</strong>, là
+                    thiết bị nhập liệu dùng để điều khiển nhân vật, phương tiện,
+                    camera hoặc hệ thống mô phỏng trong game/phần mềm. Điểm mạnh
+                    lớn nhất so với bàn phím là{" "}
+                    <strong className="text-white">chuyển động analog</strong>:
+                    nghiêng nhẹ đi chậm, nghiêng mạnh chạy nhanh; bóp trigger ít
+                    ga nhẹ, bóp hết ga mạnh.
                 </p>
                 <div className="grid md:grid-cols-4 gap-4">
                     {cards.map((c) => (
                         <RoleCard key={c.title} {...c} />
                     ))}
                 </div>
-                <div className="mt-6 bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
-                    Keo tốt + tản lắp sai → vẫn nóng
-                    <br />
-                    Keo thường + tản lắp đúng → vẫn có thể ổn
-                    <br />
-                    <span className="text-amber-300">
-                        Keo tốt + tản tốt + airflow tốt → hiệu quả nhất
-                    </span>
+                <div className="mt-6 bg-violet-500/10 border border-violet-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    Bấm nút / nghiêng analog / bóp trigger → Cảm biến ghi nhận →
+                    Mạch xử lý → Game nhận lệnh → Nhân vật/phương tiện phản hồi
                 </div>
             </div>
         </section>
     );
 }
 
-function PanAnalogy() {
+function VehicleAnalogy() {
     const cards = [
         {
-            icon: <Thermometer />,
-            title: "CPU = chảo nóng",
-            desc: "CPU sinh nhiệt khi xử lý dữ liệu.",
+            icon: <RotateCcw />,
+            title: "Vô lăng",
+            desc: "Xoay ít cua nhẹ, xoay nhiều cua gắt như xe thật.",
             color: "orange",
         },
         {
-            icon: <Droplet />,
-            title: "Keo = lớp dầu mỏng",
-            desc: "Giúp hai bề mặt tiếp xúc đều hơn và truyền nhiệt tốt hơn.",
-            color: "amber",
+            icon: <Gauge />,
+            title: "Pedal ga/phanh",
+            desc: "Đạp 40% hay 100% tạo mức phản hồi khác nhau.",
+            color: "emerald",
         },
         {
-            icon: <AlertTriangle />,
-            title: "Quá ít = còn khe khí",
-            desc: "Không phủ đủ vùng tiếp xúc làm nhiệt truyền kém.",
-            color: "red",
+            icon: <Joystick />,
+            title: "Cần lái máy bay",
+            desc: "Kéo/đẩy/nghiêng để điều khiển hướng bay tự nhiên hơn.",
+            color: "cyan",
         },
         {
-            icon: <XCircle />,
-            title: "Quá nhiều = bừa bộn",
-            desc: "Không mát hơn đáng kể, dễ tràn và khó vệ sinh.",
-            color: "purple",
+            icon: <Gamepad2 />,
+            title: "Tay cầm",
+            desc: "Nút bấm, analog, trigger và rung trong một thiết bị nhỏ gọn.",
+            color: "violet",
         },
     ];
     return (
@@ -280,7 +289,7 @@ function PanAnalogy() {
             <SectionTitle
                 number="3"
                 color="amber"
-                title="Ví dụ đời thường: lớp dầu mỏng giữa chảo và miếng thịt"
+                title="Ví dụ đời thường: vô lăng, cần lái, nút bấm thu nhỏ"
                 icon={<Lightbulb />}
             />
             <div className="grid md:grid-cols-4 gap-4">
@@ -292,93 +301,93 @@ function PanAnalogy() {
     );
 }
 
-function HeatTransferSimulator() {
+function ControllerFlowSimulator() {
     const flows = {
-        correct: {
-            title: "Bôi đúng",
-            color: "emerald",
+        gamepad: {
+            title: "Gamepad",
+            color: "violet",
             steps: [
                 {
-                    icon: <Cpu />,
-                    title: "CPU sinh nhiệt",
-                    desc: "Nhiệt đi qua nắp CPU/IHS.",
-                },
-                {
-                    icon: <Droplet />,
-                    title: "Keo lấp khe hở",
-                    desc: "Một lớp mỏng lấp các điểm lồi lõm siêu nhỏ.",
-                },
-                {
-                    icon: <Layers3 />,
-                    title: "Đế tản nhận nhiệt",
-                    desc: "Cold plate/heatsink tiếp xúc đều hơn với CPU.",
-                },
-                {
-                    icon: <Fan />,
-                    title: "Tản đưa nhiệt đi",
-                    desc: "Heatpipe, water block, radiator và quạt đẩy nhiệt ra ngoài.",
-                },
-                {
-                    icon: <CheckCircle2 />,
-                    title: "Nhiệt ổn định hơn",
-                    desc: "CPU ít bị spike nhiệt bất thường, quạt không phải hú quá mạnh.",
-                },
-            ],
-        },
-        little: {
-            title: "Bôi quá ít",
-            color: "red",
-            steps: [
-                {
-                    icon: <Droplet />,
-                    title: "Keo không phủ đủ",
-                    desc: "Một phần bề mặt CPU/đế tản còn túi khí.",
-                },
-                {
-                    icon: <XCircle />,
-                    title: "Túi khí cách nhiệt",
-                    desc: "Không khí dẫn nhiệt kém làm nhiệt truyền không đều.",
-                },
-                {
-                    icon: <Thermometer />,
-                    title: "Nhiệt tăng nhanh",
-                    desc: "Một số nhân CPU có thể nóng bất thường.",
-                },
-                {
-                    icon: <AlertTriangle />,
-                    title: "Throttle",
-                    desc: "CPU có thể giảm xung nếu quá nóng.",
-                },
-            ],
-        },
-        much: {
-            title: "Bôi quá nhiều",
-            color: "orange",
-            steps: [
-                {
-                    icon: <Droplet />,
-                    title: "Lớp keo quá dày",
-                    desc: "Keo không dẫn nhiệt tốt bằng kim loại, nên lớp quá dày không có lợi.",
-                },
-                {
-                    icon: <XCircle />,
-                    title: "Dễ tràn ra ngoài",
-                    desc: "Làm bẩn socket/khu vực quanh CPU và khó vệ sinh lần sau.",
+                    icon: <Gamepad2 />,
+                    title: "Nhấn A / nghiêng analog",
+                    desc: "Bạn nhấn nút để nhảy hoặc nghiêng analog để di chuyển.",
                 },
                 {
                     icon: <Gauge />,
-                    title: "Không cải thiện đáng kể",
-                    desc: "Nhiệt thường không giảm thêm tương xứng với lượng keo dư.",
+                    title: "Cảm biến đo mức nghiêng",
+                    desc: "Analog không chỉ bật/tắt mà có nhiều mức: 20%, 60%, 100%.",
                 },
                 {
-                    icon: <Eraser />,
-                    title: "Khó vệ sinh",
-                    desc: "Lần tháo tản sau sẽ mất công lau hơn.",
+                    icon: <Settings />,
+                    title: "Mạch điều khiển xử lý",
+                    desc: "Controller chuyển thao tác thành dữ liệu số.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Gửi qua USB / không dây",
+                    desc: "Tín hiệu đi qua USB, Bluetooth, 2.4GHz hoặc Xbox Wireless.",
+                },
+                {
+                    icon: <CheckCircle2 />,
+                    title: "Game phản hồi",
+                    desc: "Nhân vật nhảy, đi chậm, chạy nhanh hoặc camera xoay.",
+                },
+            ],
+        },
+        racing: {
+            title: "Racing Wheel",
+            color: "orange",
+            steps: [
+                {
+                    icon: <RotateCcw />,
+                    title: "Xoay vô lăng",
+                    desc: "Xoay nhẹ xe cua nhẹ; xoay nhiều xe cua gắt.",
+                },
+                {
+                    icon: <Gauge />,
+                    title: "Đạp pedal",
+                    desc: "Ga/phanh analog giúp tăng tốc hoặc phanh theo mức lực.",
+                },
+                {
+                    icon: <Vibrate />,
+                    title: "Force feedback phản hồi",
+                    desc: "Vô lăng rung/kéo lại khi xe trượt, leo lề hoặc mất bám.",
+                },
+                {
+                    icon: <Target />,
+                    title: "Kiểm soát chính xác",
+                    desc: "Người chơi cảm nhận xe tốt hơn gamepad trong sim racing.",
+                },
+            ],
+        },
+        flight: {
+            title: "Flight Stick / HOTAS",
+            color: "cyan",
+            steps: [
+                {
+                    icon: <Joystick />,
+                    title: "Kéo/đẩy cần lái",
+                    desc: "Kéo về sau mũi máy bay ngẩng lên; đẩy về trước mũi chúi xuống.",
+                },
+                {
+                    icon: <SlidersHorizontal />,
+                    title: "Throttle điều khiển lực đẩy",
+                    desc: "Tay trái chỉnh ga, tay phải điều khiển hướng bay.",
+                },
+                {
+                    icon: <CircleDot />,
+                    title: "Hat switch / nút phụ",
+                    desc: "Điều khiển góc nhìn, trim, vũ khí, radio hoặc chức năng mô phỏng.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "Cảm giác nhập vai",
+                    desc: "Mô phỏng bay tự nhiên hơn nhiều so với bàn phím.",
                 },
             ],
         },
     };
-    const [mode, setMode] = useState("correct");
+    const [mode, setMode] = useState("gamepad");
     const [active, setActive] = useState(0);
     const flow = flows[mode];
     const step = flow.steps[active];
@@ -391,7 +400,7 @@ function HeatTransferSimulator() {
             <SectionTitle
                 number="4"
                 color="purple"
-                title="Keo truyền nhiệt như thế nào?"
+                title="Controller gửi tín hiệu như thế nào?"
                 icon={<Workflow />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -464,62 +473,82 @@ function HeatTransferSimulator() {
     );
 }
 
-function PasteTypeExplorer() {
+function ControllerTypeExplorer() {
     const types = {
-        ceramic: {
-            icon: <ShieldCheck />,
-            title: "Silicone / Ceramic",
-            color: "cyan",
-            desc: "Dễ bôi, thường không dẫn điện hoặc dẫn điện rất thấp.",
-            good: ["An toàn", "Rẻ", "Dễ dùng", "Hợp người mới"],
-            bad: ["Hiệu năng trung bình đến khá"],
-            fit: "PC văn phòng, gaming phổ thông",
-        },
-        carbon: {
-            icon: <Sparkles />,
-            title: "Carbon-based",
-            color: "emerald",
-            desc: "Dùng hạt carbon để tăng dẫn nhiệt.",
-            good: ["Hiệu năng tốt", "Dễ dùng", "Thường không dẫn điện"],
-            bad: ["Giá cao hơn loại thường"],
-            fit: "Gaming, laptop, desktop",
-        },
-        oxide: {
-            icon: <Layers3 />,
-            title: "Metal oxide-based",
-            color: "blue",
-            desc: "Có hạt oxit kim loại, dẫn nhiệt tốt và khá phổ biến.",
-            good: ["Hiệu năng tốt", "Phổ biến", "Hợp tầm trung/cao"],
-            bad: ["Cần bôi đúng lượng"],
-            fit: "PC tầm trung/cao",
-        },
-        liquid: {
-            icon: <Zap />,
-            title: "Liquid Metal",
-            color: "red",
-            desc: "Kim loại lỏng, thường chứa gallium, dẫn nhiệt rất cao.",
-            good: ["Hiệu năng rất cao nếu dùng đúng"],
-            bad: [
-                "Dẫn điện",
-                "Có thể gây chập",
-                "Có thể ăn mòn nhôm",
-                "Không hợp người mới",
+        gamepad: {
+            icon: <Gamepad2 />,
+            title: "Gamepad",
+            color: "violet",
+            desc: "Tay cầm chơi game phổ biến với analog, D-pad, nút mặt, shoulder, trigger và rung.",
+            good: [
+                "Dễ dùng",
+                "Đa dụng",
+                "Nhiều game hỗ trợ",
+                "Hợp co-op local",
             ],
-            fit: "Người rất có kinh nghiệm, overclock, laptop mod đặc biệt",
+            bad: [
+                "Không chính xác bằng chuột trong FPS",
+                "Analog có thể drift",
+            ],
+            fit: "Game hành động, thể thao, đua xe nhẹ, platformer, RPG",
+        },
+        joystick: {
+            icon: <Joystick />,
+            title: "Joystick / Flight Stick",
+            color: "cyan",
+            desc: "Cần điều khiển chuyên cho bay, không gian, máy bay hoặc arcade.",
+            good: [
+                "Điều khiển bay tự nhiên",
+                "Chính xác hơn bàn phím",
+                "Nhiều nút phụ",
+            ],
+            bad: ["Kén game", "Chiếm chỗ"],
+            fit: "Flight Simulator, Elite Dangerous, War Thunder, DCS",
+        },
+        wheel: {
+            icon: <RotateCcw />,
+            title: "Racing Wheel",
+            color: "orange",
+            desc: "Vô lăng, pedal và đôi khi cần số cho mô phỏng lái xe.",
+            good: [
+                "Lái xe thật hơn",
+                "Kiểm soát cua/ga/phanh tốt",
+                "Force feedback",
+            ],
+            bad: ["Đắt", "Chiếm chỗ", "Cần bàn/rig chắc"],
+            fit: "Sim racing, Forza Motorsport, Assetto Corsa, Gran Turismo, F1",
+        },
+        arcade: {
+            icon: <Target />,
+            title: "Arcade Stick",
+            color: "red",
+            desc: "Cần gạt lớn và nút lớn mô phỏng máy arcade.",
+            good: ["Cảm giác arcade", "Nút bền", "Nhập combo rõ nếu quen"],
+            bad: ["Cần làm quen", "Không hợp mọi game"],
+            fit: "Street Fighter, Tekken, King of Fighters, arcade/retro",
+        },
+        hotas: {
+            icon: <SlidersHorizontal />,
+            title: "HOTAS",
+            color: "emerald",
+            desc: "Hands On Throttle And Stick: cần lái + cần ga, có thể thêm rudder pedals.",
+            good: ["Nhập vai", "Nhiều nút", "Điều khiển bay chi tiết"],
+            bad: ["Đắt", "Rất kén game", "Cần map nút"],
+            fit: "DCS World, MSFS, Elite Dangerous, Star Citizen, X-Plane",
         },
     };
-    const [active, setActive] = useState("carbon");
+    const [active, setActive] = useState("gamepad");
     const item = types[active];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="5"
-                color="amber"
-                title="Các loại keo tản nhiệt"
+                color="violet"
+                title="Các loại bộ điều khiển phổ biến"
                 icon={<Search />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
                     {Object.entries(types).map(([key, t]) => (
                         <button
                             key={key}
@@ -584,71 +613,129 @@ function PasteTypeExplorer() {
     );
 }
 
-function NormalVsLiquidMetal() {
+function AnalogAndDriftGuide() {
     const rows = [
-        ["Độ an toàn", "Cao", "Thấp hơn nhiều"],
-        ["Có dẫn điện không", "Thường không dẫn điện", "Có dẫn điện"],
-        ["Dễ bôi", "Dễ", "Khó"],
-        ["Rủi ro khi tràn", "Thấp", "Có thể chập linh kiện"],
-        ["Ăn mòn nhôm", "Không đáng kể", "Có thể ăn mòn nhôm"],
-        ["Hiệu năng", "Tốt", "Rất cao nếu dùng đúng"],
-        ["Phù hợp người mới", "Có", "Không"],
+        [
+            "Analog Stick",
+            "Cần gạt đo nhiều mức nghiêng",
+            "Đi chậm/chạy nhanh, lái nhẹ/lái mạnh",
+        ],
+        [
+            "Deadzone",
+            "Vùng nghiêng nhỏ bị game bỏ qua",
+            "Tăng deadzone có thể giảm drift nhẹ",
+        ],
+        [
+            "Stick Drift",
+            "Analog tự lệch dù không chạm",
+            "Camera tự xoay, nhân vật tự đi",
+        ],
+        [
+            "Hall Effect",
+            "Cảm biến từ tính thay tiếp điểm cơ học",
+            "Giảm nguy cơ drift do mòn tiếp điểm",
+        ],
+        [
+            "Tension",
+            "Độ nặng/nhẹ khi nghiêng cần",
+            "Ảnh hưởng cảm giác kiểm soát",
+        ],
+    ];
+    const triggerRows = [
+        [
+            "Digital Trigger",
+            "Chỉ nhận nhấn/không nhấn",
+            "Game hành động đơn giản",
+        ],
+        ["Analog Trigger", "Nhận nhiều mức bóp", "Đua xe, bắn súng, mô phỏng"],
+        [
+            "Trigger Stop",
+            "Rút ngắn hành trình trigger",
+            "FPS, game cần phản hồi nhanh",
+        ],
+        [
+            "Adaptive Trigger",
+            "Trigger đổi lực phản hồi theo tình huống",
+            "Game hỗ trợ DualSense",
+        ],
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="6"
-                color="red"
-                title="Keo thường vs Liquid Metal"
-                icon={<Zap />}
+                color="orange"
+                title="Analog, trigger và stick drift"
+                icon={<Gauge />}
             />
-            <DataTable
-                title="Liquid Metal không dành cho người mới"
-                rows={rows}
-                headers={["Tiêu chí", "Keo thường", "Liquid Metal"]}
-                accent="red"
-            />
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
-                <strong className="text-red-300">Cảnh báo:</strong> liquid metal
-                dẫn điện. Nếu tràn ra socket, linh kiện quanh CPU/GPU hoặc
-                mainboard, nó có thể gây chập điện.
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="Analog stick"
+                    rows={rows}
+                    headers={["Khái niệm", "Ý nghĩa", "Tác động"]}
+                    accent="orange"
+                />
+                <DataTable
+                    title="Trigger"
+                    rows={triggerRows}
+                    headers={["Loại", "Đặc điểm", "Phù hợp"]}
+                    accent="violet"
+                />
+            </div>
+            <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-orange-300">Kiểm tra drift:</strong> vào
+                gamepad tester hoặc cài đặt controller, không chạm analog. Nếu
+                trục vẫn tự lệch, có thể bị drift. Thử tăng deadzone, vệ sinh
+                nhẹ, cập nhật firmware; nếu nặng cần sửa/thay cụm analog hoặc
+                controller.
             </div>
         </section>
     );
 }
 
-function PasteVsPad() {
+function FeedbackGuide() {
     const rows = [
-        ["Thermal Paste", "CPU, GPU die/IHS", "Cần lớp mỏng, lấp khe siêu nhỏ"],
+        ["Rumble", "Rung cơ bản", "Va chạm, nổ, hit trong game"],
         [
-            "Thermal Pad",
-            "VRAM, VRM, SSD, chipset",
-            "Có độ dày cụ thể, lấp khoảng cách vật lý",
+            "Haptic Feedback",
+            "Rung tinh tế hơn, mô phỏng nhiều bề mặt/cảm giác",
+            "DualSense, game hỗ trợ tốt",
         ],
         [
-            "Graphite Pad",
-            "Một số CPU/GPU",
-            "Có thể tái sử dụng, hiệu năng tùy loại",
+            "Adaptive Trigger",
+            "Trigger nặng/nhẹ thay đổi theo tình huống",
+            "Kéo cung, bắn súng, phanh xe",
+        ],
+        [
+            "Force Feedback",
+            "Tạo lực kéo/đẩy, không chỉ rung",
+            "Vô lăng đua xe, joystick cao cấp",
         ],
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="7"
-                color="blue"
-                title="Thermal Paste, Thermal Pad và Graphite Pad"
-                icon={<Layers3 />}
+                color="red"
+                title="Rumble, haptic và force feedback"
+                icon={<Vibrate />}
             />
             <DataTable
-                title="Không thay thermal pad bằng keo thường tùy tiện"
+                title="Phản hồi xúc giác giúp controller “có cảm giác” hơn"
                 rows={rows}
-                headers={["Loại", "Dùng ở đâu", "Ghi chú"]}
-                accent="blue"
+                headers={["Công nghệ", "Đặc điểm", "Ví dụ"]}
+                accent="red"
             />
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
-                <strong className="text-blue-300">Lưu ý:</strong> thermal pad
-                còn có nhiệm vụ lấp khoảng cách vật lý giữa chip và heatsink.
-                Nếu thay sai độ dày, VRAM/VRM có thể không tiếp xúc tốt.
+            <div className="grid md:grid-cols-2 gap-4">
+                <RuleCard
+                    label="Sim racing nghiêm túc"
+                    value="Nên ưu tiên vô lăng có force feedback, vì lực phản hồi giúp cảm nhận xe mất bám, leo lề, trượt bánh."
+                    color="orange"
+                />
+                <RuleCard
+                    label="Game hành động hiện đại"
+                    value="Haptic/adaptive trigger có thể tăng nhập vai, nhưng chỉ đáng giá nếu game hỗ trợ tốt."
+                    color="violet"
+                />
             </div>
         </section>
     );
@@ -656,44 +743,56 @@ function PasteVsPad() {
 
 function SpecsExplorer() {
     const specs = {
-        wmk: {
+        analog: {
             icon: <Gauge />,
-            title: "Thermal Conductivity",
-            detail: "Khả năng dẫn nhiệt, thường đo bằng W/m·K. Số càng cao thường càng tốt trên lý thuyết.",
-            impact: "Đừng chỉ nhìn W/m·K: hiệu quả còn phụ thuộc độ nhớt, cách bôi, lực ép tản, độ phẳng bề mặt và thời gian sử dụng.",
+            title: "Analog Stick",
+            detail: "Cần gạt nhỏ đo nhiều mức nghiêng, khác với phím bàn phím chỉ bật/tắt.",
+            impact: "Hữu ích cho di chuyển mượt, điều khiển camera, lái xe nhẹ hoặc bay mô phỏng.",
         },
-        viscosity: {
-            icon: <Droplet />,
-            title: "Viscosity",
-            detail: "Độ đặc/độ nhớt của keo. Quá lỏng dễ tràn, quá đặc khó tán, vừa phải dễ dùng hơn.",
-            impact: "Người mới nên chọn keo dễ bơm, dễ lau, độ đặc vừa phải.",
+        drift: {
+            icon: <RotateCcw />,
+            title: "Stick Drift",
+            detail: "Analog tự nhận chuyển động dù không chạm.",
+            impact: "Tăng deadzone có thể giảm drift nhẹ; Hall Effect stick giúp giảm rủi ro mòn tiếp điểm nhưng không đảm bảo toàn bộ controller hoàn hảo.",
         },
-        electric: {
+        dpad: {
+            icon: <Target />,
+            title: "D-pad",
+            detail: "Cụm điều hướng 4 hướng, quan trọng với game 2D, fighting game, menu và retro game.",
+            impact: "D-pad kém dễ bấm nhầm đường chéo hoặc nhập combo không ổn định.",
+        },
+        trigger: {
             icon: <Zap />,
-            title: "Electrical Conductivity",
-            detail: "Keo có dẫn điện không. Keo không dẫn điện an toàn hơn nếu lem nhẹ.",
-            impact: "Liquid metal dẫn điện nên nguy hiểm nếu tràn; keo phổ thông chất lượng tốt an toàn hơn cho đa số người dùng.",
+            title: "Trigger",
+            detail: "Nút bóp phía sau, có thể digital hoặc analog.",
+            impact: "Analog trigger rất hữu ích trong game đua xe vì bóp 30% ga nhẹ, bóp 100% ga hết.",
         },
-        cure: {
+        connection: {
+            icon: <Radio />,
+            title: "Kết nối",
+            detail: "USB, Bluetooth, 2.4GHz dongle hoặc Xbox Wireless.",
+            impact: "Game cạnh tranh/sim racing nên ưu tiên USB hoặc dongle ổn định; Bluetooth hợp casual/mobile.",
+        },
+        xinput: {
+            icon: <Monitor />,
+            title: "XInput / DirectInput",
+            detail: "XInput là chuẩn Xbox hiện đại trên Windows; DirectInput cũ/rộng hơn nhưng đôi khi cần map phím.",
+            impact: "Muốn cắm vào là chơi trên PC Windows, controller hỗ trợ XInput thường dễ nhất.",
+        },
+        battery: {
+            icon: <BatteryCharging />,
+            title: "Pin và sạc",
+            detail: "Có thể dùng pin AA, pin sạc rời, pin tích hợp hoặc dock sạc.",
+            impact: "Không dây tiện nhưng cần kiểm tra pin trước khi chơi dài/thi đấu.",
+        },
+        custom: {
             icon: <Settings />,
-            title: "Burn-in / Cure Time",
-            detail: "Một số keo cũ cần thời gian ổn định; nhiều keo hiện đại không cần burn-in.",
-            impact: "Sau khi bôi keo hiện đại, bạn thường có thể test nhiệt ngay; vẫn nên theo dõi vài ngày đầu.",
-        },
-        life: {
-            icon: <Thermometer />,
-            title: "Thời gian sử dụng",
-            detail: "Keo có thể khô, nứt, pump-out và giảm hiệu quả theo thời gian.",
-            impact: "Desktop CPU thường 2–5 năm hoặc khi nhiệt tăng bất thường; laptop có thể 1–3 năm nếu nóng/ồn nhiều.",
-        },
-        pumpout: {
-            icon: <Workflow />,
-            title: "Pump-out",
-            detail: "Keo bị đẩy dần ra khỏi vùng tiếp xúc do chu kỳ nóng/lạnh và lực ép.",
-            impact: "Thường đáng chú ý hơn ở laptop hoặc GPU vì nhiệt dao động mạnh.",
+            title: "Tùy chỉnh",
+            detail: "Remap nút, deadzone, độ nhạy analog, back paddles, trigger stop, profile.",
+            impact: "Controller cao cấp giúp cá nhân hóa, nhưng không tự động làm bạn chơi hay hơn.",
         },
     };
-    const [active, setActive] = useState("electric");
+    const [active, setActive] = useState("xinput");
     const item = specs[active];
     return (
         <section className="space-y-6">
@@ -701,10 +800,10 @@ function SpecsExplorer() {
                 number="8"
                 color="yellow"
                 title="Thông số kỹ thuật quan trọng"
-                icon={<Puzzle />}
+                icon={<Settings />}
             />
             <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
                     {Object.entries(specs).map(([key, s]) => (
                         <button
                             key={key}
@@ -740,71 +839,68 @@ function SpecsExplorer() {
     );
 }
 
-function ApplicationGuide() {
-    const steps = [
-        ["1", "Tháo tản", "Tắt máy, rút điện, tháo tản cẩn thận."],
+function CompatibilityGuide() {
+    const rows = [
         [
-            "2",
-            "Lau keo cũ",
-            "Dùng khăn mềm không xơ và cồn isopropyl 90%+ nếu có.",
+            "USB có dây",
+            "Ổn định, ít trễ, không lo pin",
+            "Có dây",
+            "PC gaming, sim racing",
         ],
         [
-            "3",
-            "Bôi lượng vừa đủ",
-            "Hạt đậu nhỏ ở giữa CPU hoặc đường mảnh tùy CPU/hãng khuyến nghị.",
+            "Bluetooth",
+            "Tiện, nhiều thiết bị hỗ trợ",
+            "Có thể trễ hơn, tùy thiết bị",
+            "Casual gaming, mobile, laptop",
         ],
         [
-            "4",
-            "Đặt tản thẳng",
-            "Đặt xuống một lần, tránh nhấc lên đặt lại nhiều lần.",
+            "2.4GHz dongle",
+            "Trễ thấp, ổn định hơn Bluetooth",
+            "Cần receiver",
+            "PC gaming không dây",
         ],
-        ["5", "Siết ốc chéo đều", "Siết đều hai bên để lực ép cân bằng."],
         [
-            "6",
-            "Kiểm tra nhiệt",
-            "Xem idle và load bằng HWiNFO/HWMonitor sau khi lắp.",
+            "Xbox Wireless",
+            "Tối ưu cho Xbox/PC với adapter hoặc console",
+            "Cần hệ sinh thái hỗ trợ",
+            "Xbox, PC",
         ],
     ];
-    const dont = [
-        [
-            "Không dùng",
-            "Nước, khăn giấy dễ rã vụn, vật kim loại cạo mạnh, dung dịch tẩy rửa gia dụng",
-        ],
-        ["Không làm", "Tháo tản rồi lắp lại bằng keo cũ"],
-        ["Không quên", "Bóc lớp nilon/film bảo vệ trên đế tản mới"],
+    const genreRows = [
+        ["FPS cạnh tranh", "Chuột + bàn phím"],
+        ["MOBA / RTS", "Chuột + bàn phím"],
+        ["Đua xe casual", "Gamepad"],
+        ["Sim racing", "Vô lăng"],
+        ["Game bay", "Joystick / HOTAS"],
+        ["Game hành động góc nhìn thứ ba", "Gamepad"],
+        ["Fighting game", "Gamepad, arcade stick hoặc leverless"],
     ];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="9"
-                color="emerald"
-                title="Cách bôi keo đơn giản cho người mới"
-                icon={<PackageCheck />}
+                color="blue"
+                title="Kết nối, XInput và thể loại game"
+                icon={<PlugZap />}
             />
             <div className="grid lg:grid-cols-2 gap-6">
                 <DataTable
-                    title="Quy trình bôi lại keo"
-                    rows={steps}
-                    headers={["Bước", "Việc cần làm", "Ghi chú"]}
-                    accent="emerald"
+                    title="Kết nối controller"
+                    rows={rows}
+                    headers={["Kết nối", "Ưu điểm", "Nhược điểm", "Phù hợp"]}
+                    accent="blue"
                 />
                 <DataTable
-                    title="Những điều cần tránh"
-                    rows={dont}
-                    headers={["Nhóm", "Tránh gì"]}
-                    accent="red"
+                    title="Thiết bị hợp theo thể loại"
+                    rows={genreRows}
+                    headers={["Thể loại", "Thiết bị thường hợp hơn"]}
+                    accent="emerald"
                 />
             </div>
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
-                Bóp hạt đậu nhỏ ở giữa CPU
-                <br />
-                Đặt tản xuống thẳng
-                <br />
-                Siết ốc chéo đều hai bên
-                <br />
-                <span className="text-emerald-300">
-                    Áp lực tản sẽ tự ép keo lan ra.
-                </span>
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-blue-300">Trên PC Windows:</strong> Xbox
+                controller/XInput thường dễ “cắm vào là chơi” nhất với game hiện
+                đại.
             </div>
         </section>
     );
@@ -813,46 +909,60 @@ function ApplicationGuide() {
 function RealExamples() {
     const examples = [
         {
-            icon: <Droplet />,
-            title: "ARCTIC MX-6",
-            subtitle: "Phổ thông, dễ dùng, giá hợp lý",
+            icon: <Gamepad2 />,
+            title: "Xbox Wireless Controller",
+            subtitle: "Đa dụng cho PC/Xbox",
+            color: "violet",
+            points: [
+                "Xbox Wireless",
+                "Bluetooth",
+                "USB-C có dây",
+                "Jack tai nghe 3.5mm",
+                "Tương thích Windows rất tốt",
+            ],
+            lesson: "Nếu chơi PC Game Pass, Forza, EA Sports FC, Elden Ring và muốn ít cấu hình, Xbox controller là lựa chọn an toàn.",
+        },
+        {
+            icon: <Vibrate />,
+            title: "DualSense",
+            subtitle: "Haptic + adaptive trigger",
             color: "cyan",
             points: [
-                "Gốc carbon",
-                "Có nhiều gói dung lượng",
-                "Dễ dùng cho người mới",
-                "Không cần burn-in theo mô tả",
-                "Hợp PC văn phòng/gaming phổ thông/laptop",
+                "Haptic feedback",
+                "Adaptive triggers",
+                "Micro tích hợp",
+                "USB-C",
+                "Hợp PS5 và một số game PC",
             ],
-            lesson: "Keo phổ thông tốt, an toàn và dễ dùng thường thực tế hơn việc chạy theo keo quá khó bôi.",
+            lesson: "DualSense đáng chọn nếu bạn chơi PS5 hoặc game PC hỗ trợ tốt haptic/adaptive trigger.",
         },
         {
-            icon: <ShieldCheck />,
-            title: "Noctua NT-H2",
-            subtitle: "Cao cấp, dễ bôi, ổn định lâu dài",
+            icon: <Joystick />,
+            title: "Logitech Extreme 3D Pro",
+            subtitle: "Joystick bay dễ tiếp cận",
             color: "emerald",
             points: [
-                "Dễ dùng",
-                "Thường đi kèm khăn vệ sinh ở một số gói",
-                "Hợp tản khí/AIO",
-                "Dùng được CPU/GPU/laptop",
-                "Ổn định lâu dài",
+                "Twist rudder",
+                "12 nút lập trình",
+                "Hat switch 8 hướng",
+                "Rapid-fire trigger",
+                "Đế nặng",
             ],
-            lesson: "Keo cao cấp dễ dùng hợp người muốn sạch, ổn định và không phải thay quá thường xuyên.",
+            lesson: "Người mới thử flight sim có thể bắt đầu bằng joystick phổ thông trước khi lên HOTAS đắt tiền.",
         },
         {
-            icon: <Sparkles />,
-            title: "Thermal Grizzly Kryonaut",
-            subtitle: "Hiệu năng cao",
+            icon: <RotateCcw />,
+            title: "Logitech G923 TRUEFORCE",
+            subtitle: "Vô lăng + pedal",
             color: "orange",
             points: [
-                "Dành cho ứng dụng khắt khe",
-                "Hợp người thích tối ưu nhiệt",
-                "Thường giá cao hơn",
-                "Cần thao tác cẩn thận",
-                "Không thay thế airflow/tản chính",
+                "TRUEFORCE force feedback",
+                "RPM indicator",
+                "On-wheel controls",
+                "Pedal phanh",
+                "Hỗ trợ PC/console tùy bản",
             ],
-            lesson: "Keo hiệu năng cao có thể giảm vài độ, nhưng nếu airflow hoặc tản chính kém thì chênh lệch không đáng so với sửa nguyên nhân chính.",
+            lesson: "Sim racing nghiêm túc nên ưu tiên force feedback và chỗ gắn chắc thay vì vô lăng rẻ chỉ rung/lò xo.",
         },
     ];
     return (
@@ -863,21 +973,21 @@ function RealExamples() {
                 title="Ví dụ thực tế"
                 icon={<PackageCheck />}
             />
-            <div className="grid lg:grid-cols-3 gap-4">
+            <div className="grid lg:grid-cols-4 gap-4">
                 {examples.map((e) => (
                     <div
                         key={e.title}
-                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-5 hover:border-pink-500/40 transition-all"
                     >
                         <div
                             className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
                         >
                             {React.cloneElement(e.icon, { size: 24 })}
                         </div>
-                        <h3 className="text-white font-bold text-lg mb-1">
+                        <h3 className="text-white font-bold text-base mb-1">
                             {e.title}
                         </h3>
-                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                        <p className="text-pink-300 text-xs font-semibold mb-4">
                             {e.subtitle}
                         </p>
                         <div className="space-y-2 mb-5">
@@ -885,7 +995,7 @@ function RealExamples() {
                                 <Bullet key={p} text={p} />
                             ))}
                         </div>
-                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300">
                             <strong className="text-pink-300">Bài học:</strong>{" "}
                             {e.lesson}
                         </div>
@@ -896,53 +1006,53 @@ function RealExamples() {
     );
 }
 
-function TroubleshootingLab() {
+function PickerLab() {
     const scenarios = {
-        hot: {
-            icon: <Thermometer />,
-            title: "CPU nóng 90–100°C",
-            answer: "Kiểm tra lượng keo, lực ép tản, quạt CPU, airflow case và đặc biệt là có quên tháo lớp film đế tản không.",
-            color: "red",
-        },
-        remove: {
-            icon: <Eraser />,
-            title: "Tháo tản ra lắp lại",
-            answer: "Nên lau sạch keo cũ và bôi keo mới. Lớp keo cũ đã bị phá vỡ bề mặt tiếp xúc, dễ tạo bọt khí nếu lắp lại ngay.",
-            color: "orange",
-        },
-        beginner: {
-            icon: <ShieldCheck />,
-            title: "Người mới",
-            answer: "Chọn keo không dẫn điện, dễ bôi như dòng phổ thông chất lượng tốt. Tránh liquid metal nếu chưa có kinh nghiệm.",
-            color: "emerald",
-        },
-        laptop: {
-            icon: <Gauge />,
-            title: "Laptop nóng/ồn",
-            answer: "Laptop có thể cần thay keo sau 1–3 năm nếu nóng/ồn nhiều. Đồng thời vệ sinh bụi ở quạt/heatsink, không chỉ thay keo.",
+        pc: {
+            icon: <Monitor />,
+            title: "PC Windows đa dụng",
+            answer: "Chọn Xbox Wireless Controller hoặc controller hỗ trợ XInput để tương thích game PC mới tốt nhất.",
             color: "blue",
         },
-        gpu: {
-            icon: <Layers3 />,
-            title: "GPU/VRAM",
-            answer: "Không tự ý thay thermal pad VRAM/VRM bằng keo thường. Pad có độ dày để lấp khoảng cách vật lý giữa chip và heatsink.",
-            color: "purple",
+        ps5: {
+            icon: <Vibrate />,
+            title: "PS5 / haptic",
+            answer: "Chọn DualSense nếu bạn muốn haptic feedback và adaptive trigger. Trên PC, kiểm tra game có hỗ trợ đầy đủ không, đôi khi cần USB-C.",
+            color: "cyan",
         },
-        liquid: {
-            icon: <Zap />,
-            title: "Muốn dùng liquid metal",
-            answer: "Chỉ dùng nếu rất có kinh nghiệm: nó dẫn điện, có thể chập linh kiện và ăn mòn nhôm. Phải che chắn khu vực xung quanh thật kỹ.",
+        racing: {
+            icon: <RotateCcw />,
+            title: "Sim racing",
+            answer: "Ưu tiên vô lăng có force feedback, pedal chắc và bàn/rig gắn vững. Vô lăng rẻ chỉ rung/lò xo không cho cảm giác xe mất bám tốt.",
+            color: "orange",
+        },
+        flight: {
+            icon: <Joystick />,
+            title: "Mô phỏng bay",
+            answer: "Người mới có thể bắt đầu bằng joystick như Extreme 3D Pro; nếu chơi nghiêm túc, nâng lên HOTAS + rudder pedals + profile mapping.",
+            color: "emerald",
+        },
+        fighting: {
+            icon: <Target />,
+            title: "Fighting game",
+            answer: "Thử D-pad, arcade stick hoặc leverless nếu có điều kiện. Cảm giác nhập combo rất cá nhân, không có một lựa chọn tốt nhất cho mọi người.",
             color: "red",
         },
+        drift: {
+            icon: <RotateCcw />,
+            title: "Controller bị drift",
+            answer: "Kiểm tra bằng gamepad tester, tăng deadzone trước, vệ sinh nhẹ/cập nhật firmware. Nếu nặng thì sửa hoặc thay analog/controller.",
+            color: "purple",
+        },
     };
-    const [active, setActive] = useState("beginner");
+    const [active, setActive] = useState("pc");
     const item = scenarios[active];
     return (
         <section className="space-y-6">
             <SectionTitle
                 number="11"
                 color="blue"
-                title="Lab: xử lý tình huống với keo tản nhiệt"
+                title="Lab: chọn controller theo tình huống"
                 icon={<Search />}
             />
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
@@ -983,38 +1093,38 @@ function TroubleshootingLab() {
 function CommonMistakes() {
     const mistakes = [
         {
-            wrong: "Bôi càng nhiều càng mát",
-            right: "Keo chỉ cần vừa đủ phủ vùng tiếp xúc. Quá nhiều dễ tràn, bẩn socket và không cải thiện đáng kể.",
+            wrong: "Game nào dùng controller cũng tốt hơn chuột phím",
+            right: "Tùy thể loại. FPS cạnh tranh, MOBA/RTS thường hợp chuột phím hơn; đua xe, thể thao, game hành động góc nhìn thứ ba thường hợp gamepad hơn.",
         },
         {
-            wrong: "Bôi quá ít",
-            right: "Keo quá ít để lại túi khí, làm nhiệt truyền kém và CPU có thể nóng nhanh.",
+            wrong: "Bluetooth controller luôn đủ tốt cho mọi game",
+            right: "Bluetooth tiện nhưng độ trễ/ổn định tùy thiết bị. Game cần phản hồi nhanh nên ưu tiên USB, 2.4GHz hoặc Xbox Wireless tốt.",
         },
         {
-            wrong: "Không lau keo cũ trước khi bôi mới",
-            right: "Luôn lau sạch keo cũ bằng khăn mềm không xơ và cồn isopropyl 90%+ nếu có.",
+            wrong: "Vô lăng rẻ không force feedback là đủ cho sim racing",
+            right: "Chơi vui vẫn được, nhưng sim racing nghiêm túc cần force feedback để cảm nhận xe mất bám, vào cua, leo lề.",
         },
         {
-            wrong: "Tháo tản ra rồi lắp lại ngay",
-            right: "Khi tháo tản, lớp keo đã bị phá vỡ. Nên lau sạch và bôi keo mới.",
+            wrong: "Analog drift là do game lỗi",
+            right: "Nhiều trường hợp do analog tự lệch. Kiểm tra bằng gamepad tester trước khi đổ lỗi cho game.",
         },
         {
-            wrong: "Dùng liquid metal như keo thường",
-            right: "Liquid metal dẫn điện, có thể gây chập và ăn mòn nhôm; không dành cho người mới.",
+            wrong: "Controller đắt là chơi hay hơn ngay",
+            right: "Controller tốt giúp thoải mái/chính xác hơn nhưng kỹ năng, game và độ hợp tay vẫn quan trọng.",
         },
         {
-            wrong: "Quên tháo lớp nilon trên đế tản",
-            right: "Film bảo vệ làm truyền nhiệt cực kém, khiến CPU nóng rất nhanh sau khi lắp tản mới.",
+            wrong: "Cứ mua joystick là chơi được mọi game bay tốt",
+            right: "Flight sim nghiêm túc có nhiều chức năng; bạn có thể cần throttle, rudder pedals, profile mapping, head tracking và kiến thức bay cơ bản.",
         },
     ];
     const tips = [
-        "Cách dễ nhất cho người mới: hạt đậu nhỏ ở giữa CPU.",
-        "Với CPU hình chữ nhật dài, có thể dùng một đường mảnh hoặc theo khuyến nghị của hãng.",
-        "Không cần dùng thẻ tán keo nếu chưa quen; tán sai có thể tạo bọt khí hoặc lớp quá dày.",
-        "Luôn lau sạch keo cũ trước khi bôi mới.",
-        "Sau khi thay keo, kiểm tra nhiệt độ idle và tải nặng.",
-        "Nếu nhiệt vẫn cao, kiểm tra lực ép tản, quạt CPU, header CPU_FAN/PUMP, film đế tản, airflow và fan curve.",
-        "Đóng nắp tuýp keo ngay sau khi dùng để tránh khô hoặc đổi tính chất.",
+        "PC Windows đa dụng: chọn Xbox Wireless Controller hoặc tay cầm XInput là dễ nhất.",
+        "PS5 hoặc thích haptic/adaptive trigger: chọn DualSense.",
+        "Game bay casual: joystick phổ thông là điểm bắt đầu hợp lý.",
+        "Sim racing nghiêm túc: ưu tiên force feedback, pedal chắc và chỗ gắn ổn định.",
+        "Fighting game: thử D-pad, arcade stick và leverless nếu có điều kiện.",
+        "Controller drift nhẹ: tăng deadzone trước khi kết luận hỏng nặng.",
+        "Controller không dây: kiểm tra pin trước khi chơi dài hoặc thi đấu.",
     ];
     return (
         <section className="space-y-6">
@@ -1078,10 +1188,10 @@ function SummaryAndQuiz() {
             <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
                 <div className="bg-slate-950 p-6 border-b border-slate-800">
                     <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                        <span className="bg-amber-500/20 text-amber-300 p-2 rounded-xl">
+                        <span className="bg-violet-500/20 text-violet-300 p-2 rounded-xl">
                             13
                         </span>{" "}
-                        Tóm tắt & Kiểm tra cuối bài
+                        Tóm tắt & Kiểm tra cuối Phần 10
                     </h3>
                 </div>
                 <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
@@ -1089,26 +1199,27 @@ function SummaryAndQuiz() {
                         <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
                             Ghi nhớ nhanh
                         </h4>
-                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-amber-300 border border-slate-800 shadow-inner space-y-2">
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-violet-300 border border-slate-800 shadow-inner space-y-2">
                             <p>
-                                Thermal Paste = lớp mỏng lấp khe giữa CPU và đế
-                                tản
+                                Controller = thiết bị nhập liệu chuyên điều
+                                khiển game/mô phỏng
                             </p>
                             <p>
-                                Không khí dẫn nhiệt kém → cần keo để truyền
-                                nhiệt đều hơn
+                                Gamepad • Joystick • Racing Wheel • Arcade Stick
+                                • HOTAS
                             </p>
                             <br />
-                            <p className="text-slate-500"># Bôi đúng</p>
+                            <p className="text-slate-500"># Cốt lõi</p>
                             <p className="text-slate-300">
-                                Lau keo cũ → hạt đậu nhỏ → đặt tản thẳng → siết
-                                chéo đều
+                                Analog nhiều mức • Trigger analog •
+                                Haptic/rumble • Force feedback • XInput
                             </p>
                             <br />
-                            <p className="text-slate-500"># Tránh</p>
-                            <p className="text-red-300">
-                                Quá nhiều • Quá ít • Keo cũ • Liquid metal nếu
-                                chưa kinh nghiệm • Quên bóc film đế tản
+                            <p className="text-slate-500"># Chọn nhanh</p>
+                            <p className="text-slate-300">
+                                PC đa dụng: Xbox • PS5/haptic: DualSense •
+                                Flight: joystick/HOTAS • Racing: wheel force
+                                feedback
                             </p>
                         </div>
                     </div>
@@ -1121,64 +1232,60 @@ function SummaryAndQuiz() {
 
 const questions = [
     {
-        question: "Keo tản nhiệt có vai trò chính là gì?",
+        question: "Gamepad khác bàn phím ở điểm quan trọng nào?",
         options: [
-            "Lấp khe hở siêu nhỏ giữa CPU và đế tản để truyền nhiệt tốt hơn",
-            "Làm CPU có thêm nhân",
+            "Analog có thể nhận nhiều mức nghiêng/bóp, không chỉ bật/tắt",
+            "Gamepad làm CPU mạnh hơn",
+            "Gamepad thay thế được SSD",
+            "Gamepad làm màn hình sáng hơn",
+        ],
+        correct: 0,
+        explanation:
+            "Analog stick và analog trigger nhận nhiều mức, ví dụ nghiêng nhẹ đi chậm, nghiêng mạnh chạy nhanh.",
+    },
+    {
+        question: "Stick drift là gì?",
+        options: [
+            "Analog tự lệch dù không chạm",
+            "Controller hết pin",
+            "Game chạy quá mượt",
+            "Màn hình bị xé hình",
+        ],
+        correct: 0,
+        explanation:
+            "Stick drift làm nhân vật/camera tự di chuyển dù bạn không chạm vào analog.",
+    },
+    {
+        question: "Force feedback trên vô lăng dùng để làm gì?",
+        options: [
+            "Tạo lực phản hồi mô phỏng cảm giác lái, mặt đường, xe mất bám",
             "Tăng dung lượng RAM",
-            "Thay thế quạt case",
+            "Làm game tải nhanh hơn",
+            "Thay thế pedal phanh",
         ],
         correct: 0,
         explanation:
-            "Keo lấp các khe hở siêu nhỏ giữa CPU và đế tản để giảm túi khí và truyền nhiệt tốt hơn.",
+            "Force feedback tạo lực kéo/đẩy/rung để mô phỏng xe vào cua, trượt, leo lề hoặc mất bám.",
     },
     {
-        question: "Bôi keo tản nhiệt quá nhiều có tốt không?",
+        question: "Joystick phù hợp nhất với thể loại nào?",
         options: [
-            "Có, càng nhiều càng mát",
-            "Không, chỉ cần lượng vừa đủ; quá nhiều dễ tràn và không cải thiện đáng kể",
-            "Có, vì keo sẽ biến thành quạt",
-            "Không cần keo nếu CPU mạnh",
-        ],
-        correct: 1,
-        explanation:
-            "Keo chỉ cần lớp vừa đủ. Quá nhiều dễ tràn, bẩn và không giúp mát hơn đáng kể.",
-    },
-    {
-        question: "Khi tháo tản CPU ra rồi lắp lại, nên làm gì?",
-        options: [
-            "Lắp lại ngay, không cần quan tâm keo cũ",
-            "Lau sạch keo cũ và bôi keo mới",
-            "Đổ nước lên CPU",
-            "Cắm thêm RAM để keo tự phục hồi",
-        ],
-        correct: 1,
-        explanation:
-            "Khi tháo tản, bề mặt keo cũ đã bị phá vỡ, dễ tạo bọt khí nếu lắp lại ngay.",
-    },
-    {
-        question: "Liquid Metal có điểm gì cần đặc biệt cẩn thận?",
-        options: [
-            "Có thể dẫn điện và gây chập nếu tràn",
-            "Không truyền nhiệt",
-            "Chỉ dùng để dán màn hình",
-            "Không cần tản nhiệt đi kèm",
+            "Mô phỏng bay",
+            "Soạn thảo văn bản",
+            "Excel kế toán",
+            "Gõ code nhanh hơn",
         ],
         correct: 0,
         explanation:
-            "Liquid metal dẫn điện và có thể gây chập nếu tràn ra linh kiện hoặc socket.",
+            "Joystick/flight stick được thiết kế để điều khiển hướng bay tự nhiên hơn bàn phím/gamepad.",
     },
     {
-        question: "Lỗi nào khiến CPU nóng rất nhanh sau khi lắp tản mới?",
-        options: [
-            "Quên tháo lớp nilon bảo vệ trên đế tản",
-            "Dùng SSD NVMe",
-            "Màn hình quá lớn",
-            "Chuột có DPI cao",
-        ],
+        question:
+            "Trên PC Windows, chuẩn controller nào thường tương thích tốt với game hiện đại?",
+        options: ["XInput", "VGA", "SATA", "HDMI"],
         correct: 0,
         explanation:
-            "Film bảo vệ trên đế tản cản truyền nhiệt rất mạnh, khiến CPU nóng nhanh.",
+            "XInput là chuẩn Xbox hiện đại được nhiều game PC hỗ trợ tốt.",
     },
 ];
 
@@ -1215,11 +1322,11 @@ function InteractiveQuiz() {
                     {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
-                    Hoàn thành!
+                    Hoàn thành Phần 10!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-amber-400">
+                    <strong className="text-violet-400">
                         {score}/{questions.length}
                     </strong>{" "}
                     câu hỏi.
@@ -1235,7 +1342,7 @@ function InteractiveQuiz() {
     return (
         <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
             <div className="flex justify-between items-center mb-4 text-sm font-medium">
-                <span className="text-amber-400">
+                <span className="text-violet-400">
                     Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
                 <span className="text-slate-500">Điểm: {score}</span>
@@ -1279,7 +1386,7 @@ function InteractiveQuiz() {
                     </div>
                     <button
                         onClick={handleNext}
-                        className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors"
+                        className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-bold rounded-xl transition-colors"
                     >
                         {currentQ < questions.length - 1
                             ? "Câu tiếp theo"
@@ -1291,32 +1398,33 @@ function InteractiveQuiz() {
     );
 }
 
-function NextLesson() {
+function NextPart() {
     return (
         <div className="text-center pt-8 border-t border-slate-800">
             <p className="text-slate-400 mb-4">
-                Bạn đã hiểu keo tản nhiệt. Tiếp theo là nhiệt độ hoạt động an
-                toàn cho CPU và GPU, để biết mức nhiệt nào bình thường, mức nào
-                đáng lo và khi nào cần vệ sinh hoặc nâng cấp tản nhiệt.
+                Bạn đã học xong Phần 10 — Thiết bị nhập liệu. Tiếp theo là Phần
+                11 — Thiết bị xuất dữ liệu, bắt đầu với màn hình: công nghệ tấm
+                nền IPS, VA, TN và OLED.
             </p>
             <Link
-                to="/phan-9-5"
-                className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-amber-500/20"
+                to="/phan-11-1"
+                className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-violet-500/20"
             >
-                Bài tiếp theo: 9.5 — Nhiệt độ hoạt động an toàn cho CPU, GPU{" "}
+                Phần tiếp theo: 11.1 — Màn hình Monitor{" "}
                 <ChevronRight size={20} />
             </Link>
         </div>
     );
 }
 
-function SectionTitle({ number, title, icon, color = "amber" }) {
+function SectionTitle({ number, title, icon, color = "violet" }) {
     const colorMap = {
-        amber: "bg-amber-500/20 text-amber-300",
+        violet: "bg-violet-500/20 text-violet-300",
         yellow: "bg-yellow-500/20 text-yellow-300",
         blue: "bg-blue-500/20 text-blue-300",
         cyan: "bg-cyan-500/20 text-cyan-300",
         emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
         purple: "bg-purple-500/20 text-purple-300",
         pink: "bg-pink-500/20 text-pink-300",
         orange: "bg-orange-500/20 text-orange-300",
@@ -1344,7 +1452,7 @@ function Tag({ icon, text }) {
 function HeroTile({ icon, label, desc, color, highlight }) {
     return (
         <div
-            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-amber-500/10 border-amber-400/50" : softBorder(color)}`}
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-violet-500/10 border-violet-400/50" : softBorder(color)}`}
         >
             <div
                 className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
@@ -1379,6 +1487,16 @@ function AnalogyCard({ icon, title, desc, color }) {
             </div>
             <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
             <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function RuleCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className={`${textColor(color)} font-bold text-sm mb-2`}>
+                {label}
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
         </div>
     );
 }
@@ -1438,44 +1556,47 @@ function WarnBullet({ text }) {
 }
 function badgeColor(color) {
     const map = {
-        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        violet: "bg-violet-500/10 text-violet-300 border border-violet-500/20",
         yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
         blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
         cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
         emerald:
             "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
         orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
         purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
         pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
         red: "bg-red-500/10 text-red-300 border border-red-500/20",
     };
-    return map[color] || map.amber;
+    return map[color] || map.violet;
 }
 function softBorder(color) {
     const map = {
-        amber: "bg-amber-500/5 border-amber-500/20",
+        violet: "bg-violet-500/5 border-violet-500/20",
         yellow: "bg-yellow-500/5 border-yellow-500/20",
         blue: "bg-blue-500/5 border-blue-500/20",
         cyan: "bg-cyan-500/5 border-cyan-500/20",
         emerald: "bg-emerald-500/5 border-emerald-500/20",
         orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
         purple: "bg-purple-500/5 border-purple-500/20",
         pink: "bg-pink-500/5 border-pink-500/20",
         red: "bg-red-500/5 border-red-500/20",
     };
-    return map[color] || map.amber;
+    return map[color] || map.violet;
 }
 function textColor(color) {
     const map = {
-        amber: "text-amber-300",
+        violet: "text-violet-300",
         yellow: "text-yellow-300",
         blue: "text-blue-300",
         cyan: "text-cyan-300",
         emerald: "text-emerald-300",
         orange: "text-orange-300",
+        amber: "text-amber-300",
         purple: "text-purple-300",
         pink: "text-pink-300",
         red: "text-red-300",
     };
-    return map[color] || "text-amber-300";
+    return map[color] || "text-violet-300";
 }

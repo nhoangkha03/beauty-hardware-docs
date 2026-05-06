@@ -1,254 +1,183 @@
 import React, { useState } from "react";
 import {
     AlertTriangle,
-    ArrowDown,
-    ArrowLeft,
-    ArrowRight,
-    ArrowUp,
+    Award,
+    BatteryCharging,
     BookOpen,
+    Brain,
     CheckCircle2,
     ChevronRight,
-    ClipboardCheck,
-    Code2,
-    Copy,
-    Edit3,
-    FileCog,
-    FileText,
-    HelpCircle,
-    Home,
-    Info,
-    Keyboard,
-    Layers,
-    ListChecks,
-    MousePointer2,
-    Move,
-    Replace,
-    RotateCcw,
-    Save,
+    Cpu,
+    Database,
+    Fan,
+    Gamepad2,
+    Gauge,
+    HardDrive,
+    Layers3,
+    Lightbulb,
+    MemoryStick,
+    PackageCheck,
+    Plug,
+    PlugZap,
+    Power,
+    Puzzle,
     Search,
     Settings,
-    TerminalSquare,
-    TextCursorInput,
-    Undo2,
-    X,
+    ShieldCheck,
+    Sparkles,
+    Workflow,
+    XCircle,
     Zap,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-900 text-slate-200 font-sans selection:bg-lime-500 selection:text-white pb-20">
-            <header className="bg-slate-950/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-yellow-500 selection:text-slate-950 pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <span className="text-3xl">🐧</span>
+                        <div className="w-11 h-11 rounded-2xl bg-yellow-500/10 border border-yellow-400/30 flex items-center justify-center shadow-lg shadow-yellow-500/10">
+                            <PlugZap className="text-yellow-400" size={24} />
+                        </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden md:block">
-                                Text Editor & xử lý văn bản: Nano cho người mới
+                            <p className="text-xs text-slate-500">
+                                Phần 7: PSU — Bộ nguồn máy tính
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-400 hidden md:inline-block">
-                            Phần 7 — Text Editor
-                        </span>
-                        <div className="text-sm font-medium text-lime-400 bg-lime-400/10 px-3 py-1 rounded-full border border-lime-400/20">
-                            Phần 7.1
-                        </div>
+                    <div className="text-sm font-semibold text-yellow-300 bg-yellow-400/10 px-3 py-1 rounded-full border border-yellow-400/20">
+                        Bài 7.1
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <Hero />
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        n="1"
-                        color="lime"
-                        icon={<Edit3 size={22} />}
-                        title="Nano là gì? Vì sao phù hợp cho người mới?"
-                    />
-                    <NanoIntro />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="2"
-                        color="cyan"
-                        icon={<TerminalSquare size={22} />}
-                        title="Mở file bằng Nano"
-                    />
-                    <OpenNanoGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="3"
-                        color="blue"
-                        icon={<Layers size={22} />}
-                        title="Hiểu giao diện Nano"
-                    />
-                    <NanoInterface />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="4"
-                        color="green"
-                        icon={<Save size={22} />}
-                        title="Thao tác cơ bản: gõ, lưu, thoát"
-                    />
-                    <BasicActions />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="5"
-                        color="purple"
-                        icon={<Move size={22} />}
-                        title="Di chuyển con trỏ nhanh"
-                    />
-                    <MovementGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="6"
-                        color="amber"
-                        icon={<Copy size={22} />}
-                        title="Chỉnh sửa: xóa, cut, copy, paste, undo"
-                    />
-                    <EditingGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="7"
-                        color="pink"
-                        icon={<Search size={22} />}
-                        title="Tìm kiếm và thay thế"
-                    />
-                    <SearchReplaceGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="8"
-                        color="orange"
-                        icon={<Settings size={22} />}
-                        title="Tùy chọn khi mở Nano"
-                    />
-                    <NanoOptions />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="9"
-                        color="teal"
-                        icon={<FileCog size={22} />}
-                        title="Cấu hình mặc định bằng ~/.nanorc"
-                    />
-                    <NanorcGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="10"
-                        color="rose"
-                        icon={<Code2 size={22} />}
-                        title="Ví dụ thực tế hay dùng"
-                    />
-                    <RealWorldExamples />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="11"
-                        color="sky"
-                        icon={<Keyboard size={22} />}
-                        title="Bảng phím tắt quan trọng"
-                    />
-                    <ShortcutCheatsheet />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="12"
-                        color="emerald"
-                        icon={<ClipboardCheck size={22} />}
-                        title="Thực hành tổng hợp"
-                    />
-                    <PracticeChecklist />
-                </section>
-
-                <SummarySection />
-
-                <section className="space-y-6 pt-4">
-                    <div className="bg-slate-800 rounded-3xl border border-slate-700 overflow-hidden shadow-xl">
-                        <div className="bg-slate-900 p-6 border-b border-slate-700">
-                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                <span className="bg-lime-500/20 text-lime-400 p-2 rounded-lg">
-                                    <ClipboardCheck size={20} />
-                                </span>
-                                Kiểm tra nhanh: Nano editor
-                            </h3>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <div className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Bạn đã hoàn thành Phần 7.1 — Nano editor cho người mới.
-                    </p>
-                    <button className="bg-lime-600 hover:bg-lime-500 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-lime-500/20">
-                        Bài tiếp theo: 7.2 — Vim Editor mạnh mẽ{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <HeartAnalogy />
+                <PowerFlowSimulator />
+                <VoltageRails />
+                <PsuTypes />
+                <SpecsExplorer />
+                <ConnectorGuide />
+                <ProtectionGuide />
+                <RealExamples />
+                <PickerLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function Hero() {
-    const cards = [
-        [Edit3, "Mở là gõ", "Không có mode như Vim"],
-        [Save, "Ctrl+O", "Lưu file"],
-        [X, "Ctrl+X", "Thoát Nano"],
-        [Search, "Ctrl+W", "Tìm kiếm nhanh"],
+function HeroSection() {
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-yellow-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-yellow-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-orange-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-yellow-300">
+                        <BookOpen size={16} /> Phần 7: PSU — Nguồn điện
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        PSU là gì?
+                        <span className="block text-yellow-400">
+                            Trái tim cấp điện cho PC
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Một PC mạnh có thể tắt phụt, restart hoặc hỏng linh kiện
+                        nếu PSU yếu hoặc kém chất lượng. PSU chuyển điện AC từ ổ
+                        cắm thành DC 12V, 5V, 3.3V ổn định cho toàn bộ hệ thống.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Plug size={16} />} text="AC → DC" />
+                        <Tag icon={<Zap size={16} />} text="12V Rail" />
+                        <Tag icon={<Cpu size={16} />} text="CPU EPS" />
+                        <Tag icon={<Gamepad2 size={16} />} text="GPU PCIe" />
+                        <Tag
+                            icon={<ShieldCheck size={16} />}
+                            text="Protection"
+                        />
+                    </div>
+                </div>
+
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Plug />}
+                            label="AC Input"
+                            desc="Điện ổ cắm"
+                            color="yellow"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<BatteryCharging />}
+                            label="DC Output"
+                            desc="12V / 5V / 3.3V"
+                            color="emerald"
+                        />
+                        <HeroTile
+                            icon={<Cpu />}
+                            label="CPU"
+                            desc="EPS 4+4 / 8-pin"
+                            color="blue"
+                        />
+                        <HeroTile
+                            icon={<Gamepad2 />}
+                            label="GPU"
+                            desc="PCIe / 12VHPWR"
+                            color="orange"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Luồng năng lượng</p>
+                        <p>Ổ cắm AC → PSU</p>
+                        <p className="text-yellow-300">
+                            → DC 12V / 5V / 3.3V → Linh kiện
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function LearningGoals() {
+    const goals = [
+        "Hiểu PSU là Power Supply Unit, bộ nguồn chuyển điện AC từ ổ cắm thành điện DC cho linh kiện PC.",
+        "Nắm quy trình cấp điện khi bấm nút nguồn: mainboard kích PSU, PSU cấp 24-pin, EPS CPU, PCIe GPU, SATA power.",
+        "Phân biệt đường điện 12V, 5V, 3.3V và vì sao 12V quan trọng nhất với CPU/GPU hiện đại.",
+        "Biết các cách phân loại PSU: ATX/SFX/SFX-L/TFX, non-modular/semi-modular/full-modular, ATX 2.x/3.0/3.1.",
+        "Nhận biết thông số cơ bản: Wattage, efficiency, 80 PLUS, 12V rail, đầu cắm nguồn và các cơ chế bảo vệ điện.",
     ];
     return (
-        <section className="text-center space-y-5 py-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-lime-500/10 border border-lime-500/20 text-lime-300 text-sm font-medium">
-                <Zap size={16} /> nano · Ctrl+O · Ctrl+X · Ctrl+W · Ctrl+K ·
-                ~/.nanorc
-            </div>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                Nano — Editor{" "}
-                <span className="text-lime-400 font-mono">Dễ Dùng</span> Cho
-                Người Mới
-            </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                Bài này giúp bạn dùng Nano để sửa file cấu hình Linux an toàn:
-                mở file, lưu, thoát, di chuyển nhanh, cut/copy/paste, tìm-thay
-                thế, bật số dòng và cấu hình mặc định bằng{" "}
-                <code>~/.nanorc</code>.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto pt-4">
-                {cards.map(([Icon, title, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="yellow"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, index) => (
                     <div
-                        key={title}
-                        className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4 text-left"
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-yellow-500/50 transition-colors"
                     >
-                        <Icon className="text-lime-400 mb-3" size={24} />
-                        <div className="font-bold text-white">{title}</div>
-                        <div className="text-xs text-slate-500">{desc}</div>
+                        <div className="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-300 flex items-center justify-center font-bold mb-4">
+                            {index + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
                     </div>
                 ))}
             </div>
@@ -256,940 +185,279 @@ function Hero() {
     );
 }
 
-function SectionTitle({ n, color, icon, title }) {
-    const colorMap = {
-        lime: "bg-lime-500/20 text-lime-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        blue: "bg-blue-500/20 text-blue-400",
-        green: "bg-green-500/20 text-green-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        amber: "bg-amber-500/20 text-amber-400",
-        pink: "bg-pink-500/20 text-pink-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        teal: "bg-teal-500/20 text-teal-400",
-        rose: "bg-rose-500/20 text-rose-400",
-        sky: "bg-sky-500/20 text-sky-400",
-        emerald: "bg-emerald-500/20 text-emerald-400",
-    };
-    return (
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span
-                className={`${colorMap[color]} p-2 rounded-lg flex items-center gap-1`}
-            >
-                {icon}
-                <span className="text-sm font-mono">{n}</span>
-            </span>
-            {title}
-        </h3>
-    );
-}
-
-function MiniPoint({ icon, tone, title, text }) {
-    const toneMap = {
-        lime: "bg-lime-500/10 border-lime-500/20 text-lime-300",
-        cyan: "bg-cyan-500/10 border-cyan-500/20 text-cyan-300",
-        blue: "bg-blue-500/10 border-blue-500/20 text-blue-300",
-        green: "bg-green-500/10 border-green-500/20 text-green-300",
-        purple: "bg-purple-500/10 border-purple-500/20 text-purple-300",
-        amber: "bg-amber-500/10 border-amber-500/20 text-amber-300",
-        pink: "bg-pink-500/10 border-pink-500/20 text-pink-300",
-        orange: "bg-orange-500/10 border-orange-500/20 text-orange-300",
-        teal: "bg-teal-500/10 border-teal-500/20 text-teal-300",
-        rose: "bg-rose-500/10 border-rose-500/20 text-rose-300",
-    };
-    return (
-        <div className={`${toneMap[tone]} border rounded-2xl p-4`}>
-            <div className="flex items-center gap-2 font-bold text-white mb-1">
-                {icon}
-                {title}
-            </div>
-            <p className="text-sm text-slate-300">{text}</p>
-        </div>
-    );
-}
-
-function TerminalBlock({ title, code }) {
-    return (
-        <div className="bg-slate-950 border border-slate-700 rounded-2xl overflow-hidden shadow-xl font-mono text-sm">
-            <div className="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
-                <span className="text-slate-400 text-xs uppercase tracking-widest">
-                    {title}
-                </span>
-                <TerminalSquare size={16} className="text-slate-500" />
-            </div>
-            <pre className="p-4 overflow-x-auto text-slate-300 leading-relaxed whitespace-pre-wrap">
-                <code>{code}</code>
-            </pre>
-        </div>
-    );
-}
-
-function NanoIntro() {
-    return (
-        <div className="grid lg:grid-cols-5 gap-6">
-            <div className="lg:col-span-3 bg-slate-800/50 p-6 md:p-8 rounded-3xl border border-slate-700">
-                <div className="flex items-start gap-5">
-                    <div className="bg-lime-500/15 text-lime-400 p-4 rounded-2xl border border-lime-500/20">
-                        <Edit3 size={42} />
-                    </div>
-                    <div className="space-y-4">
-                        <h3 className="text-2xl font-bold text-white">
-                            Nano là text editor chạy trong terminal
-                        </h3>
-                        <p className="text-slate-300 leading-relaxed">
-                            Nano đơn giản hơn Vim vì mở lên là gõ được ngay. Các
-                            phím tắt quan trọng luôn hiện ở cuối màn hình, nên
-                            rất phù hợp khi bạn mới làm quen Linux hoặc đang sửa
-                            file qua SSH.
-                        </p>
-                        <div className="grid md:grid-cols-2 gap-3">
-                            <MiniPoint
-                                icon={<Keyboard size={18} />}
-                                tone="lime"
-                                title="Không cần học mode"
-                                text="Bạn không phải chuyển Insert/Normal mode như Vim."
-                            />
-                            <MiniPoint
-                                icon={<TerminalSquare size={18} />}
-                                tone="cyan"
-                                title="Dùng tốt qua SSH"
-                                text="Không cần giao diện đồ họa, chỉ cần terminal là đủ."
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="lg:col-span-2 space-y-3">
-                <CompareCard
-                    title="Nano"
-                    cmd="nano file.txt"
-                    desc="Mở ra gõ luôn, dễ học nhất cho người mới."
-                    tone="lime"
-                />
-                <CompareCard
-                    title="Vim"
-                    cmd="vim file.txt"
-                    desc="Cực mạnh, nhưng cần học mode và phím tắt riêng."
-                    tone="amber"
-                />
-                <CompareCard
-                    title="Gedit"
-                    cmd="gedit file.txt"
-                    desc="Có giao diện đồ họa, không phù hợp server SSH không desktop."
-                    tone="blue"
-                />
-            </div>
-        </div>
-    );
-}
-
-function CompareCard({ title, cmd, desc, tone }) {
-    const map = {
-        lime: "text-lime-300",
-        amber: "text-amber-300",
-        blue: "text-blue-300",
-    };
-    return (
-        <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4">
-            <div className="font-bold text-white mb-1">{title}</div>
-            <code className={`${map[tone]} text-sm`}>{cmd}</code>
-            <p className="text-xs text-slate-500 mt-2">{desc}</p>
-        </div>
-    );
-}
-
-function OpenNanoGuide() {
-    const [mode, setMode] = useState("basic");
-    const code = {
-        basic: `# Mở file có sẵn
-$ nano file.txt
-
-# Tạo file mới
-$ nano newfile.txt
-
-# Mở file trong thư mục hiện tại
-$ nano notes.md`,
-        root: `# Mở file cần quyền root
-$ sudo nano /etc/hosts
-$ sudo nano /etc/ssh/sshd_config
-$ sudo nano /etc/crontab
-
-# Cẩn thận với sudo nano:
-# sửa sai file hệ thống có thể làm dịch vụ lỗi.`,
-        line: `# Mở file và nhảy đến dòng 50
-$ nano +50 file.txt
-
-# Mở file ở chế độ chỉ đọc
-$ nano -v file.txt
-
-# Hiện số dòng ngay khi mở
-$ nano -l file.txt`,
-        combo: `# Không wrap dòng dài + hiện số dòng
-$ nano -lw file.txt
-
-# Tự indent khi viết script/code
-$ nano -i script.sh
-
-# Bật syntax highlighting theo ngôn ngữ
-$ nano -Y python file.py
-$ nano -Y sh script.sh`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["basic", "Mở/tạo file"],
-                        ["root", "File cần sudo"],
-                        ["line", "Dòng/chỉ đọc"],
-                        ["combo", "Kết hợp option"],
-                    ].map(([k, label]) => (
-                        <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`open nano — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function NanoInterface() {
-    const [showHelp, setShowHelp] = useState(true);
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="bg-slate-950 border border-slate-700 rounded-3xl overflow-hidden font-mono shadow-2xl">
-                <div className="bg-slate-800 px-4 py-3 border-b border-slate-700 flex justify-between text-sm">
-                    <span className="text-lime-300 font-bold">
-                        GNU nano 6.2
-                    </span>
-                    <span className="text-slate-300">file.txt</span>
-                </div>
-                <div className="p-5 min-h-[260px] text-slate-200 leading-8">
-                    <div>Đây là nội dung file</div>
-                    <div>Dòng 2</div>
-                    <div>Dòng 3</div>
-                    <div>
-                        <span className="bg-lime-400 text-slate-950 px-1 animate-pulse">
-                            _
-                        </span>
-                    </div>
-                </div>
-                {showHelp && (
-                    <div className="border-t border-slate-700 bg-slate-900 grid grid-cols-2 md:grid-cols-3 gap-px text-xs">
-                        <HelpKey k="^G" text="Help" />
-                        <HelpKey k="^O" text="Save" />
-                        <HelpKey k="^X" text="Exit" />
-                        <HelpKey k="^K" text="Cut" />
-                        <HelpKey k="^U" text="Paste" />
-                        <HelpKey k="^W" text="Search" />
-                    </div>
-                )}
-            </div>
-            <div className="mt-6 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 text-sm text-blue-100">
-                    Ký hiệu <code>^</code> nghĩa là phím <strong>Ctrl</strong>.
-                    Ví dụ <code>^X</code> = <strong>Ctrl + X</strong>.
-                </div>
-                <button
-                    onClick={() => setShowHelp(!showHelp)}
-                    className="px-4 py-2 rounded-xl border border-slate-600 bg-slate-900 hover:bg-slate-700 font-bold text-sm"
-                >
-                    {showHelp ? "Ẩn" : "Hiện"} thanh phím tắt
-                </button>
-            </div>
-        </div>
-    );
-}
-
-function HelpKey({ k, text }) {
-    return (
-        <div className="p-3 flex gap-2">
-            <span className="text-lime-300 font-bold">{k}</span>
-            <span className="text-slate-400">{text}</span>
-        </div>
-    );
-}
-
-function BasicActions() {
-    const [mode, setMode] = useState("save");
-    const code = {
-        type: `# Mở file
-$ nano test.txt
-
-# Sau đó gõ nội dung bình thường như Notepad.
-# Dùng phím mũi tên để di chuyển con trỏ.
-# Không cần bấm i để vào chế độ insert như Vim.`,
-        save: `Ctrl + O
-
-Nano sẽ hỏi:
-File Name to Write: test.txt
-
-Nhấn Enter để giữ tên cũ.
-Hoặc gõ tên mới rồi Enter để Save As.`,
-        exit: `Ctrl + X
-
-Nếu chưa lưu, Nano hỏi:
-Save modified buffer?
-
-Y        lưu rồi thoát
-N        không lưu, thoát luôn
-Ctrl+C   hủy, quay lại editor`,
-        suspend: `Ctrl + Z
-
-# Tạm treo Nano về shell
-[1]+  Stopped  nano file.txt
-
-# Quay lại Nano:
-$ fg
-
-# Dùng khi cần chạy lệnh nhanh mà chưa muốn thoát Nano.`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["type", "Gõ nội dung"],
-                        ["save", "Lưu Ctrl+O"],
-                        ["exit", "Thoát Ctrl+X"],
-                        ["suspend", "Tạm treo Ctrl+Z"],
-                    ].map(([k, label]) => (
-                        <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-green-500/10 border-green-500/40 text-green-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`basic action — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-3 mt-6">
-                <MiniPoint
-                    icon={<Save size={18} />}
-                    tone="green"
-                    title="Ctrl+O"
-                    text="Write Out: lưu file."
-                />
-                <MiniPoint
-                    icon={<X size={18} />}
-                    tone="rose"
-                    title="Ctrl+X"
-                    text="Exit: thoát Nano."
-                />
-                <MiniPoint
-                    icon={<Info size={18} />}
-                    tone="cyan"
-                    title="Enter"
-                    text="Xác nhận tên file khi lưu."
-                />
-            </div>
-        </div>
-    );
-}
-
-function MovementGuide() {
-    const shortcuts = [
-        [ArrowLeft, "← → ↑ ↓", "Di chuyển từng ký tự/dòng"],
-        [Home, "Ctrl+A", "Đầu dòng"],
-        [ArrowRight, "Ctrl+E", "Cuối dòng"],
-        [ArrowUp, "Ctrl+Y", "Lên 1 trang"],
-        [ArrowDown, "Ctrl+V", "Xuống 1 trang"],
-        [TextCursorInput, "Ctrl+W rồi Ctrl+T", "Nhảy đến dòng số"],
-        [ArrowUp, "Alt+\\", "Đầu file"],
-        [ArrowDown, "Alt+/", "Cuối file"],
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <Plug />,
+            title: "Nhận điện AC",
+            desc: "Điện ổ cắm trong nhà là AC — dòng điện xoay chiều.",
+            color: "yellow",
+        },
+        {
+            icon: <BatteryCharging />,
+            title: "Chuyển thành DC",
+            desc: "Linh kiện PC cần DC — dòng điện một chiều ổn định.",
+            color: "emerald",
+        },
+        {
+            icon: <Zap />,
+            title: "Chia nhiều mức điện",
+            desc: "PSU tạo ra các đường 12V, 5V, 3.3V cho từng nhóm linh kiện.",
+            color: "orange",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Bảo vệ hệ thống",
+            desc: "PSU tốt có OCP, OVP, UVP, OPP, OTP, SCP để giảm rủi ro sự cố điện.",
+            color: "blue",
+        },
     ];
     return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
-                {shortcuts.map(([Icon, key, desc]) => (
-                    <div
-                        key={key}
-                        className="bg-slate-950 border border-slate-700 rounded-2xl p-4"
-                    >
-                        <Icon className="text-purple-400 mb-3" size={24} />
-                        <div className="font-mono text-purple-300 font-black">
-                            {key}
-                        </div>
-                        <div className="text-sm text-slate-400 mt-1">
-                            {desc}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div className="mt-6 bg-purple-500/10 border border-purple-500/30 rounded-2xl p-5 text-purple-100">
-                Khi sửa file cấu hình dài, bộ đôi quan trọng nhất là{" "}
-                <code>Ctrl+W</code> để tìm từ khóa và{" "}
-                <code>Ctrl+W rồi Ctrl+T</code> để nhảy đến dòng cụ thể.
-            </div>
-        </div>
-    );
-}
-
-function EditingGuide() {
-    const [mode, setMode] = useState("line");
-    const code = {
-        delete: `Backspace  → xóa ký tự bên trái con trỏ
-Delete     → xóa ký tự bên phải con trỏ
-
-Ctrl + K   → cắt/xóa cả dòng hiện tại
-Alt  + 6   → copy dòng hiện tại
-Ctrl + U   → paste dòng vừa cut/copy`,
-        line: `# Cắt nguyên dòng
-Ctrl + K
-
-# Nhấn Ctrl+K nhiều lần để cắt nhiều dòng liên tiếp
-Ctrl + K
-Ctrl + K
-Ctrl + K
-
-# Paste lại ở vị trí con trỏ
-Ctrl + U`,
-        region: `# Chọn vùng rồi cắt/copy
-Alt + A        # bắt đầu chọn vùng, đặt mark
-Mũi tên        # mở rộng vùng chọn
-Ctrl + K       # cắt vùng đã chọn
-Alt + 6        # copy vùng đã chọn
-Ctrl + U       # paste`,
-        undo: `Alt + U   → Undo, hoàn tác
-Alt + E   → Redo, làm lại
-
-# Nếu terminal hoặc hệ thống bắt phím Alt,
-# có thể thử Esc rồi phím tương ứng:
-Esc, U
-Esc, E`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["delete", "Xóa/copy dòng"],
-                        ["line", "Cut nhiều dòng"],
-                        ["region", "Chọn vùng"],
-                        ["undo", "Undo/Redo"],
-                    ].map(([k, label]) => (
-                        <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-amber-500/10 border-amber-500/40 text-amber-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`editing — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function SearchReplaceGuide() {
-    const [mode, setMode] = useState("search");
-    const code = {
-        search: `Ctrl + W
-# Nano mở ô tìm kiếm
-Search: PasswordAuthentication
-
-Enter
-# Nhảy tới kết quả đầu tiên
-
-Alt + W
-# Tìm kết quả tiếp theo`,
-        case: `Ctrl + W
-Alt + C
-
-# Alt+C toggle case-sensitive.
-# Tìm phân biệt hoa thường hoặc không phân biệt hoa thường tùy trạng thái.`,
-        replace: `Ctrl + \\
-# Mở tìm và thay thế
-
-Search: localhost
-Replace with: 192.168.1.100
-
-Y = thay kết quả hiện tại
-N = bỏ qua
-A = thay tất cả`,
-        example: `Ví dụ: thay tất cả "localhost" thành "192.168.1.100"
-
-1. Ctrl + \\
-2. Gõ: localhost → Enter
-3. Gõ: 192.168.1.100 → Enter
-4. Nhấn A để thay tất cả
-5. Ctrl + O → Enter để lưu
-6. Ctrl + X để thoát`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["search", "Tìm kiếm"],
-                    ["case", "Case-sensitive"],
-                    ["replace", "Thay thế"],
-                    ["example", "Ví dụ thực tế"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-pink-500/10 border-pink-500/40 text-pink-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock
-                title={`search/replace — ${mode}`}
-                code={code[mode]}
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Khái niệm cốt lõi: PSU là gì?"
+                icon={<Brain />}
             />
-        </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">PSU</strong>, viết tắt của{" "}
+                    <strong className="text-yellow-300">
+                        Power Supply Unit
+                    </strong>
+                    , là bộ nguồn máy tính. Nhiệm vụ của PSU là chuyển điện xoay
+                    chiều từ ổ cắm thành điện một chiều phù hợp để mainboard,
+                    CPU, GPU, SSD, HDD, quạt và các mạch khác hoạt động an toàn.
+                </p>
+                <div className="grid md:grid-cols-4 gap-4">
+                    {cards.map((c) => (
+                        <RoleCard key={c.title} {...c} />
+                    ))}
+                </div>
+                <div className="mt-6 bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    Điện ổ cắm AC → PSU chuyển đổi → DC 12V / 5V / 3.3V → CPU,
+                    GPU, mainboard, SSD, quạt hoạt động
+                </div>
+            </div>
+        </section>
     );
 }
 
-function NanoOptions() {
-    const [mode, setMode] = useState("line");
-    const code = {
-        line: `# Hiện số dòng
-$ nano -l file.txt
+function HeartAnalogy() {
+    const cards = [
+        {
+            icon: <PlugZap />,
+            title: "PSU = trái tim",
+            desc: "Cấp năng lượng đều đặn cho toàn bộ hệ thống, giống tim bơm máu đi khắp cơ thể.",
+            color: "red",
+        },
+        {
+            icon: <Cpu />,
+            title: "CPU = não bộ",
+            desc: "Cần điện ổn định để xử lý lệnh và duy trì xung nhịp.",
+            color: "blue",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "GPU = cơ bắp đồ họa",
+            desc: "Khi chơi game/render, GPU cần rất nhiều điện 12V và có thể tăng tải đột ngột.",
+            color: "orange",
+        },
+        {
+            icon: <HardDrive />,
+            title: "SSD/HDD = kho dữ liệu",
+            desc: "Ổ SATA cần cả SATA data và SATA power để hoạt động ổn định.",
+            color: "emerald",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: trái tim cấp máu"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
+                ))}
+            </div>
+        </section>
+    );
+}
 
-# Mở file và nhảy đến dòng 50
-$ nano +50 file.txt
-
-# Xem dòng/cột hiện tại trong Nano
-Ctrl + C`,
-        indent: `# Tự động indent
-$ nano -i file.txt
-
-# Không wrap dòng dài
-$ nano -w file.txt
-
-# Kết hợp: hiện số dòng + không wrap
-$ nano -lw file.txt`,
-        syntax: `# Bật syntax highlighting theo ngôn ngữ
-$ nano -Y python file.py
-$ nano -Y sh script.sh
-$ nano -Y javascript app.js
-
-# Nếu có include nanorc syntax, Nano có thể tự nhận diện theo extension.`,
-        readonly: `# Mở chỉ đọc, tránh sửa nhầm
-$ nano -v file.txt
-
-# Dùng khi chỉ muốn xem file trong Nano
-# mà không vô tình lưu thay đổi.`,
+function PowerFlowSimulator() {
+    const flows = {
+        boot: {
+            title: "Bấm nút nguồn",
+            color: "yellow",
+            steps: [
+                {
+                    icon: <Power />,
+                    title: "Bạn bấm nút Power",
+                    desc: "Nút nguồn trên case gửi tín hiệu đến mainboard.",
+                },
+                {
+                    icon: <Settings />,
+                    title: "Mainboard gọi PSU",
+                    desc: "Mainboard gửi tín hiệu bật nguồn để PSU bắt đầu hoạt động.",
+                },
+                {
+                    icon: <Plug />,
+                    title: "PSU nhận điện AC",
+                    desc: "Nguồn nhận điện xoay chiều từ ổ cắm hoặc UPS/ổ điện.",
+                },
+                {
+                    icon: <BatteryCharging />,
+                    title: "PSU chuyển AC thành DC",
+                    desc: "PSU chuyển đổi và ổn định các mức điện một chiều cần thiết.",
+                },
+                {
+                    icon: <PackageCheck />,
+                    title: "Cấp điện qua nhiều dây",
+                    desc: "24-pin cho mainboard, EPS cho CPU, PCIe/12VHPWR cho GPU, SATA power cho ổ/hub.",
+                },
+                {
+                    icon: <TerminalIcon />,
+                    title: "Máy POST và khởi động",
+                    desc: "Mainboard kiểm tra phần cứng rồi chuyển sang BIOS/UEFI và hệ điều hành.",
+                },
+            ],
+        },
+        gaming: {
+            title: "Khi chơi game",
+            color: "orange",
+            steps: [
+                {
+                    icon: <Gamepad2 />,
+                    title: "GPU tăng tải",
+                    desc: "Game nặng làm GPU cần nhiều điện hơn, đặc biệt trên đường 12V.",
+                },
+                {
+                    icon: <Zap />,
+                    title: "PSU cấp 12V ổn định",
+                    desc: "Nguồn tốt giữ điện áp ổn định khi GPU boost xung nhịp.",
+                },
+                {
+                    icon: <Fan />,
+                    title: "Quạt và tản nhiệt tăng tốc",
+                    desc: "CPU/GPU/quạt case cũng tiêu thụ điện và tạo nhiệt nhiều hơn.",
+                },
+                {
+                    icon: <AlertTriangle />,
+                    title: "PSU yếu gây lỗi",
+                    desc: "Sụt áp hoặc quá tải có thể làm crash, restart hoặc tắt phụt.",
+                },
+            ],
+        },
+        protection: {
+            title: "Khi có sự cố điện",
+            color: "blue",
+            steps: [
+                {
+                    icon: <AlertTriangle />,
+                    title: "Tải vượt ngưỡng",
+                    desc: "GPU/CPU hoặc sự cố chập khiến dòng/công suất/nhiệt vượt mức an toàn.",
+                },
+                {
+                    icon: <ShieldCheck />,
+                    title: "Mạch bảo vệ can thiệp",
+                    desc: "OCP/OVP/UVP/OPP/OTP/SCP giúp giảm rủi ro hỏng linh kiện.",
+                },
+                {
+                    icon: <Power />,
+                    title: "PSU ngắt hoặc bảo vệ",
+                    desc: "Nguồn có thể tự tắt để tránh tiếp tục cấp điện nguy hiểm.",
+                },
+                {
+                    icon: <Search />,
+                    title: "Kiểm tra nguyên nhân",
+                    desc: "Kiểm tra dây nguồn, GPU, tải hệ thống, nhiệt, PSU và linh kiện liên quan.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("boot");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
     };
     return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["line", "Số dòng"],
-                        ["indent", "Indent/wrap"],
-                        ["syntax", "Syntax màu"],
-                        ["readonly", "Chỉ đọc"],
-                    ].map(([k, label]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="PSU cấp điện như thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
                         <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-orange-500/10 border-orange-500/40 text-orange-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
                         >
-                            {label}
+                            {f.title}
                         </button>
                     ))}
                 </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`nano options — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function NanorcGuide() {
-    const [mode, setMode] = useState("config");
-    const code = {
-        open: `$ nano ~/.nanorc
-
-# File này chứa cấu hình mặc định cho Nano của user hiện tại.
-# Sau khi lưu, mở Nano lại là có hiệu lực.`,
-        config: `# Nội dung ~/.nanorc
-
-set linenumbers        # luôn hiện số dòng
-set autoindent         # tự indent
-set mouse              # dùng chuột được
-set smooth             # cuộn mượt
-set tabsize 4          # tab = 4 space
-set tabstospaces       # tab thành space
-
-# Tô màu syntax cho các ngôn ngữ có sẵn
-include "/usr/share/nano/*.nanorc"`,
-        test: `$ nano file.py
-# Tự hiện số dòng, có syntax màu nếu include đúng.
-
-$ nano script.sh
-# Autoindent và tab size theo ~/.nanorc
-
-# Nếu cấu hình lỗi, Nano thường báo khi mở file.
-# Hãy mở ~/.nanorc và sửa lại dòng bị lỗi.`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["open", "Mở ~/.nanorc"],
-                    ["config", "Cấu hình mẫu"],
-                    ["test", "Kiểm tra"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-teal-500/10 border-teal-500/40 text-teal-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock title={`~/.nanorc — ${mode}`} code={code[mode]} />
-        </div>
-    );
-}
-
-function RealWorldExamples() {
-    const [scenario, setScenario] = useState("hosts");
-    const examples = {
-        hosts: {
-            title: "Chỉnh /etc/hosts",
-            icon: FileText,
-            code: `$ sudo nano /etc/hosts
-
-# Thêm dòng ví dụ:
-0.0.0.0 facebook.com
-
-# Lưu và thoát:
-Ctrl + O → Enter → Ctrl + X`,
-        },
-        ssh: {
-            title: "Chỉnh SSH config server",
-            icon: Lock,
-            code: `$ sudo nano /etc/ssh/sshd_config
-
-# Tìm:
-Ctrl + W
-PasswordAuthentication
-Enter
-
-# Sửa thành:
-PasswordAuthentication no
-
-# Lưu/thoát:
-Ctrl + O → Enter → Ctrl + X
-
-# Kiểm tra syntax trước khi restart/reload:
-$ sudo sshd -t
-$ sudo systemctl restart ssh`,
-        },
-        script: {
-            title: "Tạo script bash nhanh",
-            icon: Code2,
-            code: `$ nano backup.sh
-
-#!/bin/bash
-echo "Backup started"
-rsync -avzh /var/www/ /backup/www/
-echo "Backup done"
-
-# Lưu/thoát:
-Ctrl + O → Enter → Ctrl + X
-
-$ chmod +x backup.sh
-$ ./backup.sh`,
-        },
-        cron: {
-            title: "Sửa crontab hệ thống",
-            icon: Settings,
-            code: `$ sudo nano /etc/crontab
-
-# Ví dụ thêm job:
-0 2 * * * root /usr/local/bin/backup.sh
-
-# Lưu/thoát:
-Ctrl + O → Enter → Ctrl + X
-
-# Kiểm tra log cron nếu cần:
-$ grep CRON /var/log/syslog | tail`,
-        },
-    };
-    const current = examples[scenario];
-    const Icon = current.icon;
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {Object.entries(examples).map(([k, e]) => {
-                        const ItemIcon = e.icon;
-                        return (
-                            <button
-                                key={k}
-                                onClick={() => setScenario(k)}
-                                className={`w-full text-left p-4 rounded-2xl border transition-all ${scenario === k ? "bg-rose-500/10 border-rose-500/40" : "bg-slate-900 border-slate-700 hover:border-slate-500"}`}
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
                             >
-                                <div className="flex items-center gap-3">
-                                    <ItemIcon className="text-rose-400" />
-                                    <span className="font-bold text-white">
-                                        {e.title}
-                                    </span>
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
                                 </div>
                             </button>
-                        );
-                    })}
-                </div>
-                <div className="lg:col-span-3">
-                    <div className="mb-4 flex items-center gap-2 text-rose-300 font-bold">
-                        <Icon size={22} /> {current.title}
-                    </div>
-                    <TerminalBlock title="ví dụ thực tế" code={current.code} />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function ShortcutCheatsheet() {
-    const groups = [
-        [
-            "Lưu & thoát",
-            "green",
-            [
-                ["Ctrl+O", "Lưu file"],
-                ["Ctrl+X", "Thoát"],
-                ["Ctrl+Z", "Tạm treo"],
-            ],
-        ],
-        [
-            "Di chuyển",
-            "purple",
-            [
-                ["Ctrl+A", "Đầu dòng"],
-                ["Ctrl+E", "Cuối dòng"],
-                ["Ctrl+Y", "Trang trước"],
-                ["Ctrl+V", "Trang sau"],
-                ["Alt+\\", "Đầu file"],
-                ["Alt+/", "Cuối file"],
-            ],
-        ],
-        [
-            "Chỉnh sửa",
-            "amber",
-            [
-                ["Ctrl+K", "Cắt dòng/vùng"],
-                ["Ctrl+U", "Paste"],
-                ["Alt+6", "Copy"],
-                ["Alt+U", "Undo"],
-                ["Alt+E", "Redo"],
-            ],
-        ],
-        [
-            "Tìm kiếm",
-            "pink",
-            [
-                ["Ctrl+W", "Tìm"],
-                ["Alt+W", "Tìm tiếp"],
-                ["Ctrl+\\", "Tìm và thay thế"],
-                ["Ctrl+C", "Xem dòng/cột"],
-            ],
-        ],
-    ];
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {groups.map(([title, tone, items]) => (
-                    <div
-                        key={title}
-                        className="bg-slate-950 border border-slate-700 rounded-2xl p-5"
-                    >
-                        <h4 className="font-bold text-white mb-4">{title}</h4>
-                        <div className="space-y-2">
-                            {items.map(([key, desc]) => (
-                                <div
-                                    key={key}
-                                    className="flex justify-between gap-3 border-b border-slate-800 pb-2 last:border-b-0"
-                                >
-                                    <code className="text-lime-300 font-bold">
-                                        {key}
-                                    </code>
-                                    <span className="text-sm text-slate-400 text-right">
-                                        {desc}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div className="mt-6 bg-lime-500/10 border border-lime-500/30 rounded-2xl p-5 text-lime-100">
-                80% công việc hằng ngày chỉ cần nhớ: <code>Ctrl+O</code> để lưu,{" "}
-                <code>Ctrl+X</code> để thoát, <code>Ctrl+W</code> để tìm,{" "}
-                <code>Ctrl+\</code> để thay thế.
-            </div>
-        </div>
-    );
-}
-
-function PracticeChecklist() {
-    const tasks = [
-        ["Tạo file mới bằng Nano", "nano test.txt"],
-        ["Gõ vài dòng nội dung", "Dùng bàn phím gõ trực tiếp trong Nano"],
-        ["Lưu file", "Ctrl+O → Enter"],
-        ["Thoát Nano", "Ctrl+X"],
-        ["Mở lại file và nhảy đến dòng 3", "nano +3 test.txt"],
-        ["Tìm từ khóa", "Ctrl+W → nhập từ khóa → Enter"],
-        ["Tìm tiếp", "Alt+W"],
-        ["Cut một dòng", "Ctrl+K"],
-        ["Paste dòng vừa cut", "Ctrl+U"],
-        ["Copy dòng", "Alt+6"],
-        ["Undo/Redo", "Alt+U / Alt+E"],
-        [
-            "Tìm và thay thế",
-            "Ctrl+\\ → nhập từ tìm → Enter → nhập từ thay → Enter",
-        ],
-        ["Mở Nano với số dòng", "nano -l test.txt"],
-        ["Tạo ~/.nanorc", "nano ~/.nanorc"],
-        ["Bật linenumbers mặc định", "set linenumbers"],
-        ["Sửa file root an toàn", "sudo nano /etc/hosts"],
-    ];
-    const [done, setDone] = useState([]);
-    const toggle = (i) =>
-        setDone((d) => (d.includes(i) ? d.filter((x) => x !== i) : [...d, i]));
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div>
-                    <h4 className="text-xl font-bold text-white">
-                        Checklist lab trên Ubuntu
-                    </h4>
-                    <p className="text-slate-400 text-sm">
-                        Đánh dấu từng bước khi thực hành xong.
-                    </p>
-                </div>
-                <div className="text-sm font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2">
-                    {done.length}/{tasks.length} hoàn thành
-                </div>
-            </div>
-            <div className="space-y-3">
-                {tasks.map(([title, cmd], i) => (
-                    <button
-                        key={title}
-                        onClick={() => toggle(i)}
-                        className={`w-full text-left rounded-2xl border p-4 transition-all ${done.includes(i) ? "bg-emerald-500/10 border-emerald-500/30" : "bg-slate-900 border-slate-700 hover:border-slate-500"}`}
-                    >
-                        <div className="flex items-start gap-3">
-                            {done.includes(i) ? (
-                                <CheckCircle2 className="text-emerald-400 shrink-0" />
-                            ) : (
-                                <div className="w-6 h-6 rounded-full border border-slate-600 shrink-0" />
-                            )}
-                            <div>
-                                <div className="font-bold text-white">
-                                    {i + 1}. {title}
-                                </div>
-                                <code className="text-xs text-slate-400 break-all">
-                                    {cmd}
-                                </code>
-                            </div>
-                        </div>
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function SummarySection() {
-    return (
-        <section className="pt-4">
-            <div className="bg-slate-950 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl">
-                <div className="bg-slate-900 p-6 border-b border-slate-700">
-                    <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <BookOpen className="text-lime-400" /> Tóm tắt bài học
-                    </h3>
-                </div>
-                <div className="p-6 md:p-8 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <SummaryBox
-                        title="Mở file"
-                        items={[
-                            "nano file.txt",
-                            "nano newfile.txt",
-                            "sudo nano /etc/hosts",
-                            "nano +50 file.txt",
-                            "nano -v file.txt",
-                            "nano -lw file.txt",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="Lưu/thoát"
-                        items={[
-                            "Ctrl+O lưu",
-                            "Enter xác nhận tên",
-                            "Ctrl+X thoát",
-                            "Y lưu rồi thoát",
-                            "N thoát không lưu",
-                            "Ctrl+C hủy prompt",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="Chỉnh sửa"
-                        items={[
-                            "Ctrl+K cut dòng",
-                            "Alt+6 copy",
-                            "Ctrl+U paste",
-                            "Alt+A chọn vùng",
-                            "Alt+U undo",
-                            "Alt+E redo",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="Tìm/cấu hình"
-                        items={[
-                            "Ctrl+W tìm",
-                            "Alt+W tìm tiếp",
-                            "Ctrl+\\ thay thế",
-                            "set linenumbers",
-                            "set autoindent",
-                            "include nanorc",
-                        ]}
-                    />
-                </div>
-                <div className="px-6 md:px-8 pb-8">
-                    <div className="bg-lime-500/10 border border-lime-500/30 rounded-2xl p-5 text-lime-100">
-                        <strong className="text-white">Nhớ nhanh:</strong>{" "}
-                        <code>^</code> nghĩa là Ctrl. <code>^O</code> = Ctrl+O
-                        để lưu, <code>^X</code> = Ctrl+X để thoát. Với người
-                        mới, chỉ cần 4 phím: <code>Ctrl+O</code>,{" "}
-                        <code>Ctrl+X</code>, <code>Ctrl+W</code>,{" "}
-                        <code>Ctrl+\</code>.
+                        ))}
                     </div>
                 </div>
             </div>
@@ -1197,81 +465,661 @@ function SummarySection() {
     );
 }
 
-function SummaryBox({ title, items }) {
+function VoltageRails() {
+    const rows = [
+        ["12V", "CPU, GPU, quạt, motor HDD", "Quan trọng nhất với PC hiện đại"],
+        ["5V", "USB, SSD/HDD SATA, một số mạch logic", "Phụ trợ"],
+        ["3.3V", "Mainboard, RAM, chipset, mạch logic", "Phụ trợ"],
+    ];
     return (
-        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-5">
-            <h4 className="font-bold text-lime-300 uppercase text-xs tracking-widest mb-4">
-                {title}
-            </h4>
-            <ul className="space-y-2 text-sm text-slate-300">
-                {items.map((i) => (
-                    <li key={i} className="flex gap-2">
-                        <CheckCircle2
-                            size={16}
-                            className="text-emerald-400 shrink-0 mt-0.5"
-                        />
-                        <code>{i}</code>
-                    </li>
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="orange"
+                title="Các đường điện chính: 12V, 5V, 3.3V"
+                icon={<Zap />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[760px] text-sm">
+                    <thead>
+                        <tr className="text-left text-slate-400">
+                            <th className="p-4">Đường điện</th>
+                            <th className="p-4">Dùng cho</th>
+                            <th className="p-4">Ý nghĩa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map(([rail, use, meaning]) => (
+                            <tr
+                                key={rail}
+                                className="border-t border-slate-800"
+                            >
+                                <td className="p-4 text-orange-300 font-extrabold">
+                                    {rail}
+                                </td>
+                                <td className="p-4 text-slate-300">{use}</td>
+                                <td className="p-4 text-slate-300">
+                                    {meaning}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-orange-300">Ghi nhớ:</strong> CPU và GPU
+                chủ yếu ăn điện từ đường 12V. Vì vậy, PSU tốt cần có đường 12V
+                mạnh và ổn định, không chỉ có số Watt tổng đẹp trên nhãn.
+            </div>
+        </section>
+    );
+}
+
+function PsuTypes() {
+    const bySize = [
+        [
+            "ATX PSU",
+            "Phổ biến nhất cho desktop",
+            "Dễ mua, nhiều mẫu, giá tốt",
+            "PC văn phòng, gaming, workstation phổ thông",
+        ],
+        ["SFX PSU", "Nhỏ hơn ATX", "Hợp case Mini-ITX/SFF", "PC nhỏ gọn"],
+        [
+            "SFX-L PSU",
+            "Dài hơn SFX, quạt lớn hơn",
+            "Êm hơn SFX thường",
+            "PC nhỏ gọn cao cấp",
+        ],
+        [
+            "TFX PSU",
+            "Dạng dài, nhỏ",
+            "Dùng cho case slim",
+            "Máy bộ nhỏ, case mỏng",
+        ],
+    ];
+    const byCable = [
+        ["Non-Modular", "Dây gắn liền", "Giá rẻ", "Dây thừa nhiều, khó đi dây"],
+        [
+            "Semi-Modular",
+            "Một số dây cố định, một số tháo được",
+            "Cân bằng giá và gọn",
+            "Vẫn có dây cố định",
+        ],
+        [
+            "Full-Modular",
+            "Tất cả dây tháo rời",
+            "Đi dây đẹp, dễ vệ sinh",
+            "Giá cao hơn",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="Các loại PSU phổ biến"
+                icon={<Layers3 />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="Phân loại theo kích thước"
+                    rows={bySize}
+                    headers={["Loại PSU", "Đặc điểm", "Ưu điểm", "Phù hợp"]}
+                    accent="emerald"
+                />
+                <DataTable
+                    title="Phân loại theo dây nguồn"
+                    rows={byCable}
+                    headers={["Loại", "Đặc điểm", "Ưu điểm", "Nhược điểm"]}
+                    accent="cyan"
+                />
+            </div>
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-emerald-300">ATX 3.0 / ATX 3.1:</strong>{" "}
+                nên cân nhắc nếu dùng GPU đời mới/cao cấp, vì chuẩn mới hỗ trợ
+                tốt hơn với transient spike và đầu 12VHPWR/12V‑2x6.
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        watt: {
+            icon: <Gauge />,
+            title: "Wattage",
+            detail: "Công suất tối đa PSU có thể cấp, tính bằng Watt. PSU 750W không có nghĩa lúc nào cũng tiêu thụ 750W.",
+            impact: "Nên chọn dư khoảng 20–30% so với tải nặng thực tế để nguồn mát hơn, êm hơn và còn khoảng nâng cấp.",
+        },
+        eff: {
+            icon: <Sparkles />,
+            title: "Efficiency",
+            detail: "Hiệu suất chuyển điện AC sang DC. Hiệu suất càng cao thì ít điện thất thoát thành nhiệt hơn.",
+            impact: "PSU hiệu suất cao thường mát hơn, êm hơn và tiết kiệm điện hơn trong thời gian dài.",
+        },
+        plus: {
+            icon: <Award />,
+            title: "80 PLUS",
+            detail: "Chứng chỉ hiệu suất phổ biến: White, Bronze, Silver, Gold, Platinum, Titanium.",
+            impact: "80 PLUS chỉ nói về hiệu suất, không tự đảm bảo toàn bộ chất lượng linh kiện, bảo vệ và độ bền.",
+        },
+        rail12: {
+            icon: <Zap />,
+            title: "Đường 12V",
+            detail: "Đường điện quan trọng nhất với CPU và GPU trong PC hiện đại.",
+            impact: "PSU 650W tốt thường có 12V cấp gần toàn bộ công suất. Đường 12V yếu dễ mất ổn định khi tải nặng.",
+        },
+        cable: {
+            icon: <PlugZap />,
+            title: "Đầu cắm nguồn",
+            detail: "Cần đủ 24-pin ATX, 4+4 EPS CPU, PCIe 6+2, 12VHPWR/12V‑2x6, SATA power tùy cấu hình.",
+            impact: "GPU cao cấp cần kiểm tra đầu nguồn kỹ; tốt nhất dùng dây native phù hợp thay vì phụ thuộc quá nhiều vào adapter.",
+        },
+        protect: {
+            icon: <ShieldCheck />,
+            title: "Bảo vệ điện",
+            detail: "OCP, OVP, UVP, OPP, OTP, SCP giúp giảm rủi ro khi quá dòng, quá áp, thấp áp, quá công suất, quá nhiệt hoặc chập mạch.",
+            impact: "PSU tốt không chỉ cấp điện, mà còn phải bảo vệ linh kiện khi có sự cố.",
+        },
+    };
+    const [active, setActive] = useState("watt");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function ConnectorGuide() {
+    const rows = [
+        ["24-pin ATX", "Mainboard"],
+        ["4+4-pin EPS / 8-pin CPU", "CPU"],
+        ["6+2-pin PCIe", "GPU rời"],
+        ["12VHPWR / 12V-2x6", "GPU NVIDIA đời mới/cao cấp"],
+        ["SATA Power", "SSD SATA, HDD, hub fan/RGB"],
+        ["Molex", "Thiết bị cũ, quạt/hub cũ"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="blue"
+                title="Các đầu cắm nguồn quan trọng"
+                icon={<PlugZap />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[680px] text-sm">
+                    <thead>
+                        <tr className="text-left text-slate-400">
+                            <th className="p-4">Đầu cắm</th>
+                            <th className="p-4">Dùng cho</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map(([plug, use]) => (
+                            <tr
+                                key={plug}
+                                className="border-t border-slate-800"
+                            >
+                                <td className="p-4 text-blue-300 font-extrabold">
+                                    {plug}
+                                </td>
+                                <td className="p-4 text-slate-300">{use}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-blue-300">Mẹo:</strong> Trước khi mua
+                PSU, kiểm tra GPU cần bao nhiêu đầu 8-pin hoặc có cần
+                12VHPWR/12V‑2x6 không. Với GPU cao cấp, ưu tiên PSU có dây
+                native phù hợp.
+            </div>
+        </section>
+    );
+}
+
+function ProtectionGuide() {
+    const rows = [
+        ["OCP", "Bảo vệ quá dòng"],
+        ["OVP", "Bảo vệ quá áp"],
+        ["UVP", "Bảo vệ thấp áp"],
+        ["OPP", "Bảo vệ quá công suất"],
+        ["OTP", "Bảo vệ quá nhiệt"],
+        ["SCP", "Bảo vệ chập mạch"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="cyan"
+                title="Bảo vệ điện: PSU tốt không chỉ cấp điện"
+                icon={<ShieldCheck />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-6 overflow-x-auto">
+                <table className="w-full min-w-[620px] text-sm">
+                    <thead>
+                        <tr className="text-left text-slate-400">
+                            <th className="p-4">Bảo vệ</th>
+                            <th className="p-4">Ý nghĩa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map(([code, meaning]) => (
+                            <tr
+                                key={code}
+                                className="border-t border-slate-800"
+                            >
+                                <td className="p-4 text-cyan-300 font-extrabold">
+                                    {code}
+                                </td>
+                                <td className="p-4 text-slate-300">
+                                    {meaning}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <PackageCheck />,
+            title: "Corsair CX650 80 PLUS Bronze",
+            subtitle: "650W phổ thông",
+            color: "cyan",
+            points: [
+                "Hợp Ryzen 5 / Intel Core i5",
+                "Hợp RTX 4060 / RX 7600",
+                "Công suất đủ cho gaming phổ thông",
+                "Giá thường dễ chịu",
+                "Không nên dùng cho CPU/GPU rất mạnh",
+            ],
+            lesson: "PSU 650W Bronze từ dòng uy tín phù hợp build tầm trung, nhưng không phải lựa chọn cho cấu hình cao cấp.",
+        },
+        {
+            icon: <Award />,
+            title: "Cooler Master MWE Gold 750 V2",
+            subtitle: "750W Gold cân bằng",
+            color: "yellow",
+            points: [
+                "Hợp Ryzen 7 / Intel i5-i7",
+                "Hợp RTX 4070 / RX 7800 XT",
+                "80 PLUS Gold",
+                "Dư tải tốt hơn 650W",
+                "Cần kiểm tra số dây PCIe theo GPU",
+            ],
+            lesson: "750W Gold là mức rất hợp lý cho gaming khá mạnh và dùng lâu dài.",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Corsair RM850e / RM850x Gold",
+            subtitle: "850W Gold cho cấu hình cao hơn",
+            color: "orange",
+            points: [
+                "Hợp Ryzen 7/Ryzen 9 hoặc Intel i7",
+                "Hợp RTX 4070 Ti Super / RTX 4080 class",
+                "Thường full-modular",
+                "Dư tải tốt cho GPU mạnh",
+                "Cần kiểm tra chuẩn 12VHPWR/12V-2x6 nếu dùng GPU mới",
+            ],
+            lesson: "850W Gold hợp build cao cấp hơn, nhất là khi GPU có tải cao và cần nguồn ổn định.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
                 ))}
-            </ul>
-        </div>
+            </div>
+        </section>
+    );
+}
+
+function PickerLab() {
+    const scenarios = {
+        office: {
+            icon: <Cpu />,
+            title: "PC văn phòng",
+            answer: "Nếu không có GPU rời, 300–450W chất lượng tốt thường đủ. Ưu tiên độ ổn định, bảo hành và thương hiệu uy tín hơn số Watt lớn.",
+            color: "cyan",
+        },
+        rtx4060: {
+            icon: <Gamepad2 />,
+            title: "RTX 4060 / RX 7600",
+            answer: "Gaming phổ thông thường hợp 550–650W chất lượng tốt. Bronze tốt vẫn ổn, Gold càng tốt nếu ngân sách cho phép.",
+            color: "emerald",
+        },
+        rtx4070: {
+            icon: <Zap />,
+            title: "RTX 4070 / RX 7800 XT",
+            answer: "Nên cân nhắc 650–750W chất lượng tốt, ưu tiên Gold nếu dùng lâu dài. Kiểm tra số dây PCIe GPU cần.",
+            color: "yellow",
+        },
+        high: {
+            icon: <Sparkles />,
+            title: "GPU cao cấp",
+            answer: "RTX 4080 class nên cân nhắc 850W trở lên. GPU cao cấp hơn hoặc workstation CPU+GPU mạnh có thể cần 1000W+ tùy cấu hình.",
+            color: "orange",
+        },
+        itx: {
+            icon: <Layers3 />,
+            title: "Case Mini-ITX",
+            answer: "Có thể cần SFX hoặc SFX-L PSU. Không chỉ xem công suất, hãy kiểm tra kích thước PSU và dây có đủ cho GPU không.",
+            color: "purple",
+        },
+        old: {
+            icon: <AlertTriangle />,
+            title: "PSU cũ 5–7 năm",
+            answer: "Trước khi nâng GPU mạnh, kiểm tra tuổi nguồn, bảo hành, chất lượng dòng PSU, đủ đầu cắm và dấu hiệu restart/tắt nguồn. Nên thay nếu nguồn cũ yếu hoặc không rõ chất lượng.",
+            color: "red",
+        },
+    };
+    const [active, setActive] = useState("rtx4060");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="blue"
+                title="Lab: chọn PSU theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "Chọn PSU chỉ theo số Watt lớn",
+            right: "Watt lớn chưa đủ. Cần xem thương hiệu, dòng sản phẩm, đường 12V, hiệu suất, bảo vệ điện, review kỹ thuật và bảo hành.",
+        },
+        {
+            wrong: "Tiết kiệm quá mức ở PSU",
+            right: "PSU kém có thể gây restart, tắt phụt, sụt áp, nhiễu điện hoặc làm hỏng linh kiện trong trường hợp xấu.",
+        },
+        {
+            wrong: "Nghĩ 80 PLUS Gold là chắc chắn tốt tuyệt đối",
+            right: "80 PLUS chỉ nói về hiệu suất, không tự đảm bảo linh kiện bên trong, độ ổn định điện áp, độ ồn, bảo vệ và độ bền.",
+        },
+        {
+            wrong: "Dùng dây modular lẫn giữa các PSU khác hãng",
+            right: "Dây modular nhìn giống nhau nhưng pinout có thể khác. Cắm nhầm có thể làm hỏng SSD, GPU hoặc mainboard.",
+        },
+        {
+            wrong: "Không kiểm tra đầu nguồn GPU",
+            right: "GPU có thể cần 1/2/3 đầu 8-pin, 12VHPWR hoặc 12V-2x6. PSU phải có đủ đầu cắm phù hợp.",
+        },
+    ];
+    const tips = [
+        "Chọn PSU dư công suất khoảng 20–30% so với tải nặng thực tế.",
+        "Gaming phổ thông nên bắt đầu từ 550–650W chất lượng tốt.",
+        "Máy văn phòng: Bronze ổn nếu PSU chất lượng; gaming cao cấp: ưu tiên Gold trở lên từ dòng uy tín.",
+        "Kiểm tra PSU có vừa case không: ATX, SFX, SFX-L hoặc TFX.",
+        "Đừng dùng PSU quá cũ cho cấu hình mới mạnh, đặc biệt khi nâng GPU.",
+        "Chỉ dùng dây modular đi kèm đúng PSU hoặc dây được hãng xác nhận tương thích.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-yellow-500/20 text-yellow-300 p-2 rounded-xl">
+                            13
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-yellow-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>PSU = Power Supply Unit = bộ nguồn máy tính</p>
+                            <br />
+                            <p className="text-slate-500"># Luồng điện</p>
+                            <p className="text-slate-300">
+                                AC ổ cắm → PSU → DC 12V / 5V / 3.3V
+                            </p>
+                            <p className="text-slate-300">
+                                24-pin mainboard • EPS CPU • PCIe/12VHPWR GPU •
+                                SATA power
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Cần xem</p>
+                            <p className="text-slate-300">
+                                Wattage • 80 PLUS • 12V rail • cable •
+                                protections • form factor
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                PSU tốt không chỉ cấp điện mạnh, mà còn cấp điện
+                                ổn định và bảo vệ linh kiện.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
     );
 }
 
 const questions = [
     {
-        question: "Trong Nano, ký hiệu ^X nghĩa là gì?",
-        options: ["Ctrl + X", "Shift + X", "Alt + X", "Gõ dấu ^ rồi X"],
-        correct: 0,
-        explanation: "Trong Nano, ^ là Ctrl. Vì vậy ^X = Ctrl + X.",
-    },
-    {
-        question: "Phím nào dùng để lưu file trong Nano?",
-        options: ["Ctrl+O", "Ctrl+X", "Ctrl+W", "Alt+U"],
-        correct: 0,
-        explanation: "Ctrl+O là Write Out, dùng để lưu file.",
-    },
-    {
-        question: "Thoát Nano bằng phím nào?",
-        options: ["Ctrl+X", "Ctrl+O", "Ctrl+K", "Alt+6"],
-        correct: 0,
-        explanation:
-            "Ctrl+X là Exit. Nếu file chưa lưu, Nano sẽ hỏi có lưu không.",
-    },
-    {
-        question: "Tìm kiếm trong Nano dùng phím nào?",
-        options: ["Ctrl+W", "Ctrl+K", "Alt+6", "Ctrl+U"],
-        correct: 0,
-        explanation: "Ctrl+W mở ô tìm kiếm. Alt+W tìm kết quả tiếp theo.",
-    },
-    {
-        question: "Cắt dòng hiện tại trong Nano dùng phím nào?",
-        options: ["Ctrl+K", "Ctrl+U", "Alt+E", "Ctrl+C"],
-        correct: 0,
-        explanation: "Ctrl+K cut dòng hiện tại hoặc vùng đã chọn.",
-    },
-    {
-        question: "Paste dòng/vùng vừa cut hoặc copy dùng phím nào?",
-        options: ["Ctrl+U", "Ctrl+O", "Alt+W", "Ctrl+Y"],
-        correct: 0,
-        explanation: "Ctrl+U paste nội dung vừa cut/copy.",
-    },
-    {
-        question: "Mở Nano và nhảy đến dòng 50 dùng lệnh nào?",
+        question: "PSU có nhiệm vụ chính là gì?",
         options: [
-            "nano +50 file.txt",
-            "nano -50 file.txt",
-            "nano --line 50 file.txt",
-            "nano file.txt:50",
+            "Xử lý hình ảnh cho game",
+            "Chuyển điện AC từ ổ cắm thành điện DC phù hợp cho linh kiện",
+            "Lưu trữ dữ liệu lâu dài",
+            "Làm tăng dung lượng RAM",
+        ],
+        correct: 1,
+        explanation:
+            "PSU chuyển điện AC từ ổ cắm thành các mức DC phù hợp như 12V, 5V, 3.3V cho linh kiện PC.",
+    },
+    {
+        question:
+            "Đường điện nào quan trọng nhất với CPU và GPU trong PC hiện đại?",
+        options: ["1.5V", "3.3V", "5V", "12V"],
+        correct: 3,
+        explanation:
+            "CPU và GPU chủ yếu tiêu thụ điện từ đường 12V, nên đây là đường rất quan trọng với PC hiện đại.",
+    },
+    {
+        question: "Chứng chỉ 80 PLUS chủ yếu nói về điều gì?",
+        options: [
+            "Hiệu suất chuyển đổi điện của PSU",
+            "Số nhân CPU",
+            "Dung lượng SSD",
+            "Tốc độ RAM",
         ],
         correct: 0,
-        explanation: "Nano hỗ trợ cú pháp nano +SỐ_DÒNG file.",
+        explanation:
+            "80 PLUS là chứng nhận hiệu suất chuyển đổi điện AC sang DC, không tự đảm bảo toàn bộ chất lượng PSU.",
     },
     {
-        question: "File cấu hình mặc định của Nano cho user hiện tại là gì?",
-        options: ["~/.nanorc", "/etc/hosts", "~/.bashrc", "/etc/nano.conf"],
+        question: "Dây 24-pin ATX dùng để cấp điện cho linh kiện nào?",
+        options: ["Mainboard", "Màn hình", "Bàn phím", "Tai nghe"],
         correct: 0,
-        explanation: "~/.nanorc chứa cấu hình Nano riêng cho user hiện tại.",
+        explanation: "24-pin ATX là đầu nguồn chính cấp điện cho mainboard.",
+    },
+    {
+        question: "Có nên dùng dây modular của PSU khác hãng không?",
+        options: [
+            "Có, miễn là cắm vừa",
+            "Có, nếu dây màu giống nhau",
+            "Không nên, vì pinout có thể khác và gây hỏng linh kiện",
+            "Có, nếu PSU cùng công suất",
+        ],
+        correct: 2,
+        explanation:
+            "Dây modular giữa các PSU có thể khác pinout. Cắm nhầm có thể gây hỏng SSD, GPU hoặc mainboard.",
     },
 ];
 
@@ -1280,11 +1128,13 @@ function InteractiveQuiz() {
     const [selected, setSelected] = useState(null);
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const handleSelect = (idx) => {
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
         if (showResult) return;
-        setSelected(idx);
+        setSelected(index);
         setShowResult(true);
-        if (idx === questions[currentQ].correct) setScore((s) => s + 1);
+        if (index === q.correct) setScore((s) => s + 1);
     };
     const handleNext = () => {
         if (currentQ < questions.length - 1) {
@@ -1299,42 +1149,40 @@ function InteractiveQuiz() {
         setShowResult(false);
         setScore(0);
     };
-    if (currentQ === "finished")
+    if (finished) {
         return (
-            <div className="text-center flex flex-col justify-center items-center min-h-[300px] animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
                     {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
-                    Hoàn thành bài kiểm tra!
+                    Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-lime-400">
+                    <strong className="text-yellow-400">
                         {score}/{questions.length}
                     </strong>{" "}
-                    câu về Nano.
+                    câu hỏi.
                 </p>
                 <button
                     onClick={resetQuiz}
-                    className="px-6 py-2 bg-slate-900 hover:bg-slate-700 text-white rounded-lg transition-colors border border-slate-600 font-medium flex items-center gap-2"
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RefreshCcw size={16} /> Làm lại Quiz
+                    Làm lại
                 </button>
             </div>
         );
-    const q = questions[currentQ];
+    }
     return (
-        <div className="flex flex-col h-full max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm font-medium">
-                <span className="text-lime-400 bg-lime-500/10 px-3 py-1 rounded-full">
-                    Câu {currentQ + 1} / {questions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-yellow-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-lg md:text-xl font-bold text-white mb-8 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
             <div className="space-y-3 flex-grow">
@@ -1343,57 +1191,226 @@ function InteractiveQuiz() {
                         "w-full text-left p-4 rounded-xl border text-sm transition-all ";
                     if (!showResult)
                         cls +=
-                            "border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:border-slate-500";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
                             "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "border-rose-500 bg-rose-500/10 text-rose-400";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "border-slate-800 bg-slate-800/30 text-slate-600 opacity-50";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
+                            key={idx}
                             onClick={() => handleSelect(idx)}
                             disabled={showResult}
                             className={cls}
                         >
-                            <div className="flex gap-3">
-                                <span className="font-mono text-slate-500 mt-0.5">
-                                    {String.fromCharCode(65 + idx)}.
-                                </span>
-                                <span>{opt}</span>
-                            </div>
+                            {opt}
                         </button>
                     );
                 })}
             </div>
             {showResult && (
-                <div className="mt-8 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`p-4 rounded-xl text-sm mb-6 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-300" : "bg-rose-500/10 border border-rose-500/20 text-rose-300"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info className="shrink-0 mt-0.5" size={18} />
-                        <div>
-                            <strong className="block mb-1 text-white">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích:"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
                         onClick={handleNext}
-                        className="w-full md:w-auto md:px-8 py-3 bg-white hover:bg-slate-200 text-slate-900 font-bold rounded-xl transition-colors ml-auto block"
+                        className="w-full py-3 bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold rounded-xl transition-colors"
                     >
                         {currentQ < questions.length - 1
-                            ? "Chuyển sang câu tiếp theo"
+                            ? "Câu tiếp theo"
                             : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu PSU là gì và vai trò cấp điện cho hệ thống. Tiếp
+                theo là phần đọc thông số PSU: Wattage, hiệu suất và chứng chỉ
+                80 PLUS — nền tảng để tránh mua nguồn công suất ảo hoặc kém chất
+                lượng.
+            </p>
+            <Link
+                to="/phan-7-2"
+                className="bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-yellow-500/20"
+            >
+                Bài tiếp theo: 7.2 — Các thông số PSU: Wattage, Hiệu suất, Chứng
+                chỉ 80 PLUS <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function TerminalIcon(props) {
+    return <Settings {...props} />;
+}
+function SectionTitle({ number, title, icon, color = "yellow" }) {
+    const colorMap = {
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-yellow-500/10 border-yellow-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-5`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[680px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={cell}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.yellow;
+}
+function softBorder(color) {
+    const map = {
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.yellow;
+}
+function textColor(color) {
+    const map = {
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        cyan: "text-cyan-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        emerald: "text-emerald-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-yellow-300";
 }

@@ -1,1016 +1,1627 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-    KeyRound,
-    Terminal,
-    ShieldCheck,
-    Lock,
-    Unlock,
-    Server,
-    Laptop,
-    FileText,
-    Copy,
-    Info,
-    CheckCircle2,
-    XCircle,
     AlertTriangle,
+    Award,
+    Bluetooth,
+    BookOpen,
+    Brain,
+    CheckCircle2,
     ChevronRight,
-    RotateCcw,
-    Sparkles,
-    UserCheck,
-    Fingerprint,
-    Settings,
-    Eye,
-    EyeOff,
-    Bug,
-    Wrench,
-    ListChecks,
-    HelpCircle,
-    DoorOpen,
-    FileKey,
-    Network,
-    ShieldAlert,
-    ClipboardCheck,
-    FolderLock,
-    Search,
-    Mail,
-    Globe,
-    Zap,
+    Crosshair,
+    Gamepad2,
+    Gauge,
+    Hand,
+    Layers3,
+    Lightbulb,
+    Monitor,
+    Mouse,
+    MousePointer2,
+    Move,
     PackageCheck,
+    PlugZap,
+    Radio,
+    ScanLine,
+    Search,
+    Settings,
+    ShieldCheck,
+    Sparkles,
+    SquareMousePointer,
+    Target,
+    Usb,
+    Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-orange-500 selection:text-white pb-20">
-            <header className="bg-slate-950/90 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-2xl">
-                            🐧
+                        <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center shadow-lg shadow-cyan-500/10">
+                            <Mouse className="text-cyan-400" size={24} />
                         </div>
                         <div>
-                            <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden sm:block">
-                                Security · SSH · Keys · authorized_keys
+                            <p className="text-xs text-slate-500">
+                                Phần 10: Thiết bị nhập liệu
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-500 hidden md:inline-block">
-                            Chương 10
-                        </span>
-                        <div className="text-sm font-semibold text-orange-300 bg-orange-400/10 px-3 py-1 rounded-full border border-orange-400/20">
-                            Bài 10.2
-                        </div>
+                    <div className="text-sm font-semibold text-cyan-300 bg-cyan-400/10 px-3 py-1 rounded-full border border-cyan-400/20">
+                        Bài 10.2
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <section className="text-center py-8 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-sm">
-                        <Sparkles size={16} className="text-orange-400" /> Đăng
-                        nhập server an toàn hơn mật khẩu
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Quản Lý Khóa SSH <br />
-                        <span className="text-orange-500">
-                            Tạo key pair & authorized_keys
-                        </span>
-                    </h2>
-                    <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                        Bạn sẽ hiểu SSH key là gì, tạo cặp khóa{" "}
-                        <code className="text-orange-300">private/public</code>,
-                        copy public key lên server bằng{" "}
-                        <code className="text-orange-300">ssh-copy-id</code>,
-                        cấu hình{" "}
-                        <code className="text-orange-300">~/.ssh/config</code>,
-                        đặt quyền đúng và xử lý lỗi thường gặp.
-                    </p>
-                </section>
-
-                <section className="bg-red-500/10 border border-red-500/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-5 items-start">
-                    <div className="w-12 h-12 rounded-2xl bg-red-500/20 text-red-400 flex items-center justify-center shrink-0">
-                        <ShieldAlert size={28} />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
-                            Cảnh báo quan trọng: không bao giờ chia sẻ private
-                            key
-                        </h3>
-                        <p className="text-red-100 leading-relaxed">
-                            File không có đuôi{" "}
-                            <code className="text-white">.pub</code>, ví dụ{" "}
-                            <code className="text-white">
-                                ~/.ssh/id_ed25519
-                            </code>
-                            , là private key. Không gửi qua chat, email, GitHub,
-                            Google Drive công khai hoặc paste vào website. Chỉ
-                            chia sẻ file public key có đuôi{" "}
-                            <code className="text-white">.pub</code>.
-                        </p>
-                    </div>
-                </section>
-
-                <section className="grid lg:grid-cols-2 gap-6 items-stretch">
-                    <SshConceptCard />
-                    <KeyPairSimulator />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="1"
-                        color="blue"
-                        icon={<KeyRound size={22} />}
-                        title="SSH key là gì?"
-                        subtitle="Private key ở máy cá nhân; public key được đưa lên server trong authorized_keys."
-                    />
-                    <SshKeyConceptSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="2"
-                        color="green"
-                        icon={<Terminal size={22} />}
-                        title="Tạo SSH key pair bằng ssh-keygen"
-                        subtitle="Khuyến nghị dùng ed25519: hiện đại, an toàn, nhanh và key ngắn gọn."
-                    />
-                    <KeygenSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="3"
-                        color="orange"
-                        icon={<Copy size={22} />}
-                        title="Copy public key lên server"
-                        subtitle="Dùng ssh-copy-id nếu có; nếu không, thêm thủ công vào ~/.ssh/authorized_keys."
-                    />
-                    <CopyKeySection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="4"
-                        color="purple"
-                        icon={<Settings size={22} />}
-                        title="Dùng key riêng và SSH config"
-                        subtitle="Tạo key riêng cho từng server/dịch vụ và dùng alias để không phải gõ lệnh dài."
-                    />
-                    <SshConfigSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="5"
-                        color="cyan"
-                        icon={<FolderLock size={22} />}
-                        title="Phân quyền chuẩn cho SSH"
-                        subtitle="SSH rất nghiêm ngặt với quyền file. Sai permission có thể khiến key bị từ chối."
-                    />
-                    <PermissionSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="6"
-                        color="red"
-                        icon={<Bug size={22} />}
-                        title="Lỗi phổ biến và cách xử lý"
-                        subtitle="Permission denied, private key quá mở, host key changed, thiếu ssh-copy-id và sai quyền home/.ssh."
-                    />
-                    <CommonErrorsSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="7"
-                        color="yellow"
-                        icon={<ShieldCheck size={22} />}
-                        title="Workflow an toàn cho server public"
-                        subtitle="Bật SSH key, test kết nối mới, rồi mới hạn chế password/root login ở bài bảo mật SSH nâng cao."
-                    />
-                    <SafeServerWorkflow />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="8"
-                        color="teal"
-                        icon={<ListChecks size={22} />}
-                        title="Tóm tắt nhanh"
-                        subtitle="Các file, lệnh và quyền quan trọng khi làm việc với SSH key."
-                    />
-                    <SummaryGrid />
-                </section>
-
-                <section className="pt-4">
-                    <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-                        <div className="p-6 border-b border-slate-800 flex items-center justify-between gap-4">
-                            <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <PackageCheck className="text-orange-400" />{" "}
-                                    Kiểm tra kiến thức bài 10.2
-                                </h3>
-                                <p className="text-slate-500 text-sm mt-1">
-                                    Ôn lại private/public key, authorized_keys,
-                                    chmod 600, ssh-copy-id, known_hosts và SSH
-                                    config.
-                                </p>
-                            </div>
-                            <div className="hidden sm:block text-3xl">🧪</div>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <footer className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Bạn đã biết đăng nhập server bằng SSH key. Tiếp theo là
-                        dựng tường lửa và chống brute-force.
-                    </p>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
-                        Bài tiếp theo: 10.3 — Cấu hình ufw và fail2ban{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </footer>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <PenAnalogy />
+                <TrackingSimulator />
+                <SensorExplorer />
+                <ConnectionGuide />
+                <FormGripExplorer />
+                <SpecsExplorer />
+                <MousepadGuide />
+                <RealExamples />
+                <PickerLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function SectionTitle({ number, color, icon, title, subtitle }) {
-    const colorMap = {
-        blue: "bg-blue-500/20 text-blue-400",
-        green: "bg-green-500/20 text-green-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        red: "bg-red-500/20 text-red-400",
-        yellow: "bg-yellow-500/20 text-yellow-400",
-        teal: "bg-teal-500/20 text-teal-400",
+function HeroSection() {
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-cyan-300">
+                        <BookOpen size={16} /> Phần 10: Mouse
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Chuột máy tính
+                        <span className="block text-cyan-400">
+                            sensor, DPI, form cầm
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Chuột nhỏ nhưng ảnh hưởng lớn đến tốc độ thao tác, độ
+                        chính xác, sự thoải mái cổ tay và hiệu năng trong game
+                        FPS hoặc thiết kế đồ họa.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag
+                            icon={<ScanLine size={16} />}
+                            text="Optical / Laser Sensor"
+                        />
+                        <Tag icon={<Gauge size={16} />} text="DPI / CPI" />
+                        <Tag icon={<Radio size={16} />} text="Polling Rate" />
+                        <Tag icon={<Hand size={16} />} text="Grip Style" />
+                        <Tag icon={<Target size={16} />} text="Mousepad" />
+                    </div>
+                </div>
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Mouse />}
+                            label="Mouse"
+                            desc="Tay điều khiển"
+                            color="cyan"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<ScanLine />}
+                            label="Sensor"
+                            desc="Đọc bề mặt"
+                            color="blue"
+                        />
+                        <HeroTile
+                            icon={<Gauge />}
+                            label="DPI"
+                            desc="Độ nhạy"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<Crosshair />}
+                            label="Aim"
+                            desc="Độ chính xác"
+                            color="red"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Luồng cơ bản</p>
+                        <p>Tay rê → Sensor chụp bề mặt</p>
+                        <p className="text-cyan-300">
+                            → Controller → USB / 2.4GHz / Bluetooth
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function LearningGoals() {
+    const goals = [
+        "Hiểu chuột là thiết bị nhập liệu dùng để điều khiển con trỏ, chọn đối tượng, kéo thả, cuộn trang và điều khiển góc nhìn trong game.",
+        "Nắm cơ chế cảm biến quang/laser: chiếu sáng bề mặt, chụp ảnh liên tục, so sánh ảnh để tính hướng và quãng đường di chuyển.",
+        "Phân biệt optical mouse, laser mouse, ball mouse, các kết nối USB, Bluetooth, 2.4GHz và tri-mode.",
+        "Đọc được thông số quan trọng: DPI/CPI, polling rate, IPS, acceleration, lift-off distance, trọng lượng, switch, mouse feet và mousepad.",
+        "Biết chọn chuột theo tay, kiểu cầm palm/claw/fingertip, nhu cầu văn phòng, FPS, MMO/MOBA, thiết kế hoặc di động.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="cyan"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
+                    <div
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-cyan-500/50 transition-colors"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <MousePointer2 />,
+            title: "Điều khiển con trỏ",
+            desc: "Di chuyển, chọn, kéo thả và thao tác trong phần mềm.",
+            color: "cyan",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "Điều khiển game",
+            desc: "Xoay góc nhìn, ngắm bắn, click, đổi vũ khí và macro.",
+            color: "orange",
+        },
+        {
+            icon: <ScanLine />,
+            title: "Cảm biến",
+            desc: "Đọc chuyển động trên bề mặt bằng ánh sáng và thuật toán xử lý.",
+            color: "blue",
+        },
+        {
+            icon: <Hand />,
+            title: "Cảm giác cầm",
+            desc: "Form, trọng lượng, feet và mousepad quyết định sự thoải mái lâu dài.",
+            color: "purple",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Chuột máy tính là gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">Chuột máy tính</strong>,
+                    tiếng Anh là{" "}
+                    <strong className="text-cyan-300">Mouse</strong>, là thiết
+                    bị nhập liệu dùng để điều khiển con trỏ, chọn đối tượng,
+                    cuộn trang, kéo thả, thao tác trong phần mềm và điều khiển
+                    góc nhìn trong game. Một con chuột tốt không chỉ là DPI cao,
+                    mà phải hợp cảm biến, form cầm, trọng lượng, switch, feet,
+                    kết nối, polling rate và kích thước tay.
+                </p>
+                <div className="grid md:grid-cols-4 gap-4">
+                    {cards.map((c) => (
+                        <RoleCard key={c.title} {...c} />
+                    ))}
+                </div>
+                <div className="mt-6 bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    Tay di chuyển chuột → Sensor đọc chuyển động → Chuột gửi tín
+                    hiệu → Con trỏ/góc nhìn di chuyển theo
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function PenAnalogy() {
+    const cards = [
+        {
+            icon: <Mouse />,
+            title: "Chuột = bút điều khiển",
+            desc: "Rê trên mặt bàn để điều khiển con trỏ như vẽ đường đi.",
+            color: "cyan",
+        },
+        {
+            icon: <ScanLine />,
+            title: "Sensor = mắt đọc bề mặt",
+            desc: "Chụp rất nhiều ảnh nhỏ để biết chuột dịch chuyển thế nào.",
+            color: "blue",
+        },
+        {
+            icon: <Gauge />,
+            title: "DPI = độ nhạy bút",
+            desc: "DPI cao đi xa hơn trên màn hình với cùng quãng rê.",
+            color: "orange",
+        },
+        {
+            icon: <Target />,
+            title: "Mousepad = mặt giấy",
+            desc: "Bề mặt tốt giúp rê mượt, dừng chính xác và tracking ổn.",
+            color: "emerald",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: bút điều khiển trên mặt bàn"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function TrackingSimulator() {
+    const flows = {
+        normal: {
+            title: "Rê chuột bình thường",
+            color: "cyan",
+            steps: [
+                {
+                    icon: <Move />,
+                    title: "Bạn rê chuột",
+                    desc: "Tay di chuyển chuột trên mặt bàn hoặc mousepad.",
+                },
+                {
+                    icon: <ScanLine />,
+                    title: "LED/laser chiếu xuống",
+                    desc: "Cảm biến chiếu sáng bề mặt bên dưới.",
+                },
+                {
+                    icon: <Layers3 />,
+                    title: "Sensor chụp nhiều ảnh",
+                    desc: "Chuột chụp rất nhiều ảnh nhỏ mỗi giây.",
+                },
+                {
+                    icon: <CpuIcon />,
+                    title: "Bộ xử lý so sánh ảnh",
+                    desc: "Ảnh trước và ảnh sau được so sánh để tính hướng và khoảng cách.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Gửi tín hiệu về PC",
+                    desc: "Tín hiệu đi qua USB, 2.4GHz hoặc Bluetooth.",
+                },
+            ],
+        },
+        fps: {
+            title: "Game FPS",
+            color: "orange",
+            steps: [
+                {
+                    icon: <Crosshair />,
+                    title: "Bạn flick chuột",
+                    desc: "Rê rất nhanh để đổi góc nhìn hoặc kéo tâm.",
+                },
+                {
+                    icon: <Gauge />,
+                    title: "IPS và acceleration quan trọng",
+                    desc: "Sensor phải đọc được tốc độ/gia tốc cao mà không mất tracking.",
+                },
+                {
+                    icon: <Radio />,
+                    title: "Polling rate gửi dữ liệu",
+                    desc: "1000Hz gửi 1000 lần/giây; 4000/8000Hz giảm độ trễ nhưng hao pin hơn.",
+                },
+                {
+                    icon: <Target />,
+                    title: "Mousepad giúp dừng tâm",
+                    desc: "Control pad giúp dừng chính xác, speed pad giúp rê nhanh hơn.",
+                },
+            ],
+        },
+        bad: {
+            title: "Sensor / bề mặt kém",
+            color: "red",
+            steps: [
+                {
+                    icon: <XCircle />,
+                    title: "Tracking giật",
+                    desc: "Con trỏ rung hoặc tâm ngắm không ổn định.",
+                },
+                {
+                    icon: <AlertTriangle />,
+                    title: "Mất tracking khi rê nhanh",
+                    desc: "Chuột không đọc kịp chuyển động nhanh.",
+                },
+                {
+                    icon: <Zap />,
+                    title: "Acceleration không mong muốn",
+                    desc: "Cùng quãng rê nhưng tốc độ khác nhau cho kết quả khác nhau.",
+                },
+                {
+                    icon: <Target />,
+                    title: "Mousepad bẩn/cũ",
+                    desc: "Bề mặt bóng, bẩn hoặc pad mòn làm sensor kém ổn định.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("normal");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
     };
     return (
-        <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                <span
-                    className={`${colorMap[color]} p-2 rounded-xl inline-flex items-center gap-2`}
-                >
-                    <span className="text-sm font-black">{number}</span>
-                    {icon}
-                </span>
-                {title}
-            </h3>
-            <p className="text-slate-400 mt-2 max-w-3xl">{subtitle}</p>
-        </div>
-    );
-}
-
-function CodeBlock({ title, code, note }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-300">
-                    <Terminal size={16} className="text-orange-400" /> {title}
-                </div>
-                <Copy size={15} className="text-slate-600" />
-            </div>
-            <pre className="p-5 overflow-x-auto text-sm leading-6 text-slate-200">
-                <code>{code}</code>
-            </pre>
-            {note && (
-                <div className="px-5 pb-5 text-xs text-slate-500">{note}</div>
-            )}
-        </div>
-    );
-}
-
-function SshConceptCard() {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-orange-500/15 text-orange-400 rounded-2xl flex items-center justify-center">
-                    <Network size={26} />
-                </div>
-                <div>
-                    <h3 className="text-2xl font-bold text-white">
-                        SSH là gì?
-                    </h3>
-                    <p className="text-slate-500 text-sm">
-                        Secure Shell — đăng nhập Linux từ xa an toàn
-                    </p>
-                </div>
-            </div>
-            <CodeBlock
-                title="ssh-basic.sh"
-                code={`ssh user@192.168.1.100\n\n# ssh  : công cụ kết nối từ xa\n# user : user trên server\n# IP   : địa chỉ server hoặc domain`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Chuột nhận chuyển động như thế nào?"
+                icon={<Workflow />}
             />
-            <div className="grid sm:grid-cols-2 gap-4 mt-5">
-                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-4">
-                    <div className="text-red-300 font-bold flex items-center gap-2">
-                        <XCircle size={18} /> Mật khẩu
-                    </div>
-                    <p className="text-sm text-slate-400 mt-2">
-                        Dễ bị dò nếu yếu, phải nhập nhiều lần, không lý tưởng
-                        cho server public.
-                    </p>
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
+                        <button
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {f.title}
+                        </button>
+                    ))}
                 </div>
-                <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-4">
-                    <div className="text-green-300 font-bold flex items-center gap-2">
-                        <CheckCircle2 size={18} /> SSH key
-                    </div>
-                    <p className="text-sm text-slate-400 mt-2">
-                        An toàn hơn, tiện tự động hóa, phù hợp server public và
-                        DevOps workflow.
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function KeyPairSimulator() {
-    const [showPrivate, setShowPrivate] = useState(false);
-    const [copied, setCopied] = useState(false);
-    return (
-        <div className="bg-gradient-to-br from-orange-500/20 via-slate-900 to-blue-500/20 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <KeyRound className="text-orange-400" /> Mô phỏng private/public
-                key
-            </h3>
-            <p className="text-slate-400 mb-6">
-                Private key là chìa khóa thật. Public key là ổ khóa đặt trên
-                server.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4 mb-5">
-                <div className="bg-slate-950 border border-red-500/20 rounded-2xl p-5">
-                    <Lock className="text-red-400 mb-3" />
-                    <div className="font-bold text-white mb-2">Private key</div>
-                    <code className="text-red-300 text-sm">
-                        ~/.ssh/id_ed25519
-                    </code>
-                    <button
-                        onClick={() => setShowPrivate((v) => !v)}
-                        className="mt-4 w-full px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm font-bold flex items-center justify-center gap-2"
-                    >
-                        {showPrivate ? <EyeOff size={16} /> : <Eye size={16} />}{" "}
-                        {showPrivate ? "Ẩn" : "Xem cảnh báo"}
-                    </button>
-                    {showPrivate && (
-                        <div className="mt-3 text-xs text-red-100 bg-red-500/10 border border-red-500/20 rounded-xl p-3">
-                            Không gửi file này cho bất kỳ ai.
-                        </div>
-                    )}
-                </div>
-                <div className="bg-slate-950 border border-green-500/20 rounded-2xl p-5">
-                    <Unlock className="text-green-400 mb-3" />
-                    <div className="font-bold text-white mb-2">Public key</div>
-                    <code className="text-green-300 text-sm">
-                        ~/.ssh/id_ed25519.pub
-                    </code>
-                    <button
-                        onClick={() => setCopied(true)}
-                        className={`mt-4 w-full px-4 py-2 rounded-xl border text-sm font-bold flex items-center justify-center gap-2 ${copied ? "bg-green-500 text-white border-green-500" : "bg-green-500/10 border-green-500/20 text-green-200"}`}
-                    >
-                        <Copy size={16} />{" "}
-                        {copied
-                            ? "Đã đưa lên server"
-                            : "Copy lên authorized_keys"}
-                    </button>
-                </div>
-            </div>
-            <div className="bg-black border border-slate-800 rounded-2xl p-5 font-mono text-sm text-green-400">
-                {copied
-                    ? "Server có public key → private key khớp → login OK"
-                    : "Server chưa có public key → Permission denied"}
-            </div>
-        </div>
-    );
-}
-
-function SshKeyConceptSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-                <div className="grid md:grid-cols-2 gap-4 mb-5">
-                    <ConceptBox
-                        icon={<Laptop />}
-                        title="Máy cá nhân"
-                        code={`~/.ssh/id_ed25519\n~/.ssh/id_ed25519.pub`}
-                        desc="Giữ private key và public key."
-                    />
-                    <ConceptBox
-                        icon={<Server />}
-                        title="Ubuntu Server"
-                        code={`~/.ssh/authorized_keys`}
-                        desc="Chứa public key được phép đăng nhập."
-                    />
-                </div>
-                <div className="bg-black border border-slate-800 rounded-2xl p-5 font-mono text-sm text-slate-300 whitespace-pre-wrap">{`Máy cá nhân có private key\n          │\n          │ chứng minh danh tính\n          ▼\nServer có public key trong authorized_keys\n          │\n          ▼\nĐăng nhập thành công`}</div>
-            </div>
-            <CheatCard
-                title="File quan trọng"
-                rows={[
-                    ["id_ed25519", "Private key, tuyệt đối không chia sẻ"],
-                    ["id_ed25519.pub", "Public key, có thể đưa lên server"],
-                    ["authorized_keys", "Danh sách public key được phép login"],
-                    ["known_hosts", "Fingerprint server đã từng kết nối"],
-                    ["~/.ssh/config", "Alias và cấu hình SSH client"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function ConceptBox({ icon, title, code, desc }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5">
-            <div className="text-orange-400 mb-3">{icon}</div>
-            <div className="font-bold text-white mb-2">{title}</div>
-            <pre className="bg-black/50 rounded-xl border border-slate-800 p-3 text-xs text-green-400 overflow-x-auto">
-                <code>{code}</code>
-            </pre>
-            <p className="text-slate-500 text-sm mt-3">{desc}</p>
-        </div>
-    );
-}
-
-function KeygenSection() {
-    const [passphrase, setPassphrase] = useState(true);
-    return (
-        <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-6">
-            <CodeBlock
-                title="ssh-keygen-ed25519.sh"
-                code={`# Kiểm tra đã có SSH key chưa\nls -la ~/.ssh\n\n# Tạo key pair khuyến nghị\nssh-keygen -t ed25519 -C "kha@ubuntu-laptop"\n\n# Output mẫu:\nGenerating public/private ed25519 key pair.\nEnter file in which to save the key (/home/kha/.ssh/id_ed25519):\n\n# Nhấn Enter để dùng đường dẫn mặc định\n# Sau đó đặt passphrase hoặc bỏ trống\n\n# Kết quả:\n# /home/kha/.ssh/id_ed25519      private key\n# /home/kha/.ssh/id_ed25519.pub  public key\n\n# Xem public key\ncat ~/.ssh/id_ed25519.pub`}
-            />
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 h-fit">
-                <h4 className="font-bold text-white mb-4">
-                    Có nên đặt passphrase?
-                </h4>
-                <div className="grid grid-cols-2 gap-3 mb-5">
-                    <button
-                        onClick={() => setPassphrase(false)}
-                        className={`p-4 rounded-xl border font-bold ${!passphrase ? "bg-yellow-500 text-slate-950 border-yellow-500" : "bg-slate-900 border-slate-800 text-slate-400"}`}
-                    >
-                        Bỏ trống
-                    </button>
-                    <button
-                        onClick={() => setPassphrase(true)}
-                        className={`p-4 rounded-xl border font-bold ${passphrase ? "bg-green-500 text-white border-green-500" : "bg-slate-900 border-slate-800 text-slate-400"}`}
-                    >
-                        Có passphrase
-                    </button>
-                </div>
-                <div
-                    className={`rounded-2xl border p-5 ${passphrase ? "bg-green-500/10 border-green-500/20" : "bg-yellow-500/10 border-yellow-500/20"}`}
-                >
-                    <div className="font-bold text-white mb-2">
-                        {passphrase
-                            ? "An toàn hơn"
-                            : "Tiện hơn nhưng rủi ro hơn"}
-                    </div>
-                    <p className="text-slate-400 text-sm">
-                        {passphrase
-                            ? "Nếu private key bị lộ, kẻ khác vẫn cần passphrase để dùng key."
-                            : "Không cần nhập passphrase khi SSH, nhưng nếu private key bị lộ thì rất nguy hiểm."}
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function CopyKeySection() {
-    const [tab, setTab] = useState("copyid");
-    const tabs = [
-        ["copyid", "ssh-copy-id"],
-        ["manual", "Thủ công"],
-        ["test", "Thử SSH"],
-    ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map(([id, label]) => (
-                    <button
-                        key={id}
-                        onClick={() => setTab(id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold ${tab === id ? "bg-orange-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "copyid" && (
-                    <CodeBlock
-                        title="ssh-copy-id.sh"
-                        code={`# Giả sử server:\n# User: kha\n# IP:   192.168.1.100\n\nssh-copy-id kha@192.168.1.100\n\n# Output mẫu lần đầu:\n/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/kha/.ssh/id_ed25519.pub"\nThe authenticity of host '192.168.1.100 (192.168.1.100)' can't be established.\nED25519 key fingerprint is SHA256:xyz789example.\nAre you sure you want to continue connecting (yes/no/[fingerprint])?\n\n# Nhập yes\n# Sau đó nhập password user trên server\n\n# Thành công:\nNumber of key(s) added: 1\nNow try logging into the machine, with:\n  "ssh 'kha@192.168.1.100'"`}
-                    />
-                )}
-                {tab === "manual" && (
-                    <CodeBlock
-                        title="manual-authorized-keys.sh"
-                        code={`# 1. Trên máy cá nhân, xem public key\ncat ~/.ssh/id_ed25519.pub\n\n# Copy toàn bộ một dòng dạng:\n# ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBExampleKeyContent kha@ubuntu-laptop\n\n# 2. Trên server, tạo thư mục .ssh\nmkdir -p ~/.ssh\n\n# 3. Mở authorized_keys\nnano ~/.ssh/authorized_keys\n\n# Dán public key vào một dòng mới\n# Lưu: Ctrl + O → Enter → Ctrl + X\n\n# 4. Sửa phân quyền\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys`}
-                    />
-                )}
-                {tab === "test" && (
-                    <CodeBlock
-                        title="test-ssh-login.sh"
-                        code={`ssh kha@192.168.1.100\n\n# Nếu đúng:\nWelcome to Ubuntu 22.04.5 LTS\nkha@server:~$\n\n# Nếu dùng key cụ thể:\nssh -i ~/.ssh/id_ed25519 kha@192.168.1.100\n\n# Debug nếu lỗi:\nssh -v kha@192.168.1.100`}
-                    />
-                )}
-            </div>
-        </div>
-    );
-}
-
-function SshConfigSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="ssh-config-alias.sh"
-                code={`# Tạo key riêng cho VPS Kafood\nssh-keygen -t ed25519 -f ~/.ssh/vps_kafood -C "vps-kafood"\n\n# Copy public key riêng lên server\nssh-copy-id -i ~/.ssh/vps_kafood.pub kha@192.168.1.100\n\n# SSH bằng key cụ thể\nssh -i ~/.ssh/vps_kafood kha@192.168.1.100\n\n# Tạo alias trong ~/.ssh/config\nnano ~/.ssh/config\n\n# Nội dung:\nHost kafood-vps\n    HostName 192.168.1.100\n    User kha\n    IdentityFile ~/.ssh/vps_kafood\n    Port 22\n\n# Sửa quyền config\nchmod 600 ~/.ssh/config\n\n# Từ nay đăng nhập ngắn gọn:\nssh kafood-vps`}
-            />
-            <CheatCard
-                title="Ý nghĩa ~/.ssh/config"
-                rows={[
-                    ["Host", "Tên tắt tự đặt, ví dụ kafood-vps"],
-                    ["HostName", "IP hoặc domain server"],
-                    ["User", "Username trên server"],
-                    ["IdentityFile", "Private key dùng để login"],
-                    ["Port", "Cổng SSH, mặc định 22"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function PermissionSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="ssh-permissions.sh"
-                code={`# Trên máy cá nhân\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/id_ed25519\nchmod 644 ~/.ssh/id_ed25519.pub\nchmod 600 ~/.ssh/config\n\n# Trên server\nchmod 755 ~\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys\n\n# Nếu sai owner trên server\nsudo chown -R $USER:$USER ~/.ssh\n\n# Kiểm tra\nls -ld ~ ~/.ssh\nls -l ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub 2>/dev/null\nls -l ~/.ssh/authorized_keys 2>/dev/null`}
-            />
-            <div className="space-y-4">
-                <PermissionCard
-                    file="~"
-                    perm="755"
-                    desc="Home không được quá mở nếu SSH strict modes bật."
-                />
-                <PermissionCard
-                    file="~/.ssh"
-                    perm="700"
-                    desc="Chỉ owner được vào thư mục SSH."
-                />
-                <PermissionCard
-                    file="private key"
-                    perm="600"
-                    desc="Chỉ owner đọc/ghi. SSH sẽ từ chối nếu quá mở."
-                    danger
-                />
-                <PermissionCard
-                    file="authorized_keys"
-                    perm="600"
-                    desc="Chỉ owner đọc/ghi danh sách key được phép login."
-                />
-                <PermissionCard
-                    file="public key"
-                    perm="644"
-                    desc="Có thể đọc công khai, vì public key không phải bí mật."
-                />
-            </div>
-        </div>
-    );
-}
-
-function PermissionCard({ file, perm, desc, danger }) {
-    return (
-        <div
-            className={`rounded-2xl border p-4 ${danger ? "bg-red-500/10 border-red-500/20" : "bg-slate-950 border-slate-800"}`}
-        >
-            <div className="flex items-center justify-between gap-3 mb-2">
-                <code className="text-orange-300">{file}</code>
-                <span className="font-bold text-white">{perm}</span>
-            </div>
-            <p className="text-slate-500 text-sm">{desc}</p>
-        </div>
-    );
-}
-
-function CommonErrorsSection() {
-    const [tab, setTab] = useState("publickey");
-    const tabs = [
-        ["publickey", "Permission denied"],
-        ["openkey", "Private key quá mở"],
-        ["hostkey", "Host key changed"],
-        ["copyid", "ssh-copy-id thiếu"],
-        ["modes", "Bad ownership"],
-    ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map(([id, label]) => (
-                    <button
-                        key={id}
-                        onClick={() => setTab(id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold ${tab === id ? "bg-red-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "publickey" && (
-                    <CodeBlock
-                        title="permission-denied-publickey.sh"
-                        code={`ssh kha@192.168.1.100\n# kha@192.168.1.100: Permission denied (publickey).\n\n# Thử chỉ định key\nssh -i ~/.ssh/id_ed25519 kha@192.168.1.100\n\n# Debug\nssh -v kha@192.168.1.100\n\n# Nếu thấy Offering public key nhưng vẫn bị từ chối, kiểm tra server:\ncat ~/.ssh/authorized_keys\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys\n\n# Kiểm tra đúng user chưa:\nwhoami\npwd`}
-                    />
-                )}
-                {tab === "openkey" && (
-                    <CodeBlock
-                        title="unprotected-private-key.sh"
-                        code={`ssh -i ~/.ssh/id_ed25519 kha@192.168.1.100\n\n# WARNING: UNPROTECTED PRIVATE KEY FILE!\n# Permissions 0644 for '/home/kha/.ssh/id_ed25519' are too open.\n# This private key will be ignored.\n\n# Sửa:\nchmod 600 ~/.ssh/id_ed25519\n\n# Kiểm tra đúng:\nls -l ~/.ssh/id_ed25519\n# -rw------- 1 kha kha 411 Apr 26 10:00 /home/kha/.ssh/id_ed25519`}
-                    />
-                )}
-                {tab === "hostkey" && (
-                    <CodeBlock
-                        title="host-key-verification-failed.sh"
-                        code={`ssh kha@192.168.1.100\n\n# WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!\n# Host key verification failed.\n\n# Nguyên nhân có thể:\n# - Server vừa cài lại OS\n# - IP đó thuộc máy khác\n# - Có nguy cơ bị giả mạo server\n\n# Nếu chắc chắn server đã cài lại:\nssh-keygen -R 192.168.1.100\nssh kha@192.168.1.100\n\n# Nhập yes khi xác nhận fingerprint mới`}
-                    />
-                )}
-                {tab === "copyid" && (
-                    <CodeBlock
-                        title="ssh-copy-id-command-not-found.sh"
-                        code={`ssh-copy-id kha@192.168.1.100\n# ssh-copy-id: command not found\n\n# Trên Ubuntu, cài openssh-client\nsudo apt update\nsudo apt install openssh-client\n\n# Hoặc thêm key thủ công vào ~/.ssh/authorized_keys trên server`}
-                    />
-                )}
-                {tab === "modes" && (
-                    <CodeBlock
-                        title="bad-ownership-or-modes.sh"
-                        code={`# Server log có thể báo:\n# Authentication refused: bad ownership or modes for directory /home/kha\n\n# Sửa trên server:\nchmod 755 ~\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys\nsudo chown -R $USER:$USER ~/.ssh\n\n# Xem log SSH server:\nsudo journalctl -u ssh -n 50\nsudo tail -f /var/log/auth.log`}
-                    />
-                )}
-            </div>
-        </div>
-    );
-}
-
-function SafeServerWorkflow() {
-    return (
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-6">
-            <CodeBlock
-                title="safe-ssh-key-workflow.sh"
-                code={`# 1. Tạo key trên máy cá nhân\nssh-keygen -t ed25519 -C "kha@ubuntu-laptop"\n\n# 2. Copy public key lên server\nssh-copy-id kha@192.168.1.100\n\n# 3. Test login bằng key\nssh kha@192.168.1.100\n\n# 4. Mở terminal thứ hai và test lại lần nữa\nssh -v kha@192.168.1.100\n\n# 5. Chỉ sau khi chắc chắn key hoạt động, mới học tiếp bài nâng cao:\n# - Hạn chế PasswordAuthentication\n# - Tắt PermitRootLogin\n# - Đổi port SSH nếu cần\n# - Dùng ufw/fail2ban`}
-                note="Không tự tắt password/root login khi chưa chắc chắn SSH key hoạt động, vì có thể tự khóa mình khỏi server."
-            />
-            <div className="space-y-4">
-                <ExplainCard
-                    icon={<ClipboardCheck size={20} />}
-                    title="Test trên terminal mới"
-                    desc="Giữ phiên SSH cũ mở, mở terminal khác để test key. Nếu lỗi, bạn vẫn còn phiên cũ để sửa."
-                />
-                <ExplainCard
-                    icon={<ShieldCheck size={20} />}
-                    title="Key trước, hardening sau"
-                    desc="Ưu tiên làm key hoạt động ổn định trước khi tắt password login."
-                />
-                <ExplainCard
-                    icon={<AlertTriangle size={20} />}
-                    title="Không khóa chính mình"
-                    desc="Sai sshd_config có thể khiến bạn mất quyền vào server từ xa."
-                    danger
-                />
-            </div>
-        </div>
-    );
-}
-
-function ExplainCard({ icon, title, desc, danger }) {
-    return (
-        <div
-            className={`rounded-2xl border p-5 ${danger ? "bg-red-500/10 border-red-500/20" : "bg-slate-950 border-slate-800"}`}
-        >
-            <div
-                className={`mb-3 ${danger ? "text-red-400" : "text-orange-400"}`}
-            >
-                {icon}
-            </div>
-            <div className="font-bold text-white">{title}</div>
-            <p className="text-slate-400 text-sm mt-2">{desc}</p>
-        </div>
-    );
-}
-
-function CheatCard({ title, rows }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 h-fit">
-            <h4 className="font-bold text-white mb-4">{title}</h4>
-            <div className="space-y-2">
-                {rows.map(([cmd, desc]) => (
-                    <div
-                        key={cmd + desc}
-                        className="bg-slate-900 border border-slate-800 rounded-xl p-3"
-                    >
-                        <code className="text-orange-300 text-sm">{cmd}</code>
-                        <div className="text-xs text-slate-500 mt-1">
-                            {desc}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function SummaryGrid() {
-    const groups = [
-        {
-            title: "File",
-            rows: [
-                ["id_ed25519", "private key"],
-                ["id_ed25519.pub", "public key"],
-                ["authorized_keys", "key được phép"],
-                ["known_hosts", "fingerprint server"],
-                ["config", "alias SSH"],
-            ],
-        },
-        {
-            title: "Lệnh chính",
-            rows: [
-                ["ssh-keygen", "tạo key"],
-                ["cat *.pub", "xem public key"],
-                ["ssh-copy-id", "copy lên server"],
-                ["ssh user@host", "đăng nhập"],
-                ["ssh -i key", "chỉ định key"],
-            ],
-        },
-        {
-            title: "Quyền",
-            rows: [
-                ["chmod 700 ~/.ssh", "thư mục SSH"],
-                ["chmod 600 private", "private key"],
-                ["chmod 600 authorized_keys", "server"],
-                ["chmod 600 config", "SSH config"],
-                ["chmod 755 ~", "home server"],
-            ],
-        },
-        {
-            title: "Config",
-            rows: [
-                ["Host", "alias"],
-                ["HostName", "IP/domain"],
-                ["User", "user server"],
-                ["IdentityFile", "private key"],
-                ["Port", "cổng SSH"],
-            ],
-        },
-        {
-            title: "Debug",
-            rows: [
-                ["ssh -v", "debug client"],
-                ["journalctl -u ssh", "log server"],
-                ["ssh-keygen -R", "xóa known_hosts"],
-                ["chown -R", "sửa owner"],
-                ["Offering public key", "đang gửi key"],
-            ],
-        },
-    ];
-    return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {groups.map((g) => (
-                <div
-                    key={g.title}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-5"
-                >
-                    <h4 className="font-bold text-white mb-4">{g.title}</h4>
-                    <div className="space-y-2">
-                        {g.rows.map(([cmd, desc]) => (
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
                             <div
-                                key={cmd + desc}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3"
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
                             >
-                                <code className="text-orange-300 text-sm">
-                                    {cmd}
-                                </code>
-                                <div className="text-xs text-slate-500 mt-1">
-                                    {desc}
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
                                 </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CpuIcon(props) {
+    return <Settings {...props} />;
+}
+
+function SensorExplorer() {
+    const types = {
+        optical: {
+            icon: <ScanLine />,
+            title: "Optical Mouse",
+            color: "cyan",
+            desc: "Dùng LED, thường là ánh sáng đỏ hoặc hồng ngoại, để đọc bề mặt.",
+            good: [
+                "Chính xác",
+                "Ổn định",
+                "Phổ biến",
+                "Giá tốt",
+                "Ít acceleration ngoài ý muốn",
+            ],
+            bad: ["Không tốt trên kính trong suốt nếu sensor không hỗ trợ"],
+            fit: "Văn phòng, gaming, thiết kế, đa số người dùng",
+        },
+        laser: {
+            icon: <Zap />,
+            title: "Laser Mouse",
+            color: "purple",
+            desc: "Dùng tia laser để đọc bề mặt, có thể hoạt động trên nhiều bề mặt hơn.",
+            good: [
+                "Đọc được nhiều mặt bàn",
+                "Có thể dùng trên một số mặt bóng/kính",
+            ],
+            bad: [
+                "Một số đời cũ dễ có acceleration",
+                "Có thể nhạy quá mức với bề mặt",
+            ],
+            fit: "Văn phòng, di chuyển nhiều, dùng nhiều mặt bàn khác nhau",
+        },
+        ball: {
+            icon: <CircleIcon />,
+            title: "Ball Mouse",
+            color: "orange",
+            desc: "Chuột cơ bi đời cũ dùng viên bi bên dưới để đo chuyển động.",
+            good: ["Có giá trị lịch sử phần cứng"],
+            bad: [
+                "Dễ bẩn",
+                "Tracking kém",
+                "Phải vệ sinh bi thường xuyên",
+                "Gần như không còn dùng",
+            ],
+            fit: "Học lịch sử phần cứng",
+        },
+    };
+    const [active, setActive] = useState("optical");
+    const item = types[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="cyan"
+                title="Các loại chuột / cảm biến phổ biến"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(types).map(([key, t]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(t.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(t.icon, { size: 20 })}{" "}
+                                {t.title}
+                            </div>
+                            <p className="text-xs opacity-75 mt-1">{t.desc}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-3">
+                            {item.title}
+                        </h3>
+                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                            {item.desc}
+                        </p>
+                        <p className="text-sm text-slate-400">
+                            <strong className="text-white">Phù hợp:</strong>{" "}
+                            {item.fit}
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div
+                            className={`${softBorder(item.color)} border rounded-3xl p-5`}
+                        >
+                            <p
+                                className={`${textColor(item.color)} font-bold mb-3`}
+                            >
+                                Ưu điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.good.map((g) => (
+                                    <Bullet key={g} text={g} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-5">
+                            <p className="text-red-300 font-bold mb-3">
+                                Nhược điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.bad.map((b) => (
+                                    <WarnBullet key={b} text={b} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+function CircleIcon(props) {
+    return <MousePointer2 {...props} />;
+}
+
+function ConnectionGuide() {
+    const rows = [
+        [
+            "USB có dây",
+            "Ổn định, độ trễ thấp, không cần pin",
+            "Có dây, có thể vướng",
+            "Gaming, desktop cố định",
+        ],
+        [
+            "Bluetooth",
+            "Gọn, dễ kết nối laptop/tablet, tiết kiệm cổng USB",
+            "Độ trễ cao hơn, không lý tưởng cho esports",
+            "Văn phòng, di động",
+        ],
+        [
+            "2.4GHz Wireless",
+            "Độ trễ thấp, hợp gaming không dây",
+            "Cần receiver, cần sạc/pin",
+            "Gaming, setup gọn",
+        ],
+        [
+            "Tri-mode",
+            "USB + 2.4GHz + Bluetooth",
+            "Thường đắt hơn",
+            "Người dùng nhiều thiết bị",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="blue"
+                title="Phân loại theo kết nối"
+                icon={<PlugZap />}
+            />
+            <DataTable
+                title="Gaming cạnh tranh ưu tiên USB hoặc 2.4GHz tốt"
+                rows={rows}
+                headers={["Kết nối", "Ưu điểm", "Nhược điểm", "Phù hợp"]}
+                accent="blue"
+            />
+            <div className="grid md:grid-cols-3 gap-3">
+                <RuleCard
+                    label="USB"
+                    value="Ổn định nhất, không lo pin."
+                    color="cyan"
+                />
+                <RuleCard
+                    label="2.4GHz"
+                    value="Nhanh, gọn, hợp gaming wireless."
+                    color="emerald"
+                />
+                <RuleCard
+                    label="Bluetooth"
+                    value="Tiện, đa thiết bị, hợp văn phòng."
+                    color="purple"
+                />
+            </div>
+        </section>
+    );
+}
+
+function FormGripExplorer() {
+    const forms = {
+        ergo: {
+            icon: <Hand />,
+            title: "Ergonomic",
+            color: "emerald",
+            desc: "Cong theo tay phải hoặc tay trái, ôm tay hơn.",
+            good: "Thoải mái lâu dài",
+            bad: "Không hợp cả hai tay",
+            fit: "Văn phòng, gaming tay phải, palm/claw",
+        },
+        ambi: {
+            icon: <Mouse />,
+            title: "Ambidextrous",
+            color: "cyan",
+            desc: "Đối xứng hai bên, form trung tính.",
+            good: "Dễ hợp nhiều kiểu cầm",
+            bad: "Ít ôm tay hơn",
+            fit: "FPS, claw/fingertip, người thích form trung tính",
+        },
+        vertical: {
+            icon: <Hand />,
+            title: "Vertical Mouse",
+            color: "purple",
+            desc: "Dáng đứng để giảm xoay cổ tay.",
+            good: "Có thể giảm mỏi cổ tay",
+            bad: "Cần làm quen, không hợp game nhanh",
+            fit: "Văn phòng, người đau cổ tay",
+        },
+        trackball: {
+            icon: <Target />,
+            title: "Trackball",
+            color: "orange",
+            desc: "Bi lăn cố định, không cần rê nhiều.",
+            good: "Tiết kiệm không gian",
+            bad: "Cần làm quen",
+            fit: "Không gian hẹp, công việc đặc thù",
+        },
+    };
+    const grips = [
+        [
+            "Palm Grip",
+            "Cả lòng bàn tay đặt lên chuột",
+            "Chuột to, ergonomic, lưng cao",
+        ],
+        [
+            "Claw Grip",
+            "Lòng bàn tay chạm nhẹ, ngón cong",
+            "Chuột vừa, lưng cao vừa",
+        ],
+        ["Fingertip Grip", "Chủ yếu dùng đầu ngón tay", "Chuột nhỏ, nhẹ"],
+    ];
+    const [active, setActive] = useState("ambi");
+    const item = forms[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="emerald"
+                title="Form dáng và kiểu cầm chuột"
+                icon={<Hand />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(forms).map(([key, f]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(f.icon, { size: 20 })}{" "}
+                                {f.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-6 mb-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className="text-slate-400 text-sm leading-relaxed">
+                            {item.desc}
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-4">
+                        <InfoCard
+                            label="Ưu điểm"
+                            value={item.good}
+                            color={item.color}
+                        />
+                        <InfoCard
+                            label="Nhược điểm"
+                            value={item.bad}
+                            color="red"
+                        />
+                        <InfoCard
+                            label="Phù hợp"
+                            value={item.fit}
+                            color="emerald"
+                        />
+                    </div>
+                </div>
+                <DataTable
+                    title="3 kiểu cầm phổ biến"
+                    rows={grips}
+                    headers={["Grip", "Mô tả", "Chuột phù hợp"]}
+                    accent="emerald"
+                />
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        dpi: {
+            icon: <Gauge />,
+            title: "DPI / CPI",
+            detail: "Độ nhạy di chuyển: DPI thấp rê nhiều hơn, con trỏ chậm hơn; DPI cao rê ít hơn, con trỏ đi xa hơn.",
+            impact: "FPS thường 400–1600 DPI; văn phòng 800–1600; màn hình 4K có thể dùng 1600–2400.",
+        },
+        polling: {
+            icon: <Radio />,
+            title: "Polling Rate",
+            detail: "Số lần chuột gửi dữ liệu về máy tính mỗi giây: 125Hz, 500Hz, 1000Hz, 4000Hz, 8000Hz.",
+            impact: "1000Hz rất ổn cho gaming; 4000/8000Hz giảm trễ nhưng hao pin hơn và cần máy/màn hình đủ tốt.",
+        },
+        ips: {
+            icon: <Move />,
+            title: "IPS",
+            detail: "Inches Per Second: tốc độ rê chuột tối đa mà sensor vẫn đọc chính xác.",
+            impact: "FPS cần IPS cao vì người chơi có thể flick chuột rất nhanh.",
+        },
+        accel: {
+            icon: <Zap />,
+            title: "Acceleration",
+            detail: "Khả năng cảm biến chịu được gia tốc khi bạn đổi tốc độ rê nhanh, thường tính bằng G.",
+            impact: "Gia tốc chịu được cao giúp chuột ít mất kiểm soát khi vẩy nhanh.",
+        },
+        lod: {
+            icon: <SquareMousePointer />,
+            title: "Lift-off Distance",
+            detail: "Độ cao mà khi nhấc chuột lên khỏi mousepad, sensor ngừng tracking.",
+            impact: "LOD thấp hữu ích cho FPS vì tâm ít lệch khi nhấc chuột đặt lại.",
+        },
+        weight: {
+            icon: <Gauge />,
+            title: "Trọng lượng",
+            detail: "Dưới 60g rất nhẹ; 60–80g cân bằng; 80–110g đầm tay; trên 110g nặng.",
+            impact: "FPS thường thích nhẹ, văn phòng/thiết kế có thể thích đầm tay hơn.",
+        },
+        switch: {
+            icon: <MousePointer2 />,
+            title: "Mouse Switch",
+            detail: "Mechanical click rõ nhưng có thể double-click theo thời gian; optical ít lỗi double-click hơn; silent êm hơn.",
+            impact: "Văn phòng chung/ký túc xá nên cân nhắc silent click.",
+        },
+        feet: {
+            icon: <Target />,
+            title: "Mouse Feet / Skate",
+            detail: "Miếng trượt dưới đáy chuột, thường làm bằng PTFE.",
+            impact: "Feet tốt giúp rê mượt, ít ma sát, dễ kiểm soát; feet mòn làm chuột rê rít.",
+        },
+    };
+    const [active, setActive] = useState("dpi");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function MousepadGuide() {
+    const dpiRows = [
+        ["Văn phòng", "800–1600 DPI"],
+        ["Màn hình 2K/4K", "1200–2400 DPI tùy thói quen"],
+        ["Game FPS", "400–1600 DPI"],
+        ["MOBA/MMO", "800–3200 DPI tùy người"],
+        ["Thiết kế chính xác", "400–1600 DPI + zoom phần mềm"],
+    ];
+    const padRows = [
+        ["Control pad", "Ma sát cao hơn, dễ dừng tâm", "FPS cần chính xác"],
+        ["Speed pad", "Trượt nhanh hơn", "Người thích rê nhẹ, game tốc độ"],
+        ["Hybrid pad", "Cân bằng", "Đa dụng"],
+        [
+            "Hard pad",
+            "Rất nhanh, dễ vệ sinh",
+            "Ít phổ biến, có thể mòn feet nhanh",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="blue"
+                title="DPI và mousepad: đừng chỉ nhìn số lớn"
+                icon={<Target />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="DPI gợi ý theo nhu cầu"
+                    rows={dpiRows}
+                    headers={["Nhu cầu", "DPI thường dùng"]}
+                    accent="blue"
+                />
+                <DataTable
+                    title="Mousepad ảnh hưởng tracking và cảm giác rê"
+                    rows={padRows}
+                    headers={["Loại pad", "Đặc điểm", "Phù hợp"]}
+                    accent="cyan"
+                />
+            </div>
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-blue-300">Quy tắc:</strong> chuột 30.000
+                DPI không có nghĩa là bạn nên dùng 30.000 DPI. Chọn DPI theo màn
+                hình, game, thói quen và khả năng kiểm soát.
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Mouse />,
+            title: "Logitech MX Master 3S",
+            subtitle: "Chuột văn phòng cao cấp",
+            color: "cyan",
+            points: [
+                "Cảm biến 8.000 DPI",
+                "Tracking trên kính dày tối thiểu 4mm",
+                "Cuộn nhanh",
+                "Ergonomic",
+                "Nhiều nút phụ",
+            ],
+            lesson: "Chuột văn phòng tốt ưu tiên form thoải mái, cuộn tốt, nút phụ và đa nhiệm hơn là trọng lượng siêu nhẹ.",
+        },
+        {
+            icon: <Target />,
+            title: "Logitech G Pro X Superlight 2",
+            subtitle: "FPS nhẹ, không dây",
+            color: "orange",
+            points: [
+                "Khoảng 60g",
+                "HERO 2 sensor",
+                "Tối đa 32.000 DPI",
+                "Tracking 500 IPS",
+                "Polling cao tùy cấu hình",
+            ],
+            lesson: "FPS cần chuột nhẹ, sensor ổn, form hợp tay và wireless tốt hơn là nhiều nút phụ.",
+        },
+        {
+            icon: <Hand />,
+            title: "Razer DeathAdder V3 Pro",
+            subtitle: "Gaming ergonomic nhẹ",
+            color: "red",
+            points: [
+                "Form ergonomic tay phải",
+                "Khoảng 64g",
+                "Cảm biến 30.000 DPI",
+                "Switch quang",
+                "Có thể nâng polling với dongle riêng",
+            ],
+            lesson: "Nếu thích chuột ôm tay hơn form đối xứng, ergonomic nhẹ là lựa chọn tốt cho palm/claw.",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Logitech M331 Silent Plus",
+            subtitle: "Chuột silent phổ thông",
+            color: "emerald",
+            points: [
+                "Click êm",
+                "Giá dễ tiếp cận",
+                "Hợp văn phòng/ký túc xá",
+                "Pin lâu",
+                "Không dành cho esports",
+            ],
+            lesson: "Không phải ai cũng cần chuột gaming; môi trường yên tĩnh nên ưu tiên silent click và pin lâu.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-4 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-5 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-base mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-xs font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function PickerLab() {
+    const scenarios = {
+        office: {
+            icon: <Monitor />,
+            title: "Văn phòng",
+            answer: "Ưu tiên ergonomic, click êm, cuộn tốt, pin lâu và Bluetooth/tri-mode nếu dùng nhiều thiết bị. Không cần DPI quá cao.",
+            color: "cyan",
+        },
+        fps: {
+            icon: <Crosshair />,
+            title: "FPS cạnh tranh",
+            answer: "Ưu tiên chuột nhẹ, sensor tốt, form hợp tay, polling 1000Hz trở lên, LOD thấp và mousepad phù hợp. DPI khởi đầu 800 rất phổ biến.",
+            color: "orange",
+        },
+        mmo: {
+            icon: <Gamepad2 />,
+            title: "MMO / MOBA",
+            answer: "Có thể chọn chuột nhiều nút phụ nếu dùng skill/macro nhiều. Trọng lượng không nhất thiết phải siêu nhẹ như FPS.",
+            color: "purple",
+        },
+        design: {
+            icon: <Target />,
+            title: "Thiết kế đồ họa",
+            answer: "Ưu tiên form thoải mái, DPI chỉnh được, sensor ổn và mousepad control để dễ dừng chính xác khi chỉnh chi tiết.",
+            color: "blue",
+        },
+        travel: {
+            icon: <Bluetooth />,
+            title: "Di động / laptop",
+            answer: "Bluetooth tiện nhất nếu bạn thường mang laptop đi. Nếu thỉnh thoảng chơi game, chọn tri-mode để có thêm 2.4GHz/USB.",
+            color: "emerald",
+        },
+        wrist: {
+            icon: <Hand />,
+            title: "Đau cổ tay",
+            answer: "Thử ergonomic hoặc vertical mouse, giảm thời gian rê xa, chỉnh DPI vừa phải và kiểm tra chiều cao bàn ghế/cổ tay.",
+            color: "red",
+        },
+    };
+    const [active, setActive] = useState("fps");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="blue"
+                title="Lab: chọn chuột theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "DPI càng cao chuột càng xịn",
+            right: "DPI cao chỉ là một thông số. Quan trọng hơn là sensor ổn định, form hợp tay, mousepad tốt và DPI hợp thói quen.",
+        },
+        {
+            wrong: "Chuột gaming phải thật nhiều nút",
+            right: "FPS thường ưu tiên nhẹ, sensor tốt và form hợp tay. Nhiều nút hữu ích hơn cho MMO/MOBA hoặc macro văn phòng.",
+        },
+        {
+            wrong: "Chuột không dây lúc nào cũng lag",
+            right: "Bluetooth có thể trễ hơn, nhưng 2.4GHz gaming hiện đại rất nhanh. USB dây vẫn ổn định nhất và không lo pin.",
+        },
+        {
+            wrong: "Chuột càng nhẹ càng tốt cho mọi người",
+            right: "Chuột nhẹ hợp FPS, nhưng văn phòng/thiết kế đôi khi cần cảm giác đầm tay và kiểm soát tốt hơn.",
+        },
+        {
+            wrong: "Mousepad không quan trọng",
+            right: "Mousepad ảnh hưởng trực tiếp đến tracking, độ mượt, độ dừng và cảm giác rê.",
+        },
+        {
+            wrong: "Form chuột nào cũng như nhau",
+            right: "Form sai có thể gây mỏi cổ tay, khó kiểm soát tâm và giảm hiệu quả dù sensor rất mạnh.",
+        },
+    ];
+    const tips = [
+        "Chọn chuột theo tay và kiểu cầm trước, rồi mới nhìn DPI.",
+        "Văn phòng: ergonomic, click êm, cuộn tốt, pin lâu.",
+        "FPS: nhẹ, sensor tốt, polling 1000Hz trở lên, form hợp tay.",
+        "Thiết kế: độ chính xác, DPI chỉnh được và mousepad control.",
+        "Màn hình 4K: có thể tăng DPI lên 1600–2400 để đỡ rê xa.",
+        "Chơi FPS nghiêm túc nên tắt Enhance Pointer Precision trên Windows.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
-            ))}
-        </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
-const quizQuestions = [
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-cyan-500/20 text-cyan-300 p-2 rounded-xl">
+                            13
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-cyan-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>
+                                Mouse = thiết bị nhập liệu điều khiển con
+                                trỏ/góc nhìn
+                            </p>
+                            <p>
+                                Tay rê → LED/laser → Sensor chụp bề mặt →
+                                Controller → PC
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Không chỉ DPI</p>
+                            <p className="text-slate-300">
+                                Sensor • Form • Weight • Switch • Feet •
+                                Connection • Polling • Mousepad
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># DPI khởi đầu</p>
+                            <p className="text-slate-300">
+                                Văn phòng 1200–1600 • FPS 800 • 4K 1600–2400
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const questions = [
     {
-        question: "File nào là private key và tuyệt đối không chia sẻ?",
+        question: "DPI của chuột nói đơn giản là gì?",
         options: [
-            "~/.ssh/id_ed25519",
-            "~/.ssh/id_ed25519.pub",
-            "~/.ssh/authorized_keys",
-            "~/.ssh/known_hosts",
+            "Độ nhạy di chuyển của chuột",
+            "Dung lượng lưu trữ của chuột",
+            "Số nhân CPU",
+            "Tốc độ mạng Wi‑Fi",
         ],
         correct: 0,
         explanation:
-            "Private key thường không có đuôi .pub, ví dụ ~/.ssh/id_ed25519. Không chia sẻ file này.",
+            "DPI/CPI nói dễ hiểu là độ nhạy di chuyển: cùng một quãng rê, DPI cao làm con trỏ đi xa hơn.",
     },
     {
-        question: "File authorized_keys trên server dùng để làm gì?",
+        question: "Chuột quang hoạt động bằng cách nào?",
         options: [
-            "Chứa danh sách public key được phép đăng nhập",
-            "Chứa password user",
-            "Chứa IP bị chặn",
-            "Chứa log SSH",
+            "Dùng ánh sáng và cảm biến để đọc chuyển động trên bề mặt",
+            "Dùng viên bi bên trong RAM",
+            "Dùng sóng âm để nâng chuột lên",
+            "Dùng nhiệt từ CPU",
         ],
         correct: 0,
         explanation:
-            "authorized_keys lưu các public key được phép login vào user đó.",
+            "Chuột quang chiếu sáng bề mặt, cảm biến chụp nhiều ảnh và so sánh để tính chuyển động.",
     },
     {
-        question: "Lệnh khuyến nghị để tạo SSH key hiện đại là gì?",
+        question: "Polling rate 1000Hz nghĩa là gì?",
         options: [
-            'ssh-keygen -t ed25519 -C "comment"',
-            "ssh create password",
-            "ssh-copy-id -t rsa",
-            "chmod 700 id_ed25519",
+            "Chuột gửi tín hiệu về máy tính 1000 lần mỗi giây",
+            "Chuột có 1000 nút bấm",
+            "Chuột nặng 1000 gram",
+            "Chuột chỉ dùng được với màn hình 1000Hz",
         ],
         correct: 0,
         explanation:
-            "ed25519 là thuật toán hiện đại, an toàn và nhanh, thường được khuyến nghị.",
+            "1000Hz nghĩa là thiết bị gửi dữ liệu về máy tính 1000 lần mỗi giây.",
     },
     {
-        question:
-            "Private key bị báo Permissions 0644 are too open. Sửa thế nào?",
+        question: "Chuột Bluetooth thường phù hợp nhất với nhu cầu nào?",
         options: [
-            "chmod 600 ~/.ssh/id_ed25519",
-            "chmod 777 ~/.ssh/id_ed25519",
-            "rm ~/.ssh/id_ed25519.pub",
-            "ssh-keygen -R server",
-        ],
-        correct: 0,
-        explanation: "Private key phải chỉ owner đọc/ghi, thường là chmod 600.",
-    },
-    {
-        question: "Muốn SSH bằng key cụ thể dùng tùy chọn nào?",
-        options: [
-            "ssh -i ~/.ssh/key user@host",
-            "ssh -k user@host",
-            "ssh --public user@host",
-            "ssh -R known_hosts",
-        ],
-        correct: 0,
-        explanation: "-i chỉ định IdentityFile/private key dùng để xác thực.",
-    },
-    {
-        question: "REMOTE HOST IDENTIFICATION HAS CHANGED cảnh báo điều gì?",
-        options: [
-            "Fingerprint server thay đổi, cần xác minh trước khi xóa known_hosts",
-            "Private key quá mở",
-            "Public key chưa copy",
-            "Server hết RAM",
+            "Văn phòng, di động, kết nối nhiều thiết bị",
+            "Luôn tốt nhất cho esports",
+            "Chỉ dùng được với máy in",
+            "Chỉ dùng được khi không có pin",
         ],
         correct: 0,
         explanation:
-            "Host key changed có thể do cài lại server hoặc nguy cơ giả mạo. Chỉ ssh-keygen -R khi chắc chắn.",
+            "Bluetooth tiện cho laptop, tablet và đa thiết bị, nhưng không phải lựa chọn tối ưu cho esports.",
     },
     {
-        question: "Trong ~/.ssh/config, dòng IdentityFile nghĩa là gì?",
+        question: "Với game FPS, yếu tố nào thường quan trọng?",
         options: [
-            "Private key dùng cho host đó",
-            "Tên người dùng",
-            "Địa chỉ IP server",
-            "Cổng SSH",
+            "Form hợp tay, cảm biến tốt, trọng lượng phù hợp, polling rate ổn",
+            "Chuột càng nặng càng chắc chắn thắng",
+            "DPI càng cao càng dễ ngắm",
+            "Không cần mousepad",
         ],
         correct: 0,
         explanation:
-            "IdentityFile trỏ đến private key mà SSH client sẽ dùng khi kết nối host đó.",
+            "FPS cần sự ổn định và kiểm soát: form, sensor, trọng lượng, polling rate và mousepad đều quan trọng.",
     },
 ];
 
 function InteractiveQuiz() {
-    const [current, setCurrent] = useState(0);
+    const [currentQ, setCurrentQ] = useState(0);
     const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
-    const q = quizQuestions[current];
-    const choose = (idx) => {
-        if (selected !== null) return;
-        setSelected(idx);
-        if (idx === q.correct) setScore((s) => s + 1);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
     };
-    const next = () => {
-        if (current === quizQuestions.length - 1) setFinished(true);
-        else {
-            setCurrent((c) => c + 1);
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
             setSelected(null);
-        }
+            setShowResult(false);
+        } else setCurrentQ("finished");
     };
-    const reset = () => {
-        setCurrent(0);
+    const resetQuiz = () => {
+        setCurrentQ(0);
         setSelected(null);
+        setShowResult(false);
         setScore(0);
-        setFinished(false);
     };
     if (finished)
         return (
-            <div className="text-center min-h-[280px] flex flex-col items-center justify-center animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
-                    {score === quizQuestions.length ? "🏆" : "👏"}
+                    {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
                     Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-orange-400">
-                        {score}/{quizQuestions.length}
+                    <strong className="text-cyan-400">
+                        {score}/{questions.length}
                     </strong>{" "}
-                    câu.
+                    câu hỏi.
                 </p>
                 <button
-                    onClick={reset}
-                    className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold inline-flex items-center gap-2"
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RotateCcw size={18} /> Làm lại quiz
+                    Làm lại
                 </button>
             </div>
         );
     return (
-        <div className="max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm">
-                <span className="text-orange-300 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full">
-                    Câu {current + 1}/{quizQuestions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-cyan-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-xl font-bold text-white mb-6 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 flex-grow">
                 {q.options.map((opt, idx) => {
                     let cls =
-                        "w-full text-left p-4 rounded-xl border transition-all text-sm ";
-                    if (selected === null)
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
                         cls +=
-                            "bg-slate-950 border-slate-800 hover:bg-slate-800 text-slate-300";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
-                            "bg-green-500/10 border-green-500/40 text-green-300";
+                            "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "bg-red-500/10 border-red-500/40 text-red-300";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "bg-slate-950/50 border-slate-900 text-slate-600";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
-                            onClick={() => choose(idx)}
-                            disabled={selected !== null}
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
                             className={cls}
                         >
-                            <span className="text-slate-500 font-mono mr-2">
-                                {String.fromCharCode(65 + idx)}.
-                            </span>
                             {opt}
                         </button>
                     );
                 })}
             </div>
-            {selected !== null && (
-                <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`rounded-xl p-4 text-sm mb-5 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-200" : "bg-orange-500/10 border border-orange-500/20 text-orange-200"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info size={18} className="shrink-0 mt-0.5" />
-                        <div>
-                            <strong className="text-white block mb-1">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
-                        onClick={next}
-                        className="w-full md:w-auto md:px-8 py-3 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold ml-auto block"
+                        onClick={handleNext}
+                        className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-colors"
                     >
-                        {current === quizQuestions.length - 1
-                            ? "Xem kết quả"
-                            : "Câu tiếp theo"}
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu cơ chế và cách chọn chuột. Tiếp theo là màn hình cảm
+                ứng — Touchscreen: thiết bị nhập liệu cho phép tương tác trực
+                tiếp bằng ngón tay hoặc bút cảm ứng trên bề mặt màn hình.
+            </p>
+            <Link
+                to="/phan-10-3"
+                className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-cyan-500/20"
+            >
+                Bài tiếp theo: 10.3 — Màn hình cảm ứng Touchscreen{" "}
+                <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "cyan" }) {
+    const colorMap = {
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-cyan-500/10 border-cyan-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-5`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed text-sm">
+                {value}
+            </p>
+        </div>
+    );
+}
+function RuleCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className={`${textColor(color)} font-bold text-sm mb-2`}>
+                {label}
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[760px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={`${row[0]}-${i}`}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function WarnBullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <AlertTriangle
+                className="text-orange-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.cyan;
+}
+function softBorder(color) {
+    const map = {
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.cyan;
+}
+function textColor(color) {
+    const map = {
+        cyan: "text-cyan-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        emerald: "text-emerald-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-cyan-300";
 }

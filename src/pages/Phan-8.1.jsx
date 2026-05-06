@@ -1,1122 +1,1473 @@
-import React, { useMemo, useState } from "react";
-
+import React, { useState } from "react";
 import {
-    Terminal,
-    FileCode2,
-    Play,
-    KeyRound,
-    CheckCircle2,
-    XCircle,
-    Info,
-    Copy,
-    Bug,
-    FolderTree,
-    Archive,
-    Activity,
-    Cpu,
-    HardDrive,
-    MemoryStick,
-    Clock,
-    ChevronRight,
-    ShieldCheck,
-    ListChecks,
-    Sparkles,
     AlertTriangle,
-    ArrowRight,
-    Code2,
-    Braces,
-    Hash,
+    Award,
+    BookOpen,
+    Brain,
+    CheckCircle2,
+    ChevronRight,
+    Cpu,
+    Fan,
+    Gamepad2,
+    Gauge,
+    HardDrive,
+    Home,
+    Layers3,
+    Lightbulb,
+    Monitor,
     PackageCheck,
-    RotateCcw,
+    PlugZap,
+    Search,
+    Settings,
+    ShieldCheck,
+    Sparkles,
+    Thermometer,
+    Workflow,
+    XCircle,
+    Zap,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-orange-500 selection:text-white pb-20">
-            <header className="bg-slate-950/90 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-teal-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-2xl">
-                            🐧
+                        <div className="w-11 h-11 rounded-2xl bg-teal-500/10 border border-teal-400/30 flex items-center justify-center shadow-lg shadow-teal-500/10">
+                            <Home className="text-teal-400" size={24} />
                         </div>
                         <div>
-                            <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden sm:block">
-                                Automation · Terminal · Bash
+                            <p className="text-xs text-slate-500">
+                                Phần 8: Case — Vỏ máy tính
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-500 hidden md:inline-block">
-                            Chương 8
-                        </span>
-                        <div className="text-sm font-semibold text-orange-300 bg-orange-400/10 px-3 py-1 rounded-full border border-orange-400/20">
-                            Bài 8.1
-                        </div>
+                    <div className="text-sm font-semibold text-teal-300 bg-teal-400/10 px-3 py-1 rounded-full border border-teal-400/20">
+                        Bài 8.1
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <section className="text-center py-8 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-sm">
-                        <Sparkles size={16} className="text-orange-400" /> Tự
-                        động hóa công việc lặp lại bằng Bash
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Bash Script Là Gì? <br />
-                        <span className="text-orange-500">
-                            Tạo Script Đầu Tiên
-                        </span>
-                    </h2>
-                    <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                        Thay vì gõ từng lệnh mỗi ngày, bạn gom chúng vào một
-                        file <code className="text-orange-300">.sh</code>, cấp
-                        quyền chạy, rồi để Linux thực hiện tuần tự từ trên xuống
-                        dưới.
-                    </p>
-                </section>
-
-                <section className="grid lg:grid-cols-2 gap-6 items-stretch">
-                    <ConceptCard />
-                    <ScriptFlowDemo />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="1"
-                        color="blue"
-                        icon={<FileCode2 size={22} />}
-                        title="Cấu trúc một Bash Script"
-                        subtitle="Một script tốt luôn bắt đầu bằng shebang, có comment rõ ràng, và chạy các lệnh theo thứ tự."
-                    />
-                    <div className="grid lg:grid-cols-2 gap-6">
-                        <CodeBlock
-                            title="hello-minimal.sh"
-                            code={`#!/bin/bash\n# Đây là comment: dòng giải thích, không chạy\n\necho "Hello, Ubuntu!"`}
-                        />
-                        <ShebangExplainer />
-                    </div>
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="2"
-                        color="orange"
-                        icon={<Terminal size={22} />}
-                        title="Tạo & Chạy Script Đầu Tiên"
-                        subtitle="Đi theo 4 bước: tạo file, lưu file, cấp quyền thực thi, chạy script."
-                    />
-                    <CreateRunWizard />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="3"
-                        color="green"
-                        icon={<Hash size={22} />}
-                        title="echo – In ra Terminal"
-                        subtitle="echo dùng để in chữ, in màu, in dòng trống, hoặc in kết quả của lệnh khác."
-                    />
-                    <EchoPlayground />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="4"
-                        color="purple"
-                        icon={<Braces size={22} />}
-                        title="Biến Trong Script"
-                        subtitle="Biến giúp script linh hoạt: lưu tên, ngày giờ, đường dẫn, kết quả lệnh, phép tính."
-                    />
-                    <VariablesSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="5"
-                        color="pink"
-                        icon={<PackageCheck size={22} />}
-                        title="2 Script Thực Tế"
-                        subtitle="Backup website và kiểm tra sức khỏe server là hai ví dụ rất gần với công việc quản trị Linux."
-                    />
-                    <RealScriptsTabs />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="6"
-                        color="yellow"
-                        icon={<Bug size={22} />}
-                        title="Debug Script"
-                        subtitle="Khi script chạy sai, đừng đoán mò. Hãy bật debug để xem từng lệnh đang được thực thi."
-                    />
-                    <DebugSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="7"
-                        color="cyan"
-                        icon={<FolderTree size={22} />}
-                        title="Cấu Trúc Thư Mục Script Tốt"
-                        subtitle="Đưa script vào ~/bin hoặc /usr/local/bin để chạy ở mọi nơi như một lệnh thật."
-                    />
-                    <PathSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="8"
-                        color="teal"
-                        icon={<ListChecks size={22} />}
-                        title="Tóm tắt nhanh"
-                        subtitle="Những lệnh, ký hiệu và quy tắc bạn cần nhớ sau bài này."
-                    />
-                    <SummaryGrid />
-                </section>
-
-                <section className="pt-4">
-                    <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-                        <div className="p-6 border-b border-slate-800 flex items-center justify-between gap-4">
-                            <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <ShieldCheck className="text-orange-400" />{" "}
-                                    Kiểm tra kiến thức Bash Script
-                                </h3>
-                                <p className="text-slate-500 text-sm mt-1">
-                                    Trả lời để kiểm tra bạn đã nắm chắc bài 8.1
-                                    chưa.
-                                </p>
-                            </div>
-                            <div className="hidden sm:block text-3xl">🧪</div>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <footer className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Bạn đã biết tạo script đầu tiên. Bước tiếp theo là làm
-                        script biết nhận dữ liệu từ người dùng.
-                    </p>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
-                        Bài tiếp theo: 8.2 — Biến, kiểu dữ liệu & nhập liệu{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </footer>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <HouseAnalogy />
+                <AirflowSimulator />
+                <CaseTypeExplorer />
+                <CompatibilityExplorer />
+                <SpecsExplorer />
+                <AirflowAndFanGuide />
+                <RealExamples />
+                <BuildLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function SectionTitle({ number, color, icon, title, subtitle }) {
-    const colorMap = {
-        blue: "bg-blue-500/20 text-blue-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        green: "bg-green-500/20 text-green-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        pink: "bg-pink-500/20 text-pink-400",
-        yellow: "bg-yellow-500/20 text-yellow-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        teal: "bg-teal-500/20 text-teal-400",
-    };
+function HeroSection() {
     return (
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                    <span
-                        className={`${colorMap[color]} p-2 rounded-xl inline-flex items-center gap-2`}
-                    >
-                        <span className="text-sm font-black">{number}</span>
-                        {icon}
-                    </span>
-                    {title}
-                </h3>
-                <p className="text-slate-400 mt-2 max-w-3xl">{subtitle}</p>
-            </div>
-        </div>
-    );
-}
-
-function Kbd({ children }) {
-    return (
-        <kbd className="bg-slate-800 border border-slate-600 text-slate-200 px-2 py-1 rounded-md text-xs font-sans shadow-sm inline-block">
-            {children}
-        </kbd>
-    );
-}
-
-function CodeBlock({ title, code, note }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-300">
-                    <Terminal size={16} className="text-orange-400" /> {title}
-                </div>
-                <Copy size={15} className="text-slate-600" />
-            </div>
-            <pre className="p-5 overflow-x-auto text-sm leading-6 text-slate-200">
-                <code>{code}</code>
-            </pre>
-            {note && (
-                <div className="px-5 pb-5 text-xs text-slate-500">{note}</div>
-            )}
-        </div>
-    );
-}
-
-function ConceptCard() {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-orange-500/15 text-orange-400 rounded-2xl flex items-center justify-center">
-                    <FileCode2 size={26} />
-                </div>
-                <div>
-                    <h3 className="text-2xl font-bold text-white">
-                        Bash Script là gì?
-                    </h3>
-                    <p className="text-slate-500 text-sm">
-                        File văn bản chứa các lệnh shell
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-teal-300">
+                        <BookOpen size={16} /> Phần 8: Case — Vỏ máy tính
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Vai trò của
+                        <span className="block text-teal-400">vỏ máy tính</span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Hai PC cấu hình giống nhau có thể khác xa về nhiệt độ,
+                        độ ồn, dây gọn hay khả năng nâng cấp. Khác biệt đôi khi
+                        nằm ở case — “ngôi nhà” quyết định môi trường vật lý cho
+                        toàn bộ linh kiện.
                     </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag
+                            icon={<ShieldCheck size={16} />}
+                            text="Bảo vệ linh kiện"
+                        />
+                        <Tag icon={<Fan size={16} />} text="Airflow" />
+                        <Tag icon={<Thermometer size={16} />} text="Nhiệt độ" />
+                        <Tag
+                            icon={<Gamepad2 size={16} />}
+                            text="GPU clearance"
+                        />
+                        <Tag icon={<Layers3 size={16} />} text="Form factor" />
+                    </div>
+                </div>
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Home />}
+                            label="Case"
+                            desc="Ngôi nhà của PC"
+                            color="teal"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Fan />}
+                            label="Airflow"
+                            desc="Hút gió / xả nhiệt"
+                            color="cyan"
+                        />
+                        <HeroTile
+                            icon={<Gamepad2 />}
+                            label="Clearance"
+                            desc="Vừa GPU/tản"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<PackageCheck />}
+                            label="Upgrade"
+                            desc="Dễ nâng cấp"
+                            color="emerald"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Case tốt ảnh hưởng</p>
+                        <p>mát hơn + ít ồn hơn</p>
+                        <p className="text-teal-300">
+                            + dễ lắp + dễ vệ sinh + dễ nâng cấp
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-                <div className="bg-slate-950 rounded-2xl border border-slate-800 p-5">
-                    <div className="text-red-400 font-bold mb-3 flex items-center gap-2">
-                        <XCircle size={18} /> Làm thủ công
-                    </div>
-                    <div className="font-mono text-sm text-slate-400 space-y-2">
-                        <div>$ mkdir backup</div>
-                        <div>$ cp *.txt backup/</div>
-                        <div>$ zip backup.zip backup/</div>
-                        <div>$ echo "Xong!"</div>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-4">
-                        Ngày nào cũng gõ lại nhiều lệnh.
-                    </p>
-                </div>
-                <div className="bg-slate-950 rounded-2xl border border-orange-500/30 p-5 shadow-[0_0_30px_rgba(249,115,22,0.08)]">
-                    <div className="text-green-400 font-bold mb-3 flex items-center gap-2">
-                        <CheckCircle2 size={18} /> Dùng script
-                    </div>
-                    <div className="font-mono text-sm text-slate-300 space-y-2">
-                        <div>$ ./backup.sh</div>
-                        <div className="text-green-400">→ tự chạy toàn bộ</div>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-4">
-                        Một lệnh, chạy hết quy trình.
-                    </p>
-                </div>
-            </div>
-            <div className="mt-5 bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 text-sm text-blue-100 flex gap-3">
-                <Info size={20} className="text-blue-400 shrink-0 mt-0.5" />
-                <p>
-                    <strong>Bash Script</strong> chạy tuần tự từ trên xuống
-                    dưới, có thể truyền tham số, xử lý lỗi, ghi log và lập lịch
-                    tự động bằng cron.
-                </p>
-            </div>
-        </div>
+        </section>
     );
 }
 
-function ScriptFlowDemo() {
-    const [step, setStep] = useState(0);
-    const steps = [
-        {
-            title: "1. Viết lệnh vào file",
-            cmd: "nano hello.sh",
-            desc: "Tạo file văn bản chứa các lệnh Bash.",
-        },
-        {
-            title: "2. Cấp quyền chạy",
-            cmd: "chmod +x hello.sh",
-            desc: "Thêm quyền executable để Linux cho phép chạy trực tiếp.",
-        },
-        {
-            title: "3. Chạy script",
-            cmd: "./hello.sh",
-            desc: "Dấu ./ nghĩa là chạy file ở thư mục hiện tại.",
-        },
-        {
-            title: "4. Nhận output",
-            cmd: "Xin chào Ubuntu Linux!",
-            desc: "Script in kết quả ra terminal và kết thúc.",
-        },
+function LearningGoals() {
+    const goals = [
+        "Hiểu vỏ máy tính, case hoặc chassis là bộ khung chứa, bảo vệ và cố định linh kiện PC.",
+        "Nắm case ảnh hưởng đến airflow, nhiệt độ, độ ồn, độ bền linh kiện và trải nghiệm lắp ráp như thế nào.",
+        "Phân biệt các nhóm case phổ biến: Full Tower, Mid Tower, Mini Tower/Micro-ATX và Mini-ITX.",
+        "Biết đọc thông số quan trọng: form factor, GPU clearance, CPU cooler clearance, fan/radiator support, cable management và front I/O.",
+        "Tránh lỗi chọn case chỉ vì đẹp/RGB mà quên airflow, kích thước mainboard, GPU, tản CPU và khả năng nâng cấp.",
     ];
     return (
-        <div className="bg-gradient-to-br from-orange-500/20 via-slate-900 to-blue-500/20 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <Play className="text-orange-400" /> Mô phỏng quy trình chạy
-                script
-            </h3>
-            <p className="text-slate-400 mb-6">
-                Bấm từng bước để xem Linux xử lý script như thế nào.
-            </p>
-            <div className="grid grid-cols-4 gap-2 mb-6">
-                {steps.map((s, i) => (
-                    <button
-                        key={s.title}
-                        onClick={() => setStep(i)}
-                        className={`h-2 rounded-full transition-all ${i <= step ? "bg-orange-500" : "bg-slate-700"}`}
-                        aria-label={s.title}
-                    />
-                ))}
-            </div>
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 min-h-[220px] flex flex-col justify-between">
-                <div>
-                    <div className="text-sm text-orange-400 font-bold mb-2">
-                        {steps[step].title}
-                    </div>
-                    <div className="font-mono text-lg md:text-xl text-green-400 bg-black/40 rounded-xl p-4 border border-slate-800">
-                        $ {steps[step].cmd}
-                    </div>
-                    <p className="text-slate-400 mt-4">{steps[step].desc}</p>
-                </div>
-                <div className="flex justify-between mt-6">
-                    <button
-                        onClick={() => setStep(Math.max(0, step - 1))}
-                        className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm disabled:opacity-40"
-                        disabled={step === 0}
-                    >
-                        Quay lại
-                    </button>
-                    <button
-                        onClick={() =>
-                            setStep(Math.min(steps.length - 1, step + 1))
-                        }
-                        className="px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold disabled:opacity-40"
-                        disabled={step === steps.length - 1}
-                    >
-                        Tiếp tục
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function ShebangExplainer() {
-    const items = [
-        [
-            "#!/bin/bash",
-            "Dùng Bash trực tiếp tại /bin/bash. Phổ biến nhất trên Ubuntu.",
-        ],
-        ["#!/bin/sh", "Dùng sh. Portable hơn nhưng ít tính năng Bash hơn."],
-        [
-            "#!/usr/bin/env bash",
-            "Tự tìm bash trong PATH. Linh hoạt khi môi trường khác nhau.",
-        ],
-    ];
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <KeyRound className="text-blue-400" /> Shebang là gì?
-            </h4>
-            <p className="text-slate-400 mb-5 text-sm">
-                Dòng đầu tiên báo cho hệ thống biết nên dùng chương trình nào để
-                chạy file script.
-            </p>
-            <div className="space-y-3">
-                {items.map(([cmd, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="teal"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
                     <div
-                        key={cmd}
-                        className="bg-slate-950 border border-slate-800 rounded-xl p-4"
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-teal-500/50 transition-colors"
                     >
-                        <code className="text-green-400 font-semibold">
-                            {cmd}
-                        </code>
-                        <p className="text-slate-400 text-sm mt-1">{desc}</p>
+                        <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
                     </div>
                 ))}
             </div>
-            <div className="mt-4 bg-red-500/10 border border-red-500/20 text-red-200 rounded-xl p-4 text-sm flex gap-3">
-                <AlertTriangle size={18} className="text-red-400 shrink-0" />{" "}
-                Thiếu shebang có thể làm script chạy sai shell hoặc báo lỗi khó
-                hiểu.
-            </div>
-        </div>
+        </section>
     );
 }
 
-function CreateRunWizard() {
-    const [active, setActive] = useState(0);
-    const steps = [
+function CoreConcept() {
+    const cards = [
         {
-            title: "Bước 1 — Tạo file script",
-            command: "nano hello.sh",
-            body: `#!/bin/bash\n# Script đầu tiên của tôi\n# Tác giả: Ubuntu Learner\n\necho "==========================="\necho "   Xin chào Ubuntu Linux!  "\necho "==========================="\necho ""\necho "Ngày hôm nay: $(date)"\necho "Bạn đang đăng nhập là: $(whoami)"\necho "Thư mục hiện tại: $(pwd)"\necho "Hostname: $(hostname)"\necho "Uptime  : $(uptime -p)"`,
+            icon: <ShieldCheck />,
+            title: "Bảo vệ & cố định",
+            desc: "Giữ mainboard, GPU, PSU, SSD/HDD chắc chắn, giảm rủi ro va chạm/rung lắc.",
+            color: "teal",
         },
         {
-            title: "Bước 2 — Lưu file trong nano",
-            command: "Ctrl + O → Enter → Ctrl + X",
-            body: "Ctrl + O: ghi file ra đĩa\nEnter: xác nhận tên file\nCtrl + X: thoát nano",
+            icon: <Fan />,
+            title: "Tạo luồng gió",
+            desc: "Case quyết định gió mát vào đâu, khí nóng thoát ra đâu và linh kiện có bị bí nhiệt không.",
+            color: "cyan",
         },
         {
-            title: "Bước 3 — Cấp quyền thực thi",
-            command: "chmod +x hello.sh",
-            body: "Kiểm tra quyền:\nls -l hello.sh\n\nKết quả mong muốn:\n-rwxr-xr-x 1 ubuntu ubuntu 245 Jan 15 10:00 hello.sh\n   ↑\n   x = executable, file có quyền chạy",
+            icon: <Thermometer />,
+            title: "Ảnh hưởng nhiệt & ồn",
+            desc: "Case bí làm CPU/GPU nóng hơn, quạt quay mạnh hơn và máy ồn hơn.",
+            color: "orange",
         },
         {
-            title: "Bước 4 — Chạy script",
-            command: "./hello.sh",
-            body: "Cách 1: ./hello.sh       # cần chmod +x\nCách 2: bash hello.sh    # không cần chmod +x\nCách 3: sh hello.sh      # dùng sh, có thể khác bash",
+            icon: <PackageCheck />,
+            title: "Quyết định nâng cấp",
+            desc: "Case rộng hỗ trợ GPU dài hơn, tản lớn hơn, nhiều ổ và nhiều quạt/radiator hơn.",
+            color: "emerald",
         },
     ];
     return (
-        <div className="grid lg:grid-cols-[320px_1fr] gap-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-2 h-fit">
-                {steps.map((s, i) => (
-                    <button
-                        key={s.title}
-                        onClick={() => setActive(i)}
-                        className={`w-full text-left p-4 rounded-xl border transition-all ${active === i ? "bg-orange-500/10 border-orange-500/40 text-white" : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        <div className="flex items-center gap-3">
-                            <span
-                                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${active === i ? "bg-orange-500 text-white" : "bg-slate-800 text-slate-500"}`}
-                            >
-                                {i + 1}
-                            </span>
-                            <span className="font-semibold text-sm">
-                                {s.title}
-                            </span>
-                        </div>
-                    </button>
-                ))}
-            </div>
-            <div className="space-y-4">
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-                    <div className="text-sm text-slate-500 mb-2">
-                        Lệnh cần chạy
-                    </div>
-                    <div className="font-mono text-green-400 bg-black/40 rounded-xl p-4 border border-slate-800">
-                        $ {steps[active].command}
-                    </div>
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Vỏ máy tính là gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">Vỏ máy tính</strong>, tiếng
+                    Anh gọi là <strong className="text-teal-300">Case</strong>{" "}
+                    hoặc <strong className="text-teal-300">Chassis</strong>, là
+                    bộ khung bên ngoài dùng để chứa, bảo vệ và cố định linh kiện
+                    bên trong máy tính. Case không trực tiếp xử lý dữ liệu,
+                    nhưng ảnh hưởng mạnh đến nhiệt độ, độ bền, độ ồn, khả năng
+                    nâng cấp và trải nghiệm lắp ráp.
+                </p>
+                <div className="grid md:grid-cols-4 gap-4">
+                    {cards.map((c) => (
+                        <RoleCard key={c.title} {...c} />
+                    ))}
                 </div>
-                <CodeBlock
-                    title="Nội dung / kết quả cần hiểu"
-                    code={steps[active].body}
-                />
             </div>
-        </div>
+        </section>
     );
 }
 
-function EchoPlayground() {
-    const [mode, setMode] = useState("normal");
-    const examples = {
-        normal: {
-            title: "In chuỗi thường",
-            code: `echo "Xin chào!"`,
-            output: "Xin chào!",
+function HouseAnalogy() {
+    const cards = [
+        {
+            icon: <Home />,
+            title: "Case = ngôi nhà",
+            desc: "Ngôi nhà rộng, thoáng, dễ sửa giúp toàn bộ hệ thống sống khỏe hơn.",
+            color: "teal",
         },
-        nonewline: {
-            title: "In không xuống dòng",
-            code: `echo -n "Nhập tên: "`,
-            output: "Nhập tên: █",
+        {
+            icon: <Layers3 />,
+            title: "Mainboard = nền móng",
+            desc: "Case phải hỗ trợ đúng chuẩn mainboard: ATX, mATX hoặc Mini-ITX.",
+            color: "blue",
         },
-        color: {
-            title: "In có màu",
-            code: `echo -e "\\e[32mDòng này màu xanh lá\\e[0m"\necho -e "\\e[31mDòng này màu đỏ\\e[0m"`,
-            output: "Dòng này màu xanh lá\nDòng này màu đỏ",
+        {
+            icon: <Cpu />,
+            title: "CPU/RAM/SSD/GPU = thiết bị",
+            desc: "Thiết bị phải có đủ chỗ, đủ gió và không bị cấn khi lắp.",
+            color: "orange",
         },
-        command: {
-            title: "In kết quả lệnh",
-            code: `echo "Hôm nay là: $(date +%A)"\necho "Có $(ls | wc -l) file trong thư mục này"`,
-            output: "Hôm nay là: Monday\nCó 8 file trong thư mục này",
+        {
+            icon: <Fan />,
+            title: "Quạt/khe thoáng = cửa sổ",
+            desc: "Cửa hút gió và cửa xả nhiệt quyết định căn nhà có bí hay không.",
+            color: "cyan",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: case là ngôi nhà của dàn PC"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function AirflowSimulator() {
+    const flows = {
+        good: {
+            title: "Case airflow tốt",
+            color: "emerald",
+            steps: [
+                {
+                    icon: <Fan />,
+                    title: "Hút gió mát",
+                    desc: "Mặt trước mesh hoặc khe thoáng đưa gió mát vào case.",
+                },
+                {
+                    icon: <Gamepad2 />,
+                    title: "Gió đi qua GPU",
+                    desc: "GPU rời nhận gió mát, giảm nhiệt khi chơi game/render.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "Gió hỗ trợ CPU",
+                    desc: "Tản CPU nhận không khí mát hơn, quạt không phải quay quá mạnh.",
+                },
+                {
+                    icon: <Thermometer />,
+                    title: "Khí nóng thoát ra",
+                    desc: "Quạt sau và quạt trên đẩy khí nóng ra ngoài.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "Máy mát và êm hơn",
+                    desc: "Nhiệt thấp hơn giúp quạt chậm hơn, độ ồn giảm và hiệu năng ổn định hơn.",
+                },
+            ],
+        },
+        bad: {
+            title: "Case bí gió",
+            color: "red",
+            steps: [
+                {
+                    icon: <XCircle />,
+                    title: "Mặt trước kín",
+                    desc: "Gió mát vào ít, quạt hút khó lấy không khí.",
+                },
+                {
+                    icon: <Thermometer />,
+                    title: "Nhiệt tích tụ",
+                    desc: "GPU và CPU thải nhiệt nhưng khí nóng không thoát kịp.",
+                },
+                {
+                    icon: <Fan />,
+                    title: "Quạt quay mạnh",
+                    desc: "Hệ thống cố hạ nhiệt bằng cách tăng tốc quạt.",
+                },
+                {
+                    icon: <AlertTriangle />,
+                    title: "Ồn và có thể giảm xung",
+                    desc: "Khi quá nóng, CPU/GPU có thể giảm hiệu năng để tự bảo vệ.",
+                },
+            ],
+        },
+        cable: {
+            title: "Dây gọn",
+            color: "blue",
+            steps: [
+                {
+                    icon: <PlugZap />,
+                    title: "Dây nguồn đi phía sau",
+                    desc: "Khoang sau mainboard giúp giấu dây 24-pin, EPS, PCIe, SATA.",
+                },
+                {
+                    icon: <Workflow />,
+                    title: "Không chắn đường gió",
+                    desc: "Ít dây trước mainboard giúp gió đi từ trước ra sau dễ hơn.",
+                },
+                {
+                    icon: <Search />,
+                    title: "Dễ vệ sinh/sửa chữa",
+                    desc: "Máy gọn giúp tháo GPU, thêm SSD, vệ sinh bụi nhanh hơn.",
+                },
+                {
+                    icon: <PackageCheck />,
+                    title: "Dễ nâng cấp",
+                    desc: "Case có không gian tốt giúp đổi GPU/tản/ổ dễ hơn về sau.",
+                },
+            ],
         },
     };
-    const palette = [
-        ["\\e[0m", "reset"],
-        ["\\e[1m", "in đậm"],
-        ["\\e[31m", "đỏ"],
-        ["\\e[32m", "xanh lá"],
-        ["\\e[33m", "vàng"],
-        ["\\e[34m", "xanh dương"],
-        ["\\e[35m", "tím"],
-        ["\\e[36m", "xanh ngọc"],
-    ];
+    const [mode, setMode] = useState("good");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
+    };
     return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-                <h4 className="font-bold text-white mb-4">Chọn kiểu echo</h4>
-                <div className="grid sm:grid-cols-2 gap-3 mb-5">
-                    {Object.entries(examples).map(([key, ex]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Case ảnh hưởng PC như thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
                         <button
                             key={key}
-                            onClick={() => setMode(key)}
-                            className={`p-3 rounded-xl border text-left text-sm transition-all ${mode === key ? "border-green-500/50 bg-green-500/10 text-white" : "border-slate-800 bg-slate-950 text-slate-400 hover:text-slate-200"}`}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
                         >
-                            {ex.title}
+                            {f.title}
                         </button>
                     ))}
                 </div>
-                <CodeBlock title="echo-example.sh" code={examples[mode].code} />
-            </div>
-            <div className="space-y-6">
-                <div className="bg-black border border-slate-800 rounded-2xl p-5 min-h-[180px]">
-                    <div className="text-xs text-slate-500 mb-3">
-                        Terminal output
-                    </div>
-                    <pre
-                        className={`font-mono text-sm whitespace-pre-wrap ${mode === "color" ? "text-green-400" : "text-slate-200"}`}
-                    >
-                        {examples[mode].output}
-                    </pre>
-                </div>
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-                    <h4 className="font-bold text-white mb-4">
-                        Bảng màu thường dùng
-                    </h4>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        {palette.map(([code, label]) => (
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
                             <div
-                                key={code}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm"
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
                             >
-                                <code className="text-orange-300">{code}</code>
-                                <div className="text-slate-500 text-xs mt-1">
-                                    {label}
-                                </div>
+                                {React.cloneElement(step.icon, { size: 32 })}
                             </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
                         ))}
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
-function VariablesSection() {
-    const specials = [
-        ["$0", "Tên script"],
-        ["$1", "Tham số thứ 1"],
-        ["$2", "Tham số thứ 2"],
-        ["$@", "Tất cả tham số"],
-        ["$#", "Số lượng tham số"],
-        ["$$", "PID của script"],
-        ["$?", "Exit code lệnh trước"],
+function CaseTypeExplorer() {
+    const types = {
+        full: {
+            icon: <Layers3 />,
+            title: "Full Tower",
+            size: "Rất lớn",
+            color: "blue",
+            good: [
+                "Rộng rãi, dễ lắp",
+                "Hỗ trợ nhiều ổ",
+                "GPU dài, radiator lớn",
+                "Hợp tản nước custom",
+            ],
+            bad: ["To, nặng", "Chiếm diện tích", "Giá thường cao"],
+            fit: "Workstation, PC cao cấp, người thích nâng cấp nhiều",
+        },
+        mid: {
+            icon: <PackageCheck />,
+            title: "Mid Tower",
+            size: "Trung bình",
+            color: "teal",
+            good: [
+                "Cân bằng nhất",
+                "Dễ build",
+                "Hỗ trợ ATX phổ biến",
+                "Airflow và nâng cấp tốt",
+            ],
+            bad: [
+                "Không rộng bằng Full Tower",
+                "Một số mẫu vẫn kén GPU/radiator",
+            ],
+            fit: "Đa số người dùng gaming, văn phòng, đồ họa",
+        },
+        mini: {
+            icon: <Monitor />,
+            title: "Mini Tower / Micro-ATX",
+            size: "Nhỏ hơn",
+            color: "emerald",
+            good: ["Gọn", "Tiết kiệm không gian", "Giá dễ chịu", "Hợp mATX"],
+            bad: ["Airflow hạn chế hơn", "GPU/tản có thể kén kích thước"],
+            fit: "PC văn phòng, học tập, gaming tầm trung",
+        },
+        itx: {
+            icon: <Sparkles />,
+            title: "Mini-ITX",
+            size: "Rất nhỏ",
+            color: "orange",
+            good: ["Siêu gọn", "Đẹp, tối giản", "Dễ đặt trên bàn"],
+            bad: [
+                "Khó lắp",
+                "Nóng hơn",
+                "Linh kiện phải chọn kỹ",
+                "Thường tốn công hơn",
+            ],
+            fit: "Người thích PC nhỏ gọn, setup tối giản",
+        },
+    };
+    const [active, setActive] = useState("mid");
+    const item = types[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="teal"
+                title="Các loại vỏ máy theo kích thước"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(types).map(([key, t]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(t.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(t.icon, { size: 20 })}{" "}
+                                {t.title}
+                            </div>
+                            <p className="text-xs opacity-75 mt-1">{t.size}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p
+                            className={`${textColor(item.color)} font-semibold mb-4`}
+                        >
+                            {item.size}
+                        </p>
+                        <p className="text-sm text-slate-400 leading-relaxed">
+                            <strong className="text-white">Phù hợp:</strong>{" "}
+                            {item.fit}
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div
+                            className={`${softBorder(item.color)} border rounded-3xl p-5`}
+                        >
+                            <p
+                                className={`${textColor(item.color)} font-bold mb-3`}
+                            >
+                                Ưu điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.good.map((g) => (
+                                    <Bullet key={g} text={g} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-5">
+                            <p className="text-red-300 font-bold mb-3">
+                                Nhược điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.bad.map((b) => (
+                                    <WarnBullet key={b} text={b} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CompatibilityExplorer() {
+    const rows = [
+        [
+            "Full Tower",
+            "ATX, mATX, Mini-ITX, thường cả E-ATX",
+            "GPU dài, radiator lớn, nhiều ổ",
+        ],
+        [
+            "Mid Tower",
+            "ATX, mATX, Mini-ITX",
+            "Lựa chọn an toàn nhất cho người mới",
+        ],
+        [
+            "Micro-ATX / Mini Tower",
+            "mATX, Mini-ITX",
+            "Gọn, giá dễ chịu, cần kiểm tra GPU/tản",
+        ],
+        ["Mini-ITX Case", "Mini-ITX", "Rất kén GPU, tản CPU, PSU và airflow"],
     ];
     return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <CodeBlock
-                title="variables.sh"
-                code={`#!/bin/bash\n\n# Khai báo biến: KHÔNG có dấu cách quanh dấu =\nten="Ubuntu"\nphien_ban=24\nthu_muc="/home/ubuntu"\n\necho "Hệ điều hành: $ten"\necho "Phiên bản: $phien_ban"\necho "Chào mừng đến ${ten}${phien_ban}.04 LTS!"\n\n# Biến từ kết quả lệnh\nngay_hom_nay=$(date +%Y-%m-%d)\nso_file=$(ls /home | wc -l)\necho "Ngày: $ngay_hom_nay"\necho "Số user: $so_file"\n\n# Biến số học\na=10\nb=3\necho "$a + $b = $((a + b))"\necho "$a / $b = $((a / b)) dư $((a % b))"`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="blue"
+                title="Case phải tương thích linh kiện nào?"
+                icon={<PackageCheck />}
             />
-            <div className="space-y-6">
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-white mb-4">
-                        3 quy tắc vàng về biến
-                    </h4>
-                    <div className="space-y-3">
-                        <Rule ok text={'Đúng: ten="Ubuntu"'} />
-                        <Rule bad text={'Sai: ten = "Ubuntu"'} />
-                        <Rule ok text={"Dùng biến: $ten hoặc ${ten}"} />
-                        <Rule ok text={"Lấy kết quả lệnh: ngay=$(date)"} />
+            <DataTable
+                title="Case và mainboard hỗ trợ"
+                rows={rows}
+                headers={["Loại case", "Mainboard thường hỗ trợ", "Lưu ý"]}
+                accent="blue"
+            />
+            <div className="grid md:grid-cols-3 gap-4">
+                <RuleCard
+                    label="Mainboard ATX"
+                    value="Cần case hỗ trợ ATX. Case Mini-ITX/mATX nhỏ thường không lắp được."
+                    color="blue"
+                />
+                <RuleCard
+                    label="GPU clearance"
+                    value="Case hỗ trợ GPU tối đa 330mm thì GPU 340mm không lắp vừa."
+                    color="orange"
+                />
+                <RuleCard
+                    label="CPU cooler clearance"
+                    value="Tản khí cao 158mm với case hỗ trợ 160mm là vừa nhưng khá sát."
+                    color="cyan"
+                />
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        form: {
+            icon: <Layers3 />,
+            title: "Form Factor",
+            detail: "Case phải hỗ trợ chuẩn mainboard bạn dùng: ATX, Micro-ATX hoặc Mini-ITX.",
+            impact: "Mua main ATX nhưng case chỉ hỗ trợ mATX/ITX là không lắp được.",
+        },
+        gpu: {
+            icon: <Gamepad2 />,
+            title: "GPU Clearance",
+            detail: "Chiều dài card đồ họa tối đa mà case chứa được.",
+            impact: "RTX 4070 Ti/4080/4090 hoặc card 3 quạt thường rất dài, phải kiểm tra mm trước khi mua.",
+        },
+        cooler: {
+            icon: <Thermometer />,
+            title: "CPU Cooler Clearance",
+            detail: "Chiều cao tản nhiệt khí CPU tối đa case hỗ trợ.",
+            impact: "Tản cao hơn giới hạn case có thể khiến bạn không đóng được nắp hông.",
+        },
+        airflow: {
+            icon: <Fan />,
+            title: "Airflow",
+            detail: "Khả năng đưa gió mát vào và đẩy khí nóng ra khỏi case.",
+            impact: "Mặt trước mesh thường mát hơn mặt kính kín, nhất là với GPU rời mạnh.",
+        },
+        radiator: {
+            icon: <Gauge />,
+            title: "Radiator Support",
+            detail: "Case hỗ trợ radiator AIO 120/240/280/360mm ở vị trí nào.",
+            impact: "AIO 360mm cần kiểm tra gắn trước hay trên, có cấn RAM/main/GPU không.",
+        },
+        cable: {
+            icon: <PlugZap />,
+            title: "Cable Management",
+            detail: "Không gian sau mainboard để giấu dây nguồn, dây quạt, SATA và front panel.",
+            impact: "Dây gọn giúp máy đẹp hơn, dễ vệ sinh và ít cản airflow hơn.",
+        },
+        front: {
+            icon: <Settings />,
+            title: "Front I/O",
+            detail: "Cụm cổng trước/trên case: power, USB-A, USB-C, audio, reset/RGB.",
+            impact: "Muốn dùng USB-C mặt trước, case phải có USB-C và mainboard phải có header tương ứng.",
+        },
+        dust: {
+            icon: <ShieldCheck />,
+            title: "Lọc bụi",
+            detail: "Lưới lọc bụi tháo rời ở mặt trước, đáy PSU hoặc mặt trên.",
+            impact: "Phòng nhiều bụi hoặc đặt PC dưới sàn nên ưu tiên case có lọc bụi dễ tháo vệ sinh.",
+        },
+    };
+    const [active, setActive] = useState("airflow");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng của case"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
                     </div>
                 </div>
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-white mb-4">
-                        Biến đặc biệt có sẵn
-                    </h4>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                        {specials.map(([k, v]) => (
-                            <div
-                                key={k}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3"
-                            >
-                                <code className="text-orange-300 font-bold">
-                                    {k}
-                                </code>
-                                <span className="text-slate-400 text-sm text-right">
-                                    {v}
-                                </span>
+            </div>
+        </section>
+    );
+}
+
+function AirflowAndFanGuide() {
+    const fanRows = [
+        ["Trước", "2–3 quạt hút vào", "Đưa gió mát vào GPU/CPU"],
+        ["Sau", "1 quạt xả ra", "Đẩy khí nóng ra ngoài"],
+        ["Trên", "1–3 quạt xả ra", "Hỗ trợ khí nóng bay lên và thoát ra"],
+        ["Đáy", "Hút vào tùy case", "Cấp gió cho GPU, cần lọc bụi tốt"],
+    ];
+    const radiatorRows = [
+        ["120mm", "CPU tầm thấp/trung, ít phổ biến"],
+        ["240mm", "CPU tầm trung/cao"],
+        ["280mm", "Làm mát tốt, cần case đủ rộng"],
+        ["360mm", "CPU cao cấp, render, gaming nặng"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="cyan"
+                title="Airflow, fan support và radiator"
+                icon={<Fan />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="Bố trí quạt phổ biến"
+                    rows={fanRows}
+                    headers={["Vị trí", "Cách dùng", "Mục tiêu"]}
+                    accent="cyan"
+                />
+                <DataTable
+                    title="Radiator AIO thường gặp"
+                    rows={radiatorRows}
+                    headers={["Kích thước", "Thường dùng cho"]}
+                    accent="blue"
+                />
+            </div>
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-cyan-300">Mẹo nhanh:</strong> PC gaming
+                hoặc dùng GPU rời mạnh nên ưu tiên case mặt trước mesh, nhiều vị
+                trí quạt, có lọc bụi tháo rời và không gian đi dây tốt.
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Monitor />,
+            title: "Cooler Master MasterBox Q300L",
+            subtitle: "Micro-ATX nhỏ gọn",
+            color: "cyan",
+            points: [
+                "Phù hợp mATX / Mini-ITX",
+                "Gọn, dễ đặt dưới bàn",
+                "Hợp PC học tập/văn phòng",
+                "Không nên dùng GPU quá lớn/nóng",
+                "Giá phổ thông tùy thị trường",
+            ],
+            lesson: "Case nhỏ gọn đủ tốt cho máy nhẹ, nhưng cần kiểm tra airflow và clearance nếu gắn GPU rời lớn.",
+        },
+        {
+            icon: <PackageCheck />,
+            title: "NZXT H5 Flow",
+            subtitle: "Compact Mid-Tower ATX Airflow Case",
+            color: "teal",
+            points: [
+                "Mid Tower dễ build",
+                "Hướng đến airflow",
+                "Hỗ trợ cấu hình gaming GPU rời",
+                "Thiết kế hiện đại",
+                "Phù hợp Ryzen 5/Core i5 + RTX 4060/4070 class",
+            ],
+            lesson: "Mid Tower airflow tốt là lựa chọn an toàn cho đa số PC gaming 1080p/1440p.",
+        },
+        {
+            icon: <Fan />,
+            title: "Lian Li LANCOOL 216",
+            subtitle: "Case airflow mạnh",
+            color: "emerald",
+            points: [
+                "Thiết kế ưu tiên airflow",
+                "Thường được nhắc với 2 quạt trước 160mm",
+                "1 quạt sau 140mm",
+                "Hợp GPU nóng",
+                "Phù hợp Core i7/Ryzen 7 + RTX 4070 Ti/4080 class",
+            ],
+            lesson: "Với GPU nóng và tải lâu, case airflow mạnh giúp máy mát, êm và ổn định hơn.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function BuildLab() {
+    const scenarios = {
+        first: {
+            icon: <PackageCheck />,
+            title: "Lần đầu build",
+            answer: "Chọn Mid Tower airflow tốt. Đây thường là lựa chọn an toàn nhất vì dễ lắp, dễ nâng cấp, hỗ trợ nhiều mainboard và GPU hơn case nhỏ.",
+            color: "teal",
+        },
+        office: {
+            icon: <Monitor />,
+            title: "PC văn phòng",
+            answer: "Mini Tower hoặc Micro-ATX case gọn là đủ nếu CPU/GPU không nóng. Vẫn nên có mặt thoáng, lọc bụi và không gian đi dây cơ bản.",
+            color: "cyan",
+        },
+        hotGpu: {
+            icon: <Gamepad2 />,
+            title: "GPU mạnh/nóng",
+            answer: "Ưu tiên case airflow mạnh, mặt trước mesh, 2–3 quạt hút vào, quạt sau xả ra, đủ GPU clearance và không gian dây PCIe/12V-2x6.",
+            color: "orange",
+        },
+        airCooler: {
+            icon: <Thermometer />,
+            title: "Tản khí tháp lớn",
+            answer: "Kiểm tra CPU cooler clearance theo mm. Nếu tản cao 158mm, case hỗ trợ 160mm là vừa nhưng khá sát; nên có dư thêm nếu được.",
+            color: "blue",
+        },
+        aio: {
+            icon: <Gauge />,
+            title: "Dùng AIO 240/360",
+            answer: "Kiểm tra radiator support ở mặt trước/trên, độ dày radiator + quạt, có cấn RAM/mainboard/GPU không.",
+            color: "purple",
+        },
+        dust: {
+            icon: <ShieldCheck />,
+            title: "Phòng nhiều bụi",
+            answer: "Ưu tiên case có lọc bụi tháo rời ở mặt trước, đáy PSU và mặt trên. Đặt dưới sàn thì càng nên vệ sinh định kỳ.",
+            color: "emerald",
+        },
+    };
+    const [active, setActive] = useState("first");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="blue"
+                title="Lab: chọn case theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
                             </div>
-                        ))}
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
                     </div>
-                    <div className="mt-4 text-sm text-slate-500">
-                        Ví dụ: chạy{" "}
-                        <code className="text-green-400">
-                            ./script.sh hello world
-                        </code>{" "}
-                        thì <code>$1</code> là <code>hello</code>,{" "}
-                        <code>$2</code> là <code>world</code>.
-                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
-function Rule({ ok, bad, text }) {
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "Case chỉ để cho đẹp",
+            right: "Case ảnh hưởng trực tiếp đến nhiệt độ, độ ồn, khả năng nâng cấp và độ bền linh kiện.",
+        },
+        {
+            wrong: "Mainboard nào cũng lắp được vào case nào",
+            right: "Phải kiểm tra form factor. Mainboard ATX cần case hỗ trợ ATX; case Mini-ITX không lắp được ATX.",
+        },
+        {
+            wrong: "Case càng nhỏ càng tốt",
+            right: "Case nhỏ đẹp và gọn nhưng khó lắp, nóng hơn và kén GPU/tản/PSU hơn, không lý tưởng cho người mới nếu chưa kiểm tra kỹ.",
+        },
+        {
+            wrong: "Chỉ nhìn ảnh RGB/mặt kính",
+            right: "Case đẹp nhưng bí gió có thể khiến CPU/GPU nóng, quạt ồn và hiệu năng giảm khi tải lâu.",
+        },
+        {
+            wrong: "Quên kiểm tra GPU clearance",
+            right: "Case hỗ trợ 330mm mà GPU dài 340mm là không vừa, nhất là card 3 quạt cao cấp.",
+        },
+        {
+            wrong: "Quên front USB-C header",
+            right: "Case có USB-C mặt trước nhưng mainboard không có internal USB-C header thì cổng đó có thể không dùng được.",
+        },
+    ];
+    const tips = [
+        "Người mới build PC nên ưu tiên Mid Tower airflow tốt.",
+        "Kiểm tra 3 thông số trước khi mua: mainboard hỗ trợ, GPU dài bao nhiêu mm, tản CPU cao bao nhiêu mm.",
+        "Build gaming/GPU mạnh: ưu tiên mặt trước mesh thay vì mặt kính kín hoàn toàn.",
+        "Phòng nhiều bụi hoặc đặt máy dưới sàn: ưu tiên lọc bụi tháo rời.",
+        "Đừng dồn quá nhiều tiền vào case nếu ngân sách thấp; chọn đủ thoáng, đủ chắc, dễ đi dây, còn lại ưu tiên CPU/RAM/SSD/GPU.",
+        "Đừng đánh giá case chỉ bằng ảnh RGB; xem airflow, fan support, clearance và cable management.",
+    ];
     return (
-        <div
-            className={`flex items-center gap-3 rounded-xl border p-3 text-sm ${bad ? "bg-red-500/10 border-red-500/20 text-red-200" : "bg-green-500/10 border-green-500/20 text-green-200"}`}
-        >
-            {bad ? (
-                <XCircle size={18} className="text-red-400" />
-            ) : (
-                <CheckCircle2 size={18} className="text-green-400" />
-            )}{" "}
-            <code>{text}</code>
-        </div>
-    );
-}
-
-function RealScriptsTabs() {
-    const [tab, setTab] = useState("backup");
-    const backup = `#!/bin/bash\n# Script: backup.sh\n# Mục đích: Backup thư mục website\n\nNGUON="/var/www/html"\nDICH="/backup/website"\nNGAY=$(date +%Y%m%d_%H%M%S)\nTEN_FILE="backup_$NGAY.tar.gz"\nLOG="/var/log/backup.log"\n\nmkdir -p $DICH\n\necho "[$NGAY] Bắt đầu backup..." | tee -a $LOG\necho "  Nguồn : $NGUON"\necho "  Lưu về: $DICH/$TEN_FILE"\n\ntar -czf $DICH/$TEN_FILE $NGUON 2>/dev/null\n\nif [ $? -eq 0 ]; then\n    KICH_THUOC=$(du -sh $DICH/$TEN_FILE | cut -f1)\n    echo "[$NGAY] Backup thành công! ($KICH_THUOC)" | tee -a $LOG\nelse\n    echo "[$NGAY] Backup THẤT BẠI!" | tee -a $LOG\nfi\n\nfind $DICH -name "backup_*.tar.gz" -mtime +7 -delete\necho "[$NGAY] Đã xoá backup cũ hơn 7 ngày" | tee -a $LOG`;
-    const health = `#!/bin/bash\n# system_check.sh – Kiểm tra sức khoẻ server\n\necho -e "\\e[36m╔══════════════════════════════╗\\e[0m"\necho -e "\\e[36m║     SYSTEM HEALTH CHECK      ║\\e[0m"\necho -e "\\e[36m╚══════════════════════════════╝\\e[0m"\necho ""\n\nCPU=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}')\necho -e "\\e[1m🖥  CPU Usage:\\e[0m $CPU%"\n\nRAM_TOTAL=$(free -m | awk '/Mem:/ {print $2}')\nRAM_DUNG=$(free -m | awk '/Mem:/ {print $3}')\nRAM_PCT=$((RAM_DUNG * 100 / RAM_TOTAL))\necho -e "\\e[1m🧠 RAM Usage:\\e[0m ${RAM_DUNG}MB / ${RAM_TOTAL}MB (${RAM_PCT}%)"\n\nDISK=$(df -h / | awk 'NR==2 {print $3"/"$2" ("$5" dùng)"}')\necho -e "\\e[1m💾 Disk /   :\\e[0m $DISK"\n\necho -e "\\e[1m⏱  Uptime   :\\e[0m $(uptime -p)"\nLOAD=$(cat /proc/loadavg | cut -d' ' -f1-3)\necho -e "\\e[1m📊 Load Avg :\\e[0m $LOAD"\n\necho ""\necho "Kiểm tra lúc: $(date '+%H:%M:%S %d/%m/%Y')"`;
-    const explain =
-        tab === "backup"
-            ? [
-                  [
-                      Archive,
-                      "tar -czf",
-                      "Nén thư mục nguồn thành file .tar.gz.",
-                  ],
-                  [
-                      Terminal,
-                      "tee -a",
-                      "Vừa in ra màn hình, vừa ghi thêm vào file log.",
-                  ],
-                  [Bug, "$?", "Kiểm tra exit code của lệnh tar vừa chạy."],
-                  [
-                      FolderTree,
-                      "find -mtime +7 -delete",
-                      "Xóa file backup cũ hơn 7 ngày.",
-                  ],
-              ]
-            : [
-                  [Cpu, "top", "Lấy thông tin CPU hiện tại."],
-                  [MemoryStick, "free -m", "Xem RAM theo MB."],
-                  [HardDrive, "df -h /", "Xem dung lượng phân vùng root."],
-                  [Clock, "uptime -p", "Hiển thị máy đã chạy bao lâu."],
-              ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                <button
-                    onClick={() => setTab("backup")}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 ${tab === "backup" ? "bg-orange-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                >
-                    <Archive size={16} /> Backup file
-                </button>
-                <button
-                    onClick={() => setTab("health")}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 ${tab === "health" ? "bg-blue-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                >
-                    <Activity size={16} /> Kiểm tra hệ thống
-                </button>
-            </div>
-            <div className="grid lg:grid-cols-[1.4fr_0.8fr] gap-0">
-                <div className="p-5">
-                    <CodeBlock
-                        title={
-                            tab === "backup" ? "backup.sh" : "system_check.sh"
-                        }
-                        code={tab === "backup" ? backup : health}
-                    />
-                </div>
-                <div className="p-5 border-t lg:border-t-0 lg:border-l border-slate-800 bg-slate-950/30">
-                    <h4 className="font-bold text-white mb-4">
-                        Các mảnh ghép quan trọng
-                    </h4>
-                    <div className="space-y-3">
-                        {explain.map(([Icon, cmd, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
                             <div
-                                key={cmd}
-                                className="bg-slate-900 border border-slate-800 rounded-xl p-4"
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
                             >
-                                <div className="flex items-center gap-2 font-bold text-orange-300">
-                                    <Icon size={17} /> <code>{cmd}</code>
-                                </div>
-                                <p className="text-sm text-slate-400 mt-1">
-                                    {desc}
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
                                 </p>
                             </div>
                         ))}
                     </div>
-                    <div className="mt-5 bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 text-sm text-yellow-100 flex gap-3">
-                        <AlertTriangle
-                            size={18}
-                            className="text-yellow-400 shrink-0"
-                        />{" "}
-                        Khi script ghi vào /var/log hoặc /backup, bạn có thể cần
-                        quyền sudo tùy cấu hình máy.
-                    </div>
                 </div>
-            </div>
-        </div>
-    );
-}
-
-function DebugSection() {
-    return (
-        <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-                <CodeBlock
-                    title="Chạy script ở chế độ debug"
-                    code={`bash -x hello.sh\n\n# Output mẫu:\n+ echo '==========================='\n===========================\n+ echo '   Xin chào Ubuntu Linux!  '\n   Xin chào Ubuntu Linux!`}
-                />
-                <CodeBlock
-                    title="Bật/tắt debug trong script"
-                    code={`#!/bin/bash\nset -x    # bật debug từ đây\n\necho "lệnh 1"\necho "lệnh 2"\n\nset +x    # tắt debug từ đây\necho "lệnh 3 (không debug)"`}
-                />
-            </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 h-fit">
-                <h4 className="text-lg font-bold text-white mb-4">
-                    set hữu ích
-                </h4>
-                <div className="space-y-3">
-                    <DebugFlag
-                        flag="set -e"
-                        desc="Dừng ngay nếu có lệnh lỗi."
-                    />
-                    <DebugFlag
-                        flag="set -u"
-                        desc="Báo lỗi nếu dùng biến chưa khai báo."
-                    />
-                    <DebugFlag flag="set -x" desc="In từng lệnh đang chạy." />
-                    <DebugFlag
-                        flag="set -euo pipefail"
-                        desc="Cấu hình thường dùng cho script production."
-                        highlight
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function DebugFlag({ flag, desc, highlight }) {
-    return (
-        <div
-            className={`rounded-xl border p-4 ${highlight ? "bg-orange-500/10 border-orange-500/30" : "bg-slate-950 border-slate-800"}`}
-        >
-            <code
-                className={
-                    highlight
-                        ? "text-orange-300 font-bold"
-                        : "text-green-400 font-bold"
-                }
-            >
-                {flag}
-            </code>
-            <p className="text-slate-400 text-sm mt-1">{desc}</p>
-        </div>
-    );
-}
-
-function PathSection() {
-    return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <h4 className="text-lg font-bold text-white mb-5">
-                    Nên đặt script ở đâu?
-                </h4>
-                <div className="space-y-4">
-                    <PathRow
-                        path="/usr/local/bin/"
-                        desc="Script dùng cho cả hệ thống, mọi user đều chạy được nếu có quyền."
-                    />
-                    <PathRow
-                        path="~/bin/"
-                        desc="Script riêng của user, tiện để chạy như lệnh cá nhân."
-                    />
-                    <PathRow
-                        path="~/scripts/"
-                        desc="Thư mục tổ chức script khi học tập hoặc phát triển."
-                    />
-                </div>
-            </div>
-            <CodeBlock
-                title="Đưa script vào PATH"
-                code={`# Thêm ~/bin vào PATH\necho 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc\nsource ~/.bashrc\n\n# Đặt script vào ~/bin\ncp backup.sh ~/bin/backup\nchmod +x ~/bin/backup\n\n# Giờ chạy ở đâu cũng được\nbackup`}
-            />
-        </div>
-    );
-}
-
-function PathRow({ path, desc }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex gap-3">
-            <FolderTree className="text-cyan-400 shrink-0" size={20} />
-            <div>
-                <code className="text-orange-300 font-bold">{path}</code>
-                <p className="text-slate-400 text-sm mt-1">{desc}</p>
-            </div>
-        </div>
-    );
-}
-
-function SummaryGrid() {
-    const groups = [
-        {
-            title: "Tạo script",
-            rows: [
-                ["#!/bin/bash", "Dòng đầu tiên"],
-                ["# comment", "Ghi chú"],
-                ["chmod +x script.sh", "Cấp quyền"],
-                ["./script.sh", "Chạy trực tiếp"],
-                ["bash script.sh", "Chạy không cần +x"],
-            ],
-        },
-        {
-            title: "Biến",
-            rows: [
-                ['ten="hello"', "Khai báo, không cách"],
-                ["$ten / ${ten}", "Dùng biến"],
-                ["ket_qua=$(lệnh)", "Lấy output lệnh"],
-                ["$((a + b))", "Tính toán"],
-            ],
-        },
-        {
-            title: "Biến đặc biệt",
-            rows: [
-                ["$0", "Tên script"],
-                ["$1", "Tham số thứ 1"],
-                ["$@", "Tất cả tham số"],
-                ["$#", "Số lượng tham số"],
-                ["$?", "Exit code"],
-                ["$$", "PID"],
-            ],
-        },
-        {
-            title: "Debug",
-            rows: [
-                ["bash -x script.sh", "Chạy debug"],
-                ["set -e", "Dừng khi lỗi"],
-                ["set -u", "Bắt biến chưa khai báo"],
-                ["set -x", "In từng lệnh"],
-            ],
-        },
-    ];
-    return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {groups.map((g) => (
-                <div
-                    key={g.title}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-5"
-                >
-                    <h4 className="font-bold text-white mb-4">{g.title}</h4>
-                    <div className="space-y-2">
-                        {g.rows.map(([cmd, desc]) => (
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
                             <div
-                                key={cmd}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3"
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
                             >
-                                <code className="text-orange-300 text-sm">
-                                    {cmd}
-                                </code>
-                                <div className="text-xs text-slate-500 mt-1">
-                                    {desc}
-                                </div>
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
                             </div>
                         ))}
                     </div>
                 </div>
-            ))}
-        </div>
+            </div>
+        </section>
     );
 }
 
-const quizQuestions = [
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-teal-500/20 text-teal-300 p-2 rounded-xl">
+                            12
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-teal-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>
+                                Case = bộ khung chứa, bảo vệ và cố định linh
+                                kiện
+                            </p>
+                            <p>
+                                Case tốt = airflow tốt + dễ đi dây + dễ vệ sinh
+                                + dễ nâng cấp
+                            </p>
+                            <br />
+                            <p className="text-slate-500">
+                                # Kiểm tra trước khi mua
+                            </p>
+                            <p className="text-slate-300">
+                                Mainboard support • GPU clearance • CPU cooler
+                                clearance
+                            </p>
+                            <p className="text-slate-300">
+                                Fan support • Radiator support • Front I/O •
+                                Cable management
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                Đừng chọn case chỉ vì đẹp/RGB. Case bí gió có
+                                thể làm máy nóng và ồn hơn.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const questions = [
     {
-        question: "Bash Script là gì?",
+        question: "Vai trò quan trọng nhất của vỏ máy tính là gì?",
         options: [
-            "Một file ảnh giao diện Ubuntu",
-            "Một file văn bản chứa các lệnh shell chạy tuần tự",
-            "Một trình duyệt web",
-            "Một loại phân vùng ổ cứng",
+            "Làm máy chạy nhanh hơn trực tiếp",
+            "Chứa, bảo vệ linh kiện và hỗ trợ tản nhiệt",
+            "Tăng dung lượng RAM",
+            "Thay thế PSU",
         ],
         correct: 1,
         explanation:
-            "Bash Script là file text chứa lệnh shell. Khi chạy, các lệnh thường được thực thi từ trên xuống dưới.",
+            "Case chứa, bảo vệ, cố định linh kiện và tạo môi trường airflow/tản nhiệt cho hệ thống.",
     },
     {
-        question: "Dòng #!/bin/bash ở đầu script được gọi là gì?",
-        options: ["Pipeline", "Alias", "Shebang", "Exit code"],
-        correct: 2,
-        explanation:
-            "Shebang cho hệ thống biết dùng chương trình nào, ở đây là Bash, để chạy file script.",
-    },
-    {
-        question: "Lệnh nào cấp quyền thực thi cho file hello.sh?",
+        question: "Nếu mua mainboard ATX, cần kiểm tra gì ở case?",
         options: [
-            "chmod +x hello.sh",
-            "sudo run hello.sh",
-            "exec hello.sh",
-            "permission hello.sh",
+            "Case có hỗ trợ ATX không",
+            "Case có màu đen không",
+            "Case có nhiều RGB không",
+            "Case có logo lớn không",
         ],
         correct: 0,
         explanation:
-            "chmod +x thêm quyền executable. Sau đó bạn có thể chạy bằng ./hello.sh.",
+            "Mainboard ATX cần case hỗ trợ ATX. Case mATX/Mini-ITX nhỏ thường không lắp được ATX.",
     },
     {
-        question: "Cách khai báo biến nào đúng trong Bash?",
+        question: "Case mặt trước mesh thường có lợi thế gì?",
         options: [
-            "ten = Ubuntu",
-            'ten="Ubuntu"',
-            "$ten=Ubuntu",
-            "var ten Ubuntu",
-        ],
-        correct: 1,
-        explanation:
-            "Bash không cho phép dấu cách quanh dấu = khi khai báo biến.",
-    },
-    {
-        question: "Biến đặc biệt nào chứa exit code của lệnh vừa chạy?",
-        options: ["$0", "$@", "$?", "$$"],
-        correct: 2,
-        explanation:
-            "$? chứa mã thoát của lệnh trước. 0 thường nghĩa là thành công.",
-    },
-    {
-        question:
-            "Lệnh nào chạy script ở chế độ debug, in từng lệnh đang chạy?",
-        options: [
-            "bash -x hello.sh",
-            "bash --fast hello.sh",
-            "debug hello.sh",
-            "chmod -d hello.sh",
+            "Airflow tốt hơn",
+            "Làm CPU có nhiều nhân hơn",
+            "Tăng dung lượng SSD",
+            "Giảm nhu cầu dùng PSU",
         ],
         correct: 0,
         explanation:
-            "bash -x script.sh giúp bạn nhìn thấy từng lệnh sau khi shell mở rộng biến và thực thi.",
+            "Mặt trước mesh/lưới thoáng giúp quạt hút gió mát vào dễ hơn, thường có airflow tốt hơn mặt kính kín.",
+    },
+    {
+        question: "GPU clearance là gì?",
+        options: [
+            "Chiều dài tối đa GPU case hỗ trợ",
+            "Dung lượng VRAM",
+            "Tốc độ quạt GPU",
+            "Số khe RAM trên mainboard",
+        ],
+        correct: 0,
+        explanation:
+            "GPU clearance là chiều dài tối đa của card đồ họa mà case có thể chứa.",
+    },
+    {
+        question: "Với người mới build PC, loại case nào thường an toàn nhất?",
+        options: [
+            "Mid Tower airflow tốt",
+            "Case nhỏ nhất có thể",
+            "Case không có quạt",
+            "Case chỉ có mặt kính kín",
+        ],
+        correct: 0,
+        explanation:
+            "Mid Tower thường cân bằng tốt giữa kích thước, giá, dễ lắp, airflow và khả năng nâng cấp.",
     },
 ];
 
 function InteractiveQuiz() {
-    const [current, setCurrent] = useState(0);
+    const [currentQ, setCurrentQ] = useState(0);
     const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
-    const q = quizQuestions[current];
-
-    const choose = (idx) => {
-        if (selected !== null) return;
-        setSelected(idx);
-        if (idx === q.correct) setScore((s) => s + 1);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
     };
-
-    const next = () => {
-        if (current === quizQuestions.length - 1) {
-            setFinished(true);
-        } else {
-            setCurrent((c) => c + 1);
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
             setSelected(null);
-        }
+            setShowResult(false);
+        } else setCurrentQ("finished");
     };
-
-    const reset = () => {
-        setCurrent(0);
+    const resetQuiz = () => {
+        setCurrentQ(0);
         setSelected(null);
+        setShowResult(false);
         setScore(0);
-        setFinished(false);
     };
-
-    if (finished) {
+    if (finished)
         return (
-            <div className="text-center min-h-[280px] flex flex-col items-center justify-center animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
-                    {score === quizQuestions.length ? "🏆" : "👏"}
+                    {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
                     Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-orange-400">
-                        {score}/{quizQuestions.length}
+                    <strong className="text-teal-400">
+                        {score}/{questions.length}
                     </strong>{" "}
-                    câu.
+                    câu hỏi.
                 </p>
                 <button
-                    onClick={reset}
-                    className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold inline-flex items-center gap-2"
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RotateCcw size={18} /> Làm lại quiz
+                    Làm lại
                 </button>
             </div>
         );
-    }
-
     return (
-        <div className="max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm">
-                <span className="text-orange-300 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full">
-                    Câu {current + 1}/{quizQuestions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-teal-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-xl font-bold text-white mb-6 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 flex-grow">
                 {q.options.map((opt, idx) => {
                     let cls =
-                        "w-full text-left p-4 rounded-xl border transition-all text-sm ";
-                    if (selected === null)
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
                         cls +=
-                            "bg-slate-950 border-slate-800 hover:bg-slate-800 text-slate-300";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
-                            "bg-green-500/10 border-green-500/40 text-green-300";
+                            "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "bg-red-500/10 border-red-500/40 text-red-300";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "bg-slate-950/50 border-slate-900 text-slate-600";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
-                            onClick={() => choose(idx)}
-                            disabled={selected !== null}
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
                             className={cls}
                         >
-                            <span className="text-slate-500 font-mono mr-2">
-                                {String.fromCharCode(65 + idx)}.
-                            </span>
                             {opt}
                         </button>
                     );
                 })}
             </div>
-            {selected !== null && (
-                <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`rounded-xl p-4 text-sm mb-5 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-200" : "bg-orange-500/10 border border-orange-500/20 text-orange-200"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info size={18} className="shrink-0 mt-0.5" />
-                        <div>
-                            <strong className="text-white block mb-1">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
-                        onClick={next}
-                        className="w-full md:w-auto md:px-8 py-3 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold ml-auto block"
+                        onClick={handleNext}
+                        className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-xl transition-colors"
                     >
-                        {current === quizQuestions.length - 1
-                            ? "Xem kết quả"
-                            : "Câu tiếp theo"}
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu vai trò của vỏ máy tính. Tiếp theo là phân loại case
+                theo kích thước: Full Tower, Mid Tower, Mini-ITX — phần giúp bạn
+                biết nên chọn case to hay nhỏ cho từng cấu hình PC.
+            </p>
+            <Link
+                to="/phan-8-2"
+                className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-teal-500/20"
+            >
+                Bài tiếp theo: 8.2 — Phân loại vỏ máy theo kích thước{" "}
+                <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "teal" }) {
+    const colorMap = {
+        teal: "bg-teal-500/20 text-teal-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-teal-500/10 border-teal-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-5`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function RuleCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className={`${textColor(color)} font-bold text-sm mb-2`}>
+                {label}
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[720px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={cell}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function WarnBullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <AlertTriangle
+                className="text-orange-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        teal: "bg-teal-500/10 text-teal-300 border border-teal-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.teal;
+}
+function softBorder(color) {
+    const map = {
+        teal: "bg-teal-500/5 border-teal-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.teal;
+}
+function textColor(color) {
+    const map = {
+        teal: "text-teal-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        cyan: "text-cyan-300",
+        emerald: "text-emerald-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-teal-300";
 }

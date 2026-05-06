@@ -1,246 +1,185 @@
 import React, { useState } from "react";
 import {
-    ArrowDownUp,
-    BarChart3,
+    AlertTriangle,
+    Award,
+    BatteryCharging,
     BookOpen,
-    Calculator,
+    Brain,
     CheckCircle2,
     ChevronRight,
-    ClipboardCheck,
-    Code2,
-    Columns3,
+    Cpu,
     Database,
-    FileCode2,
-    FileText,
-    Filter,
-    GitBranch,
-    Hash,
-    Info,
-    Layers,
-    ListChecks,
-    ListFilter,
-    Play,
-    RefreshCcw,
-    Replace,
-    Rows3,
+    Fan,
+    Gamepad2,
+    Gauge,
+    HardDrive,
+    Layers3,
+    Lightbulb,
+    PackageCheck,
+    Plug,
+    PlugZap,
+    Power,
+    Puzzle,
     Search,
-    Sigma,
-    SortAsc,
+    Settings,
+    ShieldCheck,
     Sparkles,
-    TerminalSquare,
-    TextSearch,
-    Trash2,
+    Workflow,
+    XCircle,
     Zap,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-900 text-slate-200 font-sans selection:bg-orange-500 selection:text-white pb-20">
-            <header className="bg-slate-950/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-sky-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <span className="text-3xl">🐧</span>
+                        <div className="w-11 h-11 rounded-2xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center shadow-lg shadow-sky-500/10">
+                            <PlugZap className="text-sky-400" size={24} />
+                        </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden md:block">
-                                Text processing: cut, sort, uniq, sed, awk và
-                                pipeline
+                            <p className="text-xs text-slate-500">
+                                Phần 7: PSU — Bộ nguồn máy tính
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-400 hidden md:inline-block">
-                            Bài trước: 7.2
-                        </span>
-                        <div className="text-sm font-medium text-orange-400 bg-orange-400/10 px-3 py-1 rounded-full border border-orange-400/20">
-                            Phần 7.3
-                        </div>
+                    <div className="text-sm font-semibold text-sky-300 bg-sky-400/10 px-3 py-1 rounded-full border border-sky-400/20">
+                        Bài 7.3
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <Hero />
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        n="1"
-                        color="orange"
-                        icon={<Layers size={22} />}
-                        title="Tổng quan: xử lý text bằng pipeline"
-                    />
-                    <Overview />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="2"
-                        color="cyan"
-                        icon={<FileText size={22} />}
-                        title="File mẫu dùng xuyên suốt bài"
-                    />
-                    <SampleFiles />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="3"
-                        color="blue"
-                        icon={<Columns3 size={22} />}
-                        title="cut — cắt cột và ký tự"
-                    />
-                    <CutGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="4"
-                        color="green"
-                        icon={<SortAsc size={22} />}
-                        title="sort — sắp xếp dòng"
-                    />
-                    <SortGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="5"
-                        color="purple"
-                        icon={<Rows3 size={22} />}
-                        title="uniq — lọc dòng trùng"
-                    />
-                    <UniqGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="6"
-                        color="rose"
-                        icon={<Replace size={22} />}
-                        title="sed — tìm, thay thế, xóa dòng theo pattern"
-                    />
-                    <SedGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="7"
-                        color="amber"
-                        icon={<Sigma size={22} />}
-                        title="awk — xử lý file theo cột, lọc và tính toán"
-                    />
-                    <AwkGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="8"
-                        color="pink"
-                        icon={<GitBranch size={22} />}
-                        title="Pipeline thực tế: log, nhân viên, config, port"
-                    />
-                    <PipelineExamples />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="9"
-                        color="teal"
-                        icon={<Code2 size={22} />}
-                        title="Script text_toolbox.sh — trợ lý xử lý text"
-                    />
-                    <TextToolboxPreview />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="10"
-                        color="sky"
-                        icon={<ListChecks size={22} />}
-                        title="Cheatsheet lệnh nhanh"
-                    />
-                    <Cheatsheet />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="11"
-                        color="lime"
-                        icon={<ClipboardCheck size={22} />}
-                        title="Thực hành tổng hợp"
-                    />
-                    <PracticeChecklist />
-                </section>
-
-                <SummarySection />
-
-                <section className="space-y-6 pt-4">
-                    <div className="bg-slate-800 rounded-3xl border border-slate-700 overflow-hidden shadow-xl">
-                        <div className="bg-slate-900 p-6 border-b border-slate-700">
-                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                <span className="bg-orange-500/20 text-orange-400 p-2 rounded-lg">
-                                    <ClipboardCheck size={20} />
-                                </span>
-                                Kiểm tra nhanh: cut, sort, uniq, sed, awk
-                            </h3>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <div className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Bạn đã hoàn thành Phần 7.3 — Xử lý văn bản với sed, awk,
-                        cut, sort, uniq.
-                    </p>
-                    <button className="bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
-                        Bài tiếp theo: 7.4 — diff và patch{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <PowerStationAnalogy />
+                <PowerPathSimulator />
+                <ConnectorExplorer />
+                <ConnectorMatrix />
+                <CpuVsPcieWarning />
+                <ModernGpuCableGuide />
+                <SataAndMolexGuide />
+                <SpecsExplorer />
+                <RealExamples />
+                <InstallLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function Hero() {
-    const cards = [
-        [Columns3, "cut", "Cắt cột/trường"],
-        [SortAsc, "sort", "Sắp xếp dòng"],
-        [Rows3, "uniq", "Lọc/đếm trùng"],
-        [Replace, "sed", "Thay thế/xóa dòng"],
+function HeroSection() {
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-sky-300">
+                        <BookOpen size={16} /> Phần 7: PSU — Dây nguồn
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Các đầu cắm điện
+                        <span className="block text-sky-400">
+                            24-pin, CPU EPS, PCIe, SATA
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        PSU đủ 750W vẫn không giúp máy chạy nếu cắm thiếu dây,
+                        cắm nhầm CPU với PCIe, quên SATA Power hoặc cắm 12VHPWR
+                        chưa sát. Bài này giúp bạn nhận diện đúng từng dây.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag
+                            icon={<PackageCheck size={16} />}
+                            text="24-pin ATX"
+                        />
+                        <Tag icon={<Cpu size={16} />} text="4+4 EPS CPU" />
+                        <Tag icon={<Gamepad2 size={16} />} text="PCIe 6+2" />
+                        <Tag
+                            icon={<Zap size={16} />}
+                            text="12VHPWR / 12V-2x6"
+                        />
+                        <Tag icon={<HardDrive size={16} />} text="SATA Power" />
+                    </div>
+                </div>
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<PackageCheck />}
+                            label="24-pin ATX"
+                            desc="Mainboard"
+                            color="sky"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Cpu />}
+                            label="4+4 EPS"
+                            desc="CPU"
+                            color="blue"
+                        />
+                        <HeroTile
+                            icon={<Gamepad2 />}
+                            label="6+2 PCIe"
+                            desc="GPU"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<HardDrive />}
+                            label="SATA Power"
+                            desc="SSD/HDD/hub"
+                            color="emerald"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Quy tắc sống còn</p>
+                        <p>CPU/EPS 4+4-pin ≠ PCIe 6+2-pin</p>
+                        <p className="text-red-300">
+                            Không cắm lẫn, không ép đầu cắm.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function LearningGoals() {
+    const goals = [
+        "Nhận diện đúng các đầu cắm PSU: 24-pin ATX, CPU/EPS 4+4, PCIe 6+2, 12VHPWR/12V-2x6, SATA Power, Molex.",
+        "Hiểu điện đi từ PSU đến mainboard, CPU, GPU, SSD/HDD và hub quạt/RGB theo những dây riêng.",
+        "Không nhầm dây CPU/EPS với dây PCIe/VGA cho GPU.",
+        "Biết ổ SATA cần cả SATA Data từ mainboard và SATA Power từ PSU.",
+        "Biết nguyên tắc dùng dây native, adapter, splitter, extension và không trộn dây modular giữa PSU khác nhau.",
     ];
     return (
-        <section className="text-center space-y-5 py-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-300 text-sm font-medium">
-                <Zap size={16} /> cut · sort · uniq · sed · awk · pipeline
-            </div>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                Xử Lý Văn Bản Với{" "}
-                <span className="text-orange-400 font-mono">sed</span>,{" "}
-                <span className="text-amber-400 font-mono">awk</span>,{" "}
-                <span className="text-cyan-400 font-mono">cut</span>,{" "}
-                <span className="text-green-400 font-mono">sort</span>,{" "}
-                <span className="text-purple-400 font-mono">uniq</span>
-            </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                Bài này giúp bạn cắt cột, sắp xếp, lọc trùng, thay thế theo
-                pattern, tính toán theo cột và ghép pipeline để phân tích log,
-                xử lý CSV, config và danh sách port.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto pt-4">
-                {cards.map(([Icon, title, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="sky"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
                     <div
-                        key={title}
-                        className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4 text-left"
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-sky-500/50 transition-colors"
                     >
-                        <Icon className="text-orange-400 mb-3" size={24} />
-                        <div className="font-bold text-white">{title}</div>
-                        <div className="text-xs text-slate-500">{desc}</div>
+                        <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
                     </div>
                 ))}
             </div>
@@ -248,901 +187,288 @@ function Hero() {
     );
 }
 
-function SectionTitle({ n, color, icon, title }) {
-    const colorMap = {
-        orange: "bg-orange-500/20 text-orange-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        blue: "bg-blue-500/20 text-blue-400",
-        green: "bg-green-500/20 text-green-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        rose: "bg-rose-500/20 text-rose-400",
-        amber: "bg-amber-500/20 text-amber-400",
-        pink: "bg-pink-500/20 text-pink-400",
-        teal: "bg-teal-500/20 text-teal-400",
-        sky: "bg-sky-500/20 text-sky-400",
-        lime: "bg-lime-500/20 text-lime-400",
-    };
-    return (
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span
-                className={`${colorMap[color]} p-2 rounded-lg flex items-center gap-1`}
-            >
-                {icon}
-                <span className="text-sm font-mono">{n}</span>
-            </span>
-            {title}
-        </h3>
-    );
-}
-
-function MiniPoint({ icon, tone, title, text }) {
-    const toneMap = {
-        orange: "bg-orange-500/10 border-orange-500/20 text-orange-300",
-        cyan: "bg-cyan-500/10 border-cyan-500/20 text-cyan-300",
-        blue: "bg-blue-500/10 border-blue-500/20 text-blue-300",
-        green: "bg-green-500/10 border-green-500/20 text-green-300",
-        purple: "bg-purple-500/10 border-purple-500/20 text-purple-300",
-        rose: "bg-rose-500/10 border-rose-500/20 text-rose-300",
-        amber: "bg-amber-500/10 border-amber-500/20 text-amber-300",
-        pink: "bg-pink-500/10 border-pink-500/20 text-pink-300",
-        teal: "bg-teal-500/10 border-teal-500/20 text-teal-300",
-    };
-    return (
-        <div className={`${toneMap[tone]} border rounded-2xl p-4`}>
-            <div className="flex items-center gap-2 font-bold text-white mb-1">
-                {icon}
-                {title}
-            </div>
-            <p className="text-sm text-slate-300">{text}</p>
-        </div>
-    );
-}
-
-function TerminalBlock({ title, code }) {
-    return (
-        <div className="bg-slate-950 border border-slate-700 rounded-2xl overflow-hidden shadow-xl font-mono text-sm">
-            <div className="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
-                <span className="text-slate-400 text-xs uppercase tracking-widest">
-                    {title}
-                </span>
-                <TerminalSquare size={16} className="text-slate-500" />
-            </div>
-            <pre className="p-4 overflow-x-auto text-slate-300 leading-relaxed whitespace-pre-wrap">
-                <code>{code}</code>
-            </pre>
-        </div>
-    );
-}
-
-function Overview() {
-    const tools = [
-        [Columns3, "cut", "Cắt cột / trường từ mỗi dòng", "blue"],
-        [SortAsc, "sort", "Sắp xếp dòng theo chữ, số, cột", "green"],
-        [Rows3, "uniq", "Lọc hoặc đếm dòng trùng liền kề", "purple"],
-        [Replace, "sed", "Tìm, thay thế, xóa dòng theo pattern", "rose"],
-        [Sigma, "awk", "Xử lý theo cột, lọc, tính tổng/trung bình", "amber"],
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <PackageCheck />,
+            title: "Mainboard",
+            desc: "24-pin ATX cấp điện chính cho mainboard.",
+            color: "sky",
+        },
+        {
+            icon: <Cpu />,
+            title: "CPU",
+            desc: "4+4-pin EPS hoặc 8-pin CPU cấp điện riêng cho CPU qua VRM.",
+            color: "blue",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "GPU",
+            desc: "PCIe 6+2-pin hoặc 12VHPWR/12V-2x6 cấp điện cho card đồ họa rời.",
+            color: "orange",
+        },
+        {
+            icon: <HardDrive />,
+            title: "Ổ SATA & hub",
+            desc: "SATA Power cấp điện cho SSD/HDD SATA, hub quạt/RGB và một số thiết bị phụ.",
+            color: "emerald",
+        },
     ];
     return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid md:grid-cols-5 gap-3">
-                {tools.map(([Icon, name, desc, tone]) => (
-                    <div
-                        key={name}
-                        className="bg-slate-950 border border-slate-700 rounded-2xl p-4"
-                    >
-                        <Icon className="text-orange-400 mb-3" size={28} />
-                        <div className="font-black text-white text-xl">
-                            {name}
-                        </div>
-                        <p className="text-xs text-slate-500 mt-1">{desc}</p>
-                    </div>
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Đầu cắm điện PSU là gì?"
+                icon={<Brain />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <RoleCard key={c.title} {...c} />
                 ))}
             </div>
-            <div className="mt-6 bg-orange-500/10 border border-orange-500/30 rounded-2xl p-5 text-orange-100">
-                Pipeline thường dùng:{" "}
-                <code>cat file | cut | sort | uniq | awk | sed</code>. Trong
-                thực tế, bạn có thể bỏ <code>cat</code> khi lệnh hỗ trợ đọc file
-                trực tiếp, nhưng pipeline giúp tư duy từng bước rất rõ.
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                24-pin ATX → Mainboard
+                <br />
+                4+4 EPS CPU → CPU
+                <br />
+                6+2 PCIe → GPU rời
+                <br />
+                12VHPWR / 12V-2x6 → GPU đời mới/cao cấp
+                <br />
+                SATA Power → SSD/HDD SATA, hub fan/RGB
+                <br />
+                Molex → thiết bị cũ
             </div>
-        </div>
+        </section>
     );
 }
 
-function SampleFiles() {
-    const [tab, setTab] = useState("employees");
-    const code = {
-        employees: `cat > employees.txt << EOF
-Alice,IT,85000,Hanoi
-Bob,HR,60000,HCMC
-Charlie,IT,92000,Hanoi
-Diana,HR,58000,Danang
-Eve,IT,85000,HCMC
-Frank,Finance,75000,Hanoi
-Bob,HR,60000,HCMC
-Alice,IT,85000,Hanoi
-EOF`,
-        log: `cat > access.log << EOF
-192.168.1.1 GET /index.html 200
-192.168.1.2 POST /login 401
-192.168.1.1 GET /about.html 200
-192.168.1.3 GET /index.html 200
-192.168.1.2 POST /login 200
-192.168.1.1 GET /contact.html 404
-EOF`,
-        inspect: `# Xem file mẫu
-cat employees.txt
-cat access.log
-
-# Đếm dòng
-wc -l employees.txt access.log
-
-# Xem 3 dòng đầu
-head -3 employees.txt
-head -3 access.log`,
-    };
+function PowerStationAnalogy() {
+    const cards = [
+        {
+            icon: <PlugZap />,
+            title: "PSU = trạm điện trung tâm",
+            desc: "Nguồn điện đi ra nhiều đường dây riêng đến từng khu vực trong PC.",
+            color: "sky",
+        },
+        {
+            icon: <PackageCheck />,
+            title: "24-pin = đường chính",
+            desc: "Cấp điện nền tảng cho mainboard, giống đường điện chính vào tòa nhà.",
+            color: "blue",
+        },
+        {
+            icon: <Cpu />,
+            title: "EPS CPU = đường riêng cho não bộ",
+            desc: "CPU cần dây cấp điện riêng, không chỉ lấy qua 24-pin.",
+            color: "purple",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "PCIe GPU = đường công suất lớn",
+            desc: "GPU rời có thể cần nhiều dây vì ăn điện cao khi chơi game/render.",
+            color: "orange",
+        },
+        {
+            icon: <HardDrive />,
+            title: "SATA Power = đường phụ trợ",
+            desc: "Cấp điện cho ổ SATA, hub quạt/RGB và một số thiết bị phụ.",
+            color: "emerald",
+        },
+    ];
     return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["employees", "employees.txt"],
-                    ["log", "access.log"],
-                    ["inspect", "Kiểm tra file"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setTab(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${tab === k ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: trạm điện và đường dây riêng"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-5 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
                 ))}
             </div>
-            <TerminalBlock title={`sample data — ${tab}`} code={code[tab]} />
-        </div>
+        </section>
     );
 }
 
-function CutGuide() {
-    const [mode, setMode] = useState("field");
-    const code = {
-        syntax: `cut [tùy_chọn] file
-
--d   delimiter, dấu phân cách, mặc định là Tab
--f   field, cột số mấy
--c   character, ký tự vị trí mấy`,
-        field: `# Lấy cột 1: tên nhân viên
-cut -d',' -f1 employees.txt
-
-# Lấy cột 2 và 3: phòng ban + lương
-cut -d',' -f2,3 employees.txt
-
-# Lấy từ cột 2 đến hết
-cut -d',' -f2- employees.txt
-
-# Lấy cột 1 đến cột 3
-cut -d',' -f1-3 employees.txt`,
-        char: `# Lấy 5 ký tự đầu mỗi dòng
-cut -c1-5 employees.txt
-
-# Lấy ký tự từ vị trí 4 đến 10
-cut -c4-10 employees.txt
-
-# Lấy từ ký tự 6 đến hết
-cut -c6- employees.txt`,
-        real: `# Lấy username từ /etc/passwd
-cut -d':' -f1 /etc/passwd
-
-# Lấy username và shell
-cut -d':' -f1,7 /etc/passwd
-
-# Lấy IP từ file log
-cut -d' ' -f1 access.log`,
+function PowerPathSimulator() {
+    const flows = {
+        normal: {
+            title: "Cắm đủ dây",
+            color: "emerald",
+            steps: [
+                {
+                    icon: <Plug />,
+                    title: "Ổ cắm AC",
+                    desc: "Điện AC đi vào PSU qua dây nguồn AC phía sau.",
+                },
+                {
+                    icon: <BatteryCharging />,
+                    title: "PSU chuyển thành DC",
+                    desc: "PSU tạo ra các đường DC ổn định cho linh kiện.",
+                },
+                {
+                    icon: <PackageCheck />,
+                    title: "24-pin cấp mainboard",
+                    desc: "Mainboard nhận điện chính qua dây 24-pin ATX.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "EPS cấp CPU",
+                    desc: "CPU nhận điện riêng qua dây 4+4-pin EPS/8-pin CPU, đi qua VRM.",
+                },
+                {
+                    icon: <Gamepad2 />,
+                    title: "PCIe/12V cấp GPU",
+                    desc: "GPU rời nhận điện qua PCIe 6+2 hoặc 12VHPWR/12V-2x6.",
+                },
+                {
+                    icon: <HardDrive />,
+                    title: "SATA Power cấp ổ/hub",
+                    desc: "SSD/HDD SATA, hub quạt/RGB nhận điện qua SATA Power.",
+                },
+                {
+                    icon: <Power />,
+                    title: "Máy POST",
+                    desc: "Nếu dây đúng và linh kiện ổn, máy POST và khởi động.",
+                },
+            ],
+        },
+        missing: {
+            title: "Thiếu dây quan trọng",
+            color: "red",
+            steps: [
+                {
+                    icon: <XCircle />,
+                    title: "Thiếu 24-pin ATX",
+                    desc: "Mainboard không có điện chính, máy gần như chắc chắn không hoạt động.",
+                },
+                {
+                    icon: <AlertTriangle />,
+                    title: "Thiếu 8-pin CPU",
+                    desc: "Quạt có thể quay nhưng CPU không được cấp điện, máy không POST hoặc không lên hình.",
+                },
+                {
+                    icon: <Gamepad2 />,
+                    title: "Thiếu PCIe GPU",
+                    desc: "GPU không đủ điện, có thể báo lỗi nguồn hoặc không xuất hình.",
+                },
+                {
+                    icon: <HardDrive />,
+                    title: "Thiếu SATA Power",
+                    desc: "Ổ SATA không quay/không nhận dù đã cắm SATA Data.",
+                },
+            ],
+        },
+        wrong: {
+            title: "Cắm sai dây",
+            color: "orange",
+            steps: [
+                {
+                    icon: <Cpu />,
+                    title: "Nhầm CPU và PCIe",
+                    desc: "CPU/EPS 4+4-pin không phải PCIe 6+2-pin. Không cắm lẫn.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Dây modular khác PSU",
+                    desc: "Dây cắm vừa không có nghĩa pinout đúng. Có thể làm hỏng linh kiện.",
+                },
+                {
+                    icon: <Zap />,
+                    title: "12VHPWR chưa sát",
+                    desc: "Tiếp xúc kém có thể gây nóng đầu cắm và nguy cơ hỏng đầu nguồn/GPU.",
+                },
+                {
+                    icon: <ShieldCheck />,
+                    title: "Dừng lại và đọc nhãn",
+                    desc: "Đọc chữ CPU, PCI-E/VGA, SATA, MB/ATX trên đầu dây trước khi cắm.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("normal");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
     };
     return (
-        <TabbedSection
-            tabs={[
-                ["syntax", "Cú pháp"],
-                ["field", "Cắt cột"],
-                ["char", "Cắt ký tự"],
-                ["real", "Thực tế"],
-            ]}
-            active={mode}
-            setActive={setMode}
-            color="blue"
-            title="cut"
-            code={code[mode]}
-        />
-    );
-}
-
-function SortGuide() {
-    const [mode, setMode] = useState("basic");
-    const code = {
-        basic: `# Sắp xếp A-Z mặc định
-sort employees.txt
-
-# Sắp xếp Z-A
-sort -r employees.txt
-
-# Sắp xếp và bỏ dòng trùng
-sort -u employees.txt
-
-# Không phân biệt hoa thường
-sort -f employees.txt`,
-        column: `# Sắp xếp theo cột 3, delimiter là dấu phẩy
-sort -t',' -k3 employees.txt
-
-# Sắp xếp số, rất quan trọng
-sort -t',' -k3 -n employees.txt
-
-# Lương cao xuống thấp
-sort -t',' -k3 -n -r employees.txt
-
-# Theo nhiều cột: phòng ban rồi lương
-sort -t',' -k2,2 -k3,3n employees.txt`,
-        why: `# Không có -n: sort so sánh chuỗi
-# Có -n: sort so sánh số
-
-printf "9\n85000\n100\n" | sort
-# 100
-# 85000
-# 9
-
-printf "9\n85000\n100\n" | sort -n
-# 9
-# 100
-# 85000`,
-        real: `# Top 3 lương cao nhất
-sort -t',' -k3 -n -r employees.txt | head -3
-
-# Sort IP đúng thứ tự số
-sort -t'.' -k1,1n -k2,2n -k3,3n -k4,4n ip_list.txt
-
-# Sort log theo chữ/thời gian nếu format phù hợp
-sort access.log`,
-    };
-    return (
-        <TabbedSection
-            tabs={[
-                ["basic", "Cơ bản"],
-                ["column", "Theo cột"],
-                ["why", "Vì sao -n?"],
-                ["real", "Thực tế"],
-            ]}
-            active={mode}
-            setActive={setMode}
-            color="green"
-            title="sort"
-            code={code[mode]}
-        />
-    );
-}
-
-function UniqGuide() {
-    const [mode, setMode] = useState("basic");
-    const code = {
-        basic: `# uniq chỉ xử lý dòng trùng LIỀN KỀ
-# Vì vậy thường dùng sau sort
-
-sort employees.txt | uniq
-
-# Tương đương gọn hơn trong nhiều trường hợp:
-sort -u employees.txt`,
-        duplicate: `# Chỉ hiện dòng bị trùng
-sort employees.txt | uniq -d
-
-# Chỉ hiện dòng không trùng
-sort employees.txt | uniq -u
-
-# Đếm số lần xuất hiện
-sort employees.txt | uniq -c`,
-        count: `# Đếm rồi sắp xếp theo số lần xuất hiện giảm dần
-sort employees.txt | uniq -c | sort -rn
-
-# Đếm IP truy cập nhiều nhất
-cut -d' ' -f1 access.log | sort | uniq -c | sort -rn`,
-        dept: `# Đếm số phòng ban xuất hiện bao nhiêu lần
-cut -d',' -f2 employees.txt | sort | uniq -c
-
-# Output ví dụ:
-#   1 Finance
-#   2 HR
-#   5 IT`,
-    };
-    return (
-        <TabbedSection
-            tabs={[
-                ["basic", "Cơ bản"],
-                ["duplicate", "-d/-u/-c"],
-                ["count", "Đếm top"],
-                ["dept", "Phòng ban"],
-            ]}
-            active={mode}
-            setActive={setMode}
-            color="purple"
-            title="uniq"
-            code={code[mode]}
-        />
-    );
-}
-
-function SedGuide() {
-    const [mode, setMode] = useState("substitute");
-    const code = {
-        syntax: `sed [tùy_chọn] 'lệnh' file
-
--i     sửa trực tiếp vào file
--i.bak sửa trực tiếp và tạo backup
--n     không in tự động, dùng với p
--e     chạy nhiều lệnh`,
-        substitute: `# Thay lần đầu tiên trong mỗi dòng
-sed 's/IT/Engineering/' employees.txt
-
-# Thay tất cả trong mỗi dòng
-sed 's/o/0/g' employees.txt
-
-# Thay không phân biệt hoa thường
-sed 's/alice/ALICE/gi' employees.txt
-
-# Thay lần xuất hiện thứ 2
-sed 's/o/0/2' employees.txt`,
-        inplace: `# Sửa trực tiếp file
-sed -i 's/Hanoi/Ha Noi/g' employees.txt
-
-# Backup file gốc trước khi sửa
-sed -i.bak 's/HR/HumanResources/g' employees.txt
-
-# Tạo employees.txt.bak và employees.txt đã sửa`,
-        delete: `# Xóa dòng chứa HR
-sed '/HR/d' employees.txt
-
-# Xóa dòng số 2
-sed '2d' employees.txt
-
-# Xóa từ dòng 2 đến dòng 4
-sed '2,4d' employees.txt
-
-# Xóa dòng trống
-sed '/^$/d' employees.txt
-
-# Xóa comment
-sed '/^#/d' config.txt`,
-        print: `# Chỉ in dòng chứa IT
-sed -n '/IT/p' employees.txt
-
-# In dòng số 3
-sed -n '3p' employees.txt
-
-# In từ dòng 2 đến dòng 5
-sed -n '2,5p' employees.txt`,
-        multi: `# Nhiều lệnh bằng -e
-sed -e 's/IT/Engineering/' -e 's/HR/HumanResources/' employees.txt
-
-# Hoặc dùng dấu ;
-sed 's/IT/Engineering/; s/HR/HumanResources/' employees.txt
-
-# Xóa comment và dòng trống
-sed -e '/^#/d' -e '/^$/d' /etc/nginx/nginx.conf`,
-    };
-    return (
-        <TabbedSection
-            tabs={[
-                ["syntax", "Cú pháp"],
-                ["substitute", "s///"],
-                ["inplace", "-i/-i.bak"],
-                ["delete", "Delete"],
-                ["print", "Print"],
-                ["multi", "Nhiều lệnh"],
-            ]}
-            active={mode}
-            setActive={setMode}
-            color="rose"
-            title="sed"
-            code={code[mode]}
-        />
-    );
-}
-
-function AwkGuide() {
-    const [mode, setMode] = useState("vars");
-    const code = {
-        syntax: `awk [tùy_chọn] 'pattern { action }' file
-
--F   chỉ định dấu phân cách Field Separator
-
-# Ví dụ:
-awk -F',' '{print $1}' employees.txt`,
-        vars: `$0   toàn bộ dòng
-$1   cột 1
-$2   cột 2
-$N   cột N
-$NF  cột cuối cùng
-NR   số dòng hiện tại
-NF   số cột trong dòng hiện tại
-FS   dấu phân cách`,
-        print: `# In cột 1
-awk -F',' '{print $1}' employees.txt
-
-# In tên + lương
-awk -F',' '{print $1, $3}' employees.txt
-
-# Format đẹp
-awk -F',' '{print "Tên:", $1, "- Lương:", $3}' employees.txt
-
-# In cột cuối
-awk -F',' '{print $NF}' employees.txt`,
-        filter: `# Lương > 80000
-awk -F',' '$3 > 80000' employees.txt
-
-# In tên nhân viên lương > 80000
-awk -F',' '$3 > 80000 {print $1}' employees.txt
-
-# Phòng ban IT
-awk -F',' '$2 == "IT"' employees.txt
-
-# Chứa Hanoi
-awk '/Hanoi/' employees.txt
-
-# Không chứa Hanoi
-awk '!/Hanoi/' employees.txt
-
-# Điều kiện kết hợp
-awk -F',' '$2 == "IT" && $3 > 80000 {print $1, $3}' employees.txt`,
-        math: `# Tổng lương
-awk -F',' '{sum += $3} END {print "Tổng:", sum}' employees.txt
-
-# Trung bình
-awk -F',' '{sum += $3; count++} END {print "Trung bình:", sum/count}' employees.txt
-
-# Lương cao nhất
-awk -F',' 'BEGIN{max=0} $3>max{max=$3} END{print "Cao nhất:", max}' employees.txt
-
-# Đếm theo phòng ban
-awk -F',' '{dept[$2]++} END {for (d in dept) print d, dept[d]}' employees.txt`,
-        begin: `awk -F',' '
-BEGIN {
-    print "=== DANH SÁCH NHÂN VIÊN ==="
-    print "Tên\t\tPhòng\tLương"
-    print "─────────────────────────────"
-}
-{
-    printf "%-10s %-10s %d\n", $1, $2, $3
-}
-END {
-    print "─────────────────────────────"
-    print "Tổng số:", NR, "nhân viên"
-}
-' employees.txt`,
-    };
-    return (
-        <TabbedSection
-            tabs={[
-                ["syntax", "Cú pháp"],
-                ["vars", "Biến đặc biệt"],
-                ["print", "In cột"],
-                ["filter", "Lọc"],
-                ["math", "Tính toán"],
-                ["begin", "BEGIN/END"],
-            ]}
-            active={mode}
-            setActive={setMode}
-            color="amber"
-            title="awk"
-            code={code[mode]}
-        />
-    );
-}
-
-function PipelineExamples() {
-    const [mode, setMode] = useState("log");
-    const code = {
-        log: `# Top 3 IP truy cập nhiều nhất
-cat access.log \
-  | cut -d' ' -f1 \
-  | sort \
-  | uniq -c \
-  | sort -rn \
-  | head -3
-
-# Đếm số lỗi 404
-grep " 404$" access.log | wc -l
-
-# Đếm HTTP status code
-awk '{print $NF}' access.log | sort | uniq -c | sort -rn`,
-        employees: `# Nhân viên IT, lương cao xuống thấp
-grep "IT" employees.txt \
-  | sort -t',' -k3 -n -r \
-  | cut -d',' -f1,3
-
-# Tổng lương phòng IT
-awk -F',' '$2=="IT" {sum+=$3} END{print "IT payroll:", sum}' employees.txt
-
-# Đếm nhân viên theo thành phố
-cut -d',' -f4 employees.txt | sort | uniq -c`,
-        config: `# Xem nginx config, bỏ comment và dòng trống
-cat /etc/nginx/nginx.conf \
-  | sed '/^#/d' \
-  | sed '/^$/d' \
-  | sed 's/^[ \t]*//'
-
-# Bật dòng config đang comment
-sudo sed -i 's/^#PasswordAuthentication/PasswordAuthentication/' /etc/ssh/sshd_config`,
-        ports: `# Lấy danh sách port đang listen
-ss -tlnp \
-  | awk 'NR>1 {print $4}' \
-  | cut -d':' -f2 \
-  | sort -n \
-  | uniq
-
-# Process ngốn RAM nhiều nhất
-ps aux | awk 'NR>1 {print $4, $11}' | sort -rn | head -5`,
-    };
-    return (
-        <TabbedSection
-            tabs={[
-                ["log", "Phân tích log"],
-                ["employees", "Nhân viên"],
-                ["config", "Config"],
-                ["ports", "Port/process"],
-            ]}
-            active={mode}
-            setActive={setMode}
-            color="pink"
-            title="pipeline"
-            code={code[mode]}
-        />
-    );
-}
-
-function TabbedSection({ tabs, active, setActive, color, title, code }) {
-    const colorMap = {
-        blue: "bg-blue-500/10 border-blue-500/40 text-blue-300",
-        green: "bg-green-500/10 border-green-500/40 text-green-300",
-        purple: "bg-purple-500/10 border-purple-500/40 text-purple-300",
-        rose: "bg-rose-500/10 border-rose-500/40 text-rose-300",
-        amber: "bg-amber-500/10 border-amber-500/40 text-amber-300",
-        pink: "bg-pink-500/10 border-pink-500/40 text-pink-300",
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {tabs.map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setActive(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${active === k ? colorMap[color] : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock title={`${title} — ${active}`} code={code} />
-        </div>
-    );
-}
-
-function TextToolboxPreview() {
-    const [view, setView] = useState("menu");
-    const content = {
-        menu: `╔══════════════════════════════════════╗
-║          TEXT TOOLBOX                ║
-╠══════════════════════════════════════╣
-║ 1) Extract CSV columns with cut       ║
-║ 2) Sort by column                     ║
-║ 3) Count duplicates                   ║
-║ 4) Sed replace with backup            ║
-║ 5) Awk filter and sum                 ║
-║ 6) Analyze access.log                 ║
-╚══════════════════════════════════════╝`,
-        cut: `▶ EXTRACT COLUMNS
-File: employees.txt
-Delimiter: ,
-Fields: 1,3
-
-Command:
-cut -d',' -f1,3 employees.txt
-
-Output:
-Alice,85000
-Bob,60000
-Charlie,92000`,
-        sed: `▶ SAFE SED REPLACE
-Find: HR
-Replace: HumanResources
-File: employees.txt
-
-Command:
-sed -i.bak 's/HR/HumanResources/g' employees.txt
-
-✅ Backup created: employees.txt.bak`,
-        awk: `▶ AWK FILTER + SUM
-Department: IT
-
-Command:
-awk -F',' '$2=="IT" {sum+=$3; count++} END{print count, sum}' employees.txt
-
-Output:
-3 262000`,
-        log: `▶ LOG TOP IP
-Command:
-cut -d' ' -f1 access.log | sort | uniq -c | sort -rn
-
-Output:
-3 192.168.1.1
-2 192.168.1.2
-1 192.168.1.3`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-2">
-                    {[
-                        ["menu", "Menu"],
-                        ["cut", "cut"],
-                        ["sed", "sed safe"],
-                        ["awk", "awk sum"],
-                        ["log", "log top IP"],
-                    ].map(([k, label]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Điện đi từ PSU đến linh kiện thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
                         <button
-                            key={k}
-                            onClick={() => setView(k)}
-                            className={`w-full text-left rounded-xl border p-3 font-bold text-sm ${view === k ? "bg-teal-500/10 border-teal-500/40 text-teal-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
                         >
-                            {label}
+                            {f.title}
                         </button>
                     ))}
                 </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title="text_toolbox.sh preview"
-                        code={content[view]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function Cheatsheet() {
-    const groups = [
-        [
-            "cut",
-            "blue",
-            [
-                ["cut -d',' -f1", "Lấy cột 1"],
-                ["cut -d',' -f1,3", "Lấy cột 1 và 3"],
-                ["cut -c1-5", "Lấy ký tự 1-5"],
-            ],
-        ],
-        [
-            "sort",
-            "green",
-            [
-                ["sort file", "A-Z"],
-                ["sort -r", "Đảo ngược"],
-                ["sort -n", "Sắp xếp số"],
-                ["sort -t',' -k3", "Theo cột 3"],
-                ["sort -u", "Sort và bỏ trùng"],
-            ],
-        ],
-        [
-            "uniq",
-            "purple",
-            [
-                ["uniq", "Bỏ dòng trùng kề"],
-                ["uniq -c", "Đếm"],
-                ["uniq -d", "Chỉ dòng trùng"],
-                ["uniq -u", "Chỉ dòng không trùng"],
-            ],
-        ],
-        [
-            "sed/awk",
-            "amber",
-            [
-                ["sed 's/a/b/g'", "Thay tất cả"],
-                ["sed -i.bak", "Sửa + backup"],
-                ["awk '{print $1}'", "In cột 1"],
-                ["awk -F',' '$3>100'", "Lọc điều kiện"],
-                ["awk '{sum+=$3} END{print sum}'", "Tính tổng"],
-            ],
-        ],
-    ];
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {groups.map(([title, tone, items]) => (
-                    <div
-                        key={title}
-                        className="bg-slate-950 border border-slate-700 rounded-2xl p-5"
-                    >
-                        <h4 className="font-bold text-orange-300 uppercase text-xs tracking-widest mb-4">
-                            {title}
-                        </h4>
-                        <div className="space-y-2">
-                            {items.map(([cmd, desc]) => (
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
+                            >
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
                                 <div
-                                    key={cmd}
-                                    className="border-b border-slate-800 pb-2 last:border-b-0"
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
                                 >
-                                    <code className="text-cyan-300 text-xs">
-                                        {cmd}
-                                    </code>
-                                    <p className="text-xs text-slate-500 mt-1">
-                                        {desc}
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
                                     </p>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function PracticeChecklist() {
-    const tasks = [
-        ["Tạo employees.txt", "cat > employees.txt << EOF ... EOF"],
-        ["Tạo access.log", "cat > access.log << EOF ... EOF"],
-        ["Lấy cột tên", "cut -d',' -f1 employees.txt"],
-        ["Lấy IP từ log", "cut -d' ' -f1 access.log"],
-        ["Sort theo lương tăng", "sort -t',' -k3 -n employees.txt"],
-        ["Top 3 lương cao", "sort -t',' -k3 -n -r employees.txt | head -3"],
-        ["Bỏ dòng trùng", "sort employees.txt | uniq"],
-        ["Đếm dòng trùng", "sort employees.txt | uniq -c | sort -rn"],
-        [
-            "Top IP truy cập",
-            "cut -d' ' -f1 access.log | sort | uniq -c | sort -rn",
-        ],
-        [
-            "sed thay thử không sửa file",
-            "sed 's/IT/Engineering/g' employees.txt",
-        ],
-        [
-            "sed sửa có backup",
-            "sed -i.bak 's/HR/HumanResources/g' employees.txt",
-        ],
-        ["sed in dòng IT", "sed -n '/IT/p' employees.txt"],
-        ["awk in tên + lương", "awk -F',' '{print $1, $3}' employees.txt"],
-        [
-            "awk lọc lương > 80000",
-            "awk -F',' '$3 > 80000 {print $1, $3}' employees.txt",
-        ],
-        [
-            "awk tính tổng lương",
-            "awk -F',' '{sum += $3} END {print sum}' employees.txt",
-        ],
-        [
-            "awk đếm status code",
-            "awk '{print $NF}' access.log | sort | uniq -c | sort -rn",
-        ],
-        [
-            "Lấy port listen",
-            "ss -tlnp | awk 'NR>1 {print $4}' | cut -d':' -f2 | sort -n | uniq",
-        ],
-    ];
-    const [done, setDone] = useState([]);
-    const toggle = (i) =>
-        setDone((d) => (d.includes(i) ? d.filter((x) => x !== i) : [...d, i]));
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div>
-                    <h4 className="text-xl font-bold text-white">
-                        Checklist lab trên Ubuntu
-                    </h4>
-                    <p className="text-slate-400 text-sm">
-                        Đánh dấu từng bước khi thực hành xong.
-                    </p>
-                </div>
-                <div className="text-sm font-bold text-lime-300 bg-lime-500/10 border border-lime-500/20 rounded-full px-4 py-2">
-                    {done.length}/{tasks.length} hoàn thành
-                </div>
-            </div>
-            <div className="space-y-3">
-                {tasks.map(([title, cmd], i) => (
-                    <button
-                        key={title}
-                        onClick={() => toggle(i)}
-                        className={`w-full text-left rounded-2xl border p-4 transition-all ${done.includes(i) ? "bg-lime-500/10 border-lime-500/30" : "bg-slate-900 border-slate-700 hover:border-slate-500"}`}
-                    >
-                        <div className="flex items-start gap-3">
-                            {done.includes(i) ? (
-                                <CheckCircle2 className="text-lime-400 shrink-0" />
-                            ) : (
-                                <div className="w-6 h-6 rounded-full border border-slate-600 shrink-0" />
-                            )}
-                            <div>
-                                <div className="font-bold text-white">
-                                    {i + 1}. {title}
-                                </div>
-                                <code className="text-xs text-slate-400 break-all">
-                                    {cmd}
-                                </code>
-                            </div>
-                        </div>
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function SummarySection() {
-    return (
-        <section className="pt-4">
-            <div className="bg-slate-950 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl">
-                <div className="bg-slate-900 p-6 border-b border-slate-700">
-                    <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <BookOpen className="text-orange-400" /> Tóm tắt bài học
-                    </h3>
-                </div>
-                <div className="p-6 md:p-8 grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-                    <SummaryBox
-                        title="cut"
-                        items={[
-                            "-d delimiter",
-                            "-f field",
-                            "-c character",
-                            "-f1,3",
-                            "-f2-",
-                            "-c1-5",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="sort"
-                        items={[
-                            "sort",
-                            "-r reverse",
-                            "-n numeric",
-                            "-t delimiter",
-                            "-k key",
-                            "-u unique",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="uniq"
-                        items={[
-                            "dùng sau sort",
-                            "uniq",
-                            "uniq -c",
-                            "uniq -d",
-                            "uniq -u",
-                            "sort | uniq -c",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="sed"
-                        items={[
-                            "s/cũ/mới/",
-                            "s/cũ/mới/g",
-                            "-i.bak",
-                            "'/pat/d'",
-                            "-n '/pat/p'",
-                            "-e nhiều lệnh",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="awk"
-                        items={[
-                            "$1 $2 $NF",
-                            "NR NF",
-                            "-F','",
-                            "pattern {action}",
-                            "BEGIN/END",
-                            "sum += $3",
-                        ]}
-                    />
-                </div>
-                <div className="px-6 md:px-8 pb-8">
-                    <div className="bg-orange-500/10 border border-orange-500/30 rounded-2xl p-5 text-orange-100">
-                        <strong className="text-white">
-                            Quy tắc nhớ nhanh:
-                        </strong>{" "}
-                        dùng <code>cut</code> khi chỉ cần cắt cột đơn giản;{" "}
-                        <code>sort | uniq -c | sort -rn</code> để đếm top; dùng{" "}
-                        <code>sed -i.bak</code> khi sửa file thật; dùng{" "}
-                        <code>awk</code> khi cần lọc theo cột hoặc tính toán.
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -1150,119 +476,740 @@ function SummarySection() {
     );
 }
 
-function SummaryBox({ title, items }) {
+function ConnectorExplorer() {
+    const connectors = {
+        atx: {
+            icon: <PackageCheck />,
+            title: "24-pin ATX / 20+4-pin",
+            color: "sky",
+            use: "Cấp điện chính cho mainboard",
+            identify:
+                "Đầu to, dài, nhiều chân nhất; thường cắm cạnh phải mainboard.",
+            note: "Bắt buộc. Không cắm dây này thì máy gần như chắc chắn không hoạt động.",
+        },
+        eps: {
+            icon: <Cpu />,
+            title: "4+4-pin EPS / 8-pin CPU",
+            color: "blue",
+            use: "Cấp điện riêng cho CPU qua VRM",
+            identify:
+                "Thường ghi CPU, EPS, ATX12V; dạng 4+4 có thể ghép thành 8-pin.",
+            note: "Cắm ở góc trên mainboard gần socket CPU. Không nhầm với PCIe 6+2.",
+        },
+        pcie: {
+            icon: <Gamepad2 />,
+            title: "6+2-pin PCIe / VGA",
+            color: "orange",
+            use: "Cấp điện cho GPU rời",
+            identify:
+                "Thường ghi PCI-E, PCIe hoặc VGA; dạng 6+2 có thể dùng như 6-pin hoặc 8-pin.",
+            note: "Cắm trực tiếp vào card đồ họa, không cắm vào đầu CPU trên mainboard.",
+        },
+        hpwr: {
+            icon: <Zap />,
+            title: "12VHPWR / 12V-2x6",
+            color: "red",
+            use: "GPU NVIDIA đời mới/cao cấp",
+            identify:
+                "Đầu nhỏ hơn nhưng cấp công suất cao, thường đi với PSU ATX 3.0/3.1.",
+            note: "Cắm thật sát, không gập dây quá sát đầu cắm, tránh adapter kém chất lượng.",
+        },
+        sata: {
+            icon: <HardDrive />,
+            title: "SATA Power",
+            color: "emerald",
+            use: "SSD/HDD SATA, ổ DVD, hub fan/RGB, một số AIO",
+            identify: "Đầu dẹt, rộng, thường có nhiều đầu trên một dây.",
+            note: "Ổ SATA cần cả SATA Data và SATA Power; SSD M.2 NVMe không dùng SATA Power.",
+        },
+        molex: {
+            icon: <Settings />,
+            title: "Molex 4-pin",
+            color: "purple",
+            use: "Thiết bị cũ, quạt/hub đời cũ",
+            identify: "Đầu to, thường trắng/đen, cắm hơi cứng.",
+            note: "Hiện nay nên hạn chế dùng nếu không cần; ưu tiên SATA Power hoặc fan header chuẩn.",
+        },
+    };
+    const [active, setActive] = useState("eps");
+    const item = connectors[active];
     return (
-        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-5">
-            <h4 className="font-bold text-orange-300 uppercase text-xs tracking-widest mb-4">
-                {title}
-            </h4>
-            <ul className="space-y-2 text-sm text-slate-300">
-                {items.map((i) => (
-                    <li key={i} className="flex gap-2">
-                        <CheckCircle2
-                            size={16}
-                            className="text-emerald-400 shrink-0 mt-0.5"
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="sky"
+                title="Explorer: nhận diện từng đầu cắm"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(connectors).map(([key, c]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(c.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(c.icon, { size: 20 })}{" "}
+                                {c.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid md:grid-cols-[0.7fr_1.3fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className={`${textColor(item.color)} font-semibold`}>
+                            {item.use}
+                        </p>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                        <InfoCard
+                            label="Nhận diện"
+                            value={item.identify}
+                            color={item.color}
                         />
-                        <code>{i}</code>
-                    </li>
+                        <InfoCard
+                            label="Lưu ý"
+                            value={item.note}
+                            color="orange"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function ConnectorMatrix() {
+    const rows = [
+        ["24-pin ATX", "Mainboard", "Có", "Đầu lớn nhất"],
+        ["20+4-pin ATX", "Mainboard cũ/hiện đại", "Có", "Ghép thành 24-pin"],
+        ["4+4-pin EPS CPU", "CPU", "Có với PC hiện đại", "Góc trên mainboard"],
+        ["6+2-pin PCIe", "GPU rời", "Tùy GPU", "Ghi PCI-E/VGA"],
+        ["12VHPWR / 12V-2x6", "GPU đời mới/cao cấp", "Tùy GPU", "Cắm thật sát"],
+        [
+            "SATA Power",
+            "SSD/HDD SATA, hub",
+            "Tùy thiết bị",
+            "Không dùng cho M.2 NVMe",
+        ],
+        ["Molex", "Thiết bị cũ", "Hiếm khi", "Hạn chế dùng nếu không cần"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="blue"
+                title="Bảng tổng hợp đầu cắm PSU"
+                icon={<Layers3 />}
+            />
+            <DataTable
+                title="Đầu nào cắm vào đâu?"
+                rows={rows}
+                headers={["Đầu cắm", "Dùng cho", "Bắt buộc không?", "Ghi chú"]}
+                accent="blue"
+            />
+        </section>
+    );
+}
+
+function CpuVsPcieWarning() {
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="red"
+                title="Cảnh báo quan trọng: CPU/EPS ≠ PCIe/VGA"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-blue-500/5 border border-blue-500/20 rounded-3xl p-6">
+                    <Cpu className="text-blue-300 mb-4" size={34} />
+                    <h3 className="text-white font-bold text-xl mb-3">
+                        CPU/EPS 4+4-pin
+                    </h3>
+                    <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                        Thường ghi{" "}
+                        <strong className="text-blue-300">
+                            CPU, EPS, ATX12V
+                        </strong>
+                        . Dùng để cắm vào mainboard gần socket CPU.
+                    </p>
+                    <div className="font-mono text-sm text-blue-300">
+                        PSU → CPU/EPS → Mainboard → VRM → CPU
+                    </div>
+                </div>
+                <div className="bg-orange-500/5 border border-orange-500/20 rounded-3xl p-6">
+                    <Gamepad2 className="text-orange-300 mb-4" size={34} />
+                    <h3 className="text-white font-bold text-xl mb-3">
+                        PCIe / VGA 6+2-pin
+                    </h3>
+                    <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                        Thường ghi{" "}
+                        <strong className="text-orange-300">
+                            PCI-E, PCIe, VGA
+                        </strong>
+                        . Dùng để cắm vào card đồ họa rời.
+                    </p>
+                    <div className="font-mono text-sm text-orange-300">
+                        PSU → PCIe/VGA → GPU
+                    </div>
+                </div>
+            </div>
+            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                CPU 4+4-pin ≠ PCIe 6+2-pin
+                <br />
+                Cắm vừa không có nghĩa là đúng. Nếu phải ép mạnh, dừng lại ngay.
+            </div>
+        </section>
+    );
+}
+
+function ModernGpuCableGuide() {
+    const rows = [
+        [
+            "12VHPWR",
+            "GPU RTX 40 series cao hơn",
+            "Cần cắm thật chặt, tránh gập sát đầu cắm",
+        ],
+        [
+            "12V-2x6",
+            "Phiên bản cải tiến, thường đi với ATX 3.1/PCIe 5.1",
+            "Thiết kế mới hơn, vẫn phải cắm đúng cách",
+        ],
+        [
+            "Adapter",
+            "Chuyển nhiều 8-pin sang 12VHPWR/12V-2x6",
+            "Chỉ dùng adapter hãng cung cấp/chất lượng tốt và cắm đúng",
+        ],
+        [
+            "Native cable",
+            "Dây đi thẳng PSU → GPU",
+            "Nên ưu tiên với GPU cao cấp",
+        ],
+    ];
+    const rules = [
+        "Cắm vào hết nấc",
+        "Không để đầu cắm hở",
+        "Không gập dây quá sát đầu cắm",
+        "Không kéo căng dây",
+        "Không dùng adapter kém chất lượng",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="orange"
+                title="12VHPWR và 12V-2x6 cho GPU đời mới"
+                icon={<Zap />}
+            />
+            <div className="grid lg:grid-cols-[1fr_0.85fr] gap-6">
+                <DataTable
+                    title="Các kiểu dây GPU đời mới"
+                    rows={rows}
+                    headers={["Đầu/dây", "Dùng cho", "Ghi chú"]}
+                    accent="orange"
+                />
+                <div className="bg-orange-500/5 border border-orange-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-orange-300 mb-5 flex items-center gap-2">
+                        <ShieldCheck /> Checklist cắm an toàn
+                    </h3>
+                    <div className="space-y-3">
+                        {rules.map((r) => (
+                            <div
+                                key={r}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{r}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SataAndMolexGuide() {
+    const rows = [
+        ["SSD SATA 2.5 inch", "Có", "Cần thêm SATA Data vào mainboard"],
+        ["HDD 3.5 inch", "Có", "Cần thêm SATA Data vào mainboard"],
+        ["Ổ DVD/Blu-ray SATA", "Có", "Ít dùng hiện nay"],
+        ["Hub fan/RGB", "Có thể có", "Tùy hub"],
+        ["AIO một số mẫu", "Có thể có", "Tùy mẫu"],
+        ["SSD M.2 NVMe", "Không", "Gắn trực tiếp vào khe M.2"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="emerald"
+                title="SATA Power và Molex"
+                icon={<HardDrive />}
+            />
+            <DataTable
+                title="Thiết bị nào cần SATA Power?"
+                rows={rows}
+                headers={["Thiết bị", "Cần SATA Power?", "Ghi chú"]}
+                accent="emerald"
+            />
+            <div className="grid md:grid-cols-2 gap-4">
+                <RuleCard
+                    label="Ổ SATA cần 2 dây"
+                    value="SATA Data từ ổ vào mainboard + SATA Power từ ổ vào PSU. Thiếu một dây là ổ có thể không nhận."
+                    color="emerald"
+                />
+                <RuleCard
+                    label="Molex là đầu cũ"
+                    value="Molex 4-pin thường dùng cho quạt/hub cũ. Hiện nay nên hạn chế nếu không cần."
+                    color="purple"
+                />
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        eps: {
+            icon: <Cpu />,
+            title: "Số đầu EPS CPU",
+            detail: "CPU phổ thông thường chỉ cần 1 x 8-pin CPU. Main cao cấp có thể có 8+4 hoặc 8+8.",
+            impact: "Với CPU phổ thông, thường cắm 8-pin là chạy; CPU mạnh/ép xung nên cắm thêm nếu main và PSU hỗ trợ.",
+        },
+        pcie: {
+            icon: <Gamepad2 />,
+            title: "Số đầu PCIe GPU",
+            detail: "GPU có thể cần 0, 1, 2, 3 đầu 8-pin hoặc 12VHPWR/12V-2x6.",
+            impact: "RTX 4060/RX 7600 thường 1 x 8-pin; RTX 4070/RX 7800 XT có thể 1–2 x 8-pin hoặc đầu mới tùy mẫu.",
+        },
+        native: {
+            icon: <PlugZap />,
+            title: "Native cable",
+            detail: "Dây đi thẳng từ PSU đến thiết bị, không qua adapter.",
+            impact: "Với GPU cao cấp, nên ưu tiên dây native 12VHPWR/12V-2x6 từ PSU thay vì adapter rối.",
+        },
+        modular: {
+            icon: <Puzzle />,
+            title: "Modular cable",
+            detail: "Dây modular không được dùng lẫn giữa PSU khác hãng/dòng nếu không được xác nhận.",
+            impact: "Cắm vừa không có nghĩa đúng pinout. Cắm sai có thể hỏng SSD, GPU hoặc mainboard.",
+        },
+        sata: {
+            icon: <HardDrive />,
+            title: "Số đầu SATA Power",
+            detail: "Cần cho SSD/HDD SATA, hub fan/RGB, một số AIO và LED.",
+            impact: "2 HDD + 1 SSD SATA + 1 hub fan cần ít nhất 4 đầu SATA Power.",
+        },
+        ac: {
+            icon: <Power />,
+            title: "Dây AC vào PSU",
+            detail: "Dây từ ổ điện vào cổng sau PSU, thường kiểu C13.",
+            impact: "Không dùng dây lỏng, nứt vỏ, cháy xém. Công tắc PSU: I là ON, O là OFF.",
+        },
+    };
+    const [active, setActive] = useState("pcie");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng của đầu cắm"
+                icon={<Gauge />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Sparkles />,
+            title: "Corsair RM750e 750W ATX 3.1",
+            subtitle: "Full-modular, 12V-2x6",
+            color: "sky",
+            points: [
+                "24-pin ATX cho mainboard",
+                "EPS CPU 8-pin/4+4-pin",
+                "PCIe 6+2 hoặc 12V-2x6 tùy GPU",
+                "SATA Power cho SSD/HDD/hub",
+                "Dây modular chỉ dùng đúng bộ RM750e",
+            ],
+            lesson: "PSU hiện đại có dây 12V-2x6 tiện cho GPU đời mới, nhưng vẫn phải cắm đúng và sát.",
+        },
+        {
+            icon: <Award />,
+            title: "Cooler Master MWE Gold 750 V2 FM",
+            subtitle: "Nhiều đầu EPS/PCIe/SATA",
+            color: "yellow",
+            points: [
+                "1 EPS 4+4 pin",
+                "1 EPS 8 pin",
+                "4 PCIe 6+2 pin",
+                "12 SATA connectors",
+                "4 Peripheral 4-pin",
+            ],
+            lesson: "Số đầu cắm dồi dào giúp dễ dùng với main 8+4 CPU, GPU 1–2 đầu 8-pin và nhiều ổ/hub.",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "GPU RTX 4060 class",
+            subtitle: "Thường 1 x 8-pin PCIe",
+            color: "orange",
+            points: [
+                "Dùng dây PCIe 6+2",
+                "Ghép 6+2 thành 8-pin",
+                "Cắm vào GPU đến khi khóa gài",
+                "Không dùng dây CPU/EPS",
+                "Không bỏ quên đầu nguồn phụ nếu card yêu cầu",
+            ],
+            lesson: "Dây PCIe/VGA là cho GPU; CPU/EPS là cho mainboard gần CPU. Không cắm lẫn.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
                 ))}
-            </ul>
-        </div>
+            </div>
+        </section>
+    );
+}
+
+function InstallLab() {
+    const scenarios = {
+        first: {
+            icon: <Workflow />,
+            title: "Thứ tự cắm dây",
+            answer: "1) 24-pin ATX cho mainboard. 2) 8-pin CPU/EPS cho CPU. 3) PCIe/12VHPWR/12V-2x6 cho GPU. 4) SATA Power cho SSD/HDD/hub. 5) Fan/RGB theo main/hub.",
+            color: "sky",
+        },
+        noCpu: {
+            icon: <Cpu />,
+            title: "Quên 8-pin CPU",
+            answer: "Quạt có thể quay nhưng máy không POST/không lên hình/đèn CPU debug sáng. Cắm dây CPU/EPS 4+4 hoặc 8-pin ở góc trên mainboard.",
+            color: "blue",
+        },
+        gpu2: {
+            icon: <Gamepad2 />,
+            title: "GPU cần 2 x 8-pin",
+            answer: "Với GPU ăn điện cao, nên dùng 2 dây PCIe riêng nếu PSU có, thay vì một dây pigtail chia 2 đầu.",
+            color: "orange",
+        },
+        sata: {
+            icon: <HardDrive />,
+            title: "SSD SATA không nhận",
+            answer: "Kiểm tra đủ hai dây: SATA Data từ ổ vào mainboard và SATA Power từ PSU. SSD M.2 NVMe thì không cần SATA Power.",
+            color: "emerald",
+        },
+        modular: {
+            icon: <AlertTriangle />,
+            title: "Dây modular lẫn bộ",
+            answer: "Không dùng dây modular của PSU khác. Cất hộp, cất dây thừa, dán nhãn nếu có nhiều PSU để tránh nhầm pinout.",
+            color: "red",
+        },
+        hpwr: {
+            icon: <Zap />,
+            title: "12VHPWR/12V-2x6",
+            answer: "Cắm thật sát, kiểm tra không hở đầu cắm, không gập dây quá sát và ưu tiên dây native từ PSU cho GPU cao cấp.",
+            color: "yellow",
+        },
+    };
+    const [active, setActive] = useState("first");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="blue"
+                title="Lab: cắm dây PSU đúng cách"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "Nhầm dây CPU 8-pin với dây PCIe 8-pin",
+            right: "CPU/EPS 4+4-pin cắm vào mainboard gần CPU. PCIe/VGA 6+2-pin cắm vào GPU rời. Không cắm lẫn.",
+        },
+        {
+            wrong: "Chỉ cắm 24-pin mà quên 8-pin CPU",
+            right: "Mainboard cần 24-pin, nhưng CPU cần dây EPS riêng. Quên EPS thường gây không POST/không lên hình.",
+        },
+        {
+            wrong: "Ổ SATA không nhận vì chỉ cắm SATA Data",
+            right: "Ổ SATA cần cả SATA Data vào mainboard và SATA Power từ PSU.",
+        },
+        {
+            wrong: "Dùng một dây chia cho GPU ăn điện cao",
+            right: "GPU ăn điện cao nên dùng 2 dây PCIe riêng nếu PSU hỗ trợ để giảm tải trên mỗi dây.",
+        },
+        {
+            wrong: "Cắm 12VHPWR/12V-2x6 chưa vào hết",
+            right: "Đầu GPU đời mới phải cắm thật sát, không để hở, không gập dây sát đầu cắm.",
+        },
+        {
+            wrong: "Dùng dây modular của PSU khác",
+            right: "Cắm vừa không có nghĩa pinout đúng. Dây modular khác PSU có thể làm cháy linh kiện.",
+        },
+    ];
+    const tips = [
+        "Đọc chữ in trên dây: CPU, PCI-E/VGA, SATA, MB/ATX, Peripheral.",
+        "Cắm theo thứ tự: 24-pin → CPU/EPS → GPU → SATA Power → fan/RGB.",
+        "Với GPU cần 2 đầu 8-pin, ưu tiên 2 dây PCIe riêng nếu GPU ăn điện cao.",
+        "Với PSU modular, giữ lại toàn bộ dây gốc và không trộn dây với PSU khác.",
+        "Nếu đầu cắm không vào nhẹ nhàng, dừng lại kiểm tra dây và chiều cắm.",
+        "Sau khi cắm GPU đời mới, nhìn ngang kiểm tra đầu 12VHPWR/12V-2x6 đã vào hết nấc chưa.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="13"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-sky-500/20 text-sky-300 p-2 rounded-xl">
+                            14
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-sky-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>24-pin ATX → mainboard</p>
+                            <p>4+4 EPS CPU → CPU</p>
+                            <p>6+2 PCIe / VGA → GPU</p>
+                            <p>12VHPWR / 12V-2x6 → GPU đời mới/cao cấp</p>
+                            <p>SATA Power → SSD/HDD SATA, hub fan/RGB</p>
+                            <p>Molex → thiết bị cũ</p>
+                            <br />
+                            <p className="text-red-300">
+                                CPU/EPS ≠ PCIe/VGA. Không cắm lẫn. Không trộn
+                                dây modular.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
     );
 }
 
 const questions = [
     {
-        question: "cut -d',' -f1 employees.txt dùng để làm gì?",
-        options: [
-            "Lấy cột 1, phân cách bằng dấu phẩy",
-            "Sắp xếp cột 1",
-            "Xóa cột 1",
-            "Tính tổng cột 1",
-        ],
-        correct: 0,
-        explanation: "-d chọn delimiter, -f chọn field/cột.",
+        question: "Dây 24-pin ATX dùng để cấp điện cho linh kiện nào?",
+        options: ["GPU rời", "Mainboard", "SSD M.2", "Tai nghe"],
+        correct: 1,
+        explanation: "24-pin ATX là dây nguồn chính cấp điện cho mainboard.",
     },
     {
-        question: "sort -t',' -k3 -n employees.txt có ý nghĩa gì?",
-        options: [
-            "Sắp xếp theo cột 3 dạng số",
-            "Xóa cột 3",
-            "Đếm cột 3",
-            "Thay cột 3",
-        ],
+        question: "Dây 4+4-pin EPS thường dùng để cấp điện cho gì?",
+        options: ["CPU", "Ổ cứng SATA", "Quạt case", "Cổng USB"],
         correct: 0,
         explanation:
-            "-t',' đặt delimiter, -k3 chọn key cột 3, -n sort numeric.",
+            "Dây 4+4-pin EPS/CPU cấp điện riêng cho CPU qua mainboard và VRM.",
     },
     {
-        question: "Vì sao uniq thường dùng sau sort?",
-        options: [
-            "uniq chỉ lọc dòng trùng liền kề",
-            "uniq chỉ đọc file đã nén",
-            "uniq chỉ chạy sau awk",
-            "uniq cần quyền root",
-        ],
-        correct: 0,
+        question: "Dây PCIe 6+2-pin thường dùng cho linh kiện nào?",
+        options: ["RAM", "GPU rời", "CPU", "Pin CMOS"],
+        correct: 1,
         explanation:
-            "Nếu dòng trùng không đứng cạnh nhau, uniq sẽ không gom được. sort đưa chúng đứng cạnh nhau.",
+            "PCIe 6+2-pin thường dùng để cấp điện cho card đồ họa rời.",
     },
     {
-        question: "Pipeline nào đếm IP truy cập nhiều nhất?",
+        question: "Ổ SSD/HDD SATA cần những dây nào?",
         options: [
-            "cut -d' ' -f1 access.log | sort | uniq -c | sort -rn",
-            "sort -n access.log | sed -i",
-            "awk -F',' '{print $3}'",
-            "uniq access.log | cut -c1",
+            "Chỉ SATA Data",
+            "Chỉ SATA Power",
+            "SATA Data và SATA Power",
+            "Không cần dây nào",
         ],
-        correct: 0,
-        explanation: "Lấy IP, sort, đếm bằng uniq -c, rồi sort số giảm dần.",
+        correct: 2,
+        explanation: "Ổ SATA cần SATA Data nối mainboard và SATA Power từ PSU.",
     },
     {
-        question: "sed -i.bak 's/HR/HumanResources/g' employees.txt làm gì?",
+        question:
+            "Có nên dùng dây modular của PSU khác hãng nếu cắm vừa không?",
         options: [
-            "Sửa trực tiếp file và tạo backup .bak",
-            "Chỉ in dòng HR",
-            "Xóa file backup",
-            "Sort file",
+            "Có, vì cắm vừa là đúng",
+            "Có, nếu cùng màu dây",
+            "Không, vì pinout có thể khác và gây hỏng linh kiện",
+            "Có, nếu PSU cùng công suất",
         ],
-        correct: 0,
+        correct: 2,
         explanation:
-            "-i.bak sửa in-place và lưu bản gốc thành employees.txt.bak.",
-    },
-    {
-        question: "sed -n '/IT/p' employees.txt có tác dụng gì?",
-        options: [
-            "Chỉ in dòng chứa IT",
-            "Xóa dòng chứa IT",
-            "Thay IT",
-            "Sort dòng IT",
-        ],
-        correct: 0,
-        explanation: "-n tắt in tự động, p in các dòng match pattern.",
-    },
-    {
-        question: "Trong awk, $NF nghĩa là gì?",
-        options: [
-            "Cột cuối cùng",
-            "Số dòng hiện tại",
-            "Toàn bộ dòng",
-            "Dấu phân cách",
-        ],
-        correct: 0,
-        explanation: "NF là số field, nên $NF là field cuối cùng.",
-    },
-    {
-        question: "awk -F',' '$3 > 80000 {print $1}' employees.txt làm gì?",
-        options: [
-            "In tên nhân viên có lương > 80000",
-            "In toàn bộ file",
-            "Thay lương thành 80000",
-            "Đếm dòng trùng",
-        ],
-        correct: 0,
-        explanation:
-            "-F',' tách CSV, điều kiện $3 > 80000, action print $1 in tên.",
+            "Dây modular có thể khác pinout giữa hãng/dòng PSU; cắm nhầm có thể gây hỏng linh kiện.",
     },
 ];
 
@@ -1271,11 +1218,13 @@ function InteractiveQuiz() {
     const [selected, setSelected] = useState(null);
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const handleSelect = (idx) => {
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
         if (showResult) return;
-        setSelected(idx);
+        setSelected(index);
         setShowResult(true);
-        if (idx === questions[currentQ].correct) setScore((s) => s + 1);
+        if (index === q.correct) setScore((s) => s + 1);
     };
     const handleNext = () => {
         if (currentQ < questions.length - 1) {
@@ -1290,42 +1239,39 @@ function InteractiveQuiz() {
         setShowResult(false);
         setScore(0);
     };
-    if (currentQ === "finished")
+    if (finished)
         return (
-            <div className="text-center flex flex-col justify-center items-center min-h-[300px] animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
                     {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
-                    Hoàn thành bài kiểm tra!
+                    Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-orange-400">
+                    <strong className="text-sky-400">
                         {score}/{questions.length}
                     </strong>{" "}
-                    câu về xử lý văn bản Linux.
+                    câu hỏi.
                 </p>
                 <button
                     onClick={resetQuiz}
-                    className="px-6 py-2 bg-slate-900 hover:bg-slate-700 text-white rounded-lg transition-colors border border-slate-600 font-medium flex items-center gap-2"
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RefreshCcw size={16} /> Làm lại Quiz
+                    Làm lại
                 </button>
             </div>
         );
-    const q = questions[currentQ];
     return (
-        <div className="flex flex-col h-full max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm font-medium">
-                <span className="text-orange-400 bg-orange-500/10 px-3 py-1 rounded-full">
-                    Câu {currentQ + 1} / {questions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-sky-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-lg md:text-xl font-bold text-white mb-8 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
             <div className="space-y-3 flex-grow">
@@ -1334,57 +1280,247 @@ function InteractiveQuiz() {
                         "w-full text-left p-4 rounded-xl border text-sm transition-all ";
                     if (!showResult)
                         cls +=
-                            "border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:border-slate-500";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
                             "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "border-rose-500 bg-rose-500/10 text-rose-400";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "border-slate-800 bg-slate-800/30 text-slate-600 opacity-50";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
+                            key={idx}
                             onClick={() => handleSelect(idx)}
                             disabled={showResult}
                             className={cls}
                         >
-                            <div className="flex gap-3">
-                                <span className="font-mono text-slate-500 mt-0.5">
-                                    {String.fromCharCode(65 + idx)}.
-                                </span>
-                                <span>{opt}</span>
-                            </div>
+                            {opt}
                         </button>
                     );
                 })}
             </div>
             {showResult && (
-                <div className="mt-8 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`p-4 rounded-xl text-sm mb-6 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-300" : "bg-rose-500/10 border border-rose-500/20 text-rose-300"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info className="shrink-0 mt-0.5" size={18} />
-                        <div>
-                            <strong className="block mb-1 text-white">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích:"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
                         onClick={handleNext}
-                        className="w-full md:w-auto md:px-8 py-3 bg-white hover:bg-slate-200 text-slate-900 font-bold rounded-xl transition-colors ml-auto block"
+                        className="w-full py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-xl transition-colors"
                     >
                         {currentQ < questions.length - 1
-                            ? "Chuyển sang câu tiếp theo"
+                            ? "Câu tiếp theo"
                             : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu các đầu cắm điện PSU. Tiếp theo là Modular vs
+                Semi-Modular vs Non-Modular PSU — vì sau khi biết từng dây dùng
+                để làm gì, bạn cần hiểu dây rời, bán rời và dây liền khác nhau
+                thế nào, loại nào dễ đi dây và loại nào tiết kiệm.
+            </p>
+            <Link
+                to="/phan-7-4"
+                className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-sky-500/20"
+            >
+                Bài tiếp theo: 7.4 — Modular vs Semi-Modular vs Non-Modular PSU{" "}
+                <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "sky" }) {
+    const colorMap = {
+        sky: "bg-sky-500/20 text-sky-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-sky-500/10 border-sky-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-xl mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function RuleCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className={`${textColor(color)} font-bold text-sm mb-2`}>
+                {label}
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[720px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={cell}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        sky: "bg-sky-500/10 text-sky-300 border border-sky-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.sky;
+}
+function softBorder(color) {
+    const map = {
+        sky: "bg-sky-500/5 border-sky-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.sky;
+}
+function textColor(color) {
+    const map = {
+        sky: "text-sky-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        cyan: "text-cyan-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        emerald: "text-emerald-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-sky-300";
 }

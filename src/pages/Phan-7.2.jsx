@@ -1,265 +1,178 @@
 import React, { useState } from "react";
 import {
-    ArrowDown,
-    ArrowLeft,
-    ArrowRight,
-    ArrowUp,
+    AlertTriangle,
+    Award,
+    BatteryCharging,
     BookOpen,
+    Brain,
     CheckCircle2,
     ChevronRight,
-    ClipboardCheck,
-    Code2,
-    Copy,
-    Edit3,
-    FileCog,
-    FileText,
-    HelpCircle,
-    Home,
-    Info,
-    Keyboard,
-    Layers,
-    ListChecks,
-    MousePointer2,
-    Move,
-    Play,
-    Replace,
-    RotateCcw,
-    Save,
+    Cpu,
+    Database,
+    Fan,
+    Gamepad2,
+    Gauge,
+    HardDrive,
+    Layers3,
+    Lightbulb,
+    PackageCheck,
+    PlugZap,
+    Puzzle,
     Search,
     Settings,
+    ShieldCheck,
     Sparkles,
-    TerminalSquare,
-    TextCursorInput,
-    Trash2,
-    Undo2,
-    X,
+    Workflow,
+    XCircle,
     Zap,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-900 text-slate-200 font-sans selection:bg-violet-500 selection:text-white pb-20">
-            <header className="bg-slate-950/95 border-b border-slate-800 sticky top-0 z-50 backdrop-blur">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-slate-950 pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <span className="text-3xl">🐧</span>
+                        <div className="w-11 h-11 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center shadow-lg shadow-amber-500/10">
+                            <Gauge className="text-amber-400" size={24} />
+                        </div>
                         <div>
                             <h1 className="text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden md:block">
-                                Text Editor & xử lý văn bản: Vim editor mạnh mẽ
+                            <p className="text-xs text-slate-500">
+                                Phần 7: PSU — Bộ nguồn máy tính
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-400 hidden md:inline-block">
-                            Bài trước: 7.1
-                        </span>
-                        <div className="text-sm font-medium text-violet-400 bg-violet-400/10 px-3 py-1 rounded-full border border-violet-400/20">
-                            Phần 7.2
-                        </div>
+                    <div className="text-sm font-semibold text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
+                        Bài 7.2
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <Hero />
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        n="1"
-                        color="violet"
-                        icon={<Edit3 size={22} />}
-                        title="Vim là gì? Vì sao đáng học?"
-                    />
-                    <VimIntro />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="2"
-                        color="cyan"
-                        icon={<TerminalSquare size={22} />}
-                        title="Cài đặt và mở file bằng Vim"
-                    />
-                    <InstallOpenGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="3"
-                        color="blue"
-                        icon={<Layers size={22} />}
-                        title="Khái niệm quan trọng nhất: Mode"
-                    />
-                    <ModeDiagram />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="4"
-                        color="green"
-                        icon={<Move size={22} />}
-                        title="Normal Mode: di chuyển cực nhanh"
-                    />
-                    <MovementGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="5"
-                        color="amber"
-                        icon={<TextCursorInput size={22} />}
-                        title="Insert Mode: gõ văn bản"
-                    />
-                    <InsertModeGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="6"
-                        color="lime"
-                        icon={<Save size={22} />}
-                        title="Command Mode: lưu và thoát"
-                    />
-                    <CommandModeGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="7"
-                        color="rose"
-                        icon={<Trash2 size={22} />}
-                        title="Chỉnh sửa trong Normal Mode"
-                    />
-                    <NormalEditGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="8"
-                        color="pink"
-                        icon={<Search size={22} />}
-                        title="Tìm kiếm và thay thế"
-                    />
-                    <SearchReplaceGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="9"
-                        color="purple"
-                        icon={<MousePointer2 size={22} />}
-                        title="Visual Mode: chọn vùng văn bản"
-                    />
-                    <VisualModeGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="10"
-                        color="orange"
-                        icon={<Sparkles size={22} />}
-                        title="Các lệnh hữu ích khác"
-                    />
-                    <UsefulCommands />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="11"
-                        color="teal"
-                        icon={<FileCog size={22} />}
-                        title="Cấu hình Vim bằng ~/.vimrc"
-                    />
-                    <VimrcGuide />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="12"
-                        color="sky"
-                        icon={<Play size={22} />}
-                        title="Workflow thực tế"
-                    />
-                    <RealWorkflow />
-                </section>
-
-                <section className="space-y-6 pt-4">
-                    <SectionTitle
-                        n="13"
-                        color="emerald"
-                        icon={<ClipboardCheck size={22} />}
-                        title="Thực hành tổng hợp"
-                    />
-                    <PracticeChecklist />
-                </section>
-
-                <SummarySection />
-
-                <section className="space-y-6 pt-4">
-                    <div className="bg-slate-800 rounded-3xl border border-slate-700 overflow-hidden shadow-xl">
-                        <div className="bg-slate-900 p-6 border-b border-slate-700">
-                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                <span className="bg-violet-500/20 text-violet-400 p-2 rounded-lg">
-                                    <ClipboardCheck size={20} />
-                                </span>
-                                Kiểm tra nhanh: Vim editor
-                            </h3>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <div className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Bạn đã hoàn thành Phần 7.2 — Vim editor mạnh mẽ.
-                    </p>
-                    <button className="bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-violet-500/20">
-                        Bài tiếp theo: 7.3 — sed, awk, cut, sort, uniq{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <TruckAnalogy />
+                <EfficiencySimulator />
+                <WattageGuide />
+                <EfficiencyTable />
+                <PlusCertification />
+                <SpecsExplorer />
+                <ConnectorAndStandardGuide />
+                <QualityGuide />
+                <RealExamples />
+                <PickerLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function Hero() {
-    const cards = [
-        [Layers, "Mode", "Normal, Insert, Command, Visual"],
-        [Move, "hjkl", "Di chuyển không cần chuột"],
-        [Trash2, "dd / yy / p", "Xóa, copy, paste rất nhanh"],
-        [Search, ":%s", "Tìm và thay thế toàn file"],
+function HeroSection() {
+    return (
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-orange-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-amber-300">
+                        <BookOpen size={16} /> Phần 7: PSU — Đọc thông số
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Thông số PSU
+                        <span className="block text-amber-400">
+                            Wattage, Efficiency, 80 PLUS
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        750W không tự động là nguồn tốt, và 80 PLUS Gold không
+                        tự động là “xịn toàn diện”. Bạn cần đọc wattage, hiệu
+                        suất, đường 12V, đầu cắm, chuẩn ATX và chất lượng dòng
+                        nguồn.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Gauge size={16} />} text="Wattage" />
+                        <Tag icon={<Sparkles size={16} />} text="Efficiency" />
+                        <Tag icon={<Award size={16} />} text="80 PLUS" />
+                        <Tag icon={<Zap size={16} />} text="12V Rail" />
+                        <Tag icon={<PlugZap size={16} />} text="12V-2x6" />
+                    </div>
+                </div>
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Gauge />}
+                            label="750W"
+                            desc="Khả năng cấp tối đa"
+                            color="amber"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Sparkles />}
+                            label="90%"
+                            desc="Hiệu suất chuyển đổi"
+                            color="emerald"
+                        />
+                        <HeroTile
+                            icon={<Award />}
+                            label="Gold"
+                            desc="Chứng nhận hiệu suất"
+                            color="yellow"
+                        />
+                        <HeroTile
+                            icon={<Zap />}
+                            label="12V"
+                            desc="CPU/GPU cần nhất"
+                            color="orange"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Công thức đọc nhanh</p>
+                        <p>Wall Power = DC Load / Efficiency</p>
+                        <p className="text-amber-300">
+                            400W / 90% ≈ 444W từ ổ cắm
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function LearningGoals() {
+    const goals = [
+        "Hiểu Wattage là khả năng cấp công suất tối đa, không phải mức PSU luôn tiêu thụ.",
+        "Tính được quan hệ giữa điện linh kiện cần, hiệu suất PSU và điện lấy từ ổ cắm.",
+        "Biết 80 PLUS là chứng nhận hiệu suất, không phải bảo chứng toàn bộ chất lượng PSU.",
+        "Đọc được đường 12V, Active PFC, chuẩn ATX 3.0/3.1 và đầu 12VHPWR/12V-2x6.",
+        "Chọn công suất PSU theo GPU, nhu cầu, khoảng dư tải, đầu cắm và chất lượng thực tế.",
     ];
     return (
-        <section className="text-center space-y-5 py-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm font-medium">
-                <Zap size={16} /> vim · i · Esc · :wq · :q! · hjkl · dd · yy · p
-                · /search · :%s
-            </div>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
-                Vim — Editor{" "}
-                <span className="text-violet-400 font-mono">Mạnh Mẽ</span> Trong
-                Terminal
-            </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                Bài này giúp bạn vượt qua “nỗi sợ Vim”: hiểu mode, gõ văn bản
-                đúng cách, lưu/thoát, di chuyển bằng bàn phím, chỉnh sửa nhanh,
-                tìm-thay thế mạnh mẽ và cấu hình Vim bằng <code>~/.vimrc</code>.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto pt-4">
-                {cards.map(([Icon, title, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="amber"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
                     <div
-                        key={title}
-                        className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4 text-left"
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/50 transition-colors"
                     >
-                        <Icon className="text-violet-400 mb-3" size={24} />
-                        <div className="font-bold text-white">{title}</div>
-                        <div className="text-xs text-slate-500">{desc}</div>
+                        <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
                     </div>
                 ))}
             </div>
@@ -267,1064 +180,828 @@ function Hero() {
     );
 }
 
-function SectionTitle({ n, color, icon, title }) {
-    const colorMap = {
-        violet: "bg-violet-500/20 text-violet-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        blue: "bg-blue-500/20 text-blue-400",
-        green: "bg-green-500/20 text-green-400",
-        amber: "bg-amber-500/20 text-amber-400",
-        lime: "bg-lime-500/20 text-lime-400",
-        rose: "bg-rose-500/20 text-rose-400",
-        pink: "bg-pink-500/20 text-pink-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        teal: "bg-teal-500/20 text-teal-400",
-        sky: "bg-sky-500/20 text-sky-400",
-        emerald: "bg-emerald-500/20 text-emerald-400",
-    };
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <Gauge />,
+            title: "Wattage",
+            desc: "PSU có thể cấp tối đa bao nhiêu điện cho hệ thống.",
+            color: "amber",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Efficiency",
+            desc: "PSU chuyển điện AC thành DC hiệu quả đến đâu; phần hao phí biến thành nhiệt.",
+            color: "emerald",
+        },
+        {
+            icon: <Award />,
+            title: "80 PLUS",
+            desc: "Chứng nhận hiệu suất theo cấp Standard, Bronze, Silver, Gold, Platinum, Titanium…",
+            color: "yellow",
+        },
+    ];
     return (
-        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span
-                className={`${colorMap[color]} p-2 rounded-lg flex items-center gap-1`}
-            >
-                {icon}
-                <span className="text-sm font-mono">{n}</span>
-            </span>
-            {title}
-        </h3>
-    );
-}
-
-function MiniPoint({ icon, tone, title, text }) {
-    const toneMap = {
-        violet: "bg-violet-500/10 border-violet-500/20 text-violet-300",
-        cyan: "bg-cyan-500/10 border-cyan-500/20 text-cyan-300",
-        blue: "bg-blue-500/10 border-blue-500/20 text-blue-300",
-        green: "bg-green-500/10 border-green-500/20 text-green-300",
-        amber: "bg-amber-500/10 border-amber-500/20 text-amber-300",
-        lime: "bg-lime-500/10 border-lime-500/20 text-lime-300",
-        rose: "bg-rose-500/10 border-rose-500/20 text-rose-300",
-        pink: "bg-pink-500/10 border-pink-500/20 text-pink-300",
-        purple: "bg-purple-500/10 border-purple-500/20 text-purple-300",
-        orange: "bg-orange-500/10 border-orange-500/20 text-orange-300",
-        teal: "bg-teal-500/10 border-teal-500/20 text-teal-300",
-    };
-    return (
-        <div className={`${toneMap[tone]} border rounded-2xl p-4`}>
-            <div className="flex items-center gap-2 font-bold text-white mb-1">
-                {icon}
-                {title}
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Các thông số PSU nói lên điều gì?"
+                icon={<Brain />}
+            />
+            <div className="grid md:grid-cols-3 gap-4">
+                {cards.map((c) => (
+                    <RoleCard key={c.title} {...c} />
+                ))}
             </div>
-            <p className="text-sm text-slate-300">{text}</p>
-        </div>
-    );
-}
-
-function TerminalBlock({ title, code }) {
-    return (
-        <div className="bg-slate-950 border border-slate-700 rounded-2xl overflow-hidden shadow-xl font-mono text-sm">
-            <div className="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
-                <span className="text-slate-400 text-xs uppercase tracking-widest">
-                    {title}
-                </span>
-                <TerminalSquare size={16} className="text-slate-500" />
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-blue-300">Ghi nhớ:</strong> PSU tốt
+                không chỉ cần công suất đủ lớn. Nó còn cần hiệu suất tốt, đường
+                12V khỏe, đủ đầu cắm, bảo vệ điện đầy đủ, bảo hành rõ ràng và
+                review kỹ thuật tốt.
             </div>
-            <pre className="p-4 overflow-x-auto text-slate-300 leading-relaxed whitespace-pre-wrap">
-                <code>{code}</code>
-            </pre>
-        </div>
+        </section>
     );
 }
 
-function VimIntro() {
+function TruckAnalogy() {
+    const cards = [
+        {
+            icon: <Gauge />,
+            title: "Wattage = tải trọng xe tải",
+            desc: "Xe tải 750kg không có nghĩa lúc nào cũng chở 750kg; PSU 750W cũng vậy.",
+            color: "amber",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Hiệu suất = mức hao xăng",
+            desc: "Cùng chở hàng, xe tiết kiệm nhiên liệu ít hao phí hơn; PSU hiệu suất cao ít thất thoát nhiệt hơn.",
+            color: "emerald",
+        },
+        {
+            icon: <Award />,
+            title: "80 PLUS = nhãn tiết kiệm",
+            desc: "Nhãn giúp phân loại hiệu quả, nhưng không nói hết độ bền, phanh, khung xe hay chất lượng thực tế.",
+            color: "yellow",
+        },
+        {
+            icon: <ShieldCheck />,
+            title: "Review kỹ thuật = kiểm định sâu",
+            desc: "Voltage regulation, ripple, protection tests mới phản ánh chất lượng nguồn rõ hơn.",
+            color: "blue",
+        },
+    ];
     return (
-        <div className="grid lg:grid-cols-5 gap-6">
-            <div className="lg:col-span-3 bg-slate-800/50 p-6 md:p-8 rounded-3xl border border-slate-700">
-                <div className="flex items-start gap-5">
-                    <div className="bg-violet-500/15 text-violet-400 p-4 rounded-2xl border border-violet-500/20">
-                        <Edit3 size={42} />
-                    </div>
-                    <div className="space-y-4">
-                        <h3 className="text-2xl font-bold text-white">
-                            Vim có mặt gần như trên mọi server Linux
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: xe tải và mức hao xăng"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function EfficiencySimulator() {
+    const cases = {
+        low: { title: "400W DC @ 80%", load: 400, eff: 0.8, color: "orange" },
+        gold: { title: "400W DC @ 90%", load: 400, eff: 0.9, color: "yellow" },
+        plat: {
+            title: "400W DC @ 94%",
+            load: 400,
+            eff: 0.94,
+            color: "emerald",
+        },
+        heavy: { title: "500W DC @ 90%", load: 500, eff: 0.9, color: "blue" },
+    };
+    const [active, setActive] = useState("gold");
+    const item = cases[active];
+    const wall = Math.round(item.load / item.eff);
+    const waste = wall - item.load;
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Mô phỏng: hiệu suất PSU liên quan thế nào đến điện hao phí?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(cases).map(([key, c]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${active === key ? `${softBorder(c.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {c.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-3 gap-4">
+                    <MetricCard
+                        icon={<Cpu />}
+                        label="Linh kiện cần"
+                        value={`${item.load}W DC`}
+                        color="blue"
+                    />
+                    <MetricCard
+                        icon={<PlugZap />}
+                        label="Ổ cắm cấp khoảng"
+                        value={`${wall}W AC`}
+                        color={item.color}
+                    />
+                    <MetricCard
+                        icon={<Fan />}
+                        label="Hao phí thành nhiệt"
+                        value={`${waste}W`}
+                        color="red"
+                    />
+                </div>
+                <div className="mt-6 bg-slate-950 border border-slate-800 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    Điện lấy từ ổ cắm = {item.load}W /{" "}
+                    {Math.round(item.eff * 100)}% ≈{" "}
+                    <span className={textColor(item.color)}>{wall}W</span>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function WattageGuide() {
+    const rows = [
+        [
+            "300–450W",
+            "PC văn phòng, không GPU rời",
+            "Nên chọn nguồn chất lượng, không chọn no-name",
+        ],
+        [
+            "500–550W",
+            "Gaming nhẹ, GPU tiết kiệm điện",
+            "GTX 1650, RX 6400, RTX 3050 tùy cấu hình",
+        ],
+        ["600–650W", "Gaming phổ thông", "RTX 4060, RX 7600, i5/Ryzen 5"],
+        ["750W", "Gaming tầm trung khá", "RTX 4070, RX 7800 XT class"],
+        ["850W", "Gaming cao cấp", "GPU mạnh hơn, dư tải tốt"],
+        [
+            "1000W+",
+            "Workstation, CPU/GPU cao cấp",
+            "Render, AI, nhiều ổ, nhiều tải nặng",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="orange"
+                title="Phân loại theo công suất Wattage"
+                icon={<Gauge />}
+            />
+            <DataTable
+                title="Gợi ý công suất thực tế"
+                rows={rows}
+                headers={["Công suất PSU", "Phù hợp với", "Ghi chú"]}
+                accent="orange"
+            />
+            <p className="text-sm text-slate-400">
+                Đây là gợi ý thực tế, không phải luật cứng. Luôn xem CPU + GPU
+                cụ thể, số ổ, quạt, khả năng nâng cấp và spike tải.
+            </p>
+        </section>
+    );
+}
+
+function EfficiencyTable() {
+    const rows = [
+        ["400W", "80%", "500W", "100W"],
+        ["400W", "90%", "~444W", "~44W"],
+        ["400W", "94%", "~426W", "~26W"],
+        ["500W", "80%", "625W", "125W"],
+        ["500W", "90%", "~556W", "~56W"],
+        ["500W", "94%", "~532W", "~32W"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="emerald"
+                title="Hiệu suất: cùng tải, PSU tốt hao phí ít hơn"
+                icon={<Sparkles />}
+            />
+            <DataTable
+                title="Điện lấy từ ổ cắm theo hiệu suất"
+                rows={rows}
+                headers={[
+                    "Điện linh kiện cần",
+                    "Hiệu suất PSU",
+                    "Điện lấy từ ổ cắm",
+                    "Hao phí thành nhiệt",
+                ]}
+                accent="emerald"
+            />
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-emerald-300">Lưu ý:</strong> hiệu suất
+                cao không làm máy mạnh hơn, nhưng giúp ít nóng hơn, ít hao điện
+                hơn và quạt PSU có thể êm hơn.
+            </div>
+        </section>
+    );
+}
+
+function PlusCertification() {
+    const rows = [
+        ["Standard / White", "Cơ bản", "Máy rất phổ thông"],
+        ["Bronze", "Phổ thông", "PC văn phòng, gaming tiết kiệm"],
+        ["Silver", "Ít gặp", "Không phổ biến bằng Bronze/Gold"],
+        ["Gold", "Rất phổ biến", "Gaming, làm việc, tầm trung/cao"],
+        ["Platinum", "Cao cấp", "Workstation, máy chạy lâu"],
+        ["Titanium", "Rất cao cấp", "Máy cao cấp, server/workstation đặc biệt"],
+    ];
+    const table230v = [
+        ["Standard", "82%", "85%", "82%"],
+        ["Bronze", "85%", "88%", "85%"],
+        ["Silver", "87%", "90%", "87%"],
+        ["Gold", "90%", "92%", "89%"],
+        ["Platinum", "92%", "94%", "90%"],
+        ["Titanium", "94%", "96%", "94%"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="yellow"
+                title="Chứng chỉ 80 PLUS: hiểu đúng để không bị đánh lừa"
+                icon={<Award />}
+            />
+            <div className="grid lg:grid-cols-2 gap-6">
+                <DataTable
+                    title="Các cấp 80 PLUS"
+                    rows={rows}
+                    headers={["Chứng chỉ", "Mức phổ biến", "Phù hợp với"]}
+                    accent="yellow"
+                />
+                <DataTable
+                    title="Bảng 230V EU Internal thường gặp"
+                    rows={table230v}
+                    headers={["Mức", "20% tải", "50% tải", "100% tải"]}
+                    accent="amber"
+                />
+            </div>
+            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-red-300">Điểm cần nhớ:</strong> 80 PLUS
+                càng cao thì hiệu suất càng tốt, nhưng không tự đảm bảo PSU đó
+                tốt toàn diện. Vẫn phải xem review kỹ thuật, linh kiện, bảo
+                hành, bảo vệ và dòng sản phẩm.
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        total: {
+            icon: <Gauge />,
+            title: "Total Wattage",
+            detail: "Số lớn nhất trên tên sản phẩm như RM750e 750W hay RM850x 850W.",
+            impact: "Không nên chỉ nhìn số này. Hai PSU cùng 750W có thể khác rất xa về chất lượng và đường 12V.",
+        },
+        rail: {
+            icon: <Zap />,
+            title: "Đường 12V",
+            detail: "CPU và GPU chủ yếu dùng điện 12V qua EPS, PCIe, 12VHPWR hoặc 12V-2x6.",
+            impact: "PSU tốt thường có 12V gần bằng công suất tổng: 650W nên khoảng 600W+ trên 12V.",
+        },
+        eff: {
+            icon: <Sparkles />,
+            title: "Efficiency",
+            detail: "Tỷ lệ điện AC chuyển thành DC hữu ích cho linh kiện.",
+            impact: "Hiệu suất cao giảm hao phí nhiệt, giảm độ ồn tiềm năng và tiết kiệm điện hơn.",
+        },
+        pfc: {
+            icon: <BatteryCharging />,
+            title: "PFC",
+            detail: "Power Factor Correction giúp PSU dùng điện lưới hiệu quả và ổn định hơn.",
+            impact: "Người dùng phổ thông nên ưu tiên PSU có Active PFC từ hãng uy tín.",
+        },
+        atx: {
+            icon: <Settings />,
+            title: "ATX 3.0 / 3.1",
+            detail: "Chuẩn PSU đời mới phù hợp hơn với GPU hiện đại và spike tải.",
+            impact: "Nếu dùng RTX 40/50 class hoặc GPU cao cấp, PSU ATX 3.0/3.1 với dây native là lựa chọn đáng cân nhắc.",
+        },
+        cables: {
+            icon: <PlugZap />,
+            title: "Đầu cắm nguồn",
+            detail: "24-pin ATX, EPS CPU, PCIe 6+2, 12VHPWR/12V-2x6, SATA Power, Molex.",
+            impact: "Chọn đúng công suất chưa đủ; PSU phải có đủ dây cho mainboard, CPU, GPU và ổ lưu trữ.",
+        },
+    };
+    const [active, setActive] = useState("rail");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="purple"
+                title="Explorer: thông số nào cần đọc kỹ?"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-purple-500 text-white" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-purple-500/10 text-purple-300 border border-purple-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
                         </h3>
-                        <p className="text-slate-300 leading-relaxed">
-                            Vim khó hơn Nano vì dùng nhiều mode, nhưng đổi lại
-                            bạn có thể chỉnh sửa cực nhanh bằng bàn phím, không
-                            cần chuột và dùng được ở hầu hết Linux/Unix/macOS.
-                        </p>
-                        <div className="grid md:grid-cols-2 gap-3">
-                            <MiniPoint
-                                icon={<Keyboard size={18} />}
-                                tone="violet"
-                                title="Tối ưu bàn phím"
-                                text="Di chuyển, xóa, copy, paste, thay thế mà không rời tay khỏi keyboard."
-                            />
-                            <MiniPoint
-                                icon={<TerminalSquare size={18} />}
-                                tone="cyan"
-                                title="Server friendly"
-                                text="Kể cả server tối giản không có Nano, Vim/Vi thường vẫn có mặt."
-                            />
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-purple-500/10 border border-purple-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-purple-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="lg:col-span-2 space-y-3">
-                <CompareCard
-                    title="Nano"
-                    cmd="nano file.txt"
-                    desc="Mở ra gõ luôn, rất dễ cho người mới."
-                    tone="lime"
+        </section>
+    );
+}
+
+function ConnectorAndStandardGuide() {
+    const rows = [
+        ["24-pin ATX", "Mainboard", "Luôn cần"],
+        [
+            "4+4-pin EPS / 8-pin CPU",
+            "CPU",
+            "CPU/main cao cấp có thể cần 2 đầu EPS",
+        ],
+        ["6+2-pin PCIe", "GPU rời", "GPU tầm trung/cao"],
+        [
+            "12VHPWR / 12V-2x6",
+            "GPU NVIDIA đời mới",
+            "RTX 40/50 class, tùy card",
+        ],
+        ["SATA Power", "SSD/HDD SATA, hub quạt/RGB", "Khi dùng nhiều ổ/hub"],
+        ["Molex", "Thiết bị cũ", "Ít dùng"],
+    ];
+    const standards = [
+        ["ATX 2.x", "Vẫn dùng tốt với nhiều cấu hình"],
+        ["ATX 3.0", "Thiết kế tốt hơn cho GPU đời mới và spike tải"],
+        ["ATX 3.1", "Cập nhật mới hơn, thường đi với đầu 12V-2x6"],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="blue"
+                title="Chuẩn ATX và đầu cắm nguồn"
+                icon={<PlugZap />}
+            />
+            <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-6">
+                <DataTable
+                    title="Đầu cắm cần kiểm tra"
+                    rows={rows}
+                    headers={["Đầu cắm", "Dùng cho", "Cần kiểm tra khi nào?"]}
+                    accent="blue"
                 />
-                <CompareCard
-                    title="Vim"
-                    cmd="vim file.txt"
-                    desc="Cần học mode, nhưng rất nhanh khi quen."
-                    tone="violet"
-                />
-                <CompareCard
-                    title="Quy tắc vàng"
-                    cmd="Esc → Normal"
-                    desc="Không biết đang ở đâu thì nhấn Esc 1-2 lần."
-                    tone="amber"
+                <DataTable
+                    title="Chuẩn PSU"
+                    rows={standards}
+                    headers={["Chuẩn", "Ý nghĩa thực tế"]}
+                    accent="cyan"
                 />
             </div>
-        </div>
+        </section>
     );
 }
 
-function CompareCard({ title, cmd, desc, tone }) {
-    const map = {
-        lime: "text-lime-300",
-        violet: "text-violet-300",
-        amber: "text-amber-300",
-    };
+function QualityGuide() {
+    const rows = [
+        ["No-name / công suất ảo", "Giá rất rẻ, thông số mập mờ", "Không nên"],
+        [
+            "Entry-level từ hãng uy tín",
+            "Bronze, công suất vừa phải",
+            "Dùng được cho máy nhẹ",
+        ],
+        ["Mainstream tốt", "Bronze/Gold, bảo hành ổn", "Phù hợp đa số PC"],
+        [
+            "High-end",
+            "Gold/Platinum, linh kiện tốt, full modular",
+            "Gaming cao cấp/workstation",
+        ],
+        [
+            "Server/datacenter",
+            "Thiết kế chuyên dụng, hiệu suất cao",
+            "Không cần cho PC thường",
+        ],
+    ];
     return (
-        <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4">
-            <div className="font-bold text-white mb-1">{title}</div>
-            <code className={`${map[tone]} text-sm`}>{cmd}</code>
-            <p className="text-xs text-slate-500 mt-2">{desc}</p>
-        </div>
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="cyan"
+                title="80 PLUS không phải toàn bộ câu chuyện"
+                icon={<ShieldCheck />}
+            />
+            <DataTable
+                title="Phân loại theo chất lượng thực tế"
+                rows={rows}
+                headers={["Nhóm PSU", "Đặc điểm", "Có nên mua?"]}
+                accent="cyan"
+            />
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                <strong className="text-cyan-300">Khi mua máy đắt tiền:</strong>{" "}
+                nên xem review đo voltage regulation, ripple, hold-up time,
+                protection tests, noise và build quality.
+            </div>
+        </section>
     );
 }
 
-function InstallOpenGuide() {
-    const [mode, setMode] = useState("install");
-    const code = {
-        install: `$ sudo apt update
-$ sudo apt install vim -y
-
-$ vim --version
-VIM - Vi IMproved ...`,
-        open: `$ vim file.txt
-$ vim newfile.txt
-$ sudo vim /etc/hosts
-
-# Mở và nhảy đến dòng 50
-$ vim +50 file.txt
-
-# Mở và tìm từ khóa ngay
-$ vim +/keyword file.txt`,
-        safe: `# Khi mới học, có thể dùng vimtutor
-$ vimtutor
-
-# Thoát khẩn cấp không lưu:
-Esc
-:q!
-Enter
-
-# Lưu rồi thoát:
-Esc
-:wq
-Enter`,
-    };
+function RealExamples() {
+    const examples = [
+        {
+            icon: <PackageCheck />,
+            title: "Corsair RM750e 750W Gold ATX 3.1",
+            subtitle: "750W, full modular, GPU đời mới",
+            color: "amber",
+            points: [
+                "750W dư tốt cho gaming tầm trung khá",
+                "Gold/Cybenetics Gold efficiency",
+                "Full-modular đi dây gọn",
+                "ATX 3.1, PCIe 5.1 compatible",
+                "Có dây 12V-2x6 600W-capable",
+            ],
+            lesson: "Hợp Ryzen 5/7 hoặc Intel i5/i7 với RTX 4060 Ti/4070/4070 Super class.",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Cooler Master MWE Gold 750 V2 FM",
+            subtitle: "750W Gold cân bằng",
+            color: "yellow",
+            points: [
+                "750W 80 PLUS Gold",
+                "Full modular",
+                "Dual EPS connectors",
+                "Thiết kế low-noise/semi-fanless tùy phiên bản",
+                "Hợp RTX 4070 / RX 7800 XT class",
+            ],
+            lesson: "750W Gold là điểm cân bằng tốt cho gaming khá mạnh và build gọn dây.",
+        },
+        {
+            icon: <Gauge />,
+            title: "550–650W Bronze/Gold uy tín",
+            subtitle: "PC phổ thông",
+            color: "emerald",
+            points: [
+                "Hợp Ryzen 5 5600 / i5-12400F",
+                "Hợp RTX 4060 / RX 7600",
+                "Cần đường 12V khỏe",
+                "Có đủ đầu PCIe",
+                "Không chọn nguồn no-name",
+            ],
+            lesson: "Ở phân khúc phổ thông, chất lượng dòng PSU quan trọng hơn chữ 650W thật to.",
+        },
+    ];
     return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["install", "Cài đặt"],
-                    ["open", "Mở file"],
-                    ["safe", "Cứu hộ người mới"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-3 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-pink-500/40 transition-all"
                     >
-                        {label}
-                    </button>
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-lg mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-sm font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
                 ))}
             </div>
-            <TerminalBlock title={`vim open — ${mode}`} code={code[mode]} />
-        </div>
+        </section>
     );
 }
 
-function ModeDiagram() {
-    const [active, setActive] = useState("normal");
-    const info = {
-        normal: [
-            "NORMAL MODE",
-            "Mặc định khi mở Vim. Dùng để di chuyển, xóa, copy, paste, tìm kiếm, chạy lệnh.",
-        ],
-        insert: [
-            "INSERT MODE",
-            "Dùng để gõ văn bản như Nano. Vào bằng i/a/o/A/O, thoát bằng Esc.",
-        ],
-        command: [
-            "COMMAND MODE",
-            "Vào bằng dấu :. Dùng :w, :q, :wq, :%s, :set number...",
-        ],
-        visual: [
-            "VISUAL MODE",
-            "Vào bằng v/V/Ctrl+V để chọn vùng, rồi d/y/>/<...",
-        ],
+function PickerLab() {
+    const scenarios = {
+        office: {
+            icon: <Cpu />,
+            title: "Không GPU rời",
+            answer: "300–450W chất lượng tốt thường đủ. Không cần PSU 850W; ưu tiên thương hiệu, bảo hành và độ ổn định.",
+            color: "cyan",
+        },
+        mainstream: {
+            icon: <Gamepad2 />,
+            title: "RTX 4060 / RX 7600",
+            answer: "550–650W Bronze tốt hoặc Gold là hợp lý. Kiểm tra đường 12V và đầu PCIe đủ cho GPU.",
+            color: "emerald",
+        },
+        mid: {
+            icon: <Zap />,
+            title: "RTX 4070 / RX 7800 XT",
+            answer: "650–750W chất lượng tốt, ưu tiên Gold. Đây là vùng điểm ngọt cho gaming tầm khá.",
+            color: "yellow",
+        },
+        high: {
+            icon: <Sparkles />,
+            title: "RTX 4080 class",
+            answer: "850W Gold trở lên là lựa chọn thực tế hơn. Kiểm tra ATX 3.0/3.1 và dây native 12VHPWR/12V-2x6 nếu cần.",
+            color: "orange",
+        },
+        workstation: {
+            icon: <Database />,
+            title: "Workstation/AI/render",
+            answer: "1000W+ tùy CPU, GPU và số ổ. Nên xem review kỹ thuật, bảo hành dài và chất lượng dòng nguồn.",
+            color: "purple",
+        },
+        bargain: {
+            icon: <AlertTriangle />,
+            title: "750W giá quá rẻ",
+            answer: "Đừng mua chỉ vì Watt lớn. Kiểm tra 12V rail, bảo vệ, bảo hành, review, hãng và dòng sản phẩm. Tránh no-name/công suất ảo.",
+            color: "red",
+        },
     };
+    const [active, setActive] = useState("mid");
+    const item = scenarios[active];
     return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-3">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                        <ModeButton
-                            id="normal"
-                            active={active}
-                            setActive={setActive}
-                            title="NORMAL"
-                            hint="Esc"
-                        />
-                        <div className="space-y-3">
-                            <ModeButton
-                                id="insert"
-                                active={active}
-                                setActive={setActive}
-                                title="INSERT"
-                                hint="i / a / o"
-                            />
-                            <ModeButton
-                                id="command"
-                                active={active}
-                                setActive={setActive}
-                                title="COMMAND"
-                                hint=":"
-                            />
-                            <ModeButton
-                                id="visual"
-                                active={active}
-                                setActive={setActive}
-                                title="VISUAL"
-                                hint="v / V / Ctrl+V"
-                            />
-                        </div>
-                        <div className="bg-slate-950 border border-slate-700 rounded-2xl p-5 text-sm text-slate-300">
-                            <div className="font-bold text-white mb-3">
-                                Quy tắc vàng
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="blue"
+                title="Lab: chọn PSU theo GPU và nhu cầu"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
                             </div>
-                            <p className="mb-3">Không biết đang ở mode nào?</p>
-                            <code className="text-violet-300 text-lg">
-                                Nhấn Esc 1-2 lần
-                            </code>
-                            <p className="mt-3">
-                                Sau đó bạn chắc chắn quay về Normal mode.
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "PSU 750W nào cũng giống nhau",
+            right: "Cùng 750W vẫn có thể khác rất xa về 12V rail, linh kiện, bảo vệ, chuẩn ATX, dây nguồn, bảo hành và review kỹ thuật.",
+        },
+        {
+            wrong: "Máy dùng 400W thì mua PSU 400W là đủ",
+            right: "Không nên chạy sát giới hạn liên tục. Máy tải nặng 400W nên chọn 550W hoặc 650W tốt để dư tải, mát hơn, êm hơn và dễ nâng cấp.",
+        },
+        {
+            wrong: "80 PLUS Gold chắc chắn là PSU cao cấp",
+            right: "Gold chỉ là hiệu suất. PSU tốt còn cần điện áp ổn định, ripple thấp, bảo vệ đầy đủ, linh kiện tốt và bảo hành tốt.",
+        },
+        {
+            wrong: "PSU công suất càng cao càng tốn điện",
+            right: "PSU 850W không tự ăn 850W. PC chỉ lấy lượng điện nó cần, cộng hao phí theo hiệu suất.",
+        },
+        {
+            wrong: "Non-modular là nguồn dở",
+            right: "Modular chỉ nói về dây tháo rời. Non-modular chất lượng tốt vẫn có thể tốt hơn full-modular kém chất lượng.",
+        },
+    ];
+    const tips = [
+        "Chọn công suất theo GPU trước vì GPU thường là linh kiện ăn điện nhiều nhất trong PC gaming.",
+        "Gaming phổ thông: 650W tốt; gaming tầm khá: 750W Gold; gaming cao cấp: 850W Gold trở lên.",
+        "Luôn kiểm tra đầu cắm GPU: 8-pin, nhiều 8-pin, 12VHPWR hoặc 12V-2x6.",
+        "Ưu tiên bảo hành dài: 60 tháng tốt; 7–10 năm thường là dòng cao hơn.",
+        "Với máy đắt tiền, đọc review kỹ thuật thay vì chỉ nhìn 80 PLUS.",
+        "Tránh PSU no-name/công suất ảo dù ghi Watt rất lớn.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="13"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-amber-500/20 text-amber-300 p-2 rounded-xl">
+                            14
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-amber-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>
+                                Wattage = khả năng cấp tối đa, không phải mức
+                                luôn tiêu thụ
+                            </p>
+                            <p>Efficiency = DC Load / Wall Power</p>
+                            <p>
+                                80 PLUS = chứng nhận hiệu suất, không phải toàn
+                                bộ chất lượng
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Nên đọc thêm</p>
+                            <p className="text-slate-300">
+                                12V rail • Active PFC • ATX 3.0/3.1 •
+                                12VHPWR/12V-2x6
+                            </p>
+                            <p className="text-slate-300">
+                                Đầu cắm GPU • Bảo hành • Review kỹ thuật
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                Một PSU 550W tốt có thể an toàn hơn PSU “750W”
+                                công suất ảo.
                             </p>
                         </div>
                     </div>
-                </div>
-                <div className="lg:col-span-2 bg-slate-950 border border-slate-700 rounded-2xl p-6">
-                    <h4 className="text-xl font-black text-white mb-2">
-                        {info[active][0]}
-                    </h4>
-                    <p className="text-slate-400 mb-5">{info[active][1]}</p>
-                    <TerminalBlock
-                        title="mode commands"
-                        code={`Normal → Insert: i / a / o / A / O
-Normal → Command: :
-Normal → Visual: v / V / Ctrl+V
-Insert/Command/Visual → Normal: Esc`}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function ModeButton({ id, active, setActive, title, hint }) {
-    return (
-        <button
-            onClick={() => setActive(id)}
-            className={`rounded-3xl border p-6 text-left transition-all ${active === id ? "bg-violet-500/10 border-violet-500/40" : "bg-slate-950 border-slate-700 hover:border-slate-500"}`}
-        >
-            <div className="text-2xl font-black text-white">{title}</div>
-            <code className="text-violet-300">{hint}</code>
-        </button>
-    );
-}
-
-function MovementGuide() {
-    const [mode, setMode] = useState("basic");
-    const code = {
-        basic: `# Di chuyển cơ bản trong Normal mode
-h  → trái
-j  → xuống
-k  → lên
-l  → phải
-
-# Mũi tên cũng dùng được, nhưng hjkl nhanh hơn khi quen.`,
-        words: `w  → nhảy tới đầu từ tiếp theo
-b  → nhảy lùi về đầu từ trước
-e  → nhảy tới cuối từ hiện tại
-
-Ví dụ: Hello World Ubuntu
-w → World
-w → Ubuntu
-b → World`,
-        line: `0  → đầu dòng tuyệt đối
-^  → ký tự đầu tiên không phải space
-$  → cuối dòng
-
-# Rất tiện khi sửa config:
-A  → vào Insert ở cuối dòng
-I  → vào Insert ở đầu dòng`,
-        file: `gg   → đầu file
-G    → cuối file
-50G  → nhảy đến dòng 50
-:50  → nhảy đến dòng 50
-
-Ctrl+F → xuống 1 trang
-Ctrl+B → lên 1 trang
-Ctrl+D → xuống nửa trang
-Ctrl+U → lên nửa trang`,
-        count: `Số + lệnh = lặp lại lệnh N lần
-
-5j   → xuống 5 dòng
-10l  → sang phải 10 ký tự
-3w   → nhảy qua 3 từ
-4k   → lên 4 dòng
-50G  → đến dòng 50`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["basic", "hjkl"],
-                        ["words", "Theo từ"],
-                        ["line", "Trong dòng"],
-                        ["file", "Trong file"],
-                        ["count", "Nhân số"],
-                    ].map(([k, label]) => (
-                        <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-green-500/10 border-green-500/40 text-green-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`normal movement — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function InsertModeGuide() {
-    const cards = [
-        ["i", "Insert tại vị trí con trỏ"],
-        ["a", "Append sau con trỏ"],
-        ["I", "Insert đầu dòng"],
-        ["A", "Append cuối dòng"],
-        ["o", "Mở dòng mới bên dưới"],
-        ["O", "Mở dòng mới bên trên"],
-        ["s", "Xóa ký tự rồi vào Insert"],
-        ["Esc", "Quay về Normal mode"],
-    ];
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
-                {cards.map(([key, desc]) => (
-                    <div
-                        key={key}
-                        className="bg-slate-950 border border-slate-700 rounded-2xl p-5"
-                    >
-                        <code className="text-3xl font-black text-amber-300">
-                            {key}
-                        </code>
-                        <p className="text-sm text-slate-400 mt-2">{desc}</p>
-                    </div>
-                ))}
-            </div>
-            <div className="mt-6 bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5 text-amber-100">
-                Ví dụ hay dùng: <code>A</code> để thêm vào cuối dòng,{" "}
-                <code>o</code> để tạo dòng mới phía dưới, sau khi gõ xong luôn
-                nhấn <code>Esc</code> về Normal mode.
-            </div>
-        </div>
-    );
-}
-
-function CommandModeGuide() {
-    const [mode, setMode] = useState("save");
-    const code = {
-        save: `# Từ Normal mode, nhấn : rồi gõ lệnh
-:w          lưu file
-:w ten.txt  lưu thành tên khác
-:w!         ép lưu`,
-        quit: `:q          thoát nếu chưa thay đổi
-:q!         thoát không lưu
-:wq         lưu rồi thoát
-:x          lưu rồi thoát
-
-# Trong Normal mode, không cần dấu :
-ZZ          lưu rồi thoát
-ZQ          thoát không lưu`,
-        memory: `Mẹo nhớ:
-w = write = lưu
-q = quit  = thoát
-! = force = ép buộc
-
-:wq = write + quit = lưu rồi thoát
-:q! = quit + force = thoát không lưu`,
-        rescue: `# Lỡ vào Vim không biết thoát?
-Esc
-:q!
-Enter
-
-# Muốn lưu rồi thoát?
-Esc
-:wq
-Enter`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["save", "Lưu"],
-                    ["quit", "Thoát"],
-                    ["memory", "Mẹo nhớ"],
-                    ["rescue", "Cứu hộ"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-lime-500/10 border-lime-500/40 text-lime-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock title={`command mode — ${mode}`} code={code[mode]} />
-        </div>
-    );
-}
-
-function NormalEditGuide() {
-    const [mode, setMode] = useState("delete");
-    const code = {
-        delete: `x    → xóa ký tự tại con trỏ
-X    → xóa ký tự bên trái
-dd   → xóa nguyên dòng
-D    → xóa từ con trỏ đến cuối dòng
-dw   → xóa 1 từ
-d$   → xóa đến cuối dòng
-d0   → xóa đến đầu dòng
-dG   → xóa từ dòng hiện tại đến cuối file
-
-5dd  → xóa 5 dòng
-3dw  → xóa 3 từ`,
-        copy: `yy   → copy dòng hiện tại
-Y    → copy dòng, giống yy
-yw   → copy 1 từ
-y$   → copy đến cuối dòng
-5yy  → copy 5 dòng
-
-p    → paste bên dưới/sau con trỏ
-P    → paste bên trên/trước con trỏ`,
-        change: `r    → thay 1 ký tự tại con trỏ
-R    → overwrite mode, thay nhiều ký tự
-cw   → xóa từ hiện tại rồi vào Insert
-cc   → xóa dòng hiện tại rồi vào Insert
-C    → xóa đến cuối dòng rồi vào Insert`,
-        undo: `u         → Undo
-Ctrl + R  → Redo
-U         → Undo tất cả thay đổi trên dòng hiện tại
-.         → lặp lại lệnh vừa thực hiện
-
-Ví dụ:
-dd      xóa 1 dòng
-.       xóa tiếp dòng nữa`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["delete", "Xóa"],
-                        ["copy", "Copy/Paste"],
-                        ["change", "Thay/sửa"],
-                        ["undo", "Undo/Repeat"],
-                    ].map(([k, label]) => (
-                        <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-rose-500/10 border-rose-500/40 text-rose-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`normal edit — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function SearchReplaceGuide() {
-    const [mode, setMode] = useState("search");
-    const code = {
-        search: `/ubuntu      tìm xuôi chữ ubuntu
-?ubuntu      tìm ngược chữ ubuntu
-n            kết quả tiếp theo
-N            kết quả trước đó
-*            tìm từ tại con trỏ, xuôi
-#            tìm từ tại con trỏ, ngược`,
-        replace: `:s/cũ/mới/         thay lần đầu tiên trong dòng hiện tại
-:s/cũ/mới/g        thay tất cả trong dòng hiện tại
-:%s/cũ/mới/g       thay tất cả trong toàn file
-:%s/cũ/mới/gc      thay toàn file, hỏi xác nhận từng cái
-:%s/cũ/mới/gi      thay toàn file, không phân biệt hoa thường
-
-:10,20s/foo/bar/g  chỉ thay từ dòng 10 đến 20`,
-        examples: `:%s/localhost/192.168.1.100/g
-# Thay tất cả localhost trong file
-
-:%s/http/https/gc
-# Thay từng cái, hỏi xác nhận
-
-:noh
-# Tắt highlight kết quả tìm kiếm`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["search", "Tìm kiếm"],
-                    ["replace", "Thay thế"],
-                    ["examples", "Ví dụ"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-pink-500/10 border-pink-500/40 text-pink-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock
-                title={`search/replace — ${mode}`}
-                code={code[mode]}
-            />
-        </div>
-    );
-}
-
-function VisualModeGuide() {
-    const [mode, setMode] = useState("basic");
-    const code = {
-        basic: `v        → Visual mode, chọn từng ký tự
-V        → Visual Line, chọn nguyên dòng
-Ctrl+V   → Visual Block, chọn hình chữ nhật
-
-Sau khi chọn:
-d        xóa vùng chọn
-y        copy vùng chọn
->        indent
-<        unindent
-~        đổi hoa/thường
-:        chạy lệnh trên vùng chọn`,
-        block: `Ví dụ: thêm dấu # vào đầu 5 dòng liên tiếp
-
-1. Ctrl+V       vào Visual Block
-2. 5j           chọn 5 dòng
-3. I            Insert trước vùng chọn
-4. Gõ #
-5. Esc          áp dụng cho tất cả dòng
-
-# Đây là kỹ thuật cực mạnh để comment nhiều dòng.`,
-        indent: `# Chọn nhiều dòng bằng V rồi dùng:
->   indent vào
-<   unindent ra
-=   auto indent
-
-# Normal mode:
->>  indent dòng hiện tại
-<<  unindent dòng hiện tại
-==  auto indent dòng hiện tại`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {[
-                        ["basic", "Chọn vùng"],
-                        ["block", "Visual Block"],
-                        ["indent", "Indent"],
-                    ].map(([k, label]) => (
-                        <button
-                            key={k}
-                            onClick={() => setMode(k)}
-                            className={`w-full text-left rounded-xl border p-4 font-bold ${mode === k ? "bg-purple-500/10 border-purple-500/40 text-purple-300" : "bg-slate-900 border-slate-700 text-slate-300 hover:border-slate-500"}`}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="lg:col-span-3">
-                    <TerminalBlock
-                        title={`visual mode — ${mode}`}
-                        code={code[mode]}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function UsefulCommands() {
-    const [mode, setMode] = useState("normal");
-    const code = {
-        normal: `.          lặp lại lệnh vừa thực hiện
-%          nhảy giữa cặp ngoặc () [] {}
->>         indent dòng hiện tại
-<<         unindent dòng hiện tại
-==         tự động căn indent dòng hiện tại
-gg=G       tự động indent toàn bộ file`,
-        set: `:set number      bật số dòng
-:set nonumber    tắt số dòng
-:set hlsearch    highlight kết quả tìm kiếm
-:set ignorecase  tìm kiếm không phân biệt hoa thường
-:set syntax on   bật tô màu syntax
-:noh             tắt highlight tìm kiếm`,
-        shell: `:pwd             xem thư mục hiện tại
-:! ls -la        chạy lệnh shell từ trong Vim
-:! date          xem thời gian
-:r !date         chèn output lệnh date vào file
-
-# Sau khi chạy shell command, nhấn Enter để quay lại Vim.`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["normal", "Normal"],
-                    ["set", ":set"],
-                    ["shell", "Shell"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-orange-500/10 border-orange-500/40 text-orange-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock
-                title={`useful vim commands — ${mode}`}
-                code={code[mode]}
-            />
-        </div>
-    );
-}
-
-function VimrcGuide() {
-    const [mode, setMode] = useState("config");
-    const code = {
-        open: `$ nano ~/.vimrc
-# hoặc dùng chính Vim:
-$ vim ~/.vimrc
-
-# File ~/.vimrc chứa cấu hình mặc định cho Vim của user hiện tại.`,
-        config: `" Nội dung ~/.vimrc, dấu " là comment
-
-syntax on              " bật tô màu code
-set number             " hiện số dòng
-set relativenumber     " số dòng tương đối
-set tabstop=4          " tab = 4 space
-set shiftwidth=4       " indent = 4 space
-set expandtab          " tab thành space
-set autoindent         " tự indent
-set hlsearch           " highlight kết quả tìm
-set incsearch          " tìm realtime
-set ignorecase         " tìm không phân biệt hoa thường
-set smartcase          " nếu gõ hoa thì phân biệt
-set cursorline         " highlight dòng con trỏ
-set clipboard=unnamed  " dùng clipboard hệ thống`,
-        test: `$ vim file.py
-
-# Trong Vim kiểm tra nhanh:
-:set number?
-:set relativenumber?
-:set tabstop?
-
-# Reload ~/.vimrc trong Vim:
-:source ~/.vimrc`,
-    };
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex gap-2 flex-wrap mb-6">
-                {[
-                    ["open", "Mở ~/.vimrc"],
-                    ["config", "Cấu hình mẫu"],
-                    ["test", "Kiểm tra/reload"],
-                ].map(([k, label]) => (
-                    <button
-                        key={k}
-                        onClick={() => setMode(k)}
-                        className={`px-4 py-2 rounded-xl font-bold text-sm border ${mode === k ? "bg-teal-500/10 border-teal-500/40 text-teal-300" : "bg-slate-900 border-slate-700 text-slate-300"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <TerminalBlock title={`~/.vimrc — ${mode}`} code={code[mode]} />
-        </div>
-    );
-}
-
-function RealWorkflow() {
-    const [scenario, setScenario] = useState("basic");
-    const examples = {
-        basic: {
-            title: "Mở file, sửa, lưu, thoát",
-            icon: FileText,
-            code: `$ vim config.txt
-
-1. Vim mở → Normal mode
-2. Tìm dòng cần sửa: /từ_cần_tìm → Enter
-3. Vào Insert: i hoặc A
-4. Sửa nội dung
-5. Esc → về Normal
-6. :wq → lưu và thoát`,
-        },
-        delete: {
-            title: "Xóa 10 dòng không cần",
-            icon: Trash2,
-            code: `# Normal mode
-# Đi đến dòng đầu cần xóa
-10dd
-
-# Nếu xóa nhầm:
-u
-
-# Lặp lại xóa tiếp 10 dòng:
-.`,
-        },
-        comment: {
-            title: "Comment 5 dòng code",
-            icon: Code2,
-            code: `# Thêm # vào đầu 5 dòng
-Ctrl+V
-5j
-I
-#
-Esc
-
-# Bỏ comment có thể dùng Visual Block chọn cột # rồi nhấn x.`,
-        },
-        replace: {
-            title: "Thay dev thành production",
-            icon: Replace,
-            code: `:%s/dev/production/gc
-
-# g = tất cả trong dòng
-# c = confirm từng kết quả
-
-# Nếu chắc chắn thay toàn bộ không hỏi:
-:%s/dev/production/g`,
-        },
-    };
-    const current = examples[scenario];
-    const Icon = current.icon;
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="grid lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-2 space-y-3">
-                    {Object.entries(examples).map(([k, e]) => {
-                        const ItemIcon = e.icon;
-                        return (
-                            <button
-                                key={k}
-                                onClick={() => setScenario(k)}
-                                className={`w-full text-left p-4 rounded-2xl border transition-all ${scenario === k ? "bg-sky-500/10 border-sky-500/40" : "bg-slate-900 border-slate-700 hover:border-slate-500"}`}
-                            >
-                                <div className="flex items-center gap-3">
-                                    <ItemIcon className="text-sky-400" />
-                                    <span className="font-bold text-white">
-                                        {e.title}
-                                    </span>
-                                </div>
-                            </button>
-                        );
-                    })}
-                </div>
-                <div className="lg:col-span-3">
-                    <div className="mb-4 flex items-center gap-2 text-sky-300 font-bold">
-                        <Icon size={22} /> {current.title}
-                    </div>
-                    <TerminalBlock
-                        title="workflow thực tế"
-                        code={current.code}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function PracticeChecklist() {
-    const tasks = [
-        ["Cài Vim", "sudo apt install vim -y"],
-        ["Mở file mới", "vim practice.txt"],
-        ["Vào Insert mode", "i"],
-        ["Gõ vài dòng văn bản", "Gõ nội dung bất kỳ"],
-        ["Về Normal mode", "Esc"],
-        ["Lưu và thoát", ":wq"],
-        ["Mở lại file", "vim practice.txt"],
-        ["Di chuyển hjkl", "h j k l"],
-        ["Nhảy theo từ", "w b e"],
-        ["Đầu/cuối file", "gg / G"],
-        ["Xóa dòng", "dd"],
-        ["Undo", "u"],
-        ["Copy/paste dòng", "yy rồi p"],
-        ["Tìm kiếm", "/ubuntu rồi n/N"],
-        ["Thay thế toàn file", ":%s/cũ/mới/gc"],
-        ["Visual Line chọn dòng", "V rồi j/k, sau đó y hoặc d"],
-        ["Visual Block comment nhiều dòng", "Ctrl+V → chọn dòng → I → # → Esc"],
-        ["Tạo ~/.vimrc", "nano ~/.vimrc"],
-        ["Chạy vimtutor", "vimtutor"],
-    ];
-    const [done, setDone] = useState([]);
-    const toggle = (i) =>
-        setDone((d) => (d.includes(i) ? d.filter((x) => x !== i) : [...d, i]));
-    return (
-        <div className="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                <div>
-                    <h4 className="text-xl font-bold text-white">
-                        Checklist lab trên Ubuntu
-                    </h4>
-                    <p className="text-slate-400 text-sm">
-                        Đánh dấu từng bước khi thực hành xong.
-                    </p>
-                </div>
-                <div className="text-sm font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2">
-                    {done.length}/{tasks.length} hoàn thành
-                </div>
-            </div>
-            <div className="space-y-3">
-                {tasks.map(([title, cmd], i) => (
-                    <button
-                        key={title}
-                        onClick={() => toggle(i)}
-                        className={`w-full text-left rounded-2xl border p-4 transition-all ${done.includes(i) ? "bg-emerald-500/10 border-emerald-500/30" : "bg-slate-900 border-slate-700 hover:border-slate-500"}`}
-                    >
-                        <div className="flex items-start gap-3">
-                            {done.includes(i) ? (
-                                <CheckCircle2 className="text-emerald-400 shrink-0" />
-                            ) : (
-                                <div className="w-6 h-6 rounded-full border border-slate-600 shrink-0" />
-                            )}
-                            <div>
-                                <div className="font-bold text-white">
-                                    {i + 1}. {title}
-                                </div>
-                                <code className="text-xs text-slate-400 break-all">
-                                    {cmd}
-                                </code>
-                            </div>
-                        </div>
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function SummarySection() {
-    return (
-        <section className="pt-4">
-            <div className="bg-slate-950 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl">
-                <div className="bg-slate-900 p-6 border-b border-slate-700">
-                    <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <BookOpen className="text-violet-400" /> Tóm tắt bài học
-                    </h3>
-                </div>
-                <div className="p-6 md:p-8 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <SummaryBox
-                        title="Bắt buộc"
-                        items={[
-                            "i vào Insert",
-                            "Esc về Normal",
-                            ":wq lưu thoát",
-                            ":q! thoát không lưu",
-                            "vimtutor",
-                            "vim +50 file",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="Di chuyển"
-                        items={[
-                            "hjkl",
-                            "w / b / e",
-                            "0 / ^ / $",
-                            "gg / G",
-                            "50G / :50",
-                            "5j / 3w",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="Chỉnh sửa"
-                        items={[
-                            "dd xóa dòng",
-                            "yy copy dòng",
-                            "p paste",
-                            "u undo",
-                            "Ctrl+R redo",
-                            ". lặp lại",
-                        ]}
-                    />
-                    <SummaryBox
-                        title="Tìm/thay"
-                        items={[
-                            "/từ tìm xuôi",
-                            "?từ tìm ngược",
-                            "n / N",
-                            "* / #",
-                            ":%s/cũ/mới/g",
-                            ":%s/cũ/mới/gc",
-                        ]}
-                    />
-                </div>
-                <div className="px-6 md:px-8 pb-8">
-                    <div className="bg-violet-500/10 border border-violet-500/30 rounded-2xl p-5 text-violet-100">
-                        <strong className="text-white">
-                            Lộ trình nhớ nhanh:
-                        </strong>{" "}
-                        tuần 1 chỉ cần <code>i</code>, <code>Esc</code>,{" "}
-                        <code>:wq</code>, <code>:q!</code>, <code>hjkl</code>;
-                        tuần 2 thêm <code>dd</code>, <code>yy</code>,{" "}
-                        <code>p</code>, <code>u</code>, <code>/</code>; tuần 3
-                        thêm <code>w</code>, <code>b</code>, <code>gg</code>,{" "}
-                        <code>G</code>, <code>:%s</code>, Visual mode.
-                    </div>
+                    <InteractiveQuiz />
                 </div>
             </div>
         </section>
-    );
-}
-
-function SummaryBox({ title, items }) {
-    return (
-        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-5">
-            <h4 className="font-bold text-violet-300 uppercase text-xs tracking-widest mb-4">
-                {title}
-            </h4>
-            <ul className="space-y-2 text-sm text-slate-300">
-                {items.map((i) => (
-                    <li key={i} className="flex gap-2">
-                        <CheckCircle2
-                            size={16}
-                            className="text-emerald-400 shrink-0 mt-0.5"
-                        />
-                        <code>{i}</code>
-                    </li>
-                ))}
-            </ul>
-        </div>
     );
 }
 
 const questions = [
     {
-        question: "Không biết đang ở mode nào trong Vim thì nên làm gì?",
+        question: "Wattage của PSU cho biết điều gì?",
         options: [
-            "Nhấn Esc 1-2 lần để về Normal mode",
-            "Nhấn Ctrl+Alt+Del",
-            "Gõ :wq ngay dù đang Insert",
-            "Đóng terminal",
+            "PSU có thể cấp tối đa bao nhiêu công suất",
+            "CPU có bao nhiêu nhân",
+            "RAM có dung lượng bao nhiêu",
+            "SSD nhanh hay chậm",
         ],
         correct: 0,
         explanation:
-            "Esc là phím cứu hộ quan trọng nhất: đưa bạn về Normal mode.",
+            "Wattage là công suất tối đa PSU có thể cấp cho hệ thống, không phải mức PSU luôn tiêu thụ.",
     },
     {
-        question:
-            "Muốn gõ văn bản trong Vim từ Normal mode, phím cơ bản nhất là gì?",
-        options: ["i", ":", "dd", "yy"],
-        correct: 0,
-        explanation: "i đưa Vim vào Insert mode để gõ văn bản.",
-    },
-    {
-        question: "Lưu và thoát Vim bằng lệnh nào?",
-        options: [":wq", ":q!", ":set number", "dd"],
-        correct: 0,
-        explanation: ":wq = write + quit, tức lưu rồi thoát.",
-    },
-    {
-        question: "Thoát không lưu trong Vim bằng lệnh nào?",
-        options: [":q!", ":wq", "i", "p"],
-        correct: 0,
-        explanation: ":q! = quit force, thoát không lưu thay đổi.",
-    },
-    {
-        question: "Trong Normal mode, dd làm gì?",
-        options: ["Xóa nguyên dòng hiện tại", "Copy dòng", "Paste", "Tìm kiếm"],
-        correct: 0,
-        explanation: "dd delete dòng hiện tại. Có thể dùng 5dd để xóa 5 dòng.",
-    },
-    {
-        question: "yy và p trong Vim dùng để làm gì?",
+        question: "Hiệu suất PSU 90% nghĩa là gì?",
         options: [
-            "Copy dòng rồi paste",
-            "Tìm rồi thay thế",
-            "Lưu rồi thoát",
-            "Undo rồi redo",
+            "PSU làm máy mạnh hơn 90%",
+            "Khoảng 90% điện đầu vào được chuyển thành điện hữu ích cho linh kiện, phần còn lại hao phí thành nhiệt",
+            "PSU chỉ chạy được 90 phút",
+            "PSU chỉ dùng được 90W",
         ],
-        correct: 0,
-        explanation: "yy yank/copy dòng, p paste bên dưới hoặc sau con trỏ.",
+        correct: 1,
+        explanation:
+            "Hiệu suất 90% nghĩa là phần lớn điện đầu vào được chuyển thành DC hữu ích, phần còn lại thất thoát thành nhiệt.",
     },
     {
-        question:
-            "Lệnh nào thay tất cả localhost thành 192.168.1.100 trong toàn file?",
+        question: "80 PLUS chủ yếu chứng nhận điều gì?",
         options: [
-            ":%s/localhost/192.168.1.100/g",
-            ":s/localhost/192.168.1.100/",
-            "/localhost/192.168.1.100",
-            "dd localhost",
+            "Hiệu suất chuyển đổi điện",
+            "Chất lượng hình ảnh",
+            "Tốc độ mạng",
+            "Dung lượng ổ cứng",
         ],
         correct: 0,
         explanation:
-            ":%s/cũ/mới/g thay toàn file; % là toàn bộ file, g là tất cả match trong dòng.",
+            "80 PLUS là chứng nhận hiệu suất chuyển đổi điện AC sang DC.",
     },
     {
-        question: "Visual Block dùng phím nào để vào?",
-        options: ["Ctrl+V", "V", "v", "Ctrl+B"],
-        correct: 0,
+        question: "Đường điện nào quan trọng nhất với CPU/GPU hiện đại?",
+        options: ["3.3V", "5V", "12V", "1V"],
+        correct: 2,
         explanation:
-            "Ctrl+V vào Visual Block, chọn vùng hình chữ nhật, rất hữu ích để comment nhiều dòng.",
+            "CPU và GPU chủ yếu dùng điện 12V qua EPS, PCIe, 12VHPWR hoặc 12V-2x6.",
+    },
+    {
+        question: "Một PSU 850W có luôn tiêu thụ 850W từ ổ điện không?",
+        options: [
+            "Có, lúc nào cũng vậy",
+            "Không, nó chỉ cấp theo mức hệ thống cần, cộng thêm hao phí theo hiệu suất",
+            "Có, nếu là 80 PLUS Gold",
+            "Không bao giờ vượt 100W",
+        ],
+        correct: 1,
+        explanation:
+            "PC chỉ lấy điện theo mức tải thực tế; PSU 850W chỉ là khả năng cấp tối đa.",
     },
 ];
 
@@ -1333,11 +1010,13 @@ function InteractiveQuiz() {
     const [selected, setSelected] = useState(null);
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const handleSelect = (idx) => {
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
         if (showResult) return;
-        setSelected(idx);
+        setSelected(index);
         setShowResult(true);
-        if (idx === questions[currentQ].correct) setScore((s) => s + 1);
+        if (index === q.correct) setScore((s) => s + 1);
     };
     const handleNext = () => {
         if (currentQ < questions.length - 1) {
@@ -1352,42 +1031,39 @@ function InteractiveQuiz() {
         setShowResult(false);
         setScore(0);
     };
-    if (currentQ === "finished")
+    if (finished)
         return (
-            <div className="text-center flex flex-col justify-center items-center min-h-[300px] animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
                     {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
-                    Hoàn thành bài kiểm tra!
+                    Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-violet-400">
+                    <strong className="text-amber-400">
                         {score}/{questions.length}
                     </strong>{" "}
-                    câu về Vim.
+                    câu hỏi.
                 </p>
                 <button
                     onClick={resetQuiz}
-                    className="px-6 py-2 bg-slate-900 hover:bg-slate-700 text-white rounded-lg transition-colors border border-slate-600 font-medium flex items-center gap-2"
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RotateCcw size={16} /> Làm lại Quiz
+                    Làm lại
                 </button>
             </div>
         );
-    const q = questions[currentQ];
     return (
-        <div className="flex flex-col h-full max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm font-medium">
-                <span className="text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full">
-                    Câu {currentQ + 1} / {questions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-amber-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-lg md:text-xl font-bold text-white mb-8 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
             <div className="space-y-3 flex-grow">
@@ -1396,57 +1072,240 @@ function InteractiveQuiz() {
                         "w-full text-left p-4 rounded-xl border text-sm transition-all ";
                     if (!showResult)
                         cls +=
-                            "border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:border-slate-500";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
                             "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "border-rose-500 bg-rose-500/10 text-rose-400";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "border-slate-800 bg-slate-800/30 text-slate-600 opacity-50";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
+                            key={idx}
                             onClick={() => handleSelect(idx)}
                             disabled={showResult}
                             className={cls}
                         >
-                            <div className="flex gap-3">
-                                <span className="font-mono text-slate-500 mt-0.5">
-                                    {String.fromCharCode(65 + idx)}.
-                                </span>
-                                <span>{opt}</span>
-                            </div>
+                            {opt}
                         </button>
                     );
                 })}
             </div>
             {showResult && (
-                <div className="mt-8 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`p-4 rounded-xl text-sm mb-6 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-300" : "bg-rose-500/10 border border-rose-500/20 text-rose-300"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info className="shrink-0 mt-0.5" size={18} />
-                        <div>
-                            <strong className="block mb-1 text-white">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích:"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
                         onClick={handleNext}
-                        className="w-full md:w-auto md:px-8 py-3 bg-white hover:bg-slate-200 text-slate-900 font-bold rounded-xl transition-colors ml-auto block"
+                        className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-xl transition-colors"
                     >
                         {currentQ < questions.length - 1
-                            ? "Chuyển sang câu tiếp theo"
+                            ? "Câu tiếp theo"
                             : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu Wattage, hiệu suất và 80 PLUS. Tiếp theo là các đầu
+                cắm điện: 24-pin, 8-pin CPU, PCIe, SATA — vì chọn đúng công suất
+                chưa đủ, PSU còn phải có đúng dây cho mainboard, CPU, GPU và ổ
+                lưu trữ.
+            </p>
+            <Link
+                to="/phan-7-3"
+                className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-amber-500/20"
+            >
+                Bài tiếp theo: 7.3 — Các đầu cắm điện: 24-pin, 8-pin CPU, PCIe,
+                SATA <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "amber" }) {
+    const colorMap = {
+        amber: "bg-amber-500/20 text-amber-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-amber-500/10 border-amber-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-xl mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function MetricCard({ icon, label, value, color }) {
+    return (
+        <div
+            className={`${softBorder(color)} border rounded-3xl p-6 text-center`}
+        >
+            <div
+                className={`w-14 h-14 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-4`}
+            >
+                {React.cloneElement(icon, { size: 28 })}
+            </div>
+            <p className="text-slate-500 text-xs uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-2xl font-black text-white">{value}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[680px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={cell}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.amber;
+}
+function softBorder(color) {
+    const map = {
+        amber: "bg-amber-500/5 border-amber-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.amber;
+}
+function textColor(color) {
+    const map = {
+        amber: "text-amber-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        cyan: "text-cyan-300",
+        orange: "text-orange-300",
+        purple: "text-purple-300",
+        emerald: "text-emerald-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-amber-300";
 }

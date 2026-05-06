@@ -1,911 +1,1638 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-    ShieldCheck,
-    Terminal,
-    RefreshCw,
-    Download,
-    PackageCheck,
-    Trash2,
     AlertTriangle,
-    Info,
+    Award,
+    Bluetooth,
+    BookOpen,
+    Brain,
     CheckCircle2,
-    XCircle,
-    Copy,
     ChevronRight,
-    RotateCcw,
-    Sparkles,
-    Server,
-    Lock,
-    WifiOff,
-    Wrench,
-    ListChecks,
-    Bug,
-    Power,
-    Eye,
-    HelpCircle,
-    Activity,
-    PackageOpen,
-    FileWarning,
-    Clock,
-    Database,
+    Cpu,
+    Gamepad2,
+    Gauge,
+    Keyboard,
+    Layers3,
+    Lightbulb,
+    Monitor,
+    MousePointer2,
+    PackageCheck,
+    PlugZap,
+    Puzzle,
+    Radio,
+    Search,
     Settings,
+    ShieldCheck,
+    Sparkles,
+    Type,
+    Usb,
+    Workflow,
+    XCircle,
     Zap,
-    ShieldAlert,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-orange-500 selection:text-white pb-20">
-            <header className="bg-slate-950/90 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-2xl">
-                            🐧
+                        <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 border border-indigo-400/30 flex items-center justify-center shadow-lg shadow-indigo-500/10">
+                            <Keyboard className="text-indigo-400" size={24} />
                         </div>
                         <div>
-                            <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden sm:block">
-                                Security · APT · Updates · Patching
+                            <p className="text-xs text-slate-500">
+                                Phần 10: Thiết bị nhập liệu
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-500 hidden md:inline-block">
-                            Chương 10
-                        </span>
-                        <div className="text-sm font-semibold text-orange-300 bg-orange-400/10 px-3 py-1 rounded-full border border-orange-400/20">
-                            Bài 10.1
-                        </div>
+                    <div className="text-sm font-semibold text-indigo-300 bg-indigo-400/10 px-3 py-1 rounded-full border border-indigo-400/20">
+                        Bài 10.1
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <section className="text-center py-8 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-sm">
-                        <Sparkles size={16} className="text-orange-400" /> Bắt
-                        đầu Phần 10 — Bảo mật cơ bản
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Cập Nhật Hệ Thống <br />
-                        <span className="text-orange-500">
-                            Và Vá Lỗi Bảo Mật
-                        </span>
-                    </h2>
-                    <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                        Bạn sẽ hiểu vì sao Ubuntu cần cập nhật thường xuyên,
-                        phân biệt{" "}
-                        <code className="text-orange-300">apt update</code>,{" "}
-                        <code className="text-orange-300">apt upgrade</code>,{" "}
-                        <code className="text-orange-300">
-                            apt full-upgrade
-                        </code>
-                        , kiểm tra bản vá bảo mật, reboot khi cần và xử lý lỗi
-                        APT phổ biến.
-                    </p>
-                </section>
-
-                <section className="grid lg:grid-cols-2 gap-6 items-stretch">
-                    <WhyUpdateCard />
-                    <AptFlowSimulator />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="1"
-                        color="blue"
-                        icon={<RefreshCw size={22} />}
-                        title="Hiểu đúng apt update, upgrade, full-upgrade"
-                        subtitle="update chỉ cập nhật danh sách gói; upgrade mới thực sự tải và cài bản mới."
-                    />
-                    <AptConceptSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="2"
-                        color="green"
-                        icon={<Terminal size={22} />}
-                        title="Quy trình cập nhật cơ bản"
-                        subtitle="Chạy apt update, xem gói có thể nâng cấp, rồi upgrade hoặc full-upgrade khi cần."
-                    />
-                    <BasicUpdateWorkflow />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="3"
-                        color="orange"
-                        icon={<ShieldCheck size={22} />}
-                        title="Cập nhật bảo mật cho server"
-                        subtitle="Chú ý các gói quan trọng như openssl, openssh-server, sudo, systemd, linux-generic và kiểm tra reboot-required."
-                    />
-                    <SecurityUpdateSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="4"
-                        color="purple"
-                        icon={<Trash2 size={22} />}
-                        title="Dọn dẹp sau cập nhật"
-                        subtitle="autoremove giúp xóa gói phụ thuộc cũ, thường gặp nhất là kernel cũ không còn dùng."
-                    />
-                    <CleanupSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="5"
-                        color="red"
-                        icon={<Bug size={22} />}
-                        title="Lỗi phổ biến và cách xử lý"
-                        subtitle="Quên sudo, APT bị lock, mất mạng, mirror lỗi hoặc dpkg bị gián đoạn."
-                    />
-                    <CommonErrorsSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="6"
-                        color="cyan"
-                        icon={<Server size={22} />}
-                        title="Quy trình an toàn trên server thật"
-                        subtitle="Trước khi reboot server, kiểm tra dịch vụ, chọn giờ thấp điểm và ghi lại thay đổi."
-                    />
-                    <ServerSafeWorkflow />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="7"
-                        color="yellow"
-                        icon={<Wrench size={22} />}
-                        title="Script cập nhật tự động có kiểm soát"
-                        subtitle="Script update_system.sh ghi log, hỏi xác nhận, kiểm tra reboot-required và dọn dẹp sau cập nhật."
-                    />
-                    <UpdateScriptSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="8"
-                        color="teal"
-                        icon={<ListChecks size={22} />}
-                        title="Tóm tắt nhanh"
-                        subtitle="Các lệnh APT, kiểm tra reboot, xử lý lỗi và mẹo cần nhớ sau bài 10.1."
-                    />
-                    <SummaryGrid />
-                </section>
-
-                <section className="pt-4">
-                    <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-                        <div className="p-6 border-b border-slate-800 flex items-center justify-between gap-4">
-                            <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <PackageCheck className="text-orange-400" />{" "}
-                                    Kiểm tra kiến thức bài 10.1
-                                </h3>
-                                <p className="text-slate-500 text-sm mt-1">
-                                    Ôn lại apt update/upgrade, reboot-required,
-                                    autoremove, lock APT và dpkg --configure -a.
-                                </p>
-                            </div>
-                            <div className="hidden sm:block text-3xl">🧪</div>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <footer className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Bạn đã biết cập nhật và vá lỗi bảo mật an toàn. Tiếp
-                        theo là bảo vệ đăng nhập bằng SSH keys.
-                    </p>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
-                        Bài tiếp theo: 10.2 — Quản lý khóa SSH{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </footer>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <ControlPanelAnalogy />
+                <KeySignalSimulator />
+                <MechanismExplorer />
+                <SwitchExplorer />
+                <LayoutExplorer />
+                <ConnectionGuide />
+                <SpecsExplorer />
+                <RealExamples />
+                <PickerLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function SectionTitle({ number, color, icon, title, subtitle }) {
-    const colorMap = {
-        blue: "bg-blue-500/20 text-blue-400",
-        green: "bg-green-500/20 text-green-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        red: "bg-red-500/20 text-red-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        yellow: "bg-yellow-500/20 text-yellow-400",
-        teal: "bg-teal-500/20 text-teal-400",
-    };
+function HeroSection() {
     return (
-        <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                <span
-                    className={`${colorMap[color]} p-2 rounded-xl inline-flex items-center gap-2`}
-                >
-                    <span className="text-sm font-black">{number}</span>
-                    {icon}
-                </span>
-                {title}
-            </h3>
-            <p className="text-slate-400 mt-2 max-w-3xl">{subtitle}</p>
-        </div>
-    );
-}
-
-function CodeBlock({ title, code, note }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-300">
-                    <Terminal size={16} className="text-orange-400" /> {title}
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-indigo-300">
+                        <BookOpen size={16} /> Phần 10: Keyboard
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Bàn phím
+                        <span className="block text-indigo-400">
+                            cơ chế, switch, kết nối
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Bàn phím là thiết bị bạn chạm vào liên tục mỗi ngày.
+                        Chọn đúng bàn phím có thể giúp gõ nhanh hơn, ít mỏi tay
+                        hơn, chơi game phản hồi tốt hơn và làm việc thoải mái
+                        hơn.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Type size={16} />} text="Input Device" />
+                        <Tag icon={<Puzzle size={16} />} text="Switch" />
+                        <Tag icon={<Keyboard size={16} />} text="Layout" />
+                        <Tag icon={<Usb size={16} />} text="USB" />
+                        <Tag
+                            icon={<Radio size={16} />}
+                            text="2.4GHz / Bluetooth"
+                        />
+                    </div>
                 </div>
-                <Copy size={15} className="text-slate-600" />
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Keyboard />}
+                            label="Keyboard"
+                            desc="Nhận phím bấm"
+                            color="indigo"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Cpu />}
+                            label="Controller"
+                            desc="Xử lý tín hiệu"
+                            color="blue"
+                        />
+                        <HeroTile
+                            icon={<Puzzle />}
+                            label="Switch"
+                            desc="Cảm giác gõ"
+                            color="orange"
+                        />
+                        <HeroTile
+                            icon={<PlugZap />}
+                            label="Connection"
+                            desc="Gửi về PC"
+                            color="cyan"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Luồng cơ bản</p>
+                        <p>Ngón tay → Switch → Matrix</p>
+                        <p className="text-indigo-300">
+                            → Controller → USB/Bluetooth/2.4GHz
+                        </p>
+                    </div>
+                </div>
             </div>
-            <pre className="p-5 overflow-x-auto text-sm leading-6 text-slate-200">
-                <code>{code}</code>
-            </pre>
-            {note && (
-                <div className="px-5 pb-5 text-xs text-slate-500">{note}</div>
-            )}
-        </div>
+        </section>
     );
 }
 
-function WhyUpdateCard() {
-    const items = [
-        [ShieldAlert, "Lỗ hổng bảo mật", "Có thể bị khai thác qua mạng"],
-        [Bug, "Lỗi phần mềm", "Crash, treo service, sai logic"],
-        [PackageOpen, "Thư viện cũ", "openssl, curl, libc, systemd..."],
-        [Zap, "Hiệu năng", "Bản mới có thể tối ưu tốt hơn"],
+function LearningGoals() {
+    const goals = [
+        "Hiểu bàn phím là thiết bị nhập liệu dùng để đưa ký tự, phím tắt và lệnh điều khiển vào máy tính.",
+        "Nắm cơ chế nhận phím qua switch/lớp màng, keyboard matrix, controller và tín hiệu USB/Bluetooth/2.4GHz.",
+        "Phân biệt membrane, scissor-switch, mechanical, optical và magnetic/Hall Effect keyboard.",
+        "Hiểu các switch phổ biến: linear, tactile, clicky, silent, low-profile và cách chọn theo nhu cầu.",
+        "Đọc được thông số quan trọng: layout, actuation force, actuation point, polling rate, keycap, hot-swap, stabilizer, plate/foam/gasket mount.",
     ];
     return (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-orange-500/15 text-orange-400 rounded-2xl flex items-center justify-center">
-                    <ShieldCheck size={26} />
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="indigo"
+                title="Mục tiêu bài học"
+                icon={<Award />}
+            />
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
+                    <div
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/50 transition-colors"
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <Type />,
+            title: "Nhập ký tự",
+            desc: "Gõ chữ, số, dấu câu và văn bản vào máy tính.",
+            color: "indigo",
+        },
+        {
+            icon: <Settings />,
+            title: "Lệnh điều khiển",
+            desc: "Enter, Esc, F5, Alt-Tab, Ctrl+C/Ctrl+V và phím tắt hệ thống.",
+            color: "blue",
+        },
+        {
+            icon: <Gamepad2 />,
+            title: "Gaming input",
+            desc: "WASD, phím kỹ năng, macro và phản hồi nhanh trong game.",
+            color: "orange",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Trải nghiệm gõ",
+            desc: "Switch, keycap, layout và kết nối quyết định cảm giác dùng hằng ngày.",
+            color: "purple",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Bàn phím là gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">Bàn phím</strong>, tiếng Anh
+                    là <strong className="text-indigo-300">Keyboard</strong>, là
+                    thiết bị nhập liệu dùng để đưa ký tự, lệnh và thao tác điều
+                    khiển vào máy tính. Bàn phím khác nhau không chỉ ở ngoại
+                    hình, mà còn ở cơ chế phím, switch, layout, kết nối, độ trễ,
+                    keycap, tùy chỉnh và cảm giác gõ.
+                </p>
+                <div className="grid md:grid-cols-4 gap-4">
+                    {cards.map((c) => (
+                        <RoleCard key={c.title} {...c} />
+                    ))}
                 </div>
-                <div>
-                    <h3 className="text-2xl font-bold text-white">
-                        Vì sao phải cập nhật?
-                    </h3>
-                    <p className="text-slate-500 text-sm">
-                        Ubuntu cũng cần vá lỗi định kỳ
+                <div className="mt-6 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                    Ngón tay nhấn phím → Bàn phím nhận tín hiệu → Gửi về máy
+                    tính → Máy tính hiểu thành chữ, số, phím tắt hoặc lệnh
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function ControlPanelAnalogy() {
+    const cards = [
+        {
+            icon: <Keyboard />,
+            title: "Bàn phím = bảng điều khiển",
+            desc: "Mỗi phím là một nút gửi lệnh cho máy tính.",
+            color: "indigo",
+        },
+        {
+            icon: <Puzzle />,
+            title: "Switch = cơ chế nút bấm",
+            desc: "Quyết định phím nhẹ, nặng, clicky, êm hay có khấc.",
+            color: "orange",
+        },
+        {
+            icon: <Cpu />,
+            title: "Controller = bộ phiên dịch",
+            desc: "Xác định phím nào được nhấn và mã hóa tín hiệu.",
+            color: "blue",
+        },
+        {
+            icon: <PlugZap />,
+            title: "Kết nối = đường truyền",
+            desc: "USB, Bluetooth hoặc 2.4GHz gửi lệnh về máy tính.",
+            color: "cyan",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: bảng điều khiển của máy tính"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function KeySignalSimulator() {
+    const flows = {
+        normal: {
+            title: "Nhấn 1 phím",
+            color: "indigo",
+            steps: [
+                {
+                    icon: <Type />,
+                    title: "Bạn nhấn phím A",
+                    desc: "Ngón tay tạo lực lên keycap và switch/lớp màng bên dưới.",
+                },
+                {
+                    icon: <Puzzle />,
+                    title: "Switch được kích hoạt",
+                    desc: "Cơ chế bên dưới phím đóng mạch hoặc phát hiện tín hiệu.",
+                },
+                {
+                    icon: <Layers3 />,
+                    title: "Matrix xác định vị trí",
+                    desc: "Bàn phím đọc hàng và cột để biết phím nào được nhấn.",
+                },
+                {
+                    icon: <Cpu />,
+                    title: "Controller xử lý",
+                    desc: "Bộ điều khiển chuyển vị trí phím thành mã tín hiệu.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Gửi về máy tính",
+                    desc: "Tín hiệu đi qua USB, Bluetooth hoặc 2.4GHz.",
+                },
+            ],
+        },
+        gaming: {
+            title: "Nhấn nhiều phím",
+            color: "orange",
+            steps: [
+                {
+                    icon: <Gamepad2 />,
+                    title: "W + Shift + Space",
+                    desc: "Trong game, bạn có thể nhấn nhiều phím cùng lúc.",
+                },
+                {
+                    icon: <ShieldCheck />,
+                    title: "Anti-ghosting",
+                    desc: "Tránh nhận nhầm phím không được bấm.",
+                },
+                {
+                    icon: <PackageCheck />,
+                    title: "N-key rollover",
+                    desc: "Cho phép nhận nhiều phím cùng lúc chính xác hơn.",
+                },
+                {
+                    icon: <Gauge />,
+                    title: "Polling rate",
+                    desc: "Bàn phím gửi tín hiệu về PC nhiều lần mỗi giây.",
+                },
+            ],
+        },
+        custom: {
+            title: "Bàn phím cao cấp",
+            color: "purple",
+            steps: [
+                {
+                    icon: <Settings />,
+                    title: "Profile",
+                    desc: "Lưu layout, đèn, macro hoặc chế độ riêng.",
+                },
+                {
+                    icon: <Workflow />,
+                    title: "Macro",
+                    desc: "Gán nhiều thao tác vào một phím.",
+                },
+                {
+                    icon: <Zap />,
+                    title: "Rapid trigger",
+                    desc: "Hall Effect có thể nhận lại phím ngay khi nhả/nhấn theo hành trình.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "Tùy chỉnh cảm giác",
+                    desc: "Switch, keycap, foam, stab và gasket mount ảnh hưởng âm thanh/cảm giác.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("normal");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
+    };
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Bàn phím nhận phím bấm như thế nào?"
+                icon={<Workflow />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
+                        <button
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            {f.title}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
+                            <div
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
+                            >
+                                {React.cloneElement(step.icon, { size: 32 })}
+                            </div>
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
+                            >
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
+                    </div>
+                    <div className="space-y-2">
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
+                            >
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function MechanismExplorer() {
+    const types = {
+        membrane: {
+            icon: <Layers3 />,
+            title: "Membrane",
+            color: "cyan",
+            desc: "Dùng lớp màng cao su bên dưới phím.",
+            good: ["Rẻ", "Êm", "Nhẹ", "Phổ biến"],
+            bad: ["Cảm giác gõ không rõ", "Độ bền thấp hơn phím cơ"],
+            fit: "Văn phòng, học sinh, người dùng phổ thông",
+        },
+        scissor: {
+            icon: <Monitor />,
+            title: "Scissor-switch",
+            color: "blue",
+            desc: "Cơ chế cắt kéo, thường gặp trên laptop và bàn phím mỏng.",
+            good: ["Mỏng", "Gõ nhanh", "Hành trình ngắn", "Ít chiếm chỗ"],
+            bad: ["Khó sửa", "Ít tùy biến"],
+            fit: "Laptop, bàn phím mỏng, văn phòng",
+        },
+        mechanical: {
+            icon: <Puzzle />,
+            title: "Mechanical",
+            color: "orange",
+            desc: "Mỗi phím có một switch cơ riêng.",
+            good: ["Cảm giác tốt", "Bền", "Tùy biến cao", "Nhiều switch"],
+            bad: ["Đắt hơn", "Có thể ồn"],
+            fit: "Gõ nhiều, gaming, lập trình",
+        },
+        optical: {
+            icon: <Zap />,
+            title: "Optical",
+            color: "purple",
+            desc: "Dùng ánh sáng để nhận tín hiệu thay vì tiếp điểm cơ truyền thống.",
+            good: ["Phản hồi nhanh", "Ít hao mòn tiếp điểm"],
+            bad: ["Ít phổ biến hơn", "Hệ sinh thái switch kén hơn"],
+            fit: "Gaming tốc độ cao",
+        },
+        hall: {
+            icon: <Gauge />,
+            title: "Magnetic / Hall Effect",
+            color: "red",
+            desc: "Dùng cảm biến từ tính để đo hành trình phím.",
+            good: ["Chỉnh điểm kích hoạt", "Rapid trigger", "Rất hợp game FPS"],
+            bad: ["Giá cao hơn", "Cần phần mềm tốt"],
+            fit: "Gaming cạnh tranh",
+        },
+    };
+    const [active, setActive] = useState("mechanical");
+    const item = types[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="indigo"
+                title="Các cơ chế bàn phím phổ biến"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                    {Object.entries(types).map(([key, t]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(t.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(t.icon, { size: 20 })}{" "}
+                                {t.title}
+                            </div>
+                            <p className="text-xs opacity-75 mt-1">{t.desc}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-3">
+                            {item.title}
+                        </h3>
+                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                            {item.desc}
+                        </p>
+                        <p className="text-sm text-slate-400">
+                            <strong className="text-white">Phù hợp:</strong>{" "}
+                            {item.fit}
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div
+                            className={`${softBorder(item.color)} border rounded-3xl p-5`}
+                        >
+                            <p
+                                className={`${textColor(item.color)} font-bold mb-3`}
+                            >
+                                Ưu điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.good.map((g) => (
+                                    <Bullet key={g} text={g} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-5">
+                            <p className="text-red-300 font-bold mb-3">
+                                Nhược điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.bad.map((b) => (
+                                    <WarnBullet key={b} text={b} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SwitchExplorer() {
+    const rows = [
+        [
+            "Linear",
+            "Trơn, đi thẳng xuống",
+            "Thường êm hơn",
+            "Gaming, người thích gõ nhẹ",
+        ],
+        ["Tactile", "Có khấc nhẹ", "Vừa phải", "Gõ văn bản, lập trình"],
+        [
+            "Clicky",
+            "Có khấc rõ + tiếng click",
+            "To",
+            "Phòng riêng, người thích tiếng click",
+        ],
+        [
+            "Silent",
+            "Giảm tiếng khi chạm đáy/nhả phím",
+            "Êm",
+            "Văn phòng, ký túc xá",
+        ],
+        [
+            "Low-profile",
+            "Hành trình ngắn, phím thấp",
+            "Tùy loại",
+            "Người thích cảm giác laptop",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="orange"
+                title="Các loại switch cơ phổ biến"
+                icon={<Puzzle />}
+            />
+            <DataTable
+                title="Switch quyết định cảm giác bấm"
+                rows={rows}
+                headers={["Switch", "Cảm giác", "Âm thanh", "Phù hợp"]}
+                accent="orange"
+            />
+            <div className="grid md:grid-cols-4 gap-3">
+                <RuleCard
+                    label="Linear"
+                    value="Mượt, nhanh, hợp game."
+                    color="emerald"
+                />
+                <RuleCard
+                    label="Tactile"
+                    value="Có khấc, hợp gõ chữ."
+                    color="blue"
+                />
+                <RuleCard
+                    label="Clicky"
+                    value="Vui nhưng ồn, nên dùng phòng riêng."
+                    color="red"
+                />
+                <RuleCard
+                    label="Silent"
+                    value="Êm hơn, hợp nơi yên tĩnh."
+                    color="purple"
+                />
+            </div>
+        </section>
+    );
+}
+
+function LayoutExplorer() {
+    const layouts = {
+        full: {
+            icon: <Keyboard />,
+            title: "Full-size / 100%",
+            color: "blue",
+            keys: "Đủ phím chữ, F-row, điều hướng, numpad",
+            good: "Đầy đủ nhất",
+            bad: "Rộng, chiếm bàn",
+            fit: "Kế toán, Excel, nhập số liệu, văn phòng",
+        },
+        tkl: {
+            icon: <Keyboard />,
+            title: "TKL / 80%",
+            color: "emerald",
+            keys: "Bỏ numpad, giữ F-row và điều hướng",
+            good: "Gọn hơn full-size",
+            bad: "Không có numpad",
+            fit: "Gaming, lập trình, văn phòng",
+        },
+        seventyfive: {
+            icon: <Keyboard />,
+            title: "75%",
+            color: "indigo",
+            keys: "Gọn hơn TKL, giữ nhiều phím quan trọng",
+            good: "Cân bằng tốt",
+            bad: "Cụm phím hơi sát",
+            fit: "Người muốn gọn nhưng vẫn tiện",
+        },
+        sixtyfive: {
+            icon: <Keyboard />,
+            title: "65%",
+            color: "orange",
+            keys: "Bỏ F-row, giữ phím mũi tên",
+            good: "Rất gọn",
+            bad: "Dùng Fn nhiều hơn",
+            fit: "Setup nhỏ, gaming",
+        },
+        sixty: {
+            icon: <Keyboard />,
+            title: "60%",
+            color: "red",
+            keys: "Chỉ còn cụm chữ chính",
+            good: "Siêu gọn",
+            bad: "Thiếu nhiều phím trực tiếp",
+            fit: "Người quen dùng layer/Fn",
+        },
+        alice: {
+            icon: <Sparkles />,
+            title: "Alice / Ergonomic",
+            color: "purple",
+            keys: "Tách góc gõ tự nhiên hơn",
+            good: "Có thể giảm mỏi tay nếu hợp dáng",
+            bad: "Cần thời gian làm quen",
+            fit: "Người gõ nhiều, thích ergonomic",
+        },
+    };
+    const [active, setActive] = useState("seventyfive");
+    const item = layouts[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="blue"
+                title="Layout và kích thước bàn phím"
+                icon={<Keyboard />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(layouts).map(([key, l]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(l.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(l.icon, { size: 20 })}{" "}
+                                {l.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.75fr_1.25fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p className="text-slate-400 text-sm leading-relaxed">
+                            {item.keys}
+                        </p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-4">
+                        <InfoCard
+                            label="Ưu điểm"
+                            value={item.good}
+                            color={item.color}
+                        />
+                        <InfoCard
+                            label="Nhược điểm"
+                            value={item.bad}
+                            color="red"
+                        />
+                        <InfoCard
+                            label="Phù hợp"
+                            value={item.fit}
+                            color="emerald"
+                        />
+                    </div>
+                </div>
+                <div className="mt-6 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-5 text-sm text-slate-300">
+                    <strong className="text-indigo-300">Người mới:</strong> văn
+                    phòng nhập số chọn full-size; gaming/lập trình chọn TKL hoặc
+                    75%; setup nhỏ chọn 65%; không nên chọn 60% nếu chưa quen
+                    Fn/layer.
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function ConnectionGuide() {
+    const rows = [
+        [
+            "USB có dây",
+            "Ổn định, độ trễ thấp, không cần pin",
+            "Có dây, kém gọn",
+            "Gaming cạnh tranh, desktop cố định",
+        ],
+        [
+            "Bluetooth",
+            "Tiện, đa thiết bị, hợp laptop/tablet",
+            "Độ trễ cao hơn, đôi khi chập chờn",
+            "Văn phòng, di động",
+        ],
+        [
+            "2.4GHz Wireless",
+            "Độ trễ thấp hơn Bluetooth, gọn",
+            "Cần receiver, cần pin/sạc",
+            "Gaming không dây, setup gọn",
+        ],
+        [
+            "Tri-mode",
+            "USB-C + Bluetooth + 2.4GHz",
+            "Giá thường cao hơn",
+            "Người dùng nhiều thiết bị",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="cyan"
+                title="Kết nối: USB, Bluetooth, 2.4GHz, Tri-mode"
+                icon={<PlugZap />}
+            />
+            <DataTable
+                title="Chọn kết nối theo nhu cầu"
+                rows={rows}
+                headers={["Kết nối", "Ưu điểm", "Nhược điểm", "Phù hợp"]}
+                accent="cyan"
+            />
+            <div className="grid md:grid-cols-3 gap-3">
+                <RuleCard
+                    label="USB-C"
+                    value="Ổn định nhất, hợp gaming cạnh tranh."
+                    color="blue"
+                />
+                <RuleCard
+                    label="2.4GHz"
+                    value="Nhanh, gọn dây, hợp gaming không dây."
+                    color="emerald"
+                />
+                <RuleCard
+                    label="Bluetooth"
+                    value="Tiện đa thiết bị, hợp văn phòng."
+                    color="purple"
+                />
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        switch: {
+            icon: <Puzzle />,
+            title: "Switch Type",
+            detail: "Yếu tố ảnh hưởng nhiều nhất đến cảm giác gõ: linear, tactile, clicky, silent, low-profile, optical, Hall Effect.",
+            impact: "Gaming FPS thường hợp linear/Hall Effect; gõ văn bản hợp tactile/silent tactile; nơi yên tĩnh tránh clicky.",
+        },
+        force: {
+            icon: <Gauge />,
+            title: "Actuation Force",
+            detail: "Lực cần để kích hoạt phím, thường tính bằng gram-force/gf.",
+            impact: "35–45g nhẹ hợp game; 45–55g cân bằng; 60g+ ít bấm nhầm hơn nhưng dễ mỏi nếu gõ nhiều.",
+        },
+        point: {
+            icon: <Zap />,
+            title: "Actuation Point",
+            detail: "Độ sâu phím cần nhấn để bàn phím nhận tín hiệu.",
+            impact: "Hall Effect có thể chỉnh điểm nhận phím rất nông, hữu ích cho game FPS nhưng dễ bấm nhầm nếu đặt quá nhạy.",
+        },
+        polling: {
+            icon: <Radio />,
+            title: "Polling Rate",
+            detail: "Số lần bàn phím gửi tín hiệu về máy tính mỗi giây: 125Hz, 1000Hz, 4000Hz, 8000Hz.",
+            impact: "Văn phòng 125–1000Hz đều đủ; gaming cạnh tranh nên dùng USB/2.4GHz 1000Hz trở lên.",
+        },
+        keycap: {
+            icon: <Type />,
+            title: "Keycap Material",
+            detail: "ABS rẻ, dễ bóng; PBT bền hơn, ít bóng; double-shot/dye-sub ảnh hưởng độ bền ký tự.",
+            impact: "Dùng lâu nên ưu tiên PBT double-shot nếu ngân sách cho phép.",
+        },
+        hotswap: {
+            icon: <Settings />,
+            title: "Hot-swappable",
+            detail: "Có thể rút switch và thay switch khác mà không cần hàn.",
+            impact: "Người mới chơi phím cơ nên ưu tiên hot-swap 5-pin để dễ thử switch và thay switch hỏng.",
+        },
+        stab: {
+            icon: <Layers3 />,
+            title: "Stabilizer",
+            detail: "Thanh cân bằng cho phím dài như Space, Enter, Shift, Backspace.",
+            impact: "Stab kém gây lạch cạch, rung, âm rỗng và phím dài bấm không đều.",
+        },
+        mount: {
+            icon: <Sparkles />,
+            title: "Plate / Foam / Gasket",
+            detail: "Plate giữ switch; foam giảm âm rỗng; gasket mount tạo cảm giác êm, đàn hồi hơn.",
+            impact: "Các yếu tố này không làm bạn gõ nhanh hơn ngay, nhưng ảnh hưởng lớn đến âm thanh và cảm giác.",
+        },
+    };
+    const [active, setActive] = useState("hotswap");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="yellow"
+                title="Thông số kỹ thuật quan trọng"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Monitor />,
+            title: "Logitech MX Keys S",
+            subtitle: "Bàn phím văn phòng cao cấp",
+            color: "cyan",
+            points: [
+                "Phím thấp, êm",
+                "Không dây",
+                "Hỗ trợ nhiều thiết bị",
+                "Hợp laptop + desktop",
+                "Không hướng tới gaming cạnh tranh",
+            ],
+            lesson: "Người gõ văn phòng nhiều không nhất thiết cần phím cơ; bàn phím thấp, êm và đa thiết bị có thể hợp hơn.",
+        },
+        {
+            icon: <Keyboard />,
+            title: "Akko 5075B Plus",
+            subtitle: "Phím cơ 75% giá dễ tiếp cận",
+            color: "indigo",
+            points: [
+                "Layout 75%",
+                "2.4GHz/Bluetooth/Type-C",
+                "Gasket mount",
+                "PBT double-shot",
+                "Hot-swap 5-pin",
+            ],
+            lesson: "Layout 75%, tri-mode và hot-swap là tổ hợp rất dễ dùng cho người mới chơi phím cơ.",
+        },
+        {
+            icon: <Settings />,
+            title: "Keychron V1",
+            subtitle: "Phím cơ custom phổ thông",
+            color: "blue",
+            points: [
+                "Layout 75%",
+                "Hot-swap",
+                "RGB",
+                "Hỗ trợ VIA",
+                "Mac/Windows",
+            ],
+            lesson: "VIA/remap hữu ích cho lập trình viên hoặc người dùng nhiều hệ điều hành.",
+        },
+        {
+            icon: <Zap />,
+            title: "Logitech G512 X",
+            subtitle: "Hall Effect / Magnetic gaming",
+            color: "red",
+            points: [
+                "Switch từ tính/TMR",
+                "Rapid trigger",
+                "Điểm kích hoạt tùy chỉnh",
+                "Hợp game FPS",
+                "Không cần thiết cho văn phòng nhẹ",
+            ],
+            lesson: "Hall Effect đáng giá khi bạn chơi game cạnh tranh; với gõ văn bản, switch và layout quan trọng hơn.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-4 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-5 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-base mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-xs font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function PickerLab() {
+    const scenarios = {
+        office: {
+            icon: <Monitor />,
+            title: "Văn phòng yên tĩnh",
+            answer: "Chọn scissor-switch, membrane tốt, silent switch hoặc tactile nhẹ. Tránh clicky nếu ngồi chung phòng.",
+            color: "cyan",
+        },
+        excel: {
+            icon: <Type />,
+            title: "Excel / nhập số",
+            answer: "Chọn full-size vì numpad rất hữu ích. TKL/75% gọn hơn nhưng thiếu numpad sẽ bất tiện nếu nhập số nhiều.",
+            color: "blue",
+        },
+        gaming: {
+            icon: <Gamepad2 />,
+            title: "Gaming FPS",
+            answer: "Ưu tiên linear, optical hoặc Hall Effect; dùng USB-C hoặc 2.4GHz tốt; polling 1000Hz trở lên là hợp lý.",
+            color: "orange",
+        },
+        coding: {
+            icon: <Cpu />,
+            title: "Lập trình / gõ nhiều",
+            answer: "TKL hoặc 75% rất cân bằng. Switch tactile nhẹ hoặc linear tùy gu; hot-swap và VIA/remap là điểm cộng.",
+            color: "indigo",
+        },
+        small: {
+            icon: <Keyboard />,
+            title: "Setup nhỏ",
+            answer: "65% gọn và vẫn có mũi tên. 60% chỉ nên chọn nếu bạn quen Fn/layer và không cần F-row trực tiếp.",
+            color: "purple",
+        },
+        first: {
+            icon: <PackageCheck />,
+            title: "Phím cơ đầu tiên",
+            answer: "Chọn layout 75%/TKL, switch linear nhẹ hoặc tactile nhẹ, hot-swap 5-pin, keycap PBT nếu có thể và tri-mode nếu dùng nhiều thiết bị.",
+            color: "emerald",
+        },
+    };
+    const [active, setActive] = useState("first");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="blue"
+                title="Lab: chọn bàn phím theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
                     </p>
                 </div>
             </div>
-            <div className="grid sm:grid-cols-2 gap-3 mb-5">
-                {items.map(([Icon, title, desc]) => (
-                    <div
-                        key={title}
-                        className="bg-slate-950 border border-slate-800 rounded-2xl p-4"
-                    >
-                        <Icon className="text-orange-400 mb-3" size={21} />
-                        <div className="font-bold text-white text-sm">
-                            {title}
-                        </div>
-                        <div className="text-xs text-slate-500 mt-1">
-                            {desc}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 text-sm text-blue-100 flex gap-3">
-                <Info size={20} className="text-blue-400 shrink-0 mt-0.5" />
-                <p>
-                    Trên Windows có Windows Update. Trên Ubuntu, công cụ thường
-                    dùng nhất là <code className="text-white">apt</code>.
-                </p>
-            </div>
-        </div>
+        </section>
     );
 }
 
-function AptFlowSimulator() {
-    const [step, setStep] = useState(0);
-    const steps = [
-        [
-            "apt update",
-            "Đi hỏi kho phần mềm: Có phiên bản mới chưa?",
-            "Chưa cài gì vào máy.",
-        ],
-        [
-            "apt list --upgradable",
-            "Xem những gói có thể nâng cấp.",
-            "Dùng để kiểm tra trước khi cài.",
-        ],
-        [
-            "apt upgrade",
-            "Tải và cài bản cập nhật.",
-            "Thực sự thay đổi phần mềm trên máy.",
-        ],
-        [
-            "reboot-required",
-            "Kiểm tra có cần khởi động lại không.",
-            "Thường cần sau kernel hoặc thư viện hệ thống.",
-        ],
-        [
-            "apt autoremove",
-            "Dọn gói cũ không còn cần.",
-            "Thường là kernel cũ hoặc dependency cũ.",
-        ],
-    ];
-    return (
-        <div className="bg-gradient-to-br from-orange-500/20 via-slate-900 to-blue-500/20 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <Activity className="text-orange-400" /> Luồng cập nhật chuẩn
-            </h3>
-            <p className="text-slate-400 mb-6">
-                Bấm từng bước để hiểu vai trò của mỗi lệnh.
-            </p>
-            <div className="space-y-2 mb-5">
-                {steps.map(([cmd], i) => (
-                    <button
-                        key={cmd}
-                        onClick={() => setStep(i)}
-                        className={`w-full text-left p-4 rounded-2xl border transition-all ${step === i ? "bg-orange-500/10 border-orange-500/40" : "bg-slate-950 border-slate-800 hover:text-white text-slate-400"}`}
-                    >
-                        <span className="font-mono text-orange-300 mr-3">
-                            {i + 1}
-                        </span>
-                        <code className="font-bold">{cmd}</code>
-                    </button>
-                ))}
-            </div>
-            <div className="bg-black border border-slate-800 rounded-2xl p-5">
-                <div className="text-xs text-slate-500 mb-2">Đang xem</div>
-                <code className="text-green-400 text-lg font-bold">
-                    {steps[step][0]}
-                </code>
-                <p className="text-slate-300 mt-3">{steps[step][1]}</p>
-                <p className="text-slate-500 text-sm mt-2">{steps[step][2]}</p>
-            </div>
-        </div>
-    );
-}
-
-function AptConceptSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-6">
-            <CodeBlock
-                title="apt-concepts.sh"
-                code={`# 1. Cập nhật danh sách gói, chưa nâng cấp phần mềm\nsudo apt update\n\n# 2. Xem gói nào có thể nâng cấp\napt list --upgradable\n\n# 3. Nâng cấp các gói đã cài\nsudo apt upgrade\n\n# 4. Nâng cấp toàn diện hơn, có thể thêm/gỡ dependency\nsudo apt full-upgrade\n\n# 5. Xóa gói không còn cần\nsudo apt autoremove\n\n# Cập nhật nhanh bằng một dòng\nsudo apt update && sudo apt upgrade`}
-            />
-            <CheatCard
-                title="Phân biệt nhanh"
-                rows={[
-                    [
-                        "apt update",
-                        "Cập nhật danh sách phiên bản mới từ kho Ubuntu",
-                    ],
-                    ["apt upgrade", "Tải và cài bản mới cho gói đã cài"],
-                    [
-                        "apt full-upgrade",
-                        "Xử lý phụ thuộc phức tạp, có thể thêm/xóa gói",
-                    ],
-                    ["apt autoremove", "Dọn gói phụ thuộc cũ không còn cần"],
-                    ["&&", "Lệnh sau chỉ chạy nếu lệnh trước thành công"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function BasicUpdateWorkflow() {
-    const [tab, setTab] = useState("update");
-    const tabs = [
-        ["update", "apt update"],
-        ["list", "upgradable"],
-        ["upgrade", "upgrade"],
-        ["full", "full-upgrade"],
-    ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map(([id, label]) => (
-                    <button
-                        key={id}
-                        onClick={() => setTab(id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold ${tab === id ? "bg-green-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "update" && (
-                    <CodeBlock
-                        title="sudo apt update"
-                        code={`sudo apt update\n\n# Output mẫu:\nHit:1 http://vn.archive.ubuntu.com/ubuntu jammy InRelease\nGet:2 http://vn.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]\nGet:3 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]\nFetched 229 kB in 2s\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\n15 packages can be upgraded. Run 'apt list --upgradable' to see them.\n\n# Hit = kho đã kiểm tra\n# Get = đang tải thông tin mới\n# jammy-security = kho bản vá bảo mật\n# 15 packages can be upgraded = có 15 gói có thể nâng cấp`}
-                    />
-                )}
-                {tab === "list" && (
-                    <CodeBlock
-                        title="apt list --upgradable"
-                        code={`apt list --upgradable\n\n# Output mẫu:\nopenssl/jammy-updates,jammy-security 3.0.2-0ubuntu1.15 amd64 [upgradable from: 3.0.2-0ubuntu1.12]\ncurl/jammy-updates 7.81.0-1ubuntu1.16 amd64 [upgradable from: 7.81.0-1ubuntu1.13]\nlinux-generic/jammy-updates,jammy-security 5.15.0.105.103 amd64 [upgradable from: 5.15.0.92.90]\n\n# Gói cần chú ý:\n# openssl, openssh-server, sudo, systemd, linux-generic, libc6`}
-                    />
-                )}
-                {tab === "upgrade" && (
-                    <CodeBlock
-                        title="sudo apt upgrade"
-                        code={`sudo apt upgrade\n\n# Output mẫu:\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\nCalculating upgrade... Done\n\nThe following packages will be upgraded:\n  curl openssl linux-generic\n\n3 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.\nNeed to get 45.2 MB of archives.\nAfter this operation, 12.5 MB of additional disk space will be used.\nDo you want to continue? [Y/n]\n\n# Nhập Y rồi Enter để tiếp tục`}
-                    />
-                )}
-                {tab === "full" && (
-                    <CodeBlock
-                        title="sudo apt full-upgrade"
-                        code={`sudo apt full-upgrade\n\n# Dùng khi muốn cập nhật toàn diện hơn\n# Có thể thêm hoặc gỡ gói phụ thuộc nếu cần\n# Đặc biệt hữu ích trên server lâu ngày chưa cập nhật\n\n# Nên xem kỹ phần:\n# The following packages will be REMOVED\n# The following NEW packages will be installed\n# The following packages will be upgraded`}
-                    />
-                )}
-            </div>
-        </div>
-    );
-}
-
-function SecurityUpdateSection() {
-    const [needReboot, setNeedReboot] = useState(true);
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="security-update-server.sh"
-                code={`# Quy trình cập nhật bảo mật cho Ubuntu Server\n\n# 1. Cập nhật danh sách gói\nsudo apt update\n\n# 2. Xem gói có thể nâng cấp\napt list --upgradable\n\n# 3. Nâng cấp\nsudo apt upgrade\n\n# 4. Kiểm tra có cần reboot không\nls /var/run/reboot-required\n\n# Nếu file tồn tại → cần reboot\nsudo reboot\n\n# Trước khi reboot server thật, kiểm tra dịch vụ quan trọng:\nsystemctl status nginx\nsystemctl status mysql\nsystemctl status ssh`}
-            />
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 h-fit">
-                <h4 className="font-bold text-white mb-4">
-                    Mô phỏng reboot-required
-                </h4>
-                <button
-                    onClick={() => setNeedReboot((v) => !v)}
-                    className={`w-full p-4 rounded-xl border font-bold mb-5 ${needReboot ? "bg-orange-500 text-white border-orange-500" : "bg-slate-900 border-slate-800 text-slate-400"}`}
-                >
-                    {needReboot ? "Đang cần reboot" : "Chưa cần reboot"}
-                </button>
-                <pre className="bg-black border border-slate-800 rounded-xl p-4 text-sm whitespace-pre-wrap">
-                    <code
-                        className={
-                            needReboot ? "text-yellow-400" : "text-green-400"
-                        }
-                    >
-                        {needReboot
-                            ? `$ ls /var/run/reboot-required\n/var/run/reboot-required\n\n→ Kernel/thư viện hệ thống đã cập nhật.\n→ Nên reboot ở thời điểm an toàn.`
-                            : `$ ls /var/run/reboot-required\nls: cannot access '/var/run/reboot-required': No such file or directory\n\n→ Chưa cần reboot.`}
-                    </code>
-                </pre>
-            </div>
-        </div>
-    );
-}
-
-function CleanupSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="cleanup-after-update.sh"
-                code={`sudo apt autoremove\n\n# Output mẫu:\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\n\nThe following packages will be REMOVED:\n  linux-headers-5.15.0-72 linux-image-5.15.0-72-generic\n\n0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.\nAfter this operation, 320 MB disk space will be freed.\nDo you want to continue? [Y/n]\n\n# Thường có thể chọn Y\n# Nhưng nếu đang debug kernel/driver đặc biệt, hãy cẩn thận hơn`}
-            />
-            <div className="space-y-4">
-                <ExplainCard
-                    icon={<Trash2 size={20} />}
-                    title="autoremove dọn gì?"
-                    desc="Gói phụ thuộc không còn được gói nào cần nữa, ví dụ kernel cũ."
-                />
-                <ExplainCard
-                    icon={<AlertTriangle size={20} />}
-                    title="Đọc danh sách trước"
-                    desc="Nếu thấy gói quan trọng bị remove ngoài dự kiến, hãy dừng lại bằng n."
-                    danger
-                />
-                <ExplainCard
-                    icon={<Database size={20} />}
-                    title="Giải phóng dung lượng"
-                    desc="Sau nhiều lần cập nhật kernel, autoremove có thể giải phóng hàng trăm MB đến vài GB."
-                />
-            </div>
-        </div>
-    );
-}
-
-function CommonErrorsSection() {
-    const [tab, setTab] = useState("sudo");
-    const tabs = [
-        ["sudo", "Quên sudo"],
-        ["lock", "APT lock"],
-        ["network", "Mất mạng"],
-        ["dpkg", "dpkg interrupted"],
-    ];
-    return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map(([id, label]) => (
-                    <button
-                        key={id}
-                        onClick={() => setTab(id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold ${tab === id ? "bg-red-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "sudo" && (
-                    <CodeBlock
-                        title="permission-denied.sh"
-                        code={`apt upgrade\n\n# Lỗi:\nE: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock\n\n# Sửa:\nsudo apt upgrade`}
-                    />
-                )}
-                {tab === "lock" && (
-                    <CodeBlock
-                        title="apt-lock.sh"
-                        code={`sudo apt update\n\n# Lỗi:\nE: Could not get lock /var/lib/apt/lists/lock. It is held by process 1234 (apt)\nE: Unable to lock directory /var/lib/apt/lists/\n\n# Kiểm tra tiến trình apt:\nps aux | grep apt\n\n# Nếu apt thật sự đang chạy, hãy chờ nó hoàn thành.\n# Không vội xóa file lock nếu chưa hiểu rõ, vì có thể làm hỏng trạng thái cài đặt gói.`}
-                    />
-                )}
-                {tab === "network" && (
-                    <CodeBlock
-                        title="network-or-mirror-error.sh"
-                        code={`sudo apt update\n\n# Lỗi:\nErr:1 http://vn.archive.ubuntu.com/ubuntu jammy InRelease\n  Temporary failure resolving 'vn.archive.ubuntu.com'\nW: Some index files failed to download. They have been ignored\n\n# Kiểm tra mạng/DNS:\nping google.com\nping 8.8.8.8\nresolvectl status\n\n# Nguyên nhân có thể:\n# - Mất internet\n# - DNS lỗi\n# - Mirror Ubuntu chậm/lỗi\n# - Proxy/VPN chặn kết nối`}
-                    />
-                )}
-                {tab === "dpkg" && (
-                    <CodeBlock
-                        title="dpkg-interrupted.sh"
-                        code={`sudo apt upgrade\n\n# Lỗi:\nE: dpkg was interrupted, you must manually run 'sudo dpkg --configure -a'\n\n# Sửa đúng theo gợi ý:\nsudo dpkg --configure -a\n\n# Sau đó chạy lại:\nsudo apt update\nsudo apt upgrade`}
-                    />
-                )}
-            </div>
-        </div>
-    );
-}
-
-function ServerSafeWorkflow() {
-    return (
-        <CodeBlock
-            title="safe-server-update.sh"
-            code={`# 1. Kiểm tra dịch vụ đang chạy\nsystemctl status nginx\nsystemctl status mysql\nsystemctl status ssh\n\n# 2. Kiểm tra người dùng và tải hệ thống\nw\nuptime\n\n# 3. Cập nhật\nsudo apt update\napt list --upgradable\nsudo apt upgrade\n\n# 4. Kiểm tra reboot\nif [ -f /var/run/reboot-required ]; then\n    echo "Server cần reboot"\n    cat /var/run/reboot-required.pkgs 2>/dev/null || true\nfi\n\n# 5. Reboot vào giờ thấp điểm\nsudo reboot\n\n# 6. Sau reboot, kiểm tra lại\nuptime\nsystemctl status nginx\nsystemctl status mysql\nsystemctl status ssh`}
-            note="Với server thật, không reboot tùy tiện trong giờ cao điểm. Hãy chọn maintenance window và có kế hoạch rollback."
-        />
-    );
-}
-
-function UpdateScriptSection() {
-    return (
-        <CodeBlock
-            title="update_system.sh"
-            code={`#!/bin/bash\nset -euo pipefail\n\nLOG_FILE="/var/log/update_system.log"\nRED='\\033[0;31m'; GREEN='\\033[0;32m'; YELLOW='\\033[1;33m'; BLUE='\\033[0;34m'; NC='\\033[0m'\n\nlog() { echo -e "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"; }\n\nif [ "$(id -u)" -ne 0 ]; then\n    echo -e "${"{"}RED{'}'}Vui lòng chạy bằng sudo.${"{"}NC{'}'}"\n    exit 1\nfi\n\nlog "${"{"}BLUE{'}'}=== BẮT ĐẦU CẬP NHẬT HỆ THỐNG ===${"{"}NC{'}'}"\n\nlog "${"{"}YELLOW{'}'}1) apt update...${"{"}NC{'}'}"\napt update\n\nlog "${"{"}YELLOW{'}'}2) Gói có thể nâng cấp:${"{"}NC{'}'}"\napt list --upgradable 2>/dev/null | tee -a "$LOG_FILE"\n\nread -p "Tiếp tục nâng cấp? (y/n): " ans\ncase "$ans" in\n    [Yy]*) ;;\n    *) log "Đã hủy."; exit 0 ;;\nesac\n\nlog "${"{"}YELLOW{'}'}3) apt upgrade...${"{"}NC{'}'}"\napt upgrade -y\n\nlog "${"{"}YELLOW{'}'}4) autoremove...${"{"}NC{'}'}"\napt autoremove -y\n\nif [ -f /var/run/reboot-required ]; then\n    log "${"{"}YELLOW{'}'}⚠ Hệ thống cần reboot.${"{"}NC{'}'}"\n    if [ -f /var/run/reboot-required.pkgs ]; then\n        log "Các gói yêu cầu reboot:"\n        cat /var/run/reboot-required.pkgs | tee -a "$LOG_FILE"\n    fi\nelse\n    log "${"{"}GREEN{'}'}Không cần reboot.${"{"}NC{'}'}"\nfi\n\nlog "${"{"}GREEN{'}'}=== HOÀN TẤT CẬP NHẬT ===${"{"}NC{'}'}"\n\n# Cài đặt:\n# chmod +x update_system.sh\n# sudo ./update_system.sh`}
-        />
-    );
-}
-
-function ExplainCard({ icon, title, desc, danger }) {
-    return (
-        <div
-            className={`rounded-2xl border p-5 ${danger ? "bg-red-500/10 border-red-500/20" : "bg-slate-950 border-slate-800"}`}
-        >
-            <div
-                className={`mb-3 ${danger ? "text-red-400" : "text-orange-400"}`}
-            >
-                {icon}
-            </div>
-            <div className="font-bold text-white">{title}</div>
-            <p className="text-slate-400 text-sm mt-2">{desc}</p>
-        </div>
-    );
-}
-
-function CheatCard({ title, rows }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 h-fit">
-            <h4 className="font-bold text-white mb-4">{title}</h4>
-            <div className="space-y-2">
-                {rows.map(([cmd, desc]) => (
-                    <div
-                        key={cmd + desc}
-                        className="bg-slate-900 border border-slate-800 rounded-xl p-3"
-                    >
-                        <code className="text-orange-300 text-sm">{cmd}</code>
-                        <div className="text-xs text-slate-500 mt-1">
-                            {desc}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function SummaryGrid() {
-    const groups = [
+function CommonMistakes() {
+    const mistakes = [
         {
-            title: "APT cơ bản",
-            rows: [
-                ["apt update", "lấy danh sách gói"],
-                ["apt list --upgradable", "xem gói mới"],
-                ["apt upgrade", "nâng cấp"],
-                ["apt full-upgrade", "nâng cấp toàn diện"],
-                ["apt autoremove", "dọn gói cũ"],
-            ],
+            wrong: "Bàn phím cơ lúc nào cũng tốt hơn membrane",
+            right: "Phím cơ có cảm giác và độ bền tốt trong nhiều trường hợp, nhưng scissor-switch hoặc membrane tốt vẫn rất ổn cho văn phòng yên tĩnh.",
         },
         {
-            title: "Bảo mật",
-            rows: [
-                ["jammy-security", "kho bản vá"],
-                ["openssl", "mã hóa"],
-                ["openssh-server", "SSH"],
-                ["sudo", "quyền admin"],
-                ["linux-generic", "kernel"],
-            ],
+            wrong: "Switch blue/clicky là chuẩn phím cơ",
+            right: "Clicky chỉ là một loại switch. Nó vui tai nhưng rất ồn, dễ làm phiền văn phòng, lớp học hoặc phòng chung.",
         },
         {
-            title: "Reboot",
-            rows: [
-                ["/var/run/reboot-required", "cần reboot"],
-                ["reboot-required.pkgs", "gói yêu cầu"],
-                ["sudo reboot", "khởi động lại"],
-                ["systemctl status", "kiểm tra dịch vụ"],
-            ],
+            wrong: "Bàn phím càng nhỏ càng tốt",
+            right: "Bàn phím nhỏ cần dùng Fn/layer nhiều hơn. Người mới thường dễ dùng 75% hoặc TKL hơn 60%.",
         },
         {
-            title: "Lỗi thường gặp",
-            rows: [
-                ["Permission denied", "thiếu sudo"],
-                ["APT lock", "apt khác đang chạy"],
-                ["Temporary failure", "mạng/DNS/mirror"],
-                ["dpkg interrupted", "cài dở dang"],
-            ],
+            wrong: "Không dây là sẽ lag",
+            right: "Bluetooth có thể trễ hơn, nhưng 2.4GHz tốt đủ nhanh cho gaming; USB-C vẫn ổn định nhất cho gaming cạnh tranh.",
         },
         {
-            title: "Sửa lỗi",
-            rows: [
-                ["sudo", "chạy quyền admin"],
-                ["ps aux | grep apt", "kiểm tra lock"],
-                ["ping google.com", "kiểm tra mạng"],
-                ["dpkg --configure -a", "sửa dpkg"],
-                ["&&", "chạy nối an toàn"],
-            ],
+            wrong: "RGB càng nhiều thì bàn phím càng tốt",
+            right: "RGB chỉ là thẩm mỹ. Chất lượng còn phụ thuộc switch, stabilizer, keycap, case, plate, kết nối, layout và phần mềm.",
         },
     ];
+    const tips = [
+        "Người mới nên chọn layout 75% hoặc TKL nếu không cần numpad.",
+        "Làm Excel, kế toán, nhập số nhiều thì chọn full-size.",
+        "Gaming FPS nên ưu tiên linear hoặc Hall Effect, USB-C hoặc 2.4GHz tốt.",
+        "Dùng nơi yên tĩnh thì tránh clicky switch; chọn silent, tactile nhẹ hoặc bàn phím thấp.",
+        "Ưu tiên hot-swap nếu mua phím cơ đầu tiên để sau này đổi switch dễ hơn.",
+        "Dùng lâu nên ưu tiên keycap PBT, đặc biệt PBT double-shot nếu ngân sách cho phép.",
+    ];
     return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {groups.map((g) => (
-                <div
-                    key={g.title}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-5"
-                >
-                    <h4 className="font-bold text-white mb-4">{g.title}</h4>
-                    <div className="space-y-2">
-                        {g.rows.map(([cmd, desc]) => (
+        <section className="space-y-6">
+            <SectionTitle
+                number="12"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
                             <div
-                                key={cmd + desc}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3"
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
                             >
-                                <code className="text-orange-300 text-sm">
-                                    {cmd}
-                                </code>
-                                <div className="text-xs text-slate-500 mt-1">
-                                    {desc}
-                                </div>
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
-            ))}
-        </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
-const quizQuestions = [
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-indigo-500/20 text-indigo-300 p-2 rounded-xl">
+                            13
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-indigo-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>Keyboard = thiết bị nhập liệu</p>
+                            <p>
+                                Ngón tay → Switch → Matrix → Controller →
+                                USB/Bluetooth/2.4GHz
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Switch</p>
+                            <p className="text-slate-300">
+                                Linear = mượt/game • Tactile = gõ chữ • Clicky =
+                                vui nhưng ồn • Silent = yên tĩnh
+                            </p>
+                            <br />
+                            <p className="text-slate-500"># Người mới</p>
+                            <p className="text-slate-300">
+                                75% hoặc TKL • hot-swap • PBT nếu có •
+                                USB/2.4GHz cho gaming
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const questions = [
     {
-        question: "Lệnh apt update có thực sự nâng cấp phần mềm không?",
+        question: "Bàn phím có nhiệm vụ chính là gì?",
         options: [
-            "Có, nó tải và cài bản mới",
-            "Không, nó chỉ cập nhật danh sách gói",
-            "Có, nhưng chỉ kernel",
-            "Không, nó xóa gói cũ",
-        ],
-        correct: 1,
-        explanation:
-            "apt update chỉ lấy danh sách phiên bản mới từ kho phần mềm. apt upgrade mới cài bản cập nhật.",
-    },
-    {
-        question: "Lệnh nào xem các gói có thể nâng cấp?",
-        options: [
-            "apt show all",
-            "apt list --upgradable",
-            "apt clean --list",
-            "dpkg reboot",
-        ],
-        correct: 1,
-        explanation:
-            "apt list --upgradable liệt kê các gói đang có phiên bản mới hơn.",
-    },
-    {
-        question: "apt full-upgrade khác apt upgrade ở điểm nào?",
-        options: [
-            "Không cần sudo",
-            "Có thể thêm/gỡ gói phụ thuộc nếu cần",
-            "Chỉ tải danh sách",
-            "Chỉ dọn cache",
-        ],
-        correct: 1,
-        explanation:
-            "full-upgrade xử lý phụ thuộc mạnh hơn, có thể thêm hoặc gỡ gói để hoàn tất nâng cấp.",
-    },
-    {
-        question: "Làm sao kiểm tra hệ thống có cần reboot sau cập nhật không?",
-        options: [
-            "ls /var/run/reboot-required",
-            "apt ping reboot",
-            "cat /etc/passwd",
-            "sudo apt autoremove",
-        ],
-        correct: 0,
-        explanation:
-            "Nếu file /var/run/reboot-required tồn tại, hệ thống cần khởi động lại.",
-    },
-    {
-        question:
-            "Lỗi Unable to acquire the dpkg frontend lock do thiếu quyền thì sửa thế nào?",
-        options: [
-            "Thêm sudo trước lệnh",
-            "Xóa toàn bộ /var/lib/dpkg",
-            "Reinstall Ubuntu",
-            "Chạy zip",
+            "Nhập dữ liệu và lệnh vào máy tính",
+            "Làm mát CPU",
+            "Lưu trữ dữ liệu lâu dài",
+            "Cấp điện cho màn hình",
         ],
         correct: 0,
         explanation:
-            "Các lệnh thay đổi gói cần quyền quản trị, nên dùng sudo apt upgrade.",
+            "Bàn phím là thiết bị nhập liệu dùng để đưa ký tự, phím tắt và lệnh điều khiển vào máy tính.",
     },
     {
-        question: "dpkg was interrupted yêu cầu chạy lệnh nào?",
+        question: "Switch linear có đặc điểm gì?",
         options: [
-            "sudo dpkg --configure -a",
-            "sudo apt remove dpkg",
-            "sudo reboot --dpkg",
-            "apt list --broken-only",
+            "Bấm mượt, đi thẳng xuống, thường hợp gaming",
+            "Có tiếng click rất lớn",
+            "Không thể dùng để chơi game",
+            "Chỉ dùng cho laptop",
         ],
         correct: 0,
         explanation:
-            "APT thường báo rõ: must manually run sudo dpkg --configure -a để hoàn tất cấu hình bị dở dang.",
+            "Linear switch đi thẳng xuống, cảm giác mượt và thường được game thủ thích vì phản hồi nhanh.",
     },
     {
-        question: "Trước khi reboot server thật, nên làm gì?",
+        question: "Layout TKL khác full-size ở điểm nào?",
         options: [
-            "Kiểm tra dịch vụ quan trọng và chọn giờ thấp điểm",
-            "Xóa log ngay",
-            "Tắt SSH trước",
-            "Không cần kiểm tra gì",
+            "TKL bỏ cụm numpad",
+            "TKL không có phím chữ",
+            "TKL không dùng được trên Windows",
+            "TKL chỉ kết nối Bluetooth",
         ],
         correct: 0,
         explanation:
-            "Server thật có thể đang chạy website/database/API. Cần kiểm tra dịch vụ và reboot trong maintenance window.",
+            "TKL nghĩa là tenkeyless, thường bỏ cụm numpad để bàn phím gọn hơn.",
+    },
+    {
+        question: "Hot-swap trên bàn phím cơ nghĩa là gì?",
+        options: [
+            "Có thể thay switch mà không cần hàn",
+            "Có thể thay CPU",
+            "Có thể tăng dung lượng RAM",
+            "Có thể làm bàn phím chống nước tuyệt đối",
+        ],
+        correct: 0,
+        explanation:
+            "Hot-swap cho phép nhổ switch cũ và cắm switch mới mà không cần hàn.",
+    },
+    {
+        question: "Kết nối nào thường ổn định nhất cho gaming cạnh tranh?",
+        options: [
+            "USB có dây",
+            "Bluetooth đời cũ",
+            "Không kết nối",
+            "Cắm qua màn hình bằng HDMI",
+        ],
+        correct: 0,
+        explanation:
+            "USB có dây thường ổn định, độ trễ thấp và không phụ thuộc pin/receiver.",
     },
 ];
 
 function InteractiveQuiz() {
-    const [current, setCurrent] = useState(0);
+    const [currentQ, setCurrentQ] = useState(0);
     const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
-    const q = quizQuestions[current];
-    const choose = (idx) => {
-        if (selected !== null) return;
-        setSelected(idx);
-        if (idx === q.correct) setScore((s) => s + 1);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
     };
-    const next = () => {
-        if (current === quizQuestions.length - 1) setFinished(true);
-        else {
-            setCurrent((c) => c + 1);
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
             setSelected(null);
-        }
+            setShowResult(false);
+        } else setCurrentQ("finished");
     };
-    const reset = () => {
-        setCurrent(0);
+    const resetQuiz = () => {
+        setCurrentQ(0);
         setSelected(null);
+        setShowResult(false);
         setScore(0);
-        setFinished(false);
     };
     if (finished)
         return (
-            <div className="text-center min-h-[280px] flex flex-col items-center justify-center animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
-                    {score === quizQuestions.length ? "🏆" : "👏"}
+                    {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
                     Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-orange-400">
-                        {score}/{quizQuestions.length}
+                    <strong className="text-indigo-400">
+                        {score}/{questions.length}
                     </strong>{" "}
-                    câu.
+                    câu hỏi.
                 </p>
                 <button
-                    onClick={reset}
-                    className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold inline-flex items-center gap-2"
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RotateCcw size={18} /> Làm lại quiz
+                    Làm lại
                 </button>
             </div>
         );
     return (
-        <div className="max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm">
-                <span className="text-orange-300 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full">
-                    Câu {current + 1}/{quizQuestions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-indigo-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-xl font-bold text-white mb-6 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 flex-grow">
                 {q.options.map((opt, idx) => {
                     let cls =
-                        "w-full text-left p-4 rounded-xl border transition-all text-sm ";
-                    if (selected === null)
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
                         cls +=
-                            "bg-slate-950 border-slate-800 hover:bg-slate-800 text-slate-300";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
-                            "bg-green-500/10 border-green-500/40 text-green-300";
+                            "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "bg-red-500/10 border-red-500/40 text-red-300";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "bg-slate-950/50 border-slate-900 text-slate-600";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
-                            onClick={() => choose(idx)}
-                            disabled={selected !== null}
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
                             className={cls}
                         >
-                            <span className="text-slate-500 font-mono mr-2">
-                                {String.fromCharCode(65 + idx)}.
-                            </span>
                             {opt}
                         </button>
                     );
                 })}
             </div>
-            {selected !== null && (
-                <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`rounded-xl p-4 text-sm mb-5 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-200" : "bg-orange-500/10 border border-orange-500/20 text-orange-200"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info size={18} className="shrink-0 mt-0.5" />
-                        <div>
-                            <strong className="text-white block mb-1">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
-                        onClick={next}
-                        className="w-full md:w-auto md:px-8 py-3 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold ml-auto block"
+                        onClick={handleNext}
+                        className="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl transition-colors"
                     >
-                        {current === quizQuestions.length - 1
-                            ? "Xem kết quả"
-                            : "Câu tiếp theo"}
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu cơ chế và cách chọn bàn phím. Tiếp theo là chuột —
+                Mouse: cơ chế quang/laser, DPI, polling rate và vì sao chuột ảnh
+                hưởng lớn tới thao tác văn phòng, thiết kế và gaming.
+            </p>
+            <Link
+                to="/phan-10-2"
+                className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-indigo-500/20"
+            >
+                Bài tiếp theo: 10.2 — Chuột Mouse <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "indigo" }) {
+    const colorMap = {
+        indigo: "bg-indigo-500/20 text-indigo-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-indigo-500/10 border-indigo-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-5`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function InfoCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">
+                {label}
+            </p>
+            <p className="text-white font-bold leading-relaxed text-sm">
+                {value}
+            </p>
+        </div>
+    );
+}
+function RuleCard({ label, value, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-2xl p-5`}>
+            <p className={`${textColor(color)} font-bold text-sm mb-2`}>
+                {label}
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[760px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={`${row[0]}-${i}`}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function WarnBullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <AlertTriangle
+                className="text-orange-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        indigo: "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.indigo;
+}
+function softBorder(color) {
+    const map = {
+        indigo: "bg-indigo-500/5 border-indigo-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.indigo;
+}
+function textColor(color) {
+    const map = {
+        indigo: "text-indigo-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        cyan: "text-cyan-300",
+        emerald: "text-emerald-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-indigo-300";
 }

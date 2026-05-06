@@ -1,1132 +1,1544 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
-    Terminal,
-    Braces,
-    Type,
-    Hash,
-    List,
-    Keyboard,
-    ShieldCheck,
-    Globe2,
-    Play,
-    Copy,
-    Info,
-    CheckCircle2,
-    XCircle,
     AlertTriangle,
+    Award,
+    BookOpen,
+    Brain,
+    CheckCircle2,
     ChevronRight,
-    RotateCcw,
-    Sparkles,
-    EyeOff,
-    Clock,
-    Mail,
-    UserPlus,
-    Server,
     Cpu,
+    Database,
+    Fan,
+    Gamepad2,
+    Gauge,
     HardDrive,
-    MemoryStick,
-    Activity,
-    Menu,
-    ArrowRight,
-    Variable,
-    FileText,
+    Home,
+    Layers3,
+    Lightbulb,
+    Monitor,
+    PackageCheck,
+    PlugZap,
+    Puzzle,
+    Search,
     Settings,
+    ShieldCheck,
+    Sparkles,
+    Thermometer,
+    Workflow,
+    XCircle,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-orange-500 selection:text-white pb-20">
-            <header className="bg-slate-950/90 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white pb-20">
+            <header className="bg-slate-950/95 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-2xl">
-                            🐧
+                        <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 border border-indigo-400/30 flex items-center justify-center shadow-lg shadow-indigo-500/10">
+                            <Layers3 className="text-indigo-400" size={24} />
                         </div>
                         <div>
-                            <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                                Khóa học Linux/Ubuntu
+                            <h1 className="text-xl font-bold text-white tracking-tight">
+                                Khóa học Phần Cứng Máy Tính
                             </h1>
-                            <p className="text-xs text-slate-500 hidden sm:block">
-                                Bash Script · Input · Validation
+                            <p className="text-xs text-slate-500">
+                                Phần 8: Case — Vỏ máy tính
                             </p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-500 hidden md:inline-block">
-                            Chương 8
-                        </span>
-                        <div className="text-sm font-semibold text-orange-300 bg-orange-400/10 px-3 py-1 rounded-full border border-orange-400/20">
-                            Bài 8.2
-                        </div>
+                    <div className="text-sm font-semibold text-indigo-300 bg-indigo-400/10 px-3 py-1 rounded-full border border-indigo-400/20">
+                        Bài 8.2
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto px-4 py-8 space-y-16">
-                <section className="text-center py-8 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 text-slate-400 text-sm">
-                        <Sparkles size={16} className="text-orange-400" /> Làm
-                        script biết nhớ, tính toán và hỏi người dùng
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                        Biến, Kiểu Dữ Liệu <br />
-                        <span className="text-orange-500">
-                            & Nhập Liệu Người Dùng
-                        </span>
-                    </h2>
-                    <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                        Bài này giúp bạn viết script linh hoạt hơn: lưu dữ liệu
-                        bằng biến, xử lý chuỗi/số/mảng, nhận input bằng{" "}
-                        <code className="text-orange-300">read</code>, kiểm tra
-                        dữ liệu và dùng biến môi trường.
-                    </p>
-                </section>
-
-                <section className="grid lg:grid-cols-2 gap-6 items-stretch">
-                    <VariableConceptCard />
-                    <InteractiveVariableDemo />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="1"
-                        color="blue"
-                        icon={<Variable size={22} />}
-                        title="Biến – Ôn lại & nâng cao"
-                        subtitle="Biến trong Bash rất đơn giản, nhưng chỉ cần sai khoảng trắng quanh dấu = là script lỗi ngay."
-                    />
-                    <VariablesAdvanced />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="2"
-                        color="purple"
-                        icon={<Type size={22} />}
-                        title="Kiểu dữ liệu trong Bash"
-                        subtitle="Bash không ép kiểu cứng như Python/Java. Mặc định mọi thứ là chuỗi, nhưng có thể xử lý như số hoặc mảng."
-                    />
-                    <DataTypesTabs />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="3"
-                        color="green"
-                        icon={<Keyboard size={22} />}
-                        title="read – Nhập liệu từ người dùng"
-                        subtitle="read biến script thành chương trình tương tác: hỏi tên, tuổi, mật khẩu, xác nhận, timeout và đọc file."
-                    />
-                    <ReadPlayground />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="4"
-                        color="orange"
-                        icon={<Menu size={22} />}
-                        title="Script thực tế – Menu tương tác"
-                        subtitle="Một script quản trị hệ thống có menu để người dùng chọn tác vụ cần chạy."
-                    />
-                    <MenuScriptSimulator />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="5"
-                        color="red"
-                        icon={<ShieldCheck size={22} />}
-                        title="Validate – Kiểm tra input người dùng"
-                        subtitle="Không bao giờ tin input người dùng. Hãy kiểm tra trống, số, khoảng giá trị, email, username và mật khẩu."
-                    />
-                    <ValidationSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="6"
-                        color="cyan"
-                        icon={<Globe2 size={22} />}
-                        title="Biến môi trường"
-                        subtitle="Biến môi trường giúp truyền cấu hình cho shell, script con và ứng dụng mà không cần hard-code vào file."
-                    />
-                    <EnvironmentSection />
-                </section>
-
-                <section className="space-y-6">
-                    <SectionTitle
-                        number="7"
-                        color="teal"
-                        icon={<FileText size={22} />}
-                        title="Tóm tắt nhanh"
-                        subtitle="Các cú pháp quan trọng nhất của bài 8.2: biến, chuỗi, mảng, nhập liệu và số học."
-                    />
-                    <SummaryGrid />
-                </section>
-
-                <section className="pt-4">
-                    <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-                        <div className="p-6 border-b border-slate-800 flex items-center justify-between gap-4">
-                            <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <ShieldCheck className="text-orange-400" />{" "}
-                                    Kiểm tra kiến thức bài 8.2
-                                </h3>
-                                <p className="text-slate-500 text-sm mt-1">
-                                    Kiểm tra nhanh biến, kiểu dữ liệu, read và
-                                    validate.
-                                </p>
-                            </div>
-                            <div className="hidden sm:block text-3xl">🧪</div>
-                        </div>
-                        <div className="p-6 md:p-8">
-                            <InteractiveQuiz />
-                        </div>
-                    </div>
-                </section>
-
-                <footer className="text-center pt-8 border-t border-slate-800">
-                    <p className="text-slate-400 mb-4">
-                        Sau khi biết nhận dữ liệu, bước tiếp theo là cho script
-                        ra quyết định bằng điều kiện.
-                    </p>
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-orange-500/20">
-                        Bài tiếp theo: 8.3 — if, else, case{" "}
-                        <ChevronRight size={20} />
-                    </button>
-                </footer>
+            <main className="max-w-5xl mx-auto px-4 py-8 space-y-16">
+                <HeroSection />
+                <LearningGoals />
+                <CoreConcept />
+                <HomeSizeAnalogy />
+                <SizeImpactSimulator />
+                <CaseSizeExplorer />
+                <ComparisonMatrix />
+                <MotherboardCompatibility />
+                <SpecsExplorer />
+                <RealExamples />
+                <PickerLab />
+                <CommonMistakes />
+                <SummaryAndQuiz />
+                <NextLesson />
             </main>
         </div>
     );
 }
 
-function SectionTitle({ number, color, icon, title, subtitle }) {
-    const colorMap = {
-        blue: "bg-blue-500/20 text-blue-400",
-        purple: "bg-purple-500/20 text-purple-400",
-        green: "bg-green-500/20 text-green-400",
-        orange: "bg-orange-500/20 text-orange-400",
-        red: "bg-red-500/20 text-red-400",
-        cyan: "bg-cyan-500/20 text-cyan-400",
-        teal: "bg-teal-500/20 text-teal-400",
-    };
+function HeroSection() {
     return (
-        <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                <span
-                    className={`${colorMap[color]} p-2 rounded-xl inline-flex items-center gap-2`}
-                >
-                    <span className="text-sm font-black">{number}</span>
-                    {icon}
-                </span>
-                {title}
-            </h3>
-            <p className="text-slate-400 mt-2 max-w-3xl">{subtitle}</p>
-        </div>
-    );
-}
-
-function CodeBlock({ title, code, note }) {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-300">
-                    <Terminal size={16} className="text-orange-400" /> {title}
-                </div>
-                <Copy size={15} className="text-slate-600" />
-            </div>
-            <pre className="p-5 overflow-x-auto text-sm leading-6 text-slate-200">
-                <code>{code}</code>
-            </pre>
-            {note && (
-                <div className="px-5 pb-5 text-xs text-slate-500">{note}</div>
-            )}
-        </div>
-    );
-}
-
-function Kbd({ children }) {
-    return (
-        <kbd className="bg-slate-800 border border-slate-600 text-slate-200 px-2 py-1 rounded-md text-xs font-sans shadow-sm inline-block">
-            {children}
-        </kbd>
-    );
-}
-
-function VariableConceptCard() {
-    return (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-blue-500/15 text-blue-400 rounded-2xl flex items-center justify-center">
-                    <Braces size={26} />
-                </div>
-                <div>
-                    <h3 className="text-2xl font-bold text-white">
-                        Biến là gì?
-                    </h3>
-                    <p className="text-slate-500 text-sm">
-                        Một “ô nhớ” có tên để lưu dữ liệu
+        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+            <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-sky-500/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
+                <div className="space-y-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm text-indigo-300">
+                        <BookOpen size={16} /> Phần 8: Case — Kích thước vỏ máy
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                        Phân loại case
+                        <span className="block text-indigo-400">
+                            theo kích thước
+                        </span>
+                    </h2>
+                    <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
+                        Case to hay nhỏ không chỉ là thẩm mỹ. Kích thước case
+                        quyết định mainboard lắp được, GPU dài bao nhiêu vừa,
+                        tản nhiệt nào dùng được, số quạt, airflow, độ ồn và khả
+                        năng nâng cấp.
                     </p>
-                </div>
-            </div>
-            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 font-mono text-sm space-y-3">
-                <div>
-                    <span className="text-purple-400">ten</span>=
-                    <span className="text-green-400">"Alice"</span>
-                </div>
-                <div>
-                    <span className="text-purple-400">tuoi</span>=
-                    <span className="text-green-400">25</span>
-                </div>
-                <div>
-                    <span className="text-purple-400">ngay</span>=
-                    <span className="text-green-400">$(date +%Y-%m-%d)</span>
-                </div>
-                <div className="border-t border-slate-800 pt-3 text-slate-500">
-                    echo "Xin chào,{" "}
-                    <span className="text-orange-300">$ten</span>"
-                </div>
-            </div>
-            <div className="grid sm:grid-cols-3 gap-3 mt-5">
-                <MiniConcept
-                    icon={<Type size={18} />}
-                    title="Chuỗi"
-                    desc="Tên, đường dẫn, email"
-                />
-                <MiniConcept
-                    icon={<Hash size={18} />}
-                    title="Số"
-                    desc="Tuổi, port, phép tính"
-                />
-                <MiniConcept
-                    icon={<List size={18} />}
-                    title="Mảng"
-                    desc="Danh sách giá trị"
-                />
-            </div>
-            <div className="mt-5 bg-orange-500/10 border border-orange-500/20 rounded-2xl p-4 text-sm text-orange-100 flex gap-3">
-                <Info size={20} className="text-orange-400 shrink-0 mt-0.5" />
-                <p>
-                    Trong Bash, khi in chuỗi có biến, nên dùng dấu nháy kép:{" "}
-                    <code className="text-white">"$ten"</code>. Cách này tránh
-                    lỗi khi giá trị có dấu cách.
-                </p>
-            </div>
-        </div>
-    );
-}
-
-function MiniConcept({ icon, title, desc }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
-            <div className="text-orange-400 mb-2">{icon}</div>
-            <div className="font-bold text-white text-sm">{title}</div>
-            <div className="text-xs text-slate-500 mt-1">{desc}</div>
-        </div>
-    );
-}
-
-function InteractiveVariableDemo() {
-    const [name, setName] = useState("Alice");
-    const [age, setAge] = useState("25");
-    const validAge = /^\d+$/.test(age);
-    return (
-        <div className="bg-gradient-to-br from-blue-500/20 via-slate-900 to-orange-500/20 border border-slate-800 rounded-3xl p-6 md:p-8 h-full">
-            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <Play className="text-orange-400" /> Thử thay giá trị biến
-            </h3>
-            <p className="text-slate-400 mb-6">
-                Nhập tên và tuổi để xem script tạo output như thế nào.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4 mb-5">
-                <label className="space-y-2">
-                    <span className="text-sm text-slate-400">ten</span>
-                    <input
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500"
-                    />
-                </label>
-                <label className="space-y-2">
-                    <span className="text-sm text-slate-400">tuoi</span>
-                    <input
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500"
-                    />
-                </label>
-            </div>
-            <CodeBlock
-                title="demo.sh"
-                code={`#!/bin/bash\nten="${name || ""}"\ntuoi="${age || ""}"\n\necho "Xin chào, $ten"\necho "Bạn $tuoi tuổi"`}
-            />
-            <div className="mt-5 bg-black border border-slate-800 rounded-2xl p-5">
-                <div className="text-xs text-slate-500 mb-3">
-                    Terminal output
-                </div>
-                <div className="font-mono text-sm text-green-400 space-y-1">
-                    <div>Xin chào, {name || ""}</div>
-                    <div>Bạn {age || ""} tuổi</div>
-                </div>
-            </div>
-            {!validAge && age && (
-                <div className="mt-4 bg-red-500/10 border border-red-500/20 text-red-200 rounded-xl p-3 text-sm flex gap-2">
-                    <AlertTriangle size={18} className="text-red-400" /> Tuổi
-                    hiện không phải số. Phần validate bên dưới sẽ xử lý lỗi này.
-                </div>
-            )}
-        </div>
-    );
-}
-
-function VariablesAdvanced() {
-    return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <CodeBlock
-                title="variables-advanced.sh"
-                code={`#!/bin/bash\n\n# Khai báo cơ bản\nten="Alice"\ntuoi=25\nluong=15000000\n\n# Dùng biến\necho $ten\necho ${ten}\necho "${ten} học Linux"\n\n# Biến từ kết quả lệnh\nngay=$(date +%Y-%m-%d)\nso_process=$(ps aux | wc -l)\nip=$(hostname -I | cut -d' ' -f1)\n\necho "Ngày   : $ngay"\necho "Process: $so_process"\necho "IP     : $ip"\n\n# Biến readonly\nreadonly VERSION="1.0.0"\nreadonly MAX_RETRY=3\n\n# Xoá biến\ntam="tạm thời"\necho $tam\nunset tam\necho $tam`}
-            />
-            <div className="space-y-6">
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-white mb-4">
-                        Đúng / Sai khi khai báo biến
-                    </h4>
-                    <div className="space-y-3">
-                        <Rule
-                            ok
-                            text={'ten="Alice"'}
-                            desc="Đúng: không có dấu cách quanh dấu ="
+                    <div className="flex flex-wrap gap-3 pt-2">
+                        <Tag icon={<Home size={16} />} text="Full Tower" />
+                        <Tag
+                            icon={<PackageCheck size={16} />}
+                            text="Mid Tower"
                         />
-                        <Rule
-                            bad
-                            text={'ten = "Alice"'}
-                            desc="Sai: Bash hiểu ten là lệnh, = là tham số"
+                        <Tag
+                            icon={<Monitor size={16} />}
+                            text="Mini Tower / mATX"
                         />
-                        <Rule
-                            bad
-                            text={'ten ="Alice"'}
-                            desc="Sai: vẫn có khoảng trắng trước dấu ="
+                        <Tag
+                            icon={<Sparkles size={16} />}
+                            text="Mini-ITX / SFF"
                         />
-                        <Rule
-                            bad
-                            text={'ten= "Alice"'}
-                            desc="Sai: Bash hiểu Alice là lệnh riêng"
+                        <Tag
+                            icon={<Gamepad2 size={16} />}
+                            text="GPU Clearance"
                         />
                     </div>
                 </div>
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-white mb-4">
-                        readonly và unset
-                    </h4>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
-                            <code className="text-orange-300 font-bold">
-                                readonly VERSION="1.0.0"
-                            </code>
-                            <p className="text-slate-400 text-sm mt-2">
-                                Tạo hằng số. Sau đó gán lại sẽ báo lỗi.
-                            </p>
-                        </div>
-                        <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
-                            <code className="text-orange-300 font-bold">
-                                unset tam
-                            </code>
-                            <p className="text-slate-400 text-sm mt-2">
-                                Xóa biến khỏi shell hiện tại.
-                            </p>
-                        </div>
+                <div className="bg-slate-950/70 rounded-3xl border border-slate-800 p-5 shadow-inner">
+                    <div className="grid grid-cols-2 gap-3">
+                        <HeroTile
+                            icon={<Home />}
+                            label="Full Tower"
+                            desc="Rộng nhất"
+                            color="blue"
+                        />
+                        <HeroTile
+                            icon={<PackageCheck />}
+                            label="Mid Tower"
+                            desc="Cân bằng"
+                            color="indigo"
+                            highlight
+                        />
+                        <HeroTile
+                            icon={<Monitor />}
+                            label="mATX"
+                            desc="Gọn, đủ dùng"
+                            color="emerald"
+                        />
+                        <HeroTile
+                            icon={<Sparkles />}
+                            label="Mini-ITX"
+                            desc="Siêu nhỏ"
+                            color="orange"
+                        />
+                    </div>
+                    <div className="mt-5 bg-slate-900 rounded-2xl border border-slate-800 p-4 font-mono text-sm">
+                        <p className="text-slate-500">// Quy tắc dễ nhớ</p>
+                        <p>Case lớn thường lắp main nhỏ</p>
+                        <p className="text-red-300">
+                            Case nhỏ không lắp main lớn
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
-function Rule({ ok, bad, text, desc }) {
-    return (
-        <div
-            className={`rounded-xl border p-4 ${bad ? "bg-red-500/10 border-red-500/20" : "bg-green-500/10 border-green-500/20"}`}
-        >
-            <div className="flex items-center gap-2">
-                {bad ? (
-                    <XCircle size={18} className="text-red-400" />
-                ) : (
-                    <CheckCircle2 size={18} className="text-green-400" />
-                )}
-                <code className={bad ? "text-red-200" : "text-green-200"}>
-                    {text}
-                </code>
-            </div>
-            <p className="text-slate-400 text-sm mt-1 ml-7">{desc}</p>
-        </div>
-    );
-}
-
-function DataTypesTabs() {
-    const [tab, setTab] = useState("string");
-    const tabs = [
-        { id: "string", label: "Chuỗi", icon: <Type size={16} /> },
-        { id: "number", label: "Số", icon: <Hash size={16} /> },
-        { id: "array", label: "Mảng", icon: <List size={16} /> },
+function LearningGoals() {
+    const goals = [
+        "Hiểu phân loại case theo kích thước là cách chia case theo độ lớn và khả năng chứa linh kiện.",
+        "Phân biệt Full Tower, Mid Tower, Mini Tower/Micro-ATX và Mini-ITX/SFF theo ưu, nhược điểm và đối tượng phù hợp.",
+        "Biết kích thước case ảnh hưởng đến mainboard, GPU, tản CPU, radiator, PSU, ổ cứng, airflow và độ ồn.",
+        "Nắm quy tắc tương thích mainboard: E-ATX, ATX, Micro-ATX, Mini-ITX và case tương ứng.",
+        "Biết checklist trước khi mua case: motherboard support, GPU clearance, CPU cooler clearance, radiator support, PSU support.",
     ];
     return (
-        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-3 border-b border-slate-800 bg-slate-950/60">
-                {tabs.map((t) => (
-                    <button
-                        key={t.id}
-                        onClick={() => setTab(t.id)}
-                        className={`px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 ${tab === t.id ? "bg-orange-500 text-white" : "bg-slate-900 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        {t.icon}
-                        {t.label}
-                    </button>
-                ))}
-            </div>
-            <div className="p-5">
-                {tab === "string" && <StringSection />}
-                {tab === "number" && <NumberSection />}
-                {tab === "array" && <ArraySection />}
-            </div>
-        </div>
-    );
-}
-
-function StringSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.4fr_0.8fr] gap-6">
-            <CodeBlock
-                title="string.sh"
-                code={`#!/bin/bash\n\nten="Ubuntu Linux"\n\n# Độ dài chuỗi\necho ${"#"}{ten}          # 12\n\n# Cắt chuỗi\necho ${"{"}ten:0:6{'}'}       # Ubuntu\necho ${"{"}ten:7{'}'}         # Linux\necho ${"{"}ten:7:5{'}'}       # Linux\n\n# Hoa / thường\nchuoi="hello world"\necho ${"{"}chuoi^{'}'}        # Hello world\necho ${"{"}chuoi^^{'}'}       # HELLO WORLD\n\nchuoi2="HELLO WORLD"\necho ${"{"}chuoi2,{'}'}       # hELLO WORLD\necho ${"{"}chuoi2,,{'}'}      # hello world\n\n# Thay thế\nduong_dan="/home/ubuntu/documents/file.txt"\necho ${"{"}duong_dan/ubuntu/alice{'}'}\necho ${"{"}duong_dan//o/0{'}'}\n\n# Xoá tiền tố / hậu tố\nfile="backup_20240115.tar.gz"\necho ${"{"}file#backup_{'}'}\necho ${"{"}file##*.{'}'}\necho ${"{"}file%.tar.gz{'}'}\necho ${"{"}file%%.*{'}'}\n\n# Giá trị mặc định\nten=""\necho ${"{"}ten:-"Người dùng ẩn danh"{'}'}\necho ${"{"}ten:="Người dùng ẩn danh"{'}'}`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="1"
+                color="indigo"
+                title="Mục tiêu bài học"
+                icon={<Award />}
             />
-            <CheatCard
-                title="Mẫu xử lý chuỗi hay dùng"
-                rows={[
-                    ["${#ten}", "Độ dài chuỗi"],
-                    ["${ten:0:5}", "Cắt chuỗi"],
-                    ["${ten^^}", "HOA tất cả"],
-                    ["${ten,,}", "thường tất cả"],
-                    ["${ten/cũ/mới}", "Thay lần đầu"],
-                    ["${ten//cũ/mới}", "Thay tất cả"],
-                    ["${ten:-mặc định}", "Dùng giá trị mặc định"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function NumberSection() {
-    return (
-        <div className="grid lg:grid-cols-[1.4fr_0.8fr] gap-6">
-            <CodeBlock
-                title="number.sh"
-                code={`#!/bin/bash\n\na=10\nb=3\n\necho $((a + b))       # 13\necho $((a - b))       # 7\necho $((a * b))       # 30\necho $((a / b))       # 3, chia nguyên\necho $((a % b))       # 1, chia dư\necho $((a ** b))      # 1000, luỹ thừa\n\n# Số thực với bc\necho "scale=2; 10 / 3" | bc\necho "scale=4; sqrt(2)" | bc\necho "scale=2; 15.5 * 3.14" | bc\n\n# Tăng / giảm\nx=5\n((x++))\n((x--))\n((x+=10))\n((x*=2))\necho $x\n\n# Kiểm tra số nguyên\ngia_tri="123"\nif [[ $gia_tri =~ ^[0-9]+$ ]]; then\n    echo "$gia_tri là số nguyên"\nelse\n    echo "$gia_tri không phải số"\nfi`}
-            />
-            <div className="space-y-6">
-                <CheatCard
-                    title="Toán tử số học"
-                    rows={[
-                        ["+", "Cộng"],
-                        ["-", "Trừ"],
-                        ["*", "Nhân"],
-                        ["/", "Chia nguyên"],
-                        ["%", "Chia dư"],
-                        ["**", "Lũy thừa"],
-                    ]}
-                />
-                <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm text-yellow-100 flex gap-3">
-                    <AlertTriangle
-                        size={20}
-                        className="text-yellow-400 shrink-0"
-                    />
-                    <p>
-                        <strong>Bash chia nguyên.</strong> Muốn tính số thực như
-                        10/3 = 3.33 thì dùng{" "}
-                        <code className="text-white">bc</code>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function ArraySection() {
-    return (
-        <div className="grid lg:grid-cols-[1.4fr_0.8fr] gap-6">
-            <CodeBlock
-                title="array.sh"
-                code={`#!/bin/bash\n\ntrai_cay=("táo" "cam" "xoài" "chuối")\n\necho ${"{"}trai_cay[0]{'}'}        # táo\necho ${"{"}trai_cay[2]{'}'}        # xoài\necho ${"{"}trai_cay[-1]{'}'}       # chuối\n\necho ${"{"}trai_cay[@]{'}'}        # tất cả phần tử\necho ${"#"}{trai_cay[@]}       # số phần tử\n\ntrai_cay+=("dưa hấu")\ntrai_cay[1]="quýt"\nunset trai_cay[3]\n\nfor qua in "${"{"}trai_cay[@]{'}'}"; do\n    echo "  - $qua"\ndone\n\necho ${"{"}trai_cay[@]:1:2{'}'}\n\n# Associative Array\ndeclare -A thong_tin\nthong_tin["ten"]="Alice"\nthong_tin["tuoi"]="25"\nthong_tin["phong"]="IT"\n\necho ${"{"}thong_tin["ten"]{'}'}\necho ${"{"}!thong_tin[@]{'}'}\necho ${"{"}thong_tin[@]{'}'}`}
-            />
-            <CheatCard
-                title="Mảng cần nhớ"
-                rows={[
-                    ['arr=("a" "b")', "Khai báo"],
-                    ["${arr[0]}", "Phần tử đầu"],
-                    ["${arr[@]}", "Tất cả phần tử"],
-                    ["${#arr[@]}", "Số phần tử"],
-                    ['arr+=("d")', "Thêm phần tử"],
-                    ["unset arr[1]", "Xóa phần tử"],
-                    ["declare -A map", "Mảng kết hợp"],
-                ]}
-            />
-        </div>
-    );
-}
-
-function CheatCard({ title, rows }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 h-fit">
-            <h4 className="font-bold text-white mb-4">{title}</h4>
-            <div className="space-y-2">
-                {rows.map(([cmd, desc]) => (
+            <div className="grid md:grid-cols-5 gap-3">
+                {goals.map((goal, i) => (
                     <div
-                        key={cmd}
-                        className="bg-slate-900 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3"
+                        key={goal}
+                        className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/50 transition-colors"
                     >
-                        <code className="text-orange-300 text-sm">{cmd}</code>
-                        <span className="text-xs text-slate-500 text-right">
-                            {desc}
-                        </span>
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-300 flex items-center justify-center font-bold mb-4">
+                            {i + 1}
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                            {goal}
+                        </p>
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     );
 }
 
-function ReadPlayground() {
-    const [mode, setMode] = useState("basic");
-    const examples = {
-        basic: {
-            label: "Nhập cơ bản",
-            icon: <Keyboard size={16} />,
-            code: `echo -n "Nhập tên của bạn: "\nread ten\necho "Xin chào, $ten!"`,
-            output: "Nhập tên của bạn: Alice\nXin chào, Alice!",
+function CoreConcept() {
+    const cards = [
+        {
+            icon: <Home />,
+            title: "Full Tower",
+            desc: "Căn nhà lớn: rộng, thoáng, chứa nhiều linh kiện, nhưng to và nặng.",
+            color: "blue",
         },
-        prompt: {
-            label: "Prompt -p",
-            icon: <Terminal size={16} />,
-            code: `read -p "Nhập tuổi: " tuoi\necho "Bạn $tuoi tuổi"`,
-            output: "Nhập tuổi: 25\nBạn 25 tuổi",
+        {
+            icon: <PackageCheck />,
+            title: "Mid Tower",
+            desc: "Căn hộ vừa đủ: cân bằng giữa kích thước, giá, tản nhiệt và nâng cấp.",
+            color: "indigo",
         },
-        password: {
-            label: "Mật khẩu -s",
-            icon: <EyeOff size={16} />,
-            code: `read -s -p "Nhập mật khẩu: " matkhau\necho ""\necho "Mật khẩu đã nhập (${"${#matkhau}"} ký tự)"`,
-            output: "Nhập mật khẩu: ******\nMật khẩu đã nhập (6 ký tự)",
+        {
+            icon: <Monitor />,
+            title: "Mini Tower / mATX",
+            desc: "Phòng gọn: tiết kiệm chỗ, đủ dùng, nhưng kén GPU/tản hơn.",
+            color: "emerald",
         },
-        multi: {
-            label: "Nhiều biến",
-            icon: <Braces size={16} />,
-            code: `read -p "Nhập họ và tên: " ho ten\necho "Họ: $ho"\necho "Tên: $ten"`,
-            output: "Nhập họ và tên: Nguyen An\nHọ: Nguyen\nTên: An",
+        {
+            icon: <Sparkles />,
+            title: "Mini-ITX / SFF",
+            desc: "Studio nhỏ: đẹp, tối giản, nhưng phải chọn linh kiện rất kỹ.",
+            color: "orange",
         },
-        onechar: {
-            label: "Một ký tự -n",
-            icon: <CheckCircle2 size={16} />,
-            code: `read -n 1 -p "Bạn có chắc không? (y/n): " xacnhan\necho ""\necho "Bạn chọn: $xacnhan"`,
-            output: "Bạn có chắc không? (y/n): y\nBạn chọn: y",
-        },
-        timeout: {
-            label: "Timeout -t",
-            icon: <Clock size={16} />,
-            code: `read -t 5 -p "Nhập tên (5 giây): " ten\nif [ $? -ne 0 ]; then\n    ten="Khách"\n    echo ""\n    echo "Hết thời gian! Dùng tên mặc định: $ten"\nfi`,
-            output: "Nhập tên (5 giây): \nHết thời gian! Dùng tên mặc định: Khách",
-        },
-        file: {
-            label: "Đọc file",
-            icon: <FileText size={16} />,
-            code: `while read -r dong; do\n    echo "Dòng: $dong"\ndone < /etc/hosts`,
-            output: "Dòng: 127.0.0.1 localhost\nDòng: 127.0.1.1 ubuntu",
-        },
-    };
-    const ex = examples[mode];
+    ];
     return (
-        <div className="grid lg:grid-cols-[320px_1fr] gap-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-2 h-fit">
-                {Object.entries(examples).map(([key, item]) => (
-                    <button
-                        key={key}
-                        onClick={() => setMode(key)}
-                        className={`w-full text-left p-4 rounded-xl border transition-all ${mode === key ? "bg-green-500/10 border-green-500/40 text-white" : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
-                    >
-                        <div className="flex items-center gap-3 text-sm font-semibold">
-                            {item.icon}
-                            {item.label}
-                        </div>
-                    </button>
-                ))}
-            </div>
-            <div className="grid lg:grid-cols-2 gap-6">
-                <CodeBlock
-                    title="read-example.sh"
-                    code={`#!/bin/bash\n\n${ex.code}`}
-                />
-                <div className="bg-black border border-slate-800 rounded-2xl p-5 min-h-[260px]">
-                    <div className="text-xs text-slate-500 mb-3">
-                        Terminal output mô phỏng
-                    </div>
-                    <pre className="font-mono text-sm text-green-400 whitespace-pre-wrap">
-                        {ex.output}
-                    </pre>
+        <section className="space-y-6">
+            <SectionTitle
+                number="2"
+                color="blue"
+                title="Phân loại case theo kích thước là gì?"
+                icon={<Brain />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <p className="text-slate-300 leading-relaxed mb-6">
+                    <strong className="text-white">
+                        Phân loại vỏ máy theo kích thước
+                    </strong>{" "}
+                    là cách chia case dựa trên độ lớn của khung máy, khả năng
+                    chứa mainboard, GPU, tản nhiệt, ổ cứng và hệ thống quạt.
+                    Case càng lớn thường càng dễ lắp, dễ tản nhiệt, dễ nâng cấp.
+                    Case càng nhỏ càng gọn đẹp, nhưng càng kén linh kiện và khó
+                    build.
+                </p>
+                <div className="grid md:grid-cols-4 gap-4">
+                    {cards.map((c) => (
+                        <RoleCard key={c.title} {...c} />
+                    ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
-function MenuScriptSimulator() {
-    const [choice, setChoice] = useState("1");
-    const outputs = {
-        1: "=== THÔNG TIN HỆ THỐNG ===\nLinux ubuntu 6.8.0-generic x86_64 GNU/Linux",
-        2: "=== DUNG LƯỢNG Ổ ĐĨA ===\nFilesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        50G   18G   30G  38% /",
-        3: "=== RAM ===\n               total        used        free\nMem:            7.7Gi       2.1Gi       4.3Gi",
-        4: "=== TOP 10 PROCESS ===\nUSER       PID %CPU %MEM COMMAND\nubuntu    512 12.5  2.1 firefox\nroot      101  3.2  0.5 systemd",
-        0: "Tạm biệt!",
-        x: "Lựa chọn không hợp lệ!",
+function HomeSizeAnalogy() {
+    const cards = [
+        {
+            icon: <Home />,
+            title: "Full Tower = nhà lớn",
+            desc: "Nhiều phòng, nhiều chỗ chứa đồ, dễ sửa chữa, nhưng chiếm diện tích.",
+            color: "blue",
+        },
+        {
+            icon: <PackageCheck />,
+            title: "Mid Tower = căn hộ vừa đủ",
+            desc: "Đa số nhu cầu đều sống thoải mái, không quá to, không quá chật.",
+            color: "indigo",
+        },
+        {
+            icon: <Monitor />,
+            title: "mATX = căn hộ nhỏ",
+            desc: "Gọn, tiết kiệm, đủ dùng nếu không mang quá nhiều đồ lớn.",
+            color: "emerald",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Mini-ITX = studio",
+            desc: "Đẹp và tối giản, nhưng mọi thứ phải đo đạc và sắp xếp kỹ.",
+            color: "orange",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="3"
+                color="amber"
+                title="Ví dụ đời thường: chọn nhà cho dàn PC"
+                icon={<Lightbulb />}
+            />
+            <div className="grid md:grid-cols-4 gap-4">
+                {cards.map((c) => (
+                    <AnalogyCard key={c.title} {...c} />
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function SizeImpactSimulator() {
+    const flows = {
+        large: {
+            title: "Case lớn",
+            color: "blue",
+            steps: [
+                {
+                    icon: <Layers3 />,
+                    title: "Không gian rộng",
+                    desc: "Dễ lắp main ATX/E-ATX, GPU dài, tản lớn và nhiều ổ cứng.",
+                },
+                {
+                    icon: <PlugZap />,
+                    title: "Dễ đi dây",
+                    desc: "Khoang sau rộng hơn, dây PSU/GPU/SATA dễ giấu và dễ buộc gọn.",
+                },
+                {
+                    icon: <Fan />,
+                    title: "Airflow thoáng hơn",
+                    desc: "Nhiều vị trí quạt/radiator giúp khí nóng thoát tốt hơn.",
+                },
+                {
+                    icon: <PackageCheck />,
+                    title: "Dễ nâng cấp",
+                    desc: "Thêm SSD/HDD, đổi GPU lớn, nâng tản nước dễ hơn.",
+                },
+                {
+                    icon: <AlertTriangle />,
+                    title: "Đổi lại",
+                    desc: "To, nặng, chiếm diện tích và có thể dư thừa với cấu hình phổ thông.",
+                },
+            ],
+        },
+        mid: {
+            title: "Mid Tower",
+            color: "indigo",
+            steps: [
+                {
+                    icon: <PackageCheck />,
+                    title: "Cân bằng",
+                    desc: "Đủ rộng cho đa số PC gaming, đồ họa, văn phòng cao cấp.",
+                },
+                {
+                    icon: <Gamepad2 />,
+                    title: "Đủ cho đa số GPU",
+                    desc: "Hầu hết GPU phổ thông đến cao cấp vừa nếu kiểm tra clearance.",
+                },
+                {
+                    icon: <Fan />,
+                    title: "Tản nhiệt tốt nếu thiết kế ổn",
+                    desc: "Nhiều mẫu hỗ trợ AIO 240/280/360mm và nhiều quạt.",
+                },
+                {
+                    icon: <Sparkles />,
+                    title: "Dễ sống nhất",
+                    desc: "Người mới build PC thường nên chọn Mid Tower airflow tốt.",
+                },
+            ],
+        },
+        small: {
+            title: "Case nhỏ",
+            color: "orange",
+            steps: [
+                {
+                    icon: <Sparkles />,
+                    title: "Gọn đẹp",
+                    desc: "Tiết kiệm không gian, dễ đặt trên bàn, setup tối giản.",
+                },
+                {
+                    icon: <Search />,
+                    title: "Phải kiểm tra từng mm",
+                    desc: "GPU dài, tản CPU cao, PSU ATX/SFX và radiator đều phải khớp.",
+                },
+                {
+                    icon: <Thermometer />,
+                    title: "Nhiệt dễ cao hơn",
+                    desc: "Không gian hẹp làm gió khó lưu thông, linh kiện nóng hơn nếu chọn sai.",
+                },
+                {
+                    icon: <XCircle />,
+                    title: "Khó nâng cấp",
+                    desc: "Ít khe, ít chỗ, khó đi dây, linh kiện Mini-ITX/SFX có thể đắt hơn.",
+                },
+            ],
+        },
+    };
+    const [mode, setMode] = useState("mid");
+    const [active, setActive] = useState(0);
+    const flow = flows[mode];
+    const step = flow.steps[active];
+    const switchMode = (m) => {
+        setMode(m);
+        setActive(0);
     };
     return (
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6">
-            <CodeBlock
-                title="menu.sh"
-                code={`#!/bin/bash\n# menu.sh – Script có menu tương tác\n\nhien_menu() {\n    clear\n    echo -e "\\e[36m╔══════════════════════════╗\\e[0m"\n    echo -e "\\e[36m║     QUẢN LÝ HỆ THỐNG    ║\\e[0m"\n    echo -e "\\e[36m╚══════════════════════════╝\\e[0m"\n    echo ""\n    echo "  1. Xem thông tin hệ thống"\n    echo "  2. Xem dung lượng ổ đĩa"\n    echo "  3. Xem RAM đang dùng"\n    echo "  4. Xem các process đang chạy"\n    echo "  0. Thoát"\n    echo ""\n    read -p "  Chọn [0-4]: " lua_chon\n}\n\nxu_ly() {\n    case $lua_chon in\n        1) uname -a ;;\n        2) df -h ;;\n        3) free -h ;;\n        4) ps aux --sort=-%cpu | head -11 ;;\n        0) echo "Tạm biệt!"; exit 0 ;;\n        *) echo -e "\\e[31mLựa chọn không hợp lệ!\\e[0m"; sleep 1 ;;\n    esac\n}\n\nwhile true; do\n    hien_menu\n    xu_ly\ndone`}
+        <section className="space-y-6">
+            <SectionTitle
+                number="4"
+                color="purple"
+                title="Vì sao kích thước case quan trọng?"
+                icon={<Workflow />}
             />
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 h-fit">
-                <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                    <Server className="text-orange-400" /> Mô phỏng chọn menu
-                </h4>
-                <div className="grid grid-cols-3 gap-2 mb-5">
-                    {["1", "2", "3", "4", "0", "x"].map((v) => (
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-3 mb-6">
+                    {Object.entries(flows).map(([key, f]) => (
                         <button
-                            key={v}
-                            onClick={() => setChoice(v)}
-                            className={`p-3 rounded-xl border font-bold ${choice === v ? "bg-orange-500 text-white border-orange-500" : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"}`}
+                            key={key}
+                            onClick={() => switchMode(key)}
+                            className={`rounded-2xl border p-4 font-bold transition-all ${mode === key ? `${softBorder(f.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
                         >
-                            {v}
+                            {f.title}
                         </button>
                     ))}
                 </div>
-                <div className="bg-black border border-slate-800 rounded-2xl p-5">
-                    <div className="text-xs text-slate-500 mb-3">
-                        Terminal output
-                    </div>
-                    <pre className="font-mono text-sm text-green-400 whitespace-pre-wrap">
-                        {outputs[choice]}
-                    </pre>
-                </div>
-                <div className="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
-                    <FeaturePill
-                        icon={<Menu size={16} />}
-                        text="while true tạo vòng lặp menu"
-                    />
-                    <FeaturePill
-                        icon={<Settings size={16} />}
-                        text="case xử lý từng lựa chọn"
-                    />
-                    <FeaturePill
-                        icon={<Keyboard size={16} />}
-                        text="read nhận lựa chọn"
-                    />
-                    <FeaturePill
-                        icon={<ArrowRight size={16} />}
-                        text="exit 0 thoát sạch"
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function FeaturePill({ icon, text }) {
-    return (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center gap-2 text-slate-400">
-            {icon}
-            <span>{text}</span>
-        </div>
-    );
-}
-
-function ValidationSection() {
-    const [input, setInput] = useState("alice_01");
-    const checks = [
-        { label: "Không để trống", ok: input.length > 0 },
-        {
-            label: "Chỉ chữ thường, số, gạch dưới",
-            ok: /^[a-z0-9_]+$/.test(input),
-        },
-        { label: "Tối thiểu 3 ký tự", ok: input.length >= 3 },
-    ];
-    return (
-        <div className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-                <CodeBlock
-                    title="validate-input.sh"
-                    code={`#!/bin/bash\n# Luôn kiểm tra input trước khi dùng!\n\n# Không được để trống\nread -p "Nhập tên: " ten\nif [ -z "$ten" ]; then\n    echo "Lỗi: Tên không được để trống!"\n    exit 1\nfi\n\n# Phải là số\nread -p "Nhập tuổi: " tuoi\nif ! [[ "$tuoi" =~ ^[0-9]+$ ]]; then\n    echo "Lỗi: Tuổi phải là số nguyên!"\n    exit 1\nfi\n\nif [ "$tuoi" -lt 1 ] || [ "$tuoi" -gt 120 ]; then\n    echo "Lỗi: Tuổi phải từ 1 đến 120!"\n    exit 1\nfi\n\n# Định dạng email\nread -p "Nhập email: " email\nif ! [[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$ ]]; then\n    echo "Lỗi: Email không hợp lệ!"\n    exit 1\nfi`}
-                />
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                        <UserPlus className="text-red-400" /> Test validate
-                        username
-                    </h4>
-                    <p className="text-slate-400 text-sm mb-5">
-                        Thử nhập username để xem các điều kiện validate hoạt
-                        động.
-                    </p>
-                    <input
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white outline-none focus:border-orange-500 mb-5"
-                        placeholder="vd: alice_01"
-                    />
-                    <div className="space-y-3">
-                        {checks.map((c) => (
+                <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 min-h-[320px] flex flex-col justify-between">
+                        <div>
                             <div
-                                key={c.label}
-                                className={`rounded-xl border p-3 flex items-center gap-3 ${c.ok ? "bg-green-500/10 border-green-500/20 text-green-200" : "bg-red-500/10 border-red-500/20 text-red-200"}`}
+                                className={`w-16 h-16 rounded-2xl ${badgeColor(flow.color)} flex items-center justify-center mb-5`}
                             >
-                                {c.ok ? (
-                                    <CheckCircle2
-                                        size={18}
-                                        className="text-green-400"
-                                    />
-                                ) : (
-                                    <XCircle
-                                        size={18}
-                                        className="text-red-400"
-                                    />
-                                )}
-                                <span className="text-sm">{c.label}</span>
+                                {React.cloneElement(step.icon, { size: 32 })}
                             </div>
-                        ))}
-                    </div>
-                    <div className="mt-5 bg-black border border-slate-800 rounded-xl p-4 font-mono text-sm">
-                        {checks.every((c) => c.ok) ? (
-                            <span className="text-green-400">
-                                ✓ Username hợp lệ
-                            </span>
-                        ) : (
-                            <span className="text-red-400">
-                                ✗ Username chưa hợp lệ
-                            </span>
-                        )}
-                    </div>
-                </div>
-            </div>
-            <CodeBlock
-                title="tao_user.sh"
-                code={`#!/bin/bash\n\nread -p "Tên đăng nhập mới: " username\n\n[ -z "$username" ] && echo "Lỗi: Không được trống!" && exit 1\n\n[[ ! "$username" =~ ^[a-z0-9_]+$ ]] && \\\n    echo "Lỗi: Chỉ dùng chữ thường, số, gạch dưới!" && exit 1\n\nid "$username" &>/dev/null && \\\n    echo "Lỗi: User '$username' đã tồn tại!" && exit 1\n\nread -s -p "Mật khẩu: " pass1\necho ""\nread -s -p "Nhập lại : " pass2\necho ""\n\n[ "$pass1" != "$pass2" ] && echo "Lỗi: Mật khẩu không khớp!" && exit 1\n[ ${"#"}{pass1} -lt 8 ]      && echo "Lỗi: Mật khẩu tối thiểu 8 ký tự!" && exit 1\n\necho "✓ Tạo user '$username' thành công!"\n# sudo useradd -m "$username"\n# echo "$username:$pass1" | sudo chpasswd`}
-            />
-        </div>
-    );
-}
-
-function EnvironmentSection() {
-    return (
-        <div className="grid lg:grid-cols-2 gap-6">
-            <div className="space-y-6">
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                    <h4 className="text-lg font-bold text-white mb-4">
-                        Biến môi trường có sẵn
-                    </h4>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                        {[
-                            ["$HOME", "/home/ubuntu"],
-                            ["$USER", "ubuntu"],
-                            ["$PATH", "đường dẫn tìm lệnh"],
-                            ["$SHELL", "/bin/bash"],
-                            ["$PWD", "thư mục hiện tại"],
-                            ["$HOSTNAME", "tên máy"],
-                            ["$LANG", "ngôn ngữ"],
-                            ["$TERM", "loại terminal"],
-                        ].map(([k, v]) => (
-                            <div
-                                key={k}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3"
+                            <p
+                                className={`${textColor(flow.color)} text-sm font-bold mb-2`}
                             >
-                                <code className="text-cyan-300 font-bold">
-                                    {k}
-                                </code>
-                                <div className="text-xs text-slate-500 mt-1">
-                                    {v}
-                                </div>
-                            </div>
-                        ))}
+                                Bước {active + 1}/{flow.steps.length}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-400 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                setActive((active + 1) % flow.steps.length)
+                            }
+                            className="mt-6 px-5 py-3 rounded-xl bg-purple-500 hover:bg-purple-600 text-white font-bold inline-flex items-center justify-center gap-2"
+                        >
+                            Bước tiếp theo <ChevronRight size={18} />
+                        </button>
                     </div>
-                </div>
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 text-sm text-blue-100 flex gap-3">
-                    <Info size={20} className="text-blue-400 shrink-0" />
-                    <p>
-                        Dùng <code className="text-white">env</code> hoặc{" "}
-                        <code className="text-white">printenv</code> để xem tất
-                        cả biến môi trường hiện có.
-                    </p>
-                </div>
-            </div>
-            <CodeBlock
-                title="environment.sh"
-                code={`# Đặt biến môi trường\nexport MY_APP_PORT=8080\nexport DB_HOST="localhost"\nexport DB_NAME="mydb"\n\n# Biến export được dùng ở script con\nexport CONFIG_DIR="/etc/myapp"\nbash child_script.sh\n\n# Đặt biến vĩnh viễn trong ~/.bashrc\necho 'export MY_VAR="giá trị"' >> ~/.bashrc\nsource ~/.bashrc\n\n# Đặt biến chỉ cho 1 lệnh\nLANG=C ls\nDEBUG=true ./script.sh`}
-            />
-        </div>
-    );
-}
-
-function SummaryGrid() {
-    const groups = [
-        {
-            title: "Biến",
-            rows: [
-                ['ten="hello"', "Khai báo"],
-                ["echo $ten", "Dùng biến"],
-                ["${ten}", "Rõ ràng hơn"],
-                ["ket_qua=$(lệnh)", "Gán từ output"],
-                ["readonly PI=3.14", "Hằng số"],
-                ["unset ten", "Xóa biến"],
-            ],
-        },
-        {
-            title: "Chuỗi",
-            rows: [
-                ["${#ten}", "Độ dài"],
-                ["${ten:0:5}", "Cắt chuỗi"],
-                ["${ten^^}", "HOA tất cả"],
-                ["${ten,,}", "thường tất cả"],
-                ["${ten/cũ/mới}", "Thay lần đầu"],
-                ["${ten:-mặc định}", "Giá trị mặc định"],
-            ],
-        },
-        {
-            title: "Mảng",
-            rows: [
-                ['arr=("a" "b")', "Khai báo"],
-                ["${arr[0]}", "Phần tử đầu"],
-                ["${arr[@]}", "Tất cả"],
-                ["${#arr[@]}", "Số phần tử"],
-                ['arr+=("d")', "Thêm phần tử"],
-            ],
-        },
-        {
-            title: "Nhập liệu",
-            rows: [
-                ["read ten", "Nhập biến"],
-                ["read -p", "Có prompt"],
-                ["read -s", "Ẩn mật khẩu"],
-                ["read -t 5", "Timeout"],
-                ["read -n 1", "Một ký tự"],
-            ],
-        },
-        {
-            title: "Số học",
-            rows: [
-                ["$((a + b))", "Cộng trừ nhân chia"],
-                ["$((a % b))", "Chia dư"],
-                ["$((a ** b))", "Lũy thừa"],
-                ["bc", "Số thực"],
-            ],
-        },
-    ];
-    return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {groups.map((g) => (
-                <div
-                    key={g.title}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-5"
-                >
-                    <h4 className="font-bold text-white mb-4">{g.title}</h4>
                     <div className="space-y-2">
-                        {g.rows.map(([cmd, desc]) => (
-                            <div
-                                key={cmd}
-                                className="bg-slate-950 border border-slate-800 rounded-xl p-3"
+                        {flow.steps.map((s, i) => (
+                            <button
+                                key={s.title}
+                                onClick={() => setActive(i)}
+                                className={`w-full flex items-center gap-4 p-3 rounded-2xl border text-left transition-all ${active === i ? `${softBorder(flow.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-500 hover:text-slate-300"}`}
                             >
-                                <code className="text-orange-300 text-sm">
-                                    {cmd}
-                                </code>
-                                <div className="text-xs text-slate-500 mt-1">
-                                    {desc}
+                                <div
+                                    className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active === i ? badgeColor(flow.color) : "bg-slate-900 text-slate-500"}`}
+                                >
+                                    {i + 1}
                                 </div>
+                                <div>
+                                    <p className="font-bold text-sm">
+                                        {s.title}
+                                    </p>
+                                    <p className="text-xs opacity-75 mt-1">
+                                        {s.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CaseSizeExplorer() {
+    const types = {
+        full: {
+            icon: <Home />,
+            title: "Full Tower",
+            color: "blue",
+            height: "~55–70cm",
+            board: "E-ATX, ATX, mATX, Mini-ITX",
+            gpu: "GPU dài, nhiều khe PCIe",
+            cooling: "Tản khí lớn, AIO 360/420mm, custom loop",
+            storage: "Nhiều HDD/SSD",
+            fit: "Workstation, PC cao cấp, custom water cooling",
+            good: [
+                "Rất dễ lắp ráp",
+                "Tản nhiệt tốt",
+                "Nâng cấp lâu dài",
+                "Hỗ trợ linh kiện lớn",
+            ],
+            bad: [
+                "Chiếm diện tích",
+                "Nặng, khó di chuyển",
+                "Giá thường cao",
+                "Dư thừa với cấu hình phổ thông",
+            ],
+        },
+        mid: {
+            icon: <PackageCheck />,
+            title: "Mid Tower",
+            color: "indigo",
+            height: "~40–55cm",
+            board: "ATX, mATX, Mini-ITX",
+            gpu: "Đủ cho đa số GPU hiện nay",
+            cooling: "Tản khí lớn, AIO 240/280/360mm tùy mẫu",
+            storage: "Đủ cho 1–2 SSD/HDD hoặc hơn",
+            fit: "Gaming, đồ họa, văn phòng cao cấp, người mới build",
+            good: [
+                "Cân bằng nhất",
+                "Dễ mua, dễ build",
+                "Giá đa dạng",
+                "Đủ cho hầu hết PC gaming",
+            ],
+            bad: [
+                "Không rộng bằng Full Tower",
+                "Một số mẫu rẻ airflow/dây chưa tốt",
+                "GPU cực lớn vẫn cần kiểm tra",
+            ],
+        },
+        matx: {
+            icon: <Monitor />,
+            title: "Mini Tower / Micro-ATX",
+            color: "emerald",
+            height: "Nhỏ hơn Mid Tower",
+            board: "mATX, Mini-ITX",
+            gpu: "Có thể lắp GPU rời nhưng phải kiểm tra",
+            cooling: "Hạn chế hơn Mid Tower",
+            storage: "Vừa đủ nhu cầu phổ thông",
+            fit: "Văn phòng, học tập, gaming tầm trung",
+            good: [
+                "Gọn hơn Mid Tower",
+                "Giá dễ chịu",
+                "Phù hợp bàn nhỏ",
+                "Đủ cho cấu hình vừa",
+            ],
+            bad: [
+                "Hạn chế nâng cấp",
+                "Ít khe PCIe hơn",
+                "Đi dây khó hơn",
+                "Một số GPU dài không vừa",
+            ],
+        },
+        itx: {
+            icon: <Sparkles />,
+            title: "Mini-ITX / SFF",
+            color: "orange",
+            height: "Rất nhỏ",
+            board: "Mini-ITX",
+            gpu: "Cần kiểm tra rất kỹ",
+            cooling: "Hạn chế tản khí/radiator",
+            storage: "Ít ổ hơn",
+            fit: "Setup tối giản, PC để bàn nhỏ, người có kinh nghiệm",
+            good: [
+                "Rất gọn",
+                "Đẹp, tối giản",
+                "Dễ đặt trên bàn",
+                "Hợp phòng nhỏ",
+            ],
+            bad: [
+                "Khó build",
+                "Dễ nóng nếu chọn sai",
+                "Linh kiện thường đắt",
+                "Nâng cấp khó hơn",
+            ],
+        },
+    };
+    const [active, setActive] = useState("mid");
+    const item = types[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="5"
+                color="indigo"
+                title="Explorer: từng loại case theo kích thước"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    {Object.entries(types).map(([key, t]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(t.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(t.icon, { size: 20 })}{" "}
+                                {t.title}
+                            </div>
+                            <p className="text-xs opacity-75 mt-1">{t.board}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="grid lg:grid-cols-[0.75fr_1.25fr] gap-6">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div
+                            className={`w-16 h-16 rounded-2xl ${badgeColor(item.color)} flex items-center justify-center mb-5`}
+                        >
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-extrabold text-white mb-2">
+                            {item.title}
+                        </h3>
+                        <p
+                            className={`${textColor(item.color)} font-semibold mb-4`}
+                        >
+                            {item.height}
+                        </p>
+                        <div className="space-y-3 text-sm text-slate-300">
+                            <p>
+                                <strong className="text-white">
+                                    Mainboard:
+                                </strong>{" "}
+                                {item.board}
+                            </p>
+                            <p>
+                                <strong className="text-white">GPU:</strong>{" "}
+                                {item.gpu}
+                            </p>
+                            <p>
+                                <strong className="text-white">
+                                    Tản nhiệt:
+                                </strong>{" "}
+                                {item.cooling}
+                            </p>
+                            <p>
+                                <strong className="text-white">Ổ cứng:</strong>{" "}
+                                {item.storage}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div
+                            className={`${softBorder(item.color)} border rounded-3xl p-5`}
+                        >
+                            <p
+                                className={`${textColor(item.color)} font-bold mb-3`}
+                            >
+                                Ưu điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.good.map((g) => (
+                                    <Bullet key={g} text={g} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-5">
+                            <p className="text-red-300 font-bold mb-3">
+                                Nhược điểm
+                            </p>
+                            <div className="space-y-2">
+                                {item.bad.map((b) => (
+                                    <WarnBullet key={b} text={b} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="md:col-span-2 bg-slate-950 border border-slate-800 rounded-2xl p-5 text-sm text-slate-300">
+                            <strong className={textColor(item.color)}>
+                                Phù hợp:
+                            </strong>{" "}
+                            {item.fit}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function ComparisonMatrix() {
+    const rows = [
+        [
+            "Full Tower",
+            "Rất lớn",
+            "E-ATX, ATX, mATX, Mini-ITX",
+            "Rộng, dễ lắp, tản tốt, nâng cấp mạnh",
+            "To, nặng, đắt, chiếm diện tích",
+            "Workstation, PC cao cấp, custom water cooling",
+        ],
+        [
+            "Mid Tower",
+            "Trung bình",
+            "ATX, mATX, Mini-ITX",
+            "Cân bằng nhất, dễ mua, dễ build",
+            "Không rộng bằng Full Tower",
+            "Gaming, đồ họa, văn phòng cao cấp",
+        ],
+        [
+            "Mini Tower / mATX",
+            "Nhỏ-vừa",
+            "mATX, Mini-ITX",
+            "Gọn, rẻ, đủ dùng",
+            "Hạn chế GPU/tản/quạt",
+            "Văn phòng, học tập, gaming tầm trung",
+        ],
+        [
+            "Mini-ITX / SFF",
+            "Rất nhỏ",
+            "Mini-ITX",
+            "Siêu gọn, đẹp, tiết kiệm không gian",
+            "Khó lắp, nóng hơn, kén linh kiện",
+            "Setup tối giản, PC nhỏ, người có kinh nghiệm",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="6"
+                color="blue"
+                title="Bảng so sánh tổng quan"
+                icon={<Layers3 />}
+            />
+            <DataTable
+                title="Full Tower vs Mid Tower vs Mini Tower vs Mini-ITX"
+                rows={rows}
+                headers={[
+                    "Loại case",
+                    "Kích thước",
+                    "Mainboard thường hỗ trợ",
+                    "Ưu điểm",
+                    "Nhược điểm",
+                    "Phù hợp với",
+                ]}
+                accent="blue"
+            />
+        </section>
+    );
+}
+
+function MotherboardCompatibility() {
+    const rows = [
+        [
+            "E-ATX",
+            "Full Tower, một số Mid Tower lớn",
+            "Luôn kiểm tra chiều rộng E-ATX và khoang dây",
+        ],
+        [
+            "ATX",
+            "Full Tower, Mid Tower",
+            "Không lắp được vào case mATX/Mini-ITX nhỏ",
+        ],
+        [
+            "Micro-ATX",
+            "Full Tower, Mid Tower, Mini Tower",
+            "Có thể lắp vào case ATX nhưng nhìn trống hơn",
+        ],
+        [
+            "Mini-ITX",
+            "Gần như mọi loại case",
+            "Thường dùng với Mini-ITX case để tối ưu kích thước",
+        ],
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="7"
+                color="cyan"
+                title="Mối quan hệ giữa case và mainboard"
+                icon={<PackageCheck />}
+            />
+            <DataTable
+                title="Mainboard nào lắp vào case nào?"
+                rows={rows}
+                headers={["Mainboard", "Có thể lắp vào", "Lưu ý"]}
+                accent="cyan"
+            />
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-2xl p-5 font-mono text-sm text-slate-300">
+                Case lớn thường lắp được mainboard nhỏ
+                <br />
+                Case nhỏ không lắp được mainboard lớn
+                <br />
+                <span className="text-red-300">
+                    Mainboard ATX → không lắp được vào Mini-ITX case
+                </span>
+            </div>
+        </section>
+    );
+}
+
+function SpecsExplorer() {
+    const specs = {
+        motherboard: {
+            icon: <Layers3 />,
+            title: "Motherboard Support",
+            detail: "Case có hỗ trợ ATX, mATX, Mini-ITX hoặc E-ATX không.",
+            impact: "Đây là bước đầu tiên. Sai form factor là không lắp được mainboard.",
+        },
+        gpu: {
+            icon: <Gamepad2 />,
+            title: "GPU Clearance",
+            detail: "Chiều dài tối đa của card đồ họa mà case chứa được.",
+            impact: "GPU dài + radiator trước dày có thể khiến card bị cấn dù case ghi hỗ trợ ATX.",
+        },
+        cooler: {
+            icon: <Thermometer />,
+            title: "CPU Cooler Clearance",
+            detail: "Chiều cao tản nhiệt khí tối đa để đóng được nắp hông.",
+            impact: "Tản 158mm với case hỗ trợ 160mm là vừa nhưng rất sát; nên có thêm khoảng dư nếu được.",
+        },
+        radiator: {
+            icon: <Fan />,
+            title: "Radiator Support",
+            detail: "Case có lắp được AIO 240/280/360/420mm ở trước hoặc trên không.",
+            impact: "AIO 360mm cần kiểm tra vị trí gắn, độ dày radiator/quạt, có cấn RAM/main/GPU không.",
+        },
+        psu: {
+            icon: <PlugZap />,
+            title: "PSU Support",
+            detail: "Case dùng PSU ATX thường, SFX, SFX-L hay TFX.",
+            impact: "Mini-ITX/SFF thường cần SFX/SFX-L, đắt hơn ATX phổ thông và cần kiểm tra dây.",
+        },
+        storage: {
+            icon: <HardDrive />,
+            title: "Ổ cứng",
+            detail: "Số vị trí lắp SSD/HDD 2.5 inch, 3.5 inch và khay ổ.",
+            impact: "Máy NAS/nhiều HDD không nên chọn case quá nhỏ nếu không có đủ khay và airflow cho ổ.",
+        },
+    };
+    const [active, setActive] = useState("gpu");
+    const item = specs[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="8"
+                color="yellow"
+                title="5+ thông số phải kiểm tra trước khi mua case"
+                icon={<Puzzle />}
+            />
+            <div className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 p-2 bg-slate-950/60 border-b border-slate-800">
+                    {Object.entries(specs).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`flex flex-col items-center justify-center gap-2 rounded-2xl p-4 text-center transition-all ${active === key ? "bg-yellow-500 text-slate-950" : "bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200"}`}
+                        >
+                            {React.cloneElement(s.icon, { size: 20 })}
+                            <span className="font-bold text-xs">{s.title}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="p-6 md:p-8 grid md:grid-cols-[0.8fr_1.2fr] gap-6 items-start">
+                    <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6">
+                        <div className="w-16 h-16 rounded-2xl bg-yellow-500/10 text-yellow-300 border border-yellow-500/20 flex items-center justify-center mb-5">
+                            {React.cloneElement(item.icon, { size: 32 })}
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                            {item.title}
+                        </h3>
+                    </div>
+                    <div className="space-y-4 text-slate-300 leading-relaxed">
+                        <p>{item.detail}</p>
+                        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl p-5 text-sm">
+                            <strong className="text-yellow-300">
+                                Tác động thực tế:
+                            </strong>{" "}
+                            {item.impact}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function RealExamples() {
+    const examples = [
+        {
+            icon: <Home />,
+            title: "NZXT H9 Flow",
+            subtitle: "Large dual-chamber / case rất rộng",
+            color: "blue",
+            points: [
+                "Không gian lớn",
+                "Hỗ trợ nhiều quạt",
+                "Radiator lớn tới 420mm theo mô tả",
+                "Hợp GPU dài và setup trưng bày",
+                "Không hợp bàn nhỏ/cấu hình văn phòng",
+            ],
+            lesson: "Case rất rộng hợp PC cao cấp, AIO lớn, nhiều quạt và người muốn khoang đi dây thoải mái.",
+        },
+        {
+            icon: <PackageCheck />,
+            title: "Fractal Design North",
+            subtitle: "ATX Mid-Tower",
+            color: "indigo",
+            points: [
+                "Thiết kế mặt trước gỗ",
+                "Tập trung airflow",
+                "Hợp mainboard ATX",
+                "Phù hợp Ryzen 5/Core i5 + RTX 4070 class",
+                "Cân bằng đẹp, thoáng và vừa phải",
+            ],
+            lesson: "Mid Tower như Fractal North là lựa chọn cân bằng cho gaming đẹp và thực dụng.",
+        },
+        {
+            icon: <Monitor />,
+            title: "Cooler Master MasterBox Q300L",
+            subtitle: "Micro-ATX nhỏ gọn",
+            color: "emerald",
+            points: [
+                "Hỗ trợ mATX/Mini-ITX",
+                "Hợp PC học tập/văn phòng",
+                "Gọn và giá dễ chịu",
+                "Không hợp GPU rất dài",
+                "Không dành cho build quá nóng/nhiều linh kiện",
+            ],
+            lesson: "Mini Tower/mATX hợp cấu hình phổ thông, nhưng cần kiểm tra GPU/tản khi lắp GPU rời.",
+        },
+        {
+            icon: <Sparkles />,
+            title: "Cooler Master NR200",
+            subtitle: "Mini-ITX / SFF",
+            color: "orange",
+            points: [
+                "Nhỏ gọn",
+                "Dùng main Mini-ITX",
+                "Thường dùng PSU SFX",
+                "Có thể hỗ trợ GPU khá lớn tùy mẫu",
+                "Cần kinh nghiệm kiểm tra kích thước",
+            ],
+            lesson: "Mini-ITX đẹp và gọn, nhưng không phải lựa chọn rẻ hoặc dễ nhất cho người mới.",
+        },
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="9"
+                color="pink"
+                title="Ví dụ thực tế"
+                icon={<PackageCheck />}
+            />
+            <div className="grid lg:grid-cols-4 gap-4">
+                {examples.map((e) => (
+                    <div
+                        key={e.title}
+                        className="bg-slate-900 border border-slate-800 rounded-3xl p-5 hover:border-pink-500/40 transition-all"
+                    >
+                        <div
+                            className={`w-12 h-12 rounded-2xl ${badgeColor(e.color)} flex items-center justify-center mb-4`}
+                        >
+                            {React.cloneElement(e.icon, { size: 24 })}
+                        </div>
+                        <h3 className="text-white font-bold text-base mb-1">
+                            {e.title}
+                        </h3>
+                        <p className="text-pink-300 text-xs font-semibold mb-4">
+                            {e.subtitle}
+                        </p>
+                        <div className="space-y-2 mb-5">
+                            {e.points.map((p) => (
+                                <Bullet key={p} text={p} />
+                            ))}
+                        </div>
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs text-slate-300">
+                            <strong className="text-pink-300">Bài học:</strong>{" "}
+                            {e.lesson}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function PickerLab() {
+    const scenarios = {
+        beginner: {
+            icon: <PackageCheck />,
+            title: "Người mới build gaming",
+            answer: "Chọn Mid Tower airflow tốt. Đây là lựa chọn an toàn nhất: dễ lắp, dễ đi dây, dễ nâng cấp, hỗ trợ ATX/mATX/Mini-ITX và đủ cho đa số GPU.",
+            color: "indigo",
+        },
+        budget: {
+            icon: <Monitor />,
+            title: "Tiết kiệm chi phí",
+            answer: "Chọn combo mATX + Mini Tower hoặc Mid Tower giá tốt. Thường rẻ và dễ sống hơn Mini-ITX/SFF.",
+            color: "emerald",
+        },
+        highend: {
+            icon: <Gamepad2 />,
+            title: "GPU cao cấp",
+            answer: "Chọn Mid Tower lớn hoặc Full Tower airflow tốt. Kiểm tra GPU length, radiator, dây 12VHPWR/12V-2x6 và airflow cho GPU.",
+            color: "orange",
+        },
+        workstation: {
+            icon: <Database />,
+            title: "Workstation/nhiều ổ",
+            answer: "Full Tower hoặc case lớn có nhiều khay ổ, nhiều vị trí quạt/radiator và không gian đi dây rộng sẽ hợp hơn.",
+            color: "blue",
+        },
+        sff: {
+            icon: <Sparkles />,
+            title: "Setup nhỏ gọn",
+            answer: "Mini-ITX/SFF chỉ nên chọn nếu thật sự cần nhỏ hoặc thích setup tối giản. Phải kiểm tra main ITX, PSU SFX, GPU, tản CPU và airflow rất kỹ.",
+            color: "orange",
+        },
+        desk: {
+            icon: <Home />,
+            title: "Không gian bàn nhỏ",
+            answer: "Nếu bàn nhỏ, Full Tower có thể quá to. Mini Tower/mATX hoặc Mini-ITX hợp hơn, nhưng cân bằng tốt nhất vẫn có thể là Mid Tower compact.",
+            color: "cyan",
+        },
+    };
+    const [active, setActive] = useState("beginner");
+    const item = scenarios[active];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="10"
+                color="blue"
+                title="Lab: chọn kích thước case theo tình huống"
+                icon={<Search />}
+            />
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8">
+                <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">
+                    {Object.entries(scenarios).map(([key, s]) => (
+                        <button
+                            key={key}
+                            onClick={() => setActive(key)}
+                            className={`rounded-2xl p-4 border text-left transition-all ${active === key ? `${softBorder(s.color)} text-white` : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"}`}
+                        >
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {React.cloneElement(s.icon, { size: 20 })}{" "}
+                                {s.title}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+                <div
+                    className={`${softBorder(item.color)} border rounded-3xl p-6 grid md:grid-cols-[0.25fr_1fr] gap-5 items-center`}
+                >
+                    <div
+                        className={`w-20 h-20 rounded-3xl ${badgeColor(item.color)} flex items-center justify-center mx-auto`}
+                    >
+                        {React.cloneElement(item.icon, { size: 38 })}
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong className={textColor(item.color)}>
+                            Gợi ý:
+                        </strong>{" "}
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function CommonMistakes() {
+    const mistakes = [
+        {
+            wrong: "Case càng lớn càng tốt",
+            right: "Case lớn dễ build và thoáng hơn, nhưng không phải ai cũng cần. Máy văn phòng không GPU rời dùng Full Tower sẽ lãng phí diện tích và tiền.",
+        },
+        {
+            wrong: "Mini-ITX nhỏ nên chắc rẻ hơn",
+            right: "Mini-ITX thường không rẻ hơn vì main ITX, PSU SFX, tản nhỏ và case nhỏ đẹp có thể đắt hơn mATX/ATX phổ thông.",
+        },
+        {
+            wrong: "Chỉ cần mainboard vừa là đủ",
+            right: "Mainboard vừa chưa chắc cả cấu hình vừa. Cần kiểm tra GPU length, CPU cooler height, PSU size, radiator và ổ cứng.",
+        },
+        {
+            wrong: "Case nhỏ cứ lắp linh kiện mạnh là được",
+            right: "Linh kiện mạnh sinh nhiệt cao. Case nhỏ airflow kém dễ nóng, ồn, giảm xung CPU/GPU/SSD.",
+        },
+        {
+            wrong: "ATX case nào cũng vừa GPU cao cấp",
+            right: "GPU quá dài hoặc radiator trước quá dày vẫn có thể cấn. Luôn kiểm tra GPU clearance theo mm.",
+        },
+        {
+            wrong: "Quên vị trí đặt máy",
+            right: "Full Tower đặt trên bàn có thể quá to; Mini-ITX đặt dưới sàn dễ hút bụi và mất lợi thế thẩm mỹ.",
+        },
+    ];
+    const tips = [
+        "Người mới build PC nên chọn Mid Tower airflow tốt.",
+        "Muốn tiết kiệm: mATX + Mini Tower/Mid Tower giá tốt thường hợp lý hơn Mini-ITX.",
+        "Thứ tự kiểm tra: mainboard size → GPU length → CPU cooler height → PSU size → radiator/fan support.",
+        "GPU cao cấp nên ưu tiên case airflow tốt hơn case chỉ đẹp RGB.",
+        "Mini-ITX chỉ nên chọn khi thật sự cần nhỏ gọn và sẵn sàng kiểm tra từng linh kiện.",
+        "Case lớn hơn dễ build hơn, nhưng case vừa nhu cầu mới là lựa chọn tối ưu.",
+    ];
+    return (
+        <section className="space-y-6">
+            <SectionTitle
+                number="11"
+                color="red"
+                title="Sai lầm phổ biến & mẹo thực chiến"
+                icon={<AlertTriangle />}
+            />
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+                        <XCircle className="text-red-400" /> Lỗi thường gặp
+                    </h3>
+                    <div className="space-y-4">
+                        {mistakes.map((m, i) => (
+                            <div
+                                key={m.wrong}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-5"
+                            >
+                                <p className="text-red-300 font-bold text-sm mb-2">
+                                    Sai lầm {i + 1}: “{m.wrong}”
+                                </p>
+                                <p className="text-slate-300 text-sm leading-relaxed">
+                                    <span className="text-green-300 font-semibold">
+                                        Đúng hơn:
+                                    </span>{" "}
+                                    {m.right}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
-            ))}
-        </div>
+                <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+                    <h3 className="text-xl font-bold text-green-300 mb-5 flex items-center gap-2">
+                        <Lightbulb /> Checklist nhanh
+                    </h3>
+                    <div className="space-y-3">
+                        {tips.map((tip) => (
+                            <div
+                                key={tip}
+                                className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex gap-3 text-sm text-slate-300"
+                            >
+                                <CheckCircle2
+                                    className="text-green-400 shrink-0 mt-0.5"
+                                    size={18}
+                                />
+                                <span>{tip}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
-const quizQuestions = [
+function SummaryAndQuiz() {
+    return (
+        <section className="space-y-6">
+            <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden">
+                <div className="bg-slate-950 p-6 border-b border-slate-800">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-3">
+                        <span className="bg-indigo-500/20 text-indigo-300 p-2 rounded-xl">
+                            12
+                        </span>{" "}
+                        Tóm tắt & Kiểm tra cuối bài
+                    </h3>
+                </div>
+                <div className="p-6 md:p-8 grid lg:grid-cols-[0.95fr_1.05fr] gap-8">
+                    <div>
+                        <h4 className="text-slate-400 font-semibold mb-4 uppercase text-sm tracking-wider">
+                            Ghi nhớ nhanh
+                        </h4>
+                        <div className="font-mono text-sm bg-slate-950 p-6 rounded-2xl text-indigo-300 border border-slate-800 shadow-inner space-y-2">
+                            <p>Full Tower → rộng, mạnh, nâng cấp nhiều</p>
+                            <p>
+                                Mid Tower → cân bằng nhất, hợp đa số người dùng
+                            </p>
+                            <p>Mini Tower / mATX → gọn, rẻ, đủ dùng</p>
+                            <p>
+                                Mini-ITX / SFF → rất nhỏ, đẹp, nhưng kén và khó
+                                build
+                            </p>
+                            <br />
+                            <p className="text-slate-500">
+                                # Quy tắc tương thích
+                            </p>
+                            <p className="text-slate-300">
+                                Case lớn thường lắp được main nhỏ
+                            </p>
+                            <p className="text-slate-300">
+                                Case nhỏ không lắp được main lớn
+                            </p>
+                            <br />
+                            <p className="text-red-300">
+                                Mainboard vừa chưa đủ: còn phải kiểm tra GPU,
+                                tản CPU, PSU, radiator và ổ cứng.
+                            </p>
+                        </div>
+                    </div>
+                    <InteractiveQuiz />
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const questions = [
     {
-        question: "Cách khai báo biến nào đúng trong Bash?",
+        question:
+            "Loại case nào thường phù hợp nhất cho đa số người mới build PC gaming?",
+        options: ["Full Tower", "Mid Tower", "Mini-ITX", "Server Rack"],
+        correct: 1,
+        explanation:
+            "Mid Tower thường cân bằng nhất: dễ build, dễ mua linh kiện, đủ airflow và đủ nâng cấp cho đa số PC gaming.",
+    },
+    {
+        question: "Vì sao build Mini-ITX thường khó hơn Mid Tower?",
         options: [
-            'ten = "Alice"',
-            'ten="Alice"',
-            "$ten=Alice",
-            "var ten = Alice",
+            "Vì Mini-ITX không dùng được SSD",
+            "Vì không gian hẹp, kén GPU, PSU và tản nhiệt",
+            "Vì Mini-ITX không có cổng USB",
+            "Vì Mini-ITX không thể dùng CPU mạnh",
         ],
         correct: 1,
         explanation:
-            "Bash không cho phép dấu cách quanh dấu = khi khai báo biến.",
+            "Mini-ITX/SFF có không gian hẹp nên phải kiểm tra GPU, PSU SFX/SFX-L, tản CPU, radiator và airflow rất kỹ.",
     },
     {
-        question: "Cú pháp nào lấy độ dài chuỗi trong biến ten?",
-        options: ["length($ten)", "${#ten}", "$ten.length", "len ten"],
+        question: "Mainboard ATX thường lắp được vào loại case nào?",
+        options: [
+            "Mini-ITX case",
+            "Mid Tower hoặc Full Tower hỗ trợ ATX",
+            "Chỉ laptop",
+            "Chỉ case server",
+        ],
         correct: 1,
-        explanation: "${#ten} trả về số ký tự của chuỗi trong biến ten.",
+        explanation:
+            "Mainboard ATX thường cần Mid Tower hoặc Full Tower có hỗ trợ ATX.",
     },
     {
-        question: "Bash dùng cú pháp nào để tính toán số nguyên?",
-        options: ["$((a + b))", "calc(a+b)", "${a + b}", "math a+b"],
+        question: "Case lớn hơn thường có lợi thế gì?",
+        options: [
+            "Dễ lắp ráp, dễ đi dây, tản nhiệt tốt hơn",
+            "Làm CPU có nhiều nhân hơn",
+            "Tăng RAM tự động",
+            "Làm SSD bền vĩnh viễn",
+        ],
         correct: 0,
-        explanation: "$(( )) là arithmetic expansion trong Bash.",
-    },
-    {
-        question: "Tùy chọn nào của read dùng để nhập mật khẩu ẩn ký tự?",
-        options: ["read -p", "read -s", "read -t", "read -n"],
-        correct: 1,
-        explanation: "-s là silent, không hiển thị ký tự người dùng nhập.",
-    },
-    {
-        question: "Cú pháp nào thêm phần tử mới vào mảng arr?",
-        options: ['arr.add("d")', 'arr += "d"', 'arr+=("d")', "push arr d"],
-        correct: 2,
-        explanation: 'arr+=("d") thêm phần tử vào cuối mảng trong Bash.',
-    },
-    {
-        question: "Lệnh nào đặt biến môi trường để script con cũng thấy được?",
-        options: [
-            "readonly PORT=8080",
-            "export PORT=8080",
-            "unset PORT",
-            "local PORT=8080",
-        ],
-        correct: 1,
         explanation:
-            "export đưa biến vào environment để tiến trình con có thể đọc được.",
+            "Case lớn thường có nhiều không gian hơn để lắp linh kiện, đi dây, gắn quạt/radiator và nâng cấp.",
+    },
+    {
+        question: "Trước khi mua case, thông số nào cần kiểm tra?",
+        options: [
+            "Mainboard support, GPU clearance, CPU cooler clearance, PSU/radiator support",
+            "Chỉ màu RGB",
+            "Logo hãng",
+            "Số sticker đi kèm",
+        ],
+        correct: 0,
+        explanation:
+            "Các thông số clearance và support quyết định linh kiện có lắp vừa không.",
     },
 ];
 
 function InteractiveQuiz() {
-    const [current, setCurrent] = useState(0);
+    const [currentQ, setCurrentQ] = useState(0);
     const [selected, setSelected] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
-    const q = quizQuestions[current];
-
-    const choose = (idx) => {
-        if (selected !== null) return;
-        setSelected(idx);
-        if (idx === q.correct) setScore((s) => s + 1);
+    const finished = currentQ === "finished";
+    const q = !finished ? questions[currentQ] : null;
+    const handleSelect = (index) => {
+        if (showResult) return;
+        setSelected(index);
+        setShowResult(true);
+        if (index === q.correct) setScore((s) => s + 1);
     };
-
-    const next = () => {
-        if (current === quizQuestions.length - 1) {
-            setFinished(true);
-        } else {
-            setCurrent((c) => c + 1);
+    const handleNext = () => {
+        if (currentQ < questions.length - 1) {
+            setCurrentQ((c) => c + 1);
             setSelected(null);
-        }
+            setShowResult(false);
+        } else setCurrentQ("finished");
     };
-
-    const reset = () => {
-        setCurrent(0);
+    const resetQuiz = () => {
+        setCurrentQ(0);
         setSelected(null);
+        setShowResult(false);
         setScore(0);
-        setFinished(false);
     };
-
-    if (finished) {
+    if (finished)
         return (
-            <div className="text-center min-h-[280px] flex flex-col items-center justify-center animate-in zoom-in duration-300">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center flex flex-col justify-center items-center h-full min-h-[390px]">
                 <div className="text-6xl mb-4">
-                    {score === quizQuestions.length ? "🏆" : "👏"}
+                    {score === questions.length ? "🏆" : "👏"}
                 </div>
                 <h4 className="text-2xl font-bold text-white mb-2">
                     Hoàn thành!
                 </h4>
                 <p className="text-slate-400 mb-6">
                     Bạn trả lời đúng{" "}
-                    <strong className="text-orange-400">
-                        {score}/{quizQuestions.length}
+                    <strong className="text-indigo-400">
+                        {score}/{questions.length}
                     </strong>{" "}
-                    câu.
+                    câu hỏi.
                 </p>
                 <button
-                    onClick={reset}
-                    className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold inline-flex items-center gap-2"
+                    onClick={resetQuiz}
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-colors border border-slate-700"
                 >
-                    <RotateCcw size={18} /> Làm lại quiz
+                    Làm lại
                 </button>
             </div>
         );
-    }
-
     return (
-        <div className="max-w-3xl mx-auto">
-            <div className="flex justify-between items-center mb-6 text-sm">
-                <span className="text-orange-300 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full">
-                    Câu {current + 1}/{quizQuestions.length}
+        <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col h-full min-h-[390px]">
+            <div className="flex justify-between items-center mb-4 text-sm font-medium">
+                <span className="text-indigo-400">
+                    Câu hỏi {currentQ + 1}/{questions.length}
                 </span>
-                <span className="text-slate-500">
-                    Điểm: <strong className="text-white">{score}</strong>
-                </span>
+                <span className="text-slate-500">Điểm: {score}</span>
             </div>
-            <h4 className="text-xl font-bold text-white mb-6 leading-snug">
+            <h4 className="text-lg font-bold text-white mb-6 leading-snug">
                 {q.question}
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 flex-grow">
                 {q.options.map((opt, idx) => {
                     let cls =
-                        "w-full text-left p-4 rounded-xl border transition-all text-sm ";
-                    if (selected === null)
+                        "w-full text-left p-4 rounded-xl border text-sm transition-all ";
+                    if (!showResult)
                         cls +=
-                            "bg-slate-950 border-slate-800 hover:bg-slate-800 text-slate-300";
+                            "border-slate-800 bg-slate-900 hover:bg-slate-800 text-slate-300";
                     else if (idx === q.correct)
                         cls +=
-                            "bg-green-500/10 border-green-500/40 text-green-300";
+                            "border-green-500 bg-green-500/10 text-green-400";
                     else if (idx === selected)
-                        cls += "bg-red-500/10 border-red-500/40 text-red-300";
+                        cls += "border-red-500 bg-red-500/10 text-red-400";
                     else
                         cls +=
-                            "bg-slate-950/50 border-slate-900 text-slate-600";
+                            "border-slate-900 bg-slate-900/50 text-slate-600 opacity-60";
                     return (
                         <button
-                            key={opt}
-                            onClick={() => choose(idx)}
-                            disabled={selected !== null}
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            disabled={showResult}
                             className={cls}
                         >
-                            <span className="text-slate-500 font-mono mr-2">
-                                {String.fromCharCode(65 + idx)}.
-                            </span>
                             {opt}
                         </button>
                     );
                 })}
             </div>
-            {selected !== null && (
-                <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in slide-in-from-bottom-2">
+            {showResult && (
+                <div className="mt-6 pt-6 border-t border-slate-800">
                     <div
-                        className={`rounded-xl p-4 text-sm mb-5 flex gap-3 ${selected === q.correct ? "bg-green-500/10 border border-green-500/20 text-green-200" : "bg-orange-500/10 border border-orange-500/20 text-orange-200"}`}
+                        className={`p-4 rounded-xl text-sm mb-4 ${selected === q.correct ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"}`}
                     >
-                        <Info size={18} className="shrink-0 mt-0.5" />
-                        <div>
-                            <strong className="text-white block mb-1">
-                                {selected === q.correct
-                                    ? "Chính xác!"
-                                    : "Giải thích"}
-                            </strong>
-                            {q.explanation}
-                        </div>
+                        <strong>Giải thích:</strong> {q.explanation}
                     </div>
                     <button
-                        onClick={next}
-                        className="w-full md:w-auto md:px-8 py-3 rounded-xl bg-white hover:bg-slate-200 text-slate-950 font-bold ml-auto block"
+                        onClick={handleNext}
+                        className="w-full py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-xl transition-colors"
                     >
-                        {current === quizQuestions.length - 1
-                            ? "Xem kết quả"
-                            : "Câu tiếp theo"}
+                        {currentQ < questions.length - 1
+                            ? "Câu tiếp theo"
+                            : "Xem kết quả"}
                     </button>
                 </div>
             )}
         </div>
     );
+}
+
+function NextLesson() {
+    return (
+        <div className="text-center pt-8 border-t border-slate-800">
+            <p className="text-slate-400 mb-4">
+                Bạn đã hiểu cách phân loại case theo kích thước. Tiếp theo là hệ
+                thống tản nhiệt và luồng gió — vì sau khi chọn đúng kích thước
+                case, bạn cần biết cách bố trí quạt để máy chạy mát, êm và bền
+                hơn.
+            </p>
+            <Link
+                to="/phan-8-3"
+                className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-2 transition-colors shadow-lg shadow-indigo-500/20"
+            >
+                Bài tiếp theo: 8.3 — Hệ thống tản nhiệt và luồng gió Airflow{" "}
+                <ChevronRight size={20} />
+            </Link>
+        </div>
+    );
+}
+
+function SectionTitle({ number, title, icon, color = "indigo" }) {
+    const colorMap = {
+        indigo: "bg-indigo-500/20 text-indigo-300",
+        yellow: "bg-yellow-500/20 text-yellow-300",
+        blue: "bg-blue-500/20 text-blue-300",
+        cyan: "bg-cyan-500/20 text-cyan-300",
+        emerald: "bg-emerald-500/20 text-emerald-300",
+        amber: "bg-amber-500/20 text-amber-300",
+        purple: "bg-purple-500/20 text-purple-300",
+        pink: "bg-pink-500/20 text-pink-300",
+        orange: "bg-orange-500/20 text-orange-300",
+        red: "bg-red-500/20 text-red-300",
+    };
+    return (
+        <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span
+                className={`${colorMap[color]} p-2 rounded-xl flex items-center gap-2`}
+            >
+                <span className="font-black">{number}</span>
+                {React.cloneElement(icon, { size: 20 })}
+            </span>
+            {title}
+        </h3>
+    );
+}
+function Tag({ icon, text }) {
+    return (
+        <span className="inline-flex items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-full px-3 py-1 text-sm text-slate-300">
+            {icon} {text}
+        </span>
+    );
+}
+function HeroTile({ icon, label, desc, color, highlight }) {
+    return (
+        <div
+            className={`rounded-2xl border p-4 text-center ${highlight ? "bg-indigo-500/10 border-indigo-400/50" : softBorder(color)}`}
+        >
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mx-auto mb-3`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h4 className="font-extrabold text-white">{label}</h4>
+            <p className="text-xs text-slate-400 mt-1">{desc}</p>
+        </div>
+    );
+}
+function RoleCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-5`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function AnalogyCard({ icon, title, desc, color }) {
+    return (
+        <div className={`${softBorder(color)} border rounded-3xl p-6`}>
+            <div
+                className={`w-12 h-12 rounded-2xl ${badgeColor(color)} flex items-center justify-center mb-4`}
+            >
+                {React.cloneElement(icon, { size: 24 })}
+            </div>
+            <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        </div>
+    );
+}
+function DataTable({ title, rows, headers, accent }) {
+    return (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 overflow-x-auto">
+            <h3 className="text-white font-bold mb-4 px-2">{title}</h3>
+            <table className="w-full min-w-[980px] text-sm">
+                <thead>
+                    <tr className="text-left text-slate-400">
+                        {headers.map((h) => (
+                            <th key={h} className="p-3">
+                                {h}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row[0]} className="border-t border-slate-800">
+                            {row.map((cell, i) => (
+                                <td
+                                    key={`${row[0]}-${i}`}
+                                    className={`p-3 ${i === 0 ? `${textColor(accent)} font-extrabold` : "text-slate-300"}`}
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+function Bullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <CheckCircle2
+                className="text-green-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function WarnBullet({ text }) {
+    return (
+        <div className="flex items-start gap-2 text-sm text-slate-300">
+            <AlertTriangle
+                className="text-orange-400 shrink-0 mt-0.5"
+                size={16}
+            />{" "}
+            <span>{text}</span>
+        </div>
+    );
+}
+function badgeColor(color) {
+    const map = {
+        indigo: "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20",
+        yellow: "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20",
+        blue: "bg-blue-500/10 text-blue-300 border border-blue-500/20",
+        cyan: "bg-cyan-500/10 text-cyan-300 border border-cyan-500/20",
+        emerald:
+            "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20",
+        orange: "bg-orange-500/10 text-orange-300 border border-orange-500/20",
+        amber: "bg-amber-500/10 text-amber-300 border border-amber-500/20",
+        purple: "bg-purple-500/10 text-purple-300 border border-purple-500/20",
+        pink: "bg-pink-500/10 text-pink-300 border border-pink-500/20",
+        red: "bg-red-500/10 text-red-300 border border-red-500/20",
+    };
+    return map[color] || map.indigo;
+}
+function softBorder(color) {
+    const map = {
+        indigo: "bg-indigo-500/5 border-indigo-500/20",
+        yellow: "bg-yellow-500/5 border-yellow-500/20",
+        blue: "bg-blue-500/5 border-blue-500/20",
+        cyan: "bg-cyan-500/5 border-cyan-500/20",
+        emerald: "bg-emerald-500/5 border-emerald-500/20",
+        orange: "bg-orange-500/5 border-orange-500/20",
+        amber: "bg-amber-500/5 border-amber-500/20",
+        purple: "bg-purple-500/5 border-purple-500/20",
+        pink: "bg-pink-500/5 border-pink-500/20",
+        red: "bg-red-500/5 border-red-500/20",
+    };
+    return map[color] || map.indigo;
+}
+function textColor(color) {
+    const map = {
+        indigo: "text-indigo-300",
+        yellow: "text-yellow-300",
+        blue: "text-blue-300",
+        cyan: "text-cyan-300",
+        emerald: "text-emerald-300",
+        orange: "text-orange-300",
+        amber: "text-amber-300",
+        purple: "text-purple-300",
+        pink: "text-pink-300",
+        red: "text-red-300",
+    };
+    return map[color] || "text-indigo-300";
 }
